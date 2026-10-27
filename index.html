@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Phần Mềm Trắc Nghiệm STEM Pro - Ultimate Edition</title>
+    <title>Trắc Nghiệm</title>
     <!-- Thư viện MathJax hỗ trợ Toán, Lý, Hóa, Sinh chuyên sâu -->
     <script>
         window.MathJax = {
@@ -145,6 +145,7 @@
         .question-box { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid rgba(150,150,150,0.15); text-align: left; }
         .question-title { font-weight: 700; font-size: 16px; margin-bottom: 12px; line-height: 1.5; }
         
+        /* THẺ ĐÁP ÁN BO TRÒN TRUYỀN THỐNG */
         .option-item {
             display: flex; align-items: center; padding: 14px 16px; margin: 10px 0; border-radius: 14px;
             background: rgba(255,255,255,0.65); border: 1px solid rgba(150,150,150,0.2); cursor: pointer;
@@ -156,7 +157,38 @@
         
         .option-item.correct-ans { background: rgba(16, 185, 129, 0.15) !important; border-color: #10b981 !important; color: #047857; font-weight: bold; }
         .option-item.wrong-ans { background: rgba(239, 68, 68, 0.15) !important; border-color: #ef4444 !important; color: #b91c1c; }
+
+        /* GIAO DIỆN CÂU HỎI ĐÚNG / SAI CHUẨN ẢNH 3 */
+        .tf-container { width: 100%; margin-top: 10px; }
+        .tf-header-row { display: flex; align-items: center; padding: 0 16px 6px 16px; font-weight: 700; font-size: 13px; opacity: 0.8; }
+        .tf-header-text { flex: 1; }
+        .tf-header-col { width: 60px; text-align: center; flex-shrink: 0; }
+        @media (min-width: 600px) { .tf-header-col { width: 80px; } }
+
+        .tf-item-row {
+            display: flex; align-items: center; padding: 12px 16px; margin: 10px 0; border-radius: 16px;
+            background: rgba(255,255,255,0.65); border: 1px solid rgba(150,150,150,0.2); transition: 0.2s;
+        }
+        body.theme-dark .tf-item-row { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+        .tf-item-text { flex: 1; font-size: 15px; padding-right: 10px; }
         
+        /* CỘT TÍCH Ô Ô VUÔNG BO GÓC BÊN PHẢI */
+        .tf-box-choice {
+            width: 60px; display: flex; justify-content: center; align-items: center; flex-shrink: 0;
+        }
+        @media (min-width: 600px) { .tf-box-choice { width: 80px; } }
+
+        .tf-square-btn {
+            width: 36px; height: 36px; border-radius: 10px; border: 2px solid rgba(150,150,150,0.4);
+            background: var(--panel-bg); display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: 0.2s; position: relative;
+        }
+        .tf-square-btn input { display: none; }
+        .tf-square-btn:hover { border-color: var(--accent-color); }
+        .tf-square-btn input:checked + .tf-check-mark { display: block; }
+        .tf-square-btn:has(input:checked) { border-color: var(--accent-color); background: rgba(37,99,235,0.1); }
+        .tf-check-mark { display: none; font-size: 18px; font-weight: bold; color: var(--accent-color); }
+
         .score-board { font-size: 26px; font-weight: 800; text-align: center; margin: 15px 0; color: #10b981; }
         
         .deck-card { 
@@ -181,7 +213,7 @@
         .timer-display.danger { color: #ef4444; animation: pulseRed 1s infinite; }
         @keyframes pulseRed { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
-        /* GIAO DIỆN SIDEBAR PHẢI CHO BẢN ĐỒ & ĐỒNG HỒ */
+        /* SIDEBAR PHẢI CHO BẢN ĐỒ & ĐỒNG HỒ */
         .quiz-layout-wrapper { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
         @media (min-width: 900px) {
             .container.quiz-container-box { max-width: 1300px; }
@@ -221,7 +253,8 @@
 
     <div class="top-toolbar">
         <div style="font-weight: 800; font-size: 17px; color: var(--accent-color); display: flex; align-items: center; gap: 10px;">
-            ⚡ Trắc Nghiệm         </div>
+            ⚡ Trắc Nghiệm STEM Pro (Lớp Học)
+        </div>
         <div style="display: flex; gap: 8px; align-items: center;">
             <button class="icon-btn" onclick="toggleFocusMode()" title="Chế độ tập trung">🔍</button>
             <button class="icon-btn" onclick="toggleTheme()" title="Đổi Sáng / Tối">🌓</button>
@@ -230,8 +263,8 @@
 
     <!-- 1. MÀN HÌNH QUẢN LÝ BỘ ĐỀ -->
     <div class="container" id="manage-screen">
-        <h2>📚 Kho Bộ Đề</h2>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Phát triển bởi Trần Đăng Huy • Cho lớp 11A1</p>
+        <h2>📚 Kho Bộ Đề Ôn Thi</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Trần Đăng Huy • Cho lớp 11A1 </p>
 
         <div class="theme-picker-bar">
             <span style="font-size: 13px; font-weight: 700; white-space: nowrap;">🎨 Giao diện màu:</span>
@@ -282,7 +315,7 @@
         <div class="sub-tab-bar">
             <div style="display: flex; gap: 8px;">
                 <button class="btn" id="tab-btn-text" style="padding: 8px 14px; min-height: 40px;" onclick="switchEditorTab('text')">📝 Nhập Văn Bản</button>
-                <button class="btn btn-secondary" id="tab-btn-visual" style="padding: 8px 14px; min-height: 40px;" onclick="switchEditorTab('visual')">☑️ Tích Chọn </button>
+                <button class="btn btn-secondary" id="tab-btn-visual" style="padding: 8px 14px; min-height: 40px;" onclick="switchEditorTab('visual')">☑️ Tích Chọn Trực Quan</button>
             </div>
             <button class="btn btn-warning" id="preview-toggle-btn" style="padding: 8px 14px; min-height: 40px;" onclick="togglePreviewMode()">👁️ Xem trước: Tắt</button>
         </div>
@@ -291,7 +324,9 @@
             <div class="editor-col">
                 <div id="editor-text-pane">
                     <div class="instruction-box">
-                        <b>💡 Hướng dẫn Smart Parser:</b> Copy trực tiếp đề thi từ Word/PDF. Đặt dấu <b>*</b> ở đầu đáp án đúng (VD: <code>*B. \ce{H2SO4}</code>).
+                        <b>💡 Quy tắc gõ đề Smart Parser:</b><br>
+                        • <b>Câu hỏi 4 đáp án (A,B,C,D):</b> Đặt dấu <code>*</code> trước đáp án đúng.<br>
+                        • <b>Câu hỏi Đúng / Sai:</b> Thêm ký tự <code>&gt;&lt;</code> ở trước chữ Câu (VD: <code>&gt;&lt;Câu 1. ...</code>) và đặt dấu <code>*</code> trước các ý <b>ĐÚNG</b> (VD: <code>*a) Ý đúng...</code>).
                     </div>
 
                     <div class="stem-toolbar">
@@ -357,13 +392,11 @@
 
             <!-- Cột phải (Sidebar): Bản đồ câu hỏi đầy đủ + Đồng hồ thời gian -->
             <div class="quiz-sidebar">
-                <!-- Đồng hồ đếm ngược -->
                 <div class="nav-grid-box" style="text-align: center;">
                     <div style="font-size: 12px; font-weight: 700; opacity: 0.7; margin-bottom: 6px; letter-spacing: 0.05em;">⏱️ THỜI GIAN CÒN LẠI</div>
                     <div class="timer-display" id="timer-box">00:00</div>
                 </div>
 
-                <!-- Bản đồ câu hỏi dạng lưới -->
                 <div class="nav-grid-box">
                     <div style="font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                         <span>🗺️ Bản đồ câu hỏi:</span>
@@ -381,7 +414,6 @@
         <h2>🎉 Kết Quả Bài Làm</h2>
         <div class="score-board" id="score-text">Đang tính điểm...</div>
         
-        <!-- CÁC NÚT THAO TÁC SAU KHI NỘP BÀI -->
         <div id="retry-incorrect-box" style="margin: 20px 0; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <button class="btn btn-warning" id="retry-incorrect-btn" onclick="startRetryIncorrect()" style="display: none;">🔄 Chỉ làm lại các câu sai</button>
         </div>
@@ -404,7 +436,7 @@
         let appData = { sets: {} };
         let currentActiveSetId = null;
         let activeQuizQuestions = [];
-        let incorrectQuestionIndices = []; // Lưu danh sách các câu làm sai để luyện lại
+        let incorrectQuestionIndices = [];
         let timerInterval = null;
         let remainingSeconds = 0;
         let isPreviewActive = false;
@@ -438,7 +470,13 @@
                                 id: "set_stem_sample",
                                 name: "Bộ đề mẫu STEM (Toán, Lý, Hóa, Sinh)",
                                 timeLimit: 900,
-                                rawText: `Câu 1. (Toán học) Nghiệm của phương trình $\\sqrt{x^2 + 1} = 2$ là:
+                                rawText: `><Câu 1. Khi nói về dao động điều hòa:
+*a) Li độ biến thiên điều hòa theo thời gian.
+b) Vận tốc luôn ngược pha với gia tốc.
+c) Biên độ dao động phụ thuộc vào tần số góc.
+*d) Cơ năng tỉ lệ thuận với bình phương biên độ.
+
+Câu 2. (Toán học) Nghiệm của phương trình $\\sqrt{x^2 + 1} = 2$ là:
 A. $x = \\pm 1$
 *B. $x = \\pm \\sqrt{3}$
 C. $x = 3$
@@ -465,7 +503,6 @@ D. Vô nghiệm`
 
         function changeThemeColor(hex, silent = false) {
             document.documentElement.style.setProperty('--accent-color', hex);
-            // Tạo thêm biến gradient tự động theo màu chọn
             let darkHex = hex === '#2563eb' ? '#1d4ed8' : (hex === '#10b981' ? '#059669' : (hex === '#9333ea' ? '#7e22ce' : (hex === '#f59e0b' ? '#d97706' : '#be123c')));
             document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(135deg, ${hex} 0%, ${darkHex} 100%)`);
             localStorage.setItem('azota_theme_color', hex);
@@ -511,18 +548,43 @@ D. Vô nghiệm`
             let html = "";
             questions.forEach((q, qIndex) => {
                 html += `<div class="question-box">
-                    <div class="question-title">Câu ${qIndex + 1}. ${q.title}</div>`;
+                    <div class="question-title">Câu ${qIndex + 1}. ${q.title} ${q.isTrueFalse ? '<span style="color:var(--accent-color); font-size:12px;">(Đúng/Sai)</span>' : ''}</div>`;
                 
-                q.options.forEach((opt, oIndex) => {
-                    let labelLetter = String.fromCharCode(65 + oIndex);
-                    let cleanText = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '');
-                    let correctStyle = opt.correct ? "background: rgba(16, 185, 129, 0.15); border-color: #10b981; font-weight: bold;" : "";
+                if(q.isTrueFalse) {
+                    html += `<div class="tf-container">
+                        <div class="tf-header-row">
+                            <div class="tf-header-text">Ý chọn</div>
+                            <div class="tf-header-col">Đúng</div>
+                            <div class="tf-header-col">Sai</div>
+                        </div>`;
+                    q.options.forEach((opt, oIndex) => {
+                        let cleanText = opt.text.replace(/^[*][a-da-d][\.\)]\s*/i, '').replace(/^[a-da-d][\.\)]\s*/i, '');
+                        let letter = String.fromCharCode(97 + oIndex);
+                        html += `
+                            <div class="tf-item-row">
+                                <div class="tf-item-text"><b>${letter}.</b> ${cleanText}</div>
+                                <div class="tf-box-choice" style="${opt.correct ? 'color:#10b981; font-weight:bold;' : ''}">
+                                    ${opt.correct ? '✓ Đúng' : ''}
+                                </div>
+                                <div class="tf-box-choice" style="${!opt.correct ? 'color:#ef4444; font-weight:bold;' : ''}">
+                                    ${!opt.correct ? '✓ Sai' : ''}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                } else {
+                    q.options.forEach((opt, oIndex) => {
+                        let labelLetter = String.fromCharCode(65 + oIndex);
+                        let cleanText = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '');
+                        let correctStyle = opt.correct ? "background: rgba(16, 185, 129, 0.15); border-color: #10b981; font-weight: bold;" : "";
 
-                    html += `<div class="option-item" style="${correctStyle}">
-                        <input type="radio" disabled>
-                        <b>${labelLetter}.</b> ${cleanText} ${opt.correct ? '<span style="color:#10b981; font-size:12px; margin-left:6px;">(Đúng *)</span>' : ''}
-                    </div>`;
-                });
+                        html += `<div class="option-item" style="${correctStyle}">
+                            <input type="radio" disabled>
+                            <b>${labelLetter}.</b> ${cleanText} ${opt.correct ? '<span style="color:#10b981; font-size:12px; margin-left:6px;">(Đúng *)</span>' : ''}
+                        </div>`;
+                    });
+                }
                 html += `</div>`;
             });
 
@@ -554,7 +616,7 @@ D. Vô nghiệm`
 
             keys.forEach(id => {
                 let s = appData.sets[id];
-                let count = (s.rawText.match(/Câu\s+\d+[\.:]/gi) || []).length;
+                let count = (s.rawText.match(/(?:><)?Câu\s+\d+[\.:]/gi) || []).length;
                 container.innerHTML += `
                     <div class="deck-card">
                         <div>
@@ -579,7 +641,7 @@ D. Vô nghiệm`
                 id: id,
                 name: name,
                 timeLimit: 600,
-                rawText: "Câu 1. Ví dụ câu hỏi STEM $\\int f(x)dx$:\nA. Đúng\n*B. Sai"
+                rawText: "><Câu 1. Ví dụ câu hỏi Đúng/Sai:\n*a) Ý này đúng\nb) Ý này sai"
             };
             saveAppData();
             document.getElementById('new-set-name').value = '';
@@ -675,50 +737,74 @@ D. Vô nghiệm`
             alert("Đã lưu nội dung câu hỏi thành công!");
         }
 
+        // SMART PARSER ĐÃ SỬA LỖI NHẬN KÝ TỰ >< Ở MỌI VỊ TRÍ
         function parseRawData(text) {
             text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\u00A0/g, ' ');
-            let blocks = text.split(/(?=Câu\s+\d+[\.:])/i);
+            let blocks = text.split(/(?=(?:><\s*)?Câu\s+\d+[\.:])/i);
             let questions = [];
 
             blocks.forEach(block => {
                 block = block.trim();
                 if(!block) return;
+
+                let isTrueFalse = false;
+                if(block.startsWith('><')) {
+                    isTrueFalse = true;
+                    block = block.substring(2).trim();
+                }
+
                 let lines = block.split('\n').map(l => l.trim()).filter(l => l);
                 if(lines.length === 0) return;
 
                 let titleLine = lines[0].replace(/^Câu\s+\d+[\.:]\s*/i, '').trim();
                 let options = [];
 
-                for(let i = 1; i < lines.length; i++) {
-                    let line = lines[i];
-                    let subLines = line.match(/(\*?[A-Da-d][\.\)].*?)(?=\s+\*?[A-Da-d][\.\)]|$)/g);
-                    
-                    if(subLines && subLines.length > 1) {
-                        subLines.forEach(sub => {
-                            sub = sub.trim();
-                            let isCorrect = false;
-                            if(sub.startsWith('*')) {
-                                isCorrect = true;
-                                sub = sub.substring(1).trim();
-                            }
-                            options.push({ text: sub, correct: isCorrect });
-                        });
-                    } else {
+                if(isTrueFalse) {
+                    for(let i = 1; i < lines.length; i++) {
+                        let line = lines[i];
                         let isCorrect = false;
                         if(line.startsWith('*')) {
                             isCorrect = true;
                             line = line.substring(1).trim();
                         }
-                        if(/^[A-Da-d][\.\)]/.test(line)) {
+                        if(/^[a-da-d][\.\)]/i.test(line)) {
                             options.push({ text: line, correct: isCorrect });
                         } else if(options.length > 0) {
                             options[options.length - 1].text += " " + line;
                         }
                     }
+                } else {
+                    for(let i = 1; i < lines.length; i++) {
+                        let line = lines[i];
+                        let subLines = line.match(/(\*?[A-Da-d][\.\)].*?)(?=\s+\*?[A-Da-d][\.\)]|$)/g);
+                        
+                        if(subLines && subLines.length > 1) {
+                            subLines.forEach(sub => {
+                                sub = sub.trim();
+                                let isCorrect = false;
+                                if(sub.startsWith('*')) {
+                                    isCorrect = true;
+                                    sub = sub.substring(1).trim();
+                                }
+                                options.push({ text: sub, correct: isCorrect });
+                            });
+                        } else {
+                            let isCorrect = false;
+                            if(line.startsWith('*')) {
+                                isCorrect = true;
+                                line = line.substring(1).trim();
+                            }
+                            if(/^[A-Da-d][\.\)]/.test(line)) {
+                                options.push({ text: line, correct: isCorrect });
+                            } else if(options.length > 0) {
+                                options[options.length - 1].text += " " + line;
+                            }
+                        }
+                    }
                 }
 
                 if(options.length > 0) {
-                    questions.push({ title: titleLine, options: options });
+                    questions.push({ title: titleLine, options: options, isTrueFalse: isTrueFalse });
                 }
             });
             return questions;
@@ -727,12 +813,13 @@ D. Vô nghiệm`
         function questionsToRawText(questions) {
             let text = "";
             questions.forEach((q, idx) => {
-                text += `Câu ${idx + 1}. ${q.title}\n`;
+                let prefixTag = q.isTrueFalse ? "><" : "";
+                text += `${prefixTag}Câu ${idx + 1}. ${q.title}\n`;
                 q.options.forEach((opt, oIdx) => {
-                    let prefix = String.fromCharCode(65 + oIdx) + ". ";
-                    let cleanOptText = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '');
+                    let letter = q.isTrueFalse ? String.fromCharCode(97 + oIdx) + ")" : String.fromCharCode(65 + oIdx) + ".";
+                    let cleanOptText = opt.text.replace(/^[*][A-Da-d][\.\)]\s*/, '').replace(/^[A-Da-d][\.\)]\s*/, '').replace(/^[*][a-da-d][\.\)]\s*/, '').replace(/^[a-da-d][\.\)]\s*/, '');
                     let star = opt.correct ? "*" : "";
-                    text += `${star}${prefix}${cleanOptText}\n`;
+                    text += `${star}${letter} ${cleanOptText}\n`;
                 });
                 text += `\n`;
             });
@@ -751,11 +838,11 @@ D. Vô nghiệm`
             }
 
             questions.forEach((q, qIdx) => {
-                renderSingleVisualQuestion(qIdx, q.title, q.options);
+                renderSingleVisualQuestion(qIdx, q.title, q.options, q.isTrueFalse);
             });
         }
 
-        function renderSingleVisualQuestion(qIdx, qTitle = "", options = []) {
+        function renderSingleVisualQuestion(qIdx, qTitle = "", options = [], isTrueFalse = false) {
             let container = document.getElementById('visual-questions-container');
             if(container.querySelector('p')) container.innerHTML = '';
 
@@ -772,7 +859,7 @@ D. Vô nghiệm`
 
             let html = `
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <b>Câu ${qIdx + 1}</b>
+                    <b>Câu ${qIdx + 1} ${isTrueFalse ? '(Đúng/Sai)' : ''}</b>
                     <button class="btn btn-fail" style="padding: 4px 8px; font-size: 11px; min-height: 28px;" onclick="deleteVisualQuestion(this)">Xóa</button>
                 </div>
                 <input type="text" class="v-q-title" placeholder="Nội dung câu hỏi..." value="${qTitle.replace(/"/g, '&quot;')}">
@@ -780,9 +867,9 @@ D. Vô nghiệm`
             `;
 
             defaultOpts.forEach((opt, oIdx) => {
-                let letter = String.fromCharCode(65 + oIdx);
+                let letter = isTrueFalse ? String.fromCharCode(97 + oIdx) : String.fromCharCode(65 + oIdx);
                 let checkedAttr = opt.correct ? "checked" : "";
-                let cleanOpt = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '').replace(/"/g, '&quot;');
+                let cleanOpt = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '').replace(/^[a-da-d][\.\)]\s*/, '').replace(/"/g, '&quot;');
                 html += `
                     <div class="visual-ans-row">
                         <input type="radio" name="v_correct_${qIdx}" value="${oIdx}" ${checkedAttr}>
@@ -830,7 +917,7 @@ D. Vô nghiệm`
                 });
 
                 if(title || options.some(o => o.text)) {
-                    questions.push({ title: title, options: options });
+                    questions.push({ title: title, options: options, isTrueFalse: false });
                 }
             });
 
@@ -879,12 +966,13 @@ D. Vô nghiệm`
 
             activeQuizQuestions = clonedQuestions.map(q => {
                 let opts = q.options.map((opt, idx) => ({ ...opt, origIndex: idx }));
-                if(shuffleA) {
+                if(shuffleA && !q.isTrueFalse) {
                     opts.sort(() => Math.random() - 0.5);
                 }
                 return {
                     title: q.title,
-                    options: opts
+                    options: opts,
+                    isTrueFalse: q.isTrueFalse
                 };
             });
 
@@ -894,11 +982,9 @@ D. Vô nghiệm`
             startTimer(currentSet.timeLimit);
         }
 
-        // TÍNH NĂNG MỚI: Chỉ làm lại các câu làm sai
         function startRetryIncorrect() {
             if(incorrectQuestionIndices.length === 0) return;
 
-            // Lọc ra các câu mà người dùng đã làm sai từ danh sách gốc
             let rawText = appData.sets[currentActiveSetId].rawText;
             let rawQuestions = parseRawData(rawText);
             
@@ -906,18 +992,20 @@ D. Vô nghiệm`
 
             activeQuizQuestions = retryQuestions.map(q => {
                 let opts = q.options.map((opt, idx) => ({ ...opt, origIndex: idx }));
-                opts.sort(() => Math.random() - 0.5); // Trộn đáp án cho thử thách mới
+                if(!q.isTrueFalse) opts.sort(() => Math.random() - 0.5);
                 return {
                     title: q.title,
-                    options: opts
+                    options: opts,
+                    isTrueFalse: q.isTrueFalse
                 };
             });
 
             localStorage.removeItem(DRAFT_KEY);
             renderQuizUI();
-            startTimer(0); // Không giới hạn thời gian cho mini-test ôn tập câu sai
+            startTimer(0);
         }
 
+        // GIAO DIỆN LÀM BÀI CHUẨN ẢNH 3 HUY VẼ
         function renderQuizUI() {
             let container = document.getElementById('quiz-container');
             container.innerHTML = '';
@@ -926,15 +1014,54 @@ D. Vô nghiệm`
                 let html = `<div class="question-box" id="q_box_${qIndex}" data-index="${qIndex}">
                     <div class="question-title">Câu ${qIndex + 1}. ${q.title}</div>`;
                 
-                q.options.forEach((opt, oIndex) => {
-                    let labelLetter = String.fromCharCode(65 + oIndex);
-                    let cleanText = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '');
+                if(q.isTrueFalse) {
+                    // DỰNG GIAO DIỆN THEO ĐÚNG MẪU ẢNH 3 HUY VẼ
+                    html += `<div class="tf-container">
+                        <div class="tf-header-row">
+                            <div class="tf-header-text"></div>
+                            <div class="tf-header-col">Đúng</div>
+                            <div class="tf-header-col">Sai</div>
+                        </div>`;
+                    
+                    q.options.forEach((opt, oIndex) => {
+                        let cleanText = opt.text.replace(/^[*][a-da-d][\.\)]\s*/i, '').replace(/^[a-da-d][\.\)]\s*/i, '');
+                        let letter = String.fromCharCode(97 + oIndex);
 
-                    html += `<label class="option-item">
-                        <input type="radio" name="question_${qIndex}" value="${oIndex}" onchange="saveDraftAndCheckProgress(${qIndex})">
-                        <b>${labelLetter}.</b>&nbsp;${cleanText}
-                    </label>`;
-                });
+                        html += `
+                            <div class="tf-item-row">
+                                <div class="tf-item-text"><b>${letter}.</b> ${cleanText}</div>
+                                
+                                <!-- NÚT TÍCH Ô VUÔNG ĐÚNG BÊN PHẢI -->
+                                <div class="tf-box-choice">
+                                    <label class="tf-square-btn">
+                                        <input type="radio" name="tf_${qIndex}_${oIndex}" value="true" onchange="saveDraftAndCheckProgress(${qIndex})">
+                                        <span class="tf-check-mark">✓</span>
+                                    </label>
+                                </div>
+                                
+                                <!-- NÚT TÍCH Ô VUÔNG SAI BÊN PHẢI -->
+                                <div class="tf-box-choice">
+                                    <label class="tf-square-btn">
+                                        <input type="radio" name="tf_${qIndex}_${oIndex}" value="false" onchange="saveDraftAndCheckProgress(${qIndex})">
+                                        <span class="tf-check-mark">✓</span>
+                                    </label>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                } else {
+                    // CÂU TRẮC NGHIỆM THƯỜNG (A, B, C, D)
+                    q.options.forEach((opt, oIndex) => {
+                        let labelLetter = String.fromCharCode(65 + oIndex);
+                        let cleanText = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '');
+
+                        html += `<label class="option-item">
+                            <input type="radio" name="question_${qIndex}" value="${oIndex}" onchange="saveDraftAndCheckProgress(${qIndex})">
+                            <b>${labelLetter}.</b>&nbsp;${cleanText}
+                        </label>`;
+                    });
+                }
 
                 html += `</div>`;
                 container.innerHTML += html;
@@ -972,9 +1099,26 @@ D. Vô nghiệm`
         }
 
         function saveDraftAndCheckProgress(qIndex) {
-            let radios = document.querySelectorAll(`input[name="question_${qIndex}"]`);
+            let currentQ = activeQuizQuestions[qIndex];
             let val = null;
-            radios.forEach(r => { if(r.checked) val = r.value; });
+
+            if(currentQ.isTrueFalse) {
+                let tfAns = {};
+                let countChosen = 0;
+                currentQ.options.forEach((opt, oIdx) => {
+                    let radios = document.querySelectorAll(`input[name="tf_${qIndex}_${oIdx}"]`);
+                    radios.forEach(r => { 
+                        if(r.checked) {
+                            tfAns[oIdx] = r.value;
+                            countChosen++;
+                        } 
+                    });
+                });
+                if(countChosen > 0) val = tfAns;
+            } else {
+                let radios = document.querySelectorAll(`input[name="question_${qIndex}"]`);
+                radios.forEach(r => { if(r.checked) val = r.value; });
+            }
 
             let draft = {};
             try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY)) || {}; } catch(e){}
@@ -987,9 +1131,19 @@ D. Vô nghiệm`
         function updateNavGridProgress() {
             let answeredCount = 0;
             activeQuizQuestions.forEach((q, idx) => {
-                let radios = document.querySelectorAll(`input[name="question_${idx}"]`);
                 let isAnswered = false;
-                radios.forEach(r => { if(r.checked) isAnswered = true; });
+
+                if(q.isTrueFalse) {
+                    let countChosen = 0;
+                    q.options.forEach((opt, oIdx) => {
+                        let radios = document.querySelectorAll(`input[name="tf_${idx}_${oIdx}"]`);
+                        radios.forEach(r => { if(r.checked) countChosen++; });
+                    });
+                    if(countChosen === q.options.length) isAnswered = true;
+                } else {
+                    let radios = document.querySelectorAll(`input[name="question_${idx}"]`);
+                    radios.forEach(r => { if(r.checked) isAnswered = true; });
+                }
 
                 let navBtn = document.getElementById(`nav_btn_${idx}`);
                 if(navBtn) {
@@ -1054,60 +1208,96 @@ D. Vô nghiệm`
             let questionBoxes = document.querySelectorAll('.question-box');
             let correctCount = 0;
             let reviewHTML = "";
-            incorrectQuestionIndices = []; // Reset danh sách câu sai mới
+            incorrectQuestionIndices = [];
 
             questionBoxes.forEach((box, qIndex) => {
-                let radios = box.querySelectorAll(`input[name="question_${qIndex}"]`);
-                let selectedVal = null;
-                radios.forEach(r => { if(r.checked) selectedVal = r.value; });
-
-                let optionItems = box.querySelectorAll('.option-item');
                 let currentQ = activeQuizQuestions[qIndex];
                 let qTitle = `Câu ${qIndex + 1}. ${currentQ.title}`;
-                
-                let userChoiceText = "Chưa trả lời";
-                let correctChoiceText = "";
-                let isQuestionCorrect = false;
+                let isQuestionCorrect = true;
 
-                currentQ.options.forEach((opt, oIndex) => {
-                    let item = optionItems[oIndex];
-                    let itemText = item.innerText;
-                    item.querySelector('input').disabled = true;
+                if(currentQ.isTrueFalse) {
+                    let tfReviewRows = "";
+                    currentQ.options.forEach((opt, oIdx) => {
+                        let radios = box.querySelectorAll(`input[name="tf_${qIndex}_${oIdx}"]`);
+                        let userChoice = null;
+                        radios.forEach(r => { 
+                            if(r.checked) userChoice = r.value;
+                            r.disabled = true;
+                        });
 
-                    if(opt.correct) {
-                        item.classList.add('correct-ans');
-                        correctChoiceText = itemText;
-                    }
-                    if(oIndex.toString() === selectedVal) {
-                        if(opt.correct) {
-                            isQuestionCorrect = true;
-                        } else {
-                            item.classList.add('wrong-ans');
-                        }
-                        userChoiceText = itemText;
-                    }
-                });
+                        let targetCorrectStr = opt.correct ? "true" : "false";
+                        let isSubCorrect = (userChoice === targetCorrectStr);
+                        if(!isSubCorrect) isQuestionCorrect = false;
 
-                if(isQuestionCorrect) {
-                    correctCount++;
+                        let cleanText = opt.text.replace(/^[*][a-da-d][\.\)]\s*/i, '').replace(/^[a-da-d][\.\)]\s*/i, '');
+                        let letter = String.fromCharCode(97 + oIdx);
+
+                        tfReviewRows += `
+                            <div style="font-size:13px; margin-top:4px; padding:6px 10px; border-radius:8px; background:${isSubCorrect ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)'};">
+                                <b>${letter}.</b> ${cleanText} ➔ Bạn chọn: <b>${userChoice === 'true' ? 'Đúng' : (userChoice === 'false' ? 'Sai' : 'Chưa chọn')}</b> | Đáp án: <b style="color:#10b981;">${opt.correct ? 'Đúng' : 'Sai'}</b> ${isSubCorrect ? '✅' : '❌'}
+                            </div>
+                        `;
+                    });
+
+                    if(isQuestionCorrect) correctCount++;
+                    else incorrectQuestionIndices.push(qIndex);
+
+                    let statusBadge = isQuestionCorrect 
+                        ? `<span style="color:#10b981; font-weight:bold;">✅ Đúng toàn bộ</span>` 
+                        : `<span style="color:#ef4444; font-weight:bold;">❌ Chưa chính xác</span>`;
+
+                    reviewHTML += `
+                        <div style="background: rgba(150,150,150,0.04); padding: 14px; border-radius: 14px; margin-bottom: 12px; border-left: 4px solid ${isQuestionCorrect ? '#10b981' : '#ef4444'};">
+                            <div style="font-weight: 700; margin-bottom: 6px; font-size: 15px;">${qTitle} ${statusBadge}</div>
+                            ${tfReviewRows}
+                        </div>
+                    `;
                 } else {
-                    incorrectQuestionIndices.push(qIndex);
+                    let radios = box.querySelectorAll(`input[name="question_${qIndex}"]`);
+                    let selectedVal = null;
+                    radios.forEach(r => { if(r.checked) selectedVal = r.value; });
+
+                    let optionItems = box.querySelectorAll('.option-item');
+                    let userChoiceText = "Chưa trả lời";
+                    let correctChoiceText = "";
+                    let isSingleCorrect = false;
+
+                    currentQ.options.forEach((opt, oIndex) => {
+                        let item = optionItems[oIndex];
+                        let itemText = item.innerText;
+                        item.querySelector('input').disabled = true;
+
+                        if(opt.correct) {
+                            item.classList.add('correct-ans');
+                            correctChoiceText = itemText;
+                        }
+                        if(oIndex.toString() === selectedVal) {
+                            if(opt.correct) {
+                                isSingleCorrect = true;
+                            } else {
+                                item.classList.add('wrong-ans');
+                            }
+                            userChoiceText = itemText;
+                        }
+                    });
+
+                    if(isSingleCorrect) correctCount++;
+                    else incorrectQuestionIndices.push(qIndex);
+
+                    let statusBadge = isSingleCorrect 
+                        ? `<span style="color:#10b981; font-weight:bold;">✅ Đúng</span>` 
+                        : `<span style="color:#ef4444; font-weight:bold;">❌ Sai</span>`;
+
+                    reviewHTML += `
+                        <div style="background: rgba(150,150,150,0.04); padding: 14px; border-radius: 14px; margin-bottom: 12px; border-left: 4px solid ${isSingleCorrect ? '#10b981' : '#ef4444'};">
+                            <div style="font-weight: 700; margin-bottom: 6px; font-size: 15px;">${qTitle} ${statusBadge}</div>
+                            <div style="font-size: 13px; opacity: 0.9; margin-bottom: 3px;">Bạn chọn: <b>${userChoiceText}</b></div>
+                            <div style="font-size: 13px; color: #10b981;">Đáp án chuẩn: <b>${correctChoiceText}</b></div>
+                        </div>
+                    `;
                 }
-
-                let statusBadge = isQuestionCorrect 
-                    ? `<span style="color:#10b981; font-weight:bold;">✅ Đúng</span>` 
-                    : `<span style="color:#ef4444; font-weight:bold;">❌ Sai</span>`;
-
-                reviewHTML += `
-                    <div style="background: rgba(150,150,150,0.04); padding: 14px; border-radius: 14px; margin-bottom: 12px; border-left: 4px solid ${isQuestionCorrect ? '#10b981' : '#ef4444'}; border-top: 1px solid rgba(150,150,150,0.1); border-right: 1px solid rgba(150,150,150,0.1); border-bottom: 1px solid rgba(150,150,150,0.1);">
-                        <div style="font-weight: 700; margin-bottom: 6px; font-size: 15px;">${qTitle} ${statusBadge}</div>
-                        <div style="font-size: 13px; opacity: 0.9; margin-bottom: 3px;">Bạn chọn: <b>${userChoiceText}</b></div>
-                        <div style="font-size: 13px; color: #10b981;">Đáp án chuẩn: <b>${correctChoiceText}</b></div>
-                    </div>
-                `;
             });
 
-            // Hiển thị hoặc ẩn nút "Làm lại câu sai" tùy theo kết quả
             let retryBtn = document.getElementById('retry-incorrect-btn');
             if(incorrectQuestionIndices.length > 0) {
                 retryBtn.style.display = 'inline-flex';
