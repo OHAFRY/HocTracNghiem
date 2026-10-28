@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Trắc Nghiệm</title>
+    <title>Trắc Nghiệm </title>
     <!-- Thư viện MathJax hỗ trợ Toán, Lý, Hóa, Sinh chuyên sâu -->
     <script>
         window.MathJax = {
@@ -268,10 +268,25 @@
         .sa-input { max-width: 360px; margin-bottom: 0 !important; font-weight: 600; }
         .sa-key { font-size: 13px; padding: 8px 12px; border-radius: 10px; background: rgba(16,185,129,0.1); border: 1px solid #10b981; }
 
+        /* === TIÊU ĐỀ PHẦN === */
+        .section-heading { font-size: 1.15rem; font-weight: 800; color: var(--accent-color); margin: 30px 0 14px; padding: 10px 14px; border-left: 5px solid var(--accent-color); background: rgba(37,99,235,0.07); border-radius: 0 12px 12px 0; text-align: left; }
+        #quiz-container > .section-heading:first-child, #review-container > .section-heading:first-child, #preview-content-container > .section-heading:first-child { margin-top: 0; }
+        .nav-section-label { grid-column: 1 / -1; font-size: 11px; font-weight: 800; color: var(--accent-color); margin-top: 6px; line-height: 1.3; }
+        .visual-section-card { border: 2px dashed var(--accent-color); border-radius: 14px; padding: 12px; margin-bottom: 12px; background: rgba(37,99,235,0.05); }
+
         /* === BANNER KHÔI PHỤC BÀI + ĐIỂM === */
         .resume-banner { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.55); border-left: 4px solid #f59e0b; border-radius: 14px; padding: 14px 16px; margin: 14px 0; text-align: left; font-size: 14px; }
         .score-sub { font-size: 14px; font-weight: 600; color: var(--text-muted); margin-top: 6px; }
     </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E26SXQ6QDW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-E26SXQ6QDW');
+</script>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E26SXQ6QDW"></script>
 <script>
@@ -283,6 +298,7 @@
 </script>
 </head>
 <body onload="initApp()">
+
     <button class="exit-focus-btn" onclick="toggleFocusMode()" title="Thoát Focus Mode">❌</button>
 
     <div class="top-toolbar">
@@ -297,9 +313,9 @@
 
     <!-- 1. MÀN HÌNH QUẢN LÝ BỘ ĐỀ -->
     <div class="container" id="manage-screen">
-        <h2>📚 Kho Đề</h2>
+        <h2>📚 Đề Ôn Thi </h2>
         <div id="resume-banner" class="resume-banner" style="display:none;"></div>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Trần Đăng Huy • Dành cho lớp 11A1 </p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Trần Đăng Huy • Cho 11A1</p>
 
         <div class="theme-picker-bar">
             <span style="font-size: 13px; font-weight: 700; white-space: nowrap;">🎨 Giao diện màu:</span>
@@ -360,7 +376,7 @@
         <div class="sub-tab-bar">
             <div style="display: flex; gap: 8px;">
                 <button class="btn" id="tab-btn-text" style="padding: 8px 14px; min-height: 40px;" onclick="switchEditorTab('text')">📝 Nhập Văn Bản</button>
-                <button class="btn btn-secondary" id="tab-btn-visual" style="padding: 8px 14px; min-height: 40px;" onclick="switchEditorTab('visual')">☑️ Tích Chọn Đáp Án</button>
+                <button class="btn btn-secondary" id="tab-btn-visual" style="padding: 8px 14px; min-height: 40px;" onclick="switchEditorTab('visual')">☑️ Tích Chọn Trực Quan</button>
             </div>
             <button class="btn btn-warning" id="preview-toggle-btn" style="padding: 8px 14px; min-height: 40px;" onclick="togglePreviewMode()">👁️ Xem trước: Tắt</button>
         </div>
@@ -374,6 +390,7 @@
                         • <b>Câu hỏi Đúng / Sai:</b> Thêm ký hiệu <code>}{</code> ngay trước chữ Câu (VD: <code>}{Câu 1. ...</code>) và đặt dấu <code>*</code> trước các ý <b>ĐÚNG</b> (VD: <code>*a) Ý đúng...</code>). Ý không có <code>*</code> là ý <b>SAI</b>.<br>
                         • <b>Câu trả lời ngắn (điền số):</b> Thêm ký hiệu <code>[]</code> trước chữ Câu, rồi ghi đáp án ở dòng riêng bắt đầu bằng <code>ĐA:</code><br>
                         &nbsp;&nbsp;VD: <code>[]Câu 5. Tính tần số (Hz):</code> xuống dòng <code>ĐA: 2,5</code>. Chấp nhận nhiều đáp án: <code>ĐA: 2,5 | 5/2</code>. Cho phép sai số: <code>ĐA: 3,14 ± 0,01</code>. Dấu phẩy và dấu chấm thập phân đều được.<br>
+                        • <b>Chia phần (tiêu đề):</b> gõ <code>\ Tên phần</code> trên một dòng riêng (<b>có dấu cách</b> sau dấu <code>\</code>), VD: <code>\ I. Trắc nghiệm</code>, <code>\ II. Đúng sai</code>. Các câu bên dưới thuộc phần đó cho đến tiêu đề kế tiếp. Khi bật "Trộn thứ tự câu hỏi", câu chỉ đảo <b>trong phạm vi từng phần</b>, các phần giữ nguyên thứ tự.<br>
                         • <b>Chèn ảnh:</b> bấm <b>🖼️ Chèn ảnh</b> (hoặc dán <code>Ctrl+V</code> / kéo thả ảnh vào ô soạn thảo) → app tạo mã <code>[img:hinh1]</code>. Đặt mã này ở <b>bất kỳ chỗ nào</b> (đề bài, dòng riêng dưới đề, hoặc trong đáp án). Cũng dùng được link: <code>[img:https://...]</code>.
                     </div>
 
@@ -385,6 +402,7 @@
                         <button class="stem-btn" onclick="insertStemCode('$\\Delta$')">Δ Delta</button>
                         <button class="stem-btn" onclick="insertStemCode('$\\ce{H2SO4}$')">🧪 Hóa</button>
                         <button class="stem-btn" onclick="insertStemCode('$\\int$')">∫ Tích phân</button>
+                        <button class="stem-btn" onclick="insertStemLine('\\ I. Tên phần')">📑 Tiêu đề phần</button>
                         <button class="stem-btn" onclick="document.getElementById('image-file-input').click()">🖼️ Chèn ảnh</button>
                         <button class="stem-btn" onclick="insertStemCode('\n}{Câu 1. Nội dung câu hỏi:\n*a) Ý đúng\nb) Ý sai\nc) Ý sai\nd) Ý sai\n')">☑️ Mẫu Đúng/Sai</button>
                         <button class="stem-btn" onclick="insertStemCode('\n[]Câu 1. Nội dung câu hỏi (đáp án là số):\nĐA: 2,5\n')">🔢 Mẫu Trả lời ngắn</button>
@@ -412,6 +430,7 @@
                         <button class="btn" style="flex:1;" onclick="addNewVisualQuestion()">➕ Thêm câu hỏi</button>
                         <button class="btn btn-warning" style="flex:1;" onclick="addNewVisualQuestion('tf')">➕ Thêm câu Đúng/Sai</button>
                         <button class="btn btn-pass" style="flex:1;" onclick="addNewVisualQuestion('sa')">➕ Thêm câu Trả lời ngắn</button>
+                        <button class="btn btn-secondary" style="flex:1;" onclick="addNewVisualQuestion('sec')">📑 Thêm tiêu đề phần</button>
                         <button class="btn" style="flex:1;" onclick="saveFromVisualEditor()">💾 Lưu thay đổi</button>
                     </div>
                 </div>
@@ -458,7 +477,7 @@
 
                 <div class="nav-grid-box">
                     <div style="font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span>🗺️ Bản đồ câu hỏi:</span>
+                        <span>Câu hỏi:</span>
                         <span id="progress-counter" style="font-size: 12px; opacity: 0.8;">Đã làm: 0/0</span>
                     </div>
                     <div style="font-size: 11px; opacity: 0.6; margin-bottom: 10px;">Nhấn số câu để nhảy nhanh:</div>
@@ -795,6 +814,7 @@ D. Vô nghiệm
             }
             let html = "";
             questions.forEach((q, qIndex) => {
+                if(isNewSection(questions, qIndex)) html += sectionHeadingHtml(q);
                 let badge = q.isTrueFalse ? '(Đúng/Sai)' : (q.isShortAnswer ? '(Trả lời ngắn)' : '');
                 html += `<div class="question-box">
                     <div class="question-title">Câu ${qIndex + 1}. ${richText(q.title)} ${badge ? `<span style="color:var(--accent-color); font-size:12px;">${badge}</span>` : ''}</div>`;
@@ -981,7 +1001,27 @@ D. Vô nghiệm
             return str.split(/\s*[|;]\s*/).map(x => x.trim()).filter(Boolean);
         }
         // SMART PARSER: "}{" trước chữ Câu = Đúng/Sai ("><" là ký hiệu cũ), "[]" trước chữ Câu = trả lời ngắn
+        // Dòng tiêu đề phần: dấu \ + khoảng trắng + tên phần (VD: "\ I. Trắc nghiệm"). Bắt buộc có khoảng trắng để không nhầm với lệnh LaTeX như \frac
+        const SECTION_LINE_RE = /^\s*\\\s+(\S.*?)\s*$/;
         function parseRawData(text) {
+            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\u00A0/g, ' ');
+            let segments = [{ title: null, lines: [] }];
+            text.split('\n').forEach(line => {
+                let m = line.match(SECTION_LINE_RE);
+                if(m) segments.push({ title: m[1], lines: [] });
+                else segments[segments.length - 1].lines.push(line);
+            });
+            let all = [];
+            segments.forEach((seg, secIdx) => {
+                parseQuestionBlocks(seg.lines.join('\n')).forEach(q => {
+                    q.section = secIdx;
+                    q.sectionTitle = seg.title;
+                    all.push(q);
+                });
+            });
+            return all;
+        }
+        function parseQuestionBlocks(text) {
             text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\u00A0/g, ' ');
             let startRe = /(?:(?:\}\{|><|\[\])\s*)?Câu\s+\d+[\.:]/gi;
             let starts = [], mm;
@@ -1074,7 +1114,10 @@ D. Vô nghiệm
 
         function questionsToRawText(questions) {
             let text = "";
+            let lastSection = null;
             questions.forEach((q, idx) => {
+                if(q.sectionTitle && q.section !== lastSection) text += '\\ ' + q.sectionTitle + '\n\n';
+                lastSection = q.section;
                 if(q.isShortAnswer) {
                     text += `${SA_MARKER}Câu ${idx + 1}. ${q.title}\nĐA: ${(q.answers || []).join(' | ')}\n\n`;
                     return;
@@ -1092,6 +1135,46 @@ D. Vô nghiệm
             return text.trim();
         }
 
+        // ---------- PHẦN (SECTION): tiện ích ----------
+        function isNewSection(list, i) {
+            return !!(list[i] && list[i].sectionTitle && (i === 0 || list[i - 1].section !== list[i].section));
+        }
+        function sectionHeadingHtml(q) {
+            return `<div class="section-heading">${richText(q.sectionTitle)}</div>`;
+        }
+        function shuffleArray(arr) {            // Fisher–Yates: xáo đều, không thiên lệch
+            let a = arr.slice();
+            for(let i = a.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        // Đảo thứ tự câu CHỈ trong phạm vi từng phần; thứ tự các phần giữ nguyên
+        function shuffleWithinSections(list) {
+            let groups = [], pos = {};
+            list.forEach(q => {
+                let k = q.section || 0;
+                if(!(k in pos)) { pos[k] = groups.length; groups.push([]); }
+                groups[pos[k]].push(q);
+            });
+            return groups.flatMap(g => shuffleArray(g));
+        }
+
+        function renderVisualSection(title) {
+            let container = document.getElementById('visual-questions-container');
+            if(container.querySelector('p')) container.innerHTML = '';
+            let card = document.createElement('div');
+            card.className = 'visual-section-card';
+            card.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <div><b>📑 Tiêu đề phần</b> <span style="font-size:11px; opacity:0.7;">(các câu bên dưới thuộc phần này; đảo trộn chỉ trong phần)</span></div>
+                    <button class="btn btn-fail" style="padding: 4px 8px; font-size: 11px; min-height: 28px;" onclick="this.closest('.visual-section-card').remove()">Xóa</button>
+                </div>
+                <input type="text" class="v-sec-title" placeholder="VD: I. Trắc nghiệm nhiều lựa chọn" value="${escapeHtml(title || '')}" style="margin-bottom:0;">`;
+            container.appendChild(card);
+        }
+
         function syncTextToVisual() {
             let rawText = document.getElementById('raw-questions-input').value;
             let questions = parseRawData(rawText);
@@ -1104,6 +1187,7 @@ D. Vô nghiệm
             }
 
             questions.forEach((q, qIdx) => {
+                if(isNewSection(questions, qIdx)) renderVisualSection(q.sectionTitle);
                 renderSingleVisualQuestion(qIdx, q.title, q.options, q.isTrueFalse, q.isShortAnswer ? q.answers : null);
             });
         }
@@ -1167,6 +1251,7 @@ D. Vô nghiệm
 
         function addNewVisualQuestion(kind) {
             kind = (kind === true) ? 'tf' : (kind || 'mcq');
+            if(kind === 'sec') { renderVisualSection(''); return; }
             let container = document.getElementById('visual-questions-container');
             if(container.querySelector('p')) container.innerHTML = '';
             let qIdx = container.querySelectorAll('.visual-q-card').length;
@@ -1184,11 +1269,18 @@ D. Vô nghiệm
         }
 
         function syncVisualToText() {
-            let cards = document.querySelectorAll('.visual-q-card');
+            let nodes = document.querySelectorAll('#visual-questions-container > .visual-q-card, #visual-questions-container > .visual-section-card');
             let questions = [];
             let missingSA = 0;
+            let curTitle = null, secId = 0;
 
-            cards.forEach(card => {
+            nodes.forEach(card => {
+                if(card.classList.contains('visual-section-card')) {
+                    let t = card.querySelector('.v-sec-title').value.trim();
+                    if(t) { secId++; curTitle = t; }
+                    return;
+                }
+
                 let isTF = card.getAttribute('data-tf') === '1';
                 let isSA = card.getAttribute('data-sa') === '1';
                 let title = card.querySelector('.v-q-title').value.trim();
@@ -1196,7 +1288,7 @@ D. Vô nghiệm
                 if(isSA) {
                     let answers = card.querySelector('.v-sa-answer').value.split('|').map(x => x.trim()).filter(Boolean);
                     if(title && answers.length === 0) missingSA++;
-                    if(title || answers.length) questions.push({ title: title, options: [], isTrueFalse: false, isShortAnswer: true, answers: answers });
+                    if(title || answers.length) questions.push({ title: title, options: [], isTrueFalse: false, isShortAnswer: true, answers: answers, section: secId, sectionTitle: curTitle });
                     return;
                 }
 
@@ -1216,7 +1308,7 @@ D. Vô nghiệm
                 });
 
                 if(title || options.some(o => o.text)) {
-                    questions.push({ title: title, options: options, isTrueFalse: isTF });
+                    questions.push({ title: title, options: options, isTrueFalse: isTF, section: secId, sectionTitle: curTitle });
                 }
             });
 
@@ -1233,7 +1325,7 @@ D. Vô nghiệm
         function buildActiveQuestion(q, shuffleOptions) {
             let opts = q.options.map((opt, idx) => ({ ...opt, origIndex: idx }));
             if(shuffleOptions && !q.isTrueFalse && !q.isShortAnswer) opts.sort(() => Math.random() - 0.5);
-            return { title: q.title, options: opts, isTrueFalse: !!q.isTrueFalse, isShortAnswer: !!q.isShortAnswer, answers: q.answers || [], origQIndex: q.origQIndex };
+            return { title: q.title, options: opts, isTrueFalse: !!q.isTrueFalse, isShortAnswer: !!q.isShortAnswer, answers: q.answers || [], origQIndex: q.origQIndex, section: q.section || 0, sectionTitle: q.sectionTitle || null };
         }
 
         function startQuiz() {
@@ -1263,7 +1355,7 @@ D. Vô nghiệm
             let shuffleA = document.getElementById('shuffle-a').checked;
 
             let cloned = JSON.parse(JSON.stringify(rawQuestions)).map((q, i) => ({ ...q, origQIndex: i }));
-            if(shuffleQ) cloned.sort(() => Math.random() - 0.5);
+            if(shuffleQ) cloned = shuffleWithinSections(cloned);   // chỉ đảo trong từng phần (\ Tiêu đề)
 
             activeQuizQuestions = cloned.map(q => buildActiveQuestion(q, shuffleA));
 
@@ -1297,7 +1389,7 @@ D. Vô nghiệm
             let htmlAll = '';
 
             activeQuizQuestions.forEach((q, qIndex) => {
-                let html = `<div class="question-box" id="q_box_${qIndex}" data-index="${qIndex}">
+                let html = (isNewSection(activeQuizQuestions, qIndex) ? sectionHeadingHtml(q) : '') + `<div class="question-box" id="q_box_${qIndex}" data-index="${qIndex}">
                     <div class="question-title">Câu ${qIndex + 1}. ${richText(q.title)}</div>`;
 
                 if(q.isShortAnswer) {
@@ -1373,6 +1465,12 @@ D. Vô nghiệm
             gridContainer.innerHTML = '';
 
             activeQuizQuestions.forEach((q, idx) => {
+                if(isNewSection(activeQuizQuestions, idx)) {
+                    let lbl = document.createElement('div');
+                    lbl.className = 'nav-section-label';
+                    lbl.innerText = String(q.sectionTitle).replace(/\[img:[^\]]*\]/gi, '').trim();
+                    gridContainer.appendChild(lbl);
+                }
                 let btn = document.createElement('button');
                 btn.className = 'nav-btn';
                 btn.id = `nav_btn_${idx}`;
@@ -1623,12 +1721,15 @@ D. Vô nghiệm
             incorrectQuestionIndices = [];
             let fullCorrect = 0, earned = 0, maxTotal = 0;
             let st = { mcq: { n: 0, ok: 0, pts: 0 }, tf: { n: 0, ok: 0, pts: 0 }, sa: { n: 0, ok: 0, pts: 0 } };
+            let secStats = {};
 
             questionBoxes.forEach((box, qIndex) => {
                 let q = activeQuizQuestions[qIndex];
                 if(!q) return;
                 let qTitle = `Câu ${qIndex + 1}. ${richText(q.title)}`;
                 let isFull = false;
+                let earnedBefore = earned, maxBefore = maxTotal;
+                if(isNewSection(activeQuizQuestions, qIndex)) reviewHTML += sectionHeadingHtml(q);
 
                 if(q.isShortAnswer) {
                     // ---- TRẢ LỜI NGẮN ----
@@ -1688,6 +1789,10 @@ D. Vô nghiệm
                         <div style="font-size: 13px; color: #10b981;">Đáp án chuẩn: <b>${correctText}</b></div>`);
                 }
 
+                let sk = q.section || 0;
+                if(!secStats[sk]) secStats[sk] = { title: q.sectionTitle, earned: 0, max: 0 };
+                secStats[sk].earned += earned - earnedBefore; secStats[sk].max += maxTotal - maxBefore;
+
                 if(isFull) fullCorrect++;
                 else incorrectQuestionIndices.push(q.origQIndex !== undefined ? q.origQIndex : qIndex);
             });
@@ -1706,6 +1811,7 @@ D. Vô nghiệm
             if(st.mcq.n) parts.push(`Trắc nghiệm: ${st.mcq.ok}/${st.mcq.n} câu (${fmtNum(st.mcq.pts)}/${fmtNum(sc.mcq * st.mcq.n)}đ)`);
             if(st.tf.n) parts.push(`Đúng/Sai: ${fmtNum(st.tf.pts)}/${fmtNum(sc.tf * st.tf.n)}đ`);
             if(st.sa.n) parts.push(`Trả lời ngắn: ${st.sa.ok}/${st.sa.n} câu (${fmtNum(st.sa.pts)}/${fmtNum(sc.sa * st.sa.n)}đ)`);
+            let secParts = Object.values(secStats).filter(x => x.title).map(x => `${escapeHtml(String(x.title).replace(/\[img:[^\]]*\]/gi, '').trim())}: ${fmtNum(x.earned)}/${fmtNum(x.max)}đ`);
             let rescale = Math.abs(maxTotal - 10) > 0.005 ? `<div class="score-sub">Điểm gốc ${fmtNum(earned)}/${fmtNum(maxTotal)} → quy đổi về thang 10</div>` : '';
 
             document.getElementById('submit-btn').style.display = 'none';
@@ -1714,7 +1820,7 @@ D. Vô nghiệm
             document.getElementById('score-text').innerHTML = `
                 <div style="font-size: 38px; line-height: 1.2;">🎯 ${fmtNum(score10)} / 10</div>
                 <div class="score-sub">Đúng hoàn toàn ${fullCorrect}/${activeQuizQuestions.length} câu</div>
-                <div class="score-sub">${parts.join(' &nbsp;•&nbsp; ')}</div>${rescale}`;
+                <div class="score-sub">${parts.join(' &nbsp;•&nbsp; ')}</div>${secParts.length ? `<div class="score-sub">Theo phần: ${secParts.join(' &nbsp;•&nbsp; ')}</div>` : ''}${rescale}`;
             document.getElementById('review-container').innerHTML = reviewHTML;
 
             typesetMath();
