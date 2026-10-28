@@ -1822,6 +1822,13 @@ D. “Em nhớ anh nhiều lắm!”`
             for(let id in DEFAULT_SETS) {
                 appData.sets[id] = DEFAULT_SETS[id];
             }
+
+            // Chuẩn hóa tiêu đề phần: nếu có 2 dấu gạch chéo \\ thì chuyển về đúng chuẩn 1 dấu \
+            for(let id in appData.sets) {
+                if(appData.sets[id] && appData.sets[id].rawText) {
+                    appData.sets[id].rawText = normalizeSectionSlashes(appData.sets[id].rawText);
+                }
+            }
             
             saveAppData();
 
@@ -1868,6 +1875,7 @@ D. “Em nhớ anh nhiều lắm!”`
                     let updatedCount = 0;
                     for(let id in remoteSets) {
                         let remoteSet = remoteSets[id];
+                        if(remoteSet && remoteSet.rawText) remoteSet.rawText = normalizeSectionSlashes(remoteSet.rawText);
                         let localSet = appData.sets[id];
                         // Nếu bộ đề chưa có trên máy học sinh, hoặc đã được Huy cập nhật nội dung mới
                         if(!localSet || localSet.rawText !== remoteSet.rawText || localSet.name !== remoteSet.name) {
@@ -2342,7 +2350,7 @@ D. “Em nhớ anh nhiều lắm!”`
             document.getElementById('current-set-title').innerHTML = `
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                 Soạn Thảo: ${escapeHtml(s.name)}`;
-            document.getElementById('raw-questions-input').value = s.rawText;
+            document.getElementById('raw-questions-input').value = normalizeSectionSlashes(s.rawText || '');
             
             let t = s.timeLimit !== undefined ? s.timeLimit : 900;
             if(t === 0) {
@@ -2414,8 +2422,13 @@ D. “Em nhớ anh nhiều lắm!”`
             }
         }
 
+        function normalizeSectionSlashes(text) {
+            return text ? String(text).replace(/^(\s*)\\{2,}\s+/gm, '$1\\ ') : '';
+        }
+
         function saveFromTextEditor() {
-            let text = document.getElementById('raw-questions-input').value;
+            let text = normalizeSectionSlashes(document.getElementById('raw-questions-input').value);
+            document.getElementById('raw-questions-input').value = text;
             appData.sets[currentActiveSetId].rawText = text;
             saveScoringInputs();
             if(saveAppData()) alert("Đã lưu nội dung bộ đề thành công!");
@@ -2425,9 +2438,10 @@ D. “Em nhớ anh nhiều lắm!”`
         function splitShortAnswers(str) {
             return str.split(/\s*[|;]\s*/).map(x => x.trim()).filter(Boolean);
         }
-        const SECTION_LINE_RE = /^\s*\\\s+(\S.*?)\s*$/;
+        const SECTION_LINE_RE = /^\s*\\+\s+(\S.*?)\s*$/;
         function parseRawData(text) {
             text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\u00A0/g, ' ');
+            text = normalizeSectionSlashes(text);
             let segments = [{ title: null, lines: [] }];
             text.split('\n').forEach(line => {
                 let m = line.match(SECTION_LINE_RE);
