@@ -1878,7 +1878,7 @@ D. “Em nhớ anh nhiều lắm!”`
                     if(updatedCount > 0) {
                         saveAppData();
                         renderSetsManager();
-                        showToast(`Đã tự động cập nhật ${updatedCount} bộ đề mới từ Huy!`);
+                        showToast(updatedCount > 1 ? `Đã cập nhật ${updatedCount} bộ đề mới!` : "Đã cập nhật bộ đề mới!");
                     }
                 }
             } catch(e) {
