@@ -419,37 +419,73 @@
         
         .quiz-sidebar { 
             width: 100%; position: static; 
-            display: flex; flex-direction: column; gap: 16px; 
+            display: flex; flex-direction: column; gap: 14px; 
         }
         @media (min-width: 900px) {
-            .quiz-sidebar { width: 320px; position: sticky; top: 24px; }
+            .quiz-sidebar { width: 330px; position: sticky; top: 24px; }
+        }
+
+        .quiz-sidebar-top-bar {
+            display: flex; flex-direction: column; gap: 10px; width: 100%;
+        }
+        .exit-quiz-btn {
+            width: 100%; min-height: 40px; font-size: 13.5px; border-radius: 12px;
+        }
+        .timer-box-container {
+            padding: 14px; border-radius: 16px;
+        }
+        .timer-label {
+            font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;
         }
 
         .nav-grid-box { 
-            background: rgba(150,150,150,0.03); padding: 18px; border-radius: 18px; 
+            background: rgba(150,150,150,0.03); padding: 16px; border-radius: 18px; 
             text-align: left; border: 1px solid var(--panel-border); box-shadow: var(--shadow-sm); 
         }
         .nav-grid { 
             display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; 
-            max-height: 380px; overflow-y: auto; margin-top: 12px; padding-right: 4px;
+            max-height: 380px; overflow-y: auto; margin-top: 10px; padding-right: 4px;
+            transition: all 0.25s ease;
         }
         @media (min-width: 900px) {
-            .nav-grid { max-height: 50vh; }
+            .nav-grid { max-height: 48vh; }
+        }
+
+        /* Nút Nộp Bài Thi Nằm Dưới Tiến Độ */
+        #submit-btn {
+            width: 100%; margin: 8px 0 12px; font-size: 14.5px; font-weight: 700;
+            padding: 12px 16px; border-radius: var(--radius-btn);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
         }
 
         /* Thanh tiến trình mini trên sidebar */
         .progress-bar-wrap {
             width: 100%; height: 6px; background: rgba(150,150,150,0.15); border-radius: 10px;
-            margin: 8px 0 12px; overflow: hidden;
+            margin: 6px 0 10px; overflow: hidden;
         }
         .progress-bar-fill {
             height: 100%; width: 0%; background: #10b981; border-radius: 10px;
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* Mobile Grid Toggle (Mở / Đóng danh sách câu trên điện thoại) */
+        .mobile-grid-toggle {
+            display: none; justify-content: space-between; align-items: center;
+            padding: 8px 4px 4px; font-size: 12.5px; font-weight: 700;
+            color: var(--accent-color); cursor: pointer; user-select: none;
+            border-top: 1px dashed var(--panel-border); margin-top: 6px;
+        }
+        .grid-toggle-hint { font-size: 11px; font-weight: 400; opacity: 0.75; }
+        #grid-toggle-icon { transition: transform 0.2s ease; }
+
         .nav-btn { 
-            height: 40px; border-radius: 10px; border: 1px solid var(--panel-border); 
-            background: var(--panel-bg); color: var(--text-color); font-weight: 700; font-size: 13.5px; 
+            height: 38px; border-radius: 10px; border: 1px solid var(--panel-border); 
+            background: var(--panel-bg); color: var(--text-color); font-weight: 700; font-size: 13px; 
             cursor: pointer; display: flex; align-items: center; justify-content: center; 
             transition: all 0.15s ease; box-shadow: var(--shadow-sm); 
         }
@@ -465,12 +501,157 @@
 
         /* Đồng Hồ Đếm Ngược */
         .timer-display { 
-            font-size: 28px; font-weight: 800; color: #f59e0b; font-family: ui-monospace, monospace; 
+            font-size: 26px; font-weight: 800; color: #f59e0b; font-family: ui-monospace, monospace; 
             display: flex; align-items: center; justify-content: center; width: 100%; 
             letter-spacing: 0.05em; transition: color 0.3s;
         }
         .timer-display.danger { color: #ef4444; animation: pulseRed 1s infinite; }
         @keyframes pulseRed { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* TỐI ƯU HÓA GIAO DIỆN CHO ĐIỆN THOẠI (iOS & Android) */
+        @media (max-width: 899px) {
+            body {
+                padding: 10px 8px;
+                padding-top: max(10px, env(safe-area-inset-top));
+                padding-bottom: max(10px, env(safe-area-inset-bottom));
+            }
+
+            .top-toolbar {
+                padding: 10px 14px;
+                margin-bottom: 14px;
+                border-radius: 14px;
+            }
+            .app-brand { font-size: 0.95rem; gap: 8px; }
+            .icon-btn { width: 38px; height: 38px; }
+
+            .container {
+                padding: 18px 14px;
+                border-radius: 18px;
+                margin-bottom: 16px;
+            }
+            .container.quiz-container-box {
+                padding: 14px 10px;
+            }
+
+            /* Đưa thanh điều hướng lên trên câu hỏi trên điện thoại */
+            .quiz-layout-wrapper {
+                gap: 14px;
+            }
+            .quiz-sidebar {
+                order: -1;
+                gap: 10px;
+            }
+
+            /* Hàng trên cùng sidebar: Thoát và Đồng hồ nằm cạnh nhau tiết kiệm chiều dọc */
+            .quiz-sidebar-top-bar {
+                flex-direction: row;
+                gap: 8px;
+                align-items: stretch;
+            }
+            .exit-quiz-btn {
+                flex: 1;
+                min-height: 40px;
+                font-size: 13px;
+                padding: 8px 10px;
+                margin-bottom: 0 !important;
+            }
+            .timer-box-container {
+                flex: 1;
+                padding: 8px 10px;
+                border-radius: 12px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .timer-label { font-size: 9.5px; margin-bottom: 1px; }
+            .timer-display { font-size: 20px; }
+
+            .nav-grid-box {
+                padding: 14px 12px;
+                border-radius: 16px;
+            }
+
+            /* Nút mở rộng/thu gọn bảng câu hỏi trên mobile */
+            .mobile-grid-toggle {
+                display: flex;
+            }
+            .nav-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 6px;
+                max-height: 200px;
+            }
+            .nav-grid.collapsed {
+                display: none;
+            }
+            .nav-btn {
+                height: 36px;
+                font-size: 12.5px;
+                border-radius: 8px;
+            }
+
+            /* Câu hỏi trên điện thoại */
+            .question-box {
+                padding: 16px 12px;
+                border-radius: 14px;
+                margin-bottom: 14px;
+            }
+            .question-title {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+            .bookmark-btn svg { width: 18px; height: 18px; }
+
+            /* Đáp án trắc nghiệm A, B, C, D */
+            .option-item {
+                padding: 11px 13px;
+                margin: 7px 0;
+                border-radius: 12px;
+                min-height: 46px;
+                font-size: 0.94em;
+            }
+            .option-item input { margin-right: 10px; }
+
+            /* Bảng Đúng/Sai trên điện thoại: Tối ưu bề ngang để không chèn ép chữ */
+            .tf-container { margin-top: 10px; }
+            .tf-header-row { padding: 0 8px 6px 8px; font-size: 0.8rem; }
+            .tf-header-col { width: 44px; }
+            .tf-item-row {
+                padding: 10px 8px;
+                margin: 6px 0;
+                border-radius: 12px;
+            }
+            .tf-item-text {
+                font-size: 0.91em;
+                line-height: 1.45;
+                padding-right: 6px;
+            }
+            .tf-box-choice { width: 44px; }
+            .tf-square-btn {
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+            }
+            .tf-check-mark svg { width: 16px; height: 16px; }
+
+            /* Tránh hiện tượng tự phóng to màn hình của trình duyệt Safari trên iPhone */
+            input[type="text"], input[type="number"], select, textarea {
+                font-size: 16px !important;
+            }
+
+            /* Thẻ danh sách bộ đề */
+            .deck-card {
+                padding: 14px;
+                gap: 12px;
+            }
+
+            /* Nút nổi lên đầu trang */
+            .back-to-top {
+                bottom: 18px;
+                right: 18px;
+                width: 44px;
+                height: 44px;
+            }
+        }
 
         /* Color Dot Theme Selector */
         .theme-picker-bar { 
@@ -788,22 +969,20 @@
             <!-- Cột trái: Nội dung câu hỏi -->
             <div class="quiz-main-content">
                 <div id="quiz-container"></div>
-                <button class="btn btn-pass" id="submit-btn" style="width: 100%; margin-top: 32px; font-size: 16px; padding: 18px; border-radius: 16px;" onclick="submitQuiz()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    Nộp bài thi
-                </button>
             </div>
 
             <!-- Cột phải: Sidebar điều hướng -->
             <div class="quiz-sidebar">
-                <button class="btn btn-secondary" style="width:100%; margin-bottom: 8px; font-size: 13.5px; min-height: 42px; border-radius:12px;" onclick="exitQuiz()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-                    Thoát bài thi
-                </button>
-                
-                <div class="nav-grid-box" style="text-align: center;">
-                    <div style="font-size: 11.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Thời Gian Còn Lại</div>
-                    <div class="timer-display" id="timer-box">00:00</div>
+                <div class="quiz-sidebar-top-bar">
+                    <button class="btn btn-secondary exit-quiz-btn" onclick="exitQuiz()" title="Thoát bài thi">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+                        <span>Thoát bài thi</span>
+                    </button>
+                    
+                    <div class="nav-grid-box timer-box-container" style="text-align: center;">
+                        <div class="timer-label">Thời Gian Còn Lại</div>
+                        <div class="timer-display" id="timer-box">00:00</div>
+                    </div>
                 </div>
 
                 <div class="nav-grid-box">
@@ -811,13 +990,28 @@
                         <button class="font-btn" onclick="changeFontSize(-0.1)" title="Thu nhỏ chữ">A -</button>
                         <button class="font-btn" onclick="changeFontSize(0.1)" title="Phóng to chữ">A +</button>
                     </div>
-                    <div style="font-size: 13.5px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; border-top:1px solid var(--panel-border); padding-top:12px;">
+                    <div style="font-size: 13.5px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; border-top:1px solid var(--panel-border); padding-top:10px;">
                         <span>Tiến độ:</span>
                         <span id="progress-counter" style="font-size: 12.5px; color: var(--text-muted);">Đã làm: 0/0</span>
                     </div>
                     <div class="progress-bar-wrap">
                         <div class="progress-bar-fill" id="progress-bar-fill"></div>
                     </div>
+
+                    <!-- NÚT NỘP BÀI THI NẰM DƯỚI PHẦN TIẾN ĐỘ -->
+                    <button class="btn btn-pass" id="submit-btn" onclick="submitQuiz()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        Nộp bài thi
+                    </button>
+
+                    <div class="mobile-grid-toggle" onclick="toggleMobileNavGrid()">
+                        <span>Bảng câu hỏi (<span id="grid-count-badge">0 câu</span>)</span>
+                        <div style="display:flex; align-items:center; gap:4px;">
+                            <span class="grid-toggle-hint">Chạm để mở/đóng</span>
+                            <svg id="grid-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                    </div>
+
                     <div class="nav-grid" id="question-nav-grid"></div>
                 </div>
             </div>
@@ -2400,12 +2594,28 @@ D. “Em nhớ anh nhiều lắm!”`
 
             buildQuestionNavGrid();
 
+            let sb = document.getElementById('submit-btn');
+            if(sb) sb.style.display = 'inline-flex';
+
+            let badge = document.getElementById('grid-count-badge');
+            if(badge) badge.innerText = `${activeQuizQuestions.length} câu`;
+
             document.getElementById('manage-screen').style.display = 'none';
             document.getElementById('setup-screen').style.display = 'none';
             document.getElementById('quiz-screen').style.display = 'block';
             document.getElementById('result-screen').style.display = 'none';
 
             typesetMath();
+        }
+
+        function toggleMobileNavGrid() {
+            let g = document.getElementById('question-nav-grid');
+            let icon = document.getElementById('grid-toggle-icon');
+            if(!g) return;
+            g.classList.toggle('collapsed');
+            if(icon) {
+                icon.style.transform = g.classList.contains('collapsed') ? 'rotate(-90deg)' : 'rotate(0deg)';
+            }
         }
 
         function buildQuestionNavGrid() {
