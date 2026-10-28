@@ -333,7 +333,17 @@
         }
         .bookmark-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: transparent; stroke-width: 2; transition: all 0.2s; }
         .bookmark-btn:hover { color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
-        .bookmark-btn.active svg { fill: #f59e0b; stroke: #f59e0b; filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5)); }
+        .bookmark-btn.active svg { 
+            fill: #f59e0b; stroke: #f59e0b; 
+            filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6)); 
+            animation: starBounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes starBounce {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.4) rotate(15deg); }
+            70% { transform: scale(0.9) rotate(-10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
 
         /* Đáp án trắc nghiệm A, B, C, D */
         .option-item {
@@ -347,11 +357,18 @@
             background: var(--accent-light); 
             transform: translateX(3px);
         }
+        .option-item:active { transform: scale(0.98); }
         .option-item input { margin-right: 14px; transform: scale(1.2); flex-shrink: 0; accent-color: var(--accent-color); cursor: pointer; }
         .option-item:has(input:checked) {
             border-color: var(--accent-color);
             background: var(--accent-light);
             font-weight: 600;
+            animation: optionSelectGlow 0.35s ease-out;
+        }
+        @keyframes optionSelectGlow {
+            0% { box-shadow: 0 0 0 0 var(--accent-color); }
+            60% { box-shadow: 0 0 0 5px transparent; }
+            100% { box-shadow: none; }
         }
         
         .option-item.correct-ans { background: rgba(16, 185, 129, 0.12) !important; border-color: #10b981 !important; color: #047857; font-weight: 600; }
@@ -765,7 +782,55 @@
         }
         .font-btn:hover { background: var(--accent-light); border-color: var(--accent-color); color: var(--accent-color); }
 
-        .score-board { font-size: 34px; font-weight: 800; text-align: center; margin: 15px 0; color: #10b981; }
+        .score-board { text-align: center; margin: 15px 0 20px; }
+        .score-number-anim {
+            font-size: 48px;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            display: inline-block;
+        }
+        @media (max-width: 600px) { .score-number-anim { font-size: 38px; } }
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+            animation: badgePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes badgePop {
+            0% { transform: scale(0.6); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .rank-gold {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+        }
+        .rank-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+        }
+        .rank-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+        }
+        .rank-amber {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            color: white;
+        }
+        .rank-red {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
         .score-sub { font-size: 14.5px; font-weight: 600; color: var(--text-muted); margin-top: 6px; }
 
         .sa-wrap { margin-top: 10px; }
@@ -796,6 +861,8 @@
 </script>
 </head>
 <body onload="initApp()">
+    <!-- Canvas Hiệu Ứng Pháo Hoa Giấy Ăn Mừng (Visual Only, Không Âm Thanh) -->
+    <canvas id="confetti-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:999999; display:none;"></canvas>
 
     <!-- Nút thoát Focus Mode -->
     <button class="exit-focus-btn" onclick="toggleFocusMode()" title="Thoát chế độ tập trung">
@@ -3109,14 +3176,130 @@ D. “Em nhớ anh nhiều lắm!”`
             document.getElementById('submit-btn').style.display = 'none';
             document.getElementById('quiz-screen').style.display = 'none';
             document.getElementById('result-screen').style.display = 'block';
-            document.getElementById('score-text').innerHTML = `
-                <div style="font-size: 40px; line-height: 1.2; font-weight: 800;">${fmtNum(score10)} / 10</div>
-                <div class="score-sub">Đúng hoàn toàn ${fullCorrect}/${activeQuizQuestions.length} câu</div>
-                <div class="score-sub">${parts.join(' &nbsp;•&nbsp; ')}</div>${secParts.length ? `<div class="score-sub">Theo phần: ${secParts.join(' &nbsp;•&nbsp; ')}</div>` : ''}${rescale}`;
+
+            // Hiệu ứng số điểm chạy tăng dần + Huy hiệu danh dự (Chỉ hình ảnh, KHÔNG có âm thanh)
+            animateScore(score10, fullCorrect, activeQuizQuestions.length, parts, secParts, rescale);
             document.getElementById('review-container').innerHTML = reviewHTML;
+
+            // Bắn pháo hoa giấy chúc mừng khi đạt điểm cao (Chỉ hình ảnh, KHÔNG có âm thanh)
+            if(score10 >= 8.0) {
+                setTimeout(() => launchConfetti(score10 >= 9.5), 300);
+            }
 
             typesetMath();
             window.scrollTo({top:0, behavior:'smooth'});
+        }
+
+        // ---------- HIỆU ỨNG THỊ GIÁC (VISUAL ONLY - KHÔNG ÂM THANH) ----------
+        function launchConfetti(isGrand = false) {
+            let canvas = document.getElementById('confetti-canvas');
+            if(!canvas) return;
+            let ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.style.display = 'block';
+
+            let particles = [];
+            let count = isGrand ? 160 : 90;
+            let colors = ['#2563eb', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#06b6d4', '#e11d48'];
+
+            for(let i = 0; i < count; i++) {
+                particles.push({
+                    x: isGrand ? (Math.random() < 0.5 ? canvas.width * 0.2 : canvas.width * 0.8) : canvas.width * 0.5,
+                    y: isGrand ? canvas.height * 0.55 : canvas.height * 0.35,
+                    vx: (Math.random() - 0.5) * (isGrand ? 24 : 16),
+                    vy: -Math.random() * 16 - 7,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    rotSpeed: (Math.random() - 0.5) * 12,
+                    gravity: 0.42,
+                    opacity: 1
+                });
+            }
+
+            let start = null;
+            function frame(timestamp) {
+                if(!start) start = timestamp;
+                let elapsed = timestamp - start;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                let active = false;
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += p.gravity;
+                    p.vx *= 0.98;
+                    p.rotation += p.rotSpeed;
+                    if(elapsed > 1800) p.opacity -= 0.025;
+
+                    if(p.opacity > 0 && p.y < canvas.height + 40) {
+                        active = true;
+                        ctx.save();
+                        ctx.translate(p.x, p.y);
+                        ctx.rotate(p.rotation * Math.PI / 180);
+                        ctx.globalAlpha = Math.max(0, p.opacity);
+                        ctx.fillStyle = p.color;
+                        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+                        ctx.restore();
+                    }
+                });
+
+                if(active && elapsed < 3500) {
+                    requestAnimationFrame(frame);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    canvas.style.display = 'none';
+                }
+            }
+            requestAnimationFrame(frame);
+        }
+
+        function animateScore(targetScore, fullCorrect, totalQ, parts, secParts, rescale) {
+            let scoreBox = document.getElementById('score-text');
+            if(!scoreBox) return;
+
+            let rankBadge = '';
+            let rankColor = '#10b981';
+            if(targetScore >= 9.0) {
+                rankBadge = '<span class="rank-badge rank-gold">Xuất Sắc</span>';
+                rankColor = '#10b981';
+            } else if(targetScore >= 8.0) {
+                rankBadge = '<span class="rank-badge rank-green">Giỏi</span>';
+                rankColor = '#059669';
+            } else if(targetScore >= 6.5) {
+                rankBadge = '<span class="rank-badge rank-blue">Khá</span>';
+                rankColor = '#2563eb';
+            } else if(targetScore >= 5.0) {
+                rankBadge = '<span class="rank-badge rank-amber">Trung Bình</span>';
+                rankColor = '#f59e0b';
+            } else {
+                rankBadge = '<span class="rank-badge rank-red">Cần Cố Gắng</span>';
+                rankColor = '#ef4444';
+            }
+
+            let duration = 1100;
+            let start = null;
+
+            function step(timestamp) {
+                if(!start) start = timestamp;
+                let progress = Math.min((timestamp - start) / duration, 1);
+                let ease = 1 - Math.pow(1 - progress, 3);
+                let current = (targetScore * ease);
+
+                scoreBox.innerHTML = `
+                    <div class="score-number-anim" style="color: ${rankColor};">${fmtNum(current)} <span style="font-size:22px; font-weight:600; opacity:0.6;">/ 10</span></div>
+                    <div style="margin: 8px 0 14px;">${rankBadge}</div>
+                    <div class="score-sub">Đúng hoàn toàn ${fullCorrect}/${totalQ} câu</div>
+                    <div class="score-sub">${parts.join(' &nbsp;•&nbsp; ')}</div>
+                    ${secParts.length ? `<div class="score-sub">Theo phần: ${secParts.join(' &nbsp;•&nbsp; ')}</div>` : ''}
+                    ${rescale}`;
+
+                if(progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            }
+            requestAnimationFrame(step);
         }
 
         function exportSingleSet() {
