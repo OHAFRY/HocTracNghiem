@@ -1,7 +1,18 @@
 ﻿{
-    "version":  1,
-    "updatedAt":  "2026-10-29 01:11:03",
+    "version":  1793211703,
+    "updatedAt":  "2026-10-29 01:21:43",
     "sets":  {
+                 "set_test_11a1":  {
+                                       "id":  "set_test_11a1",
+                                       "name":  "⚡ Đề Thi Thử Nghiệm 11A1 - Chuẩn THPT 2025",
+                                       "timeLimit":  900,
+                                       "scoring":  {
+                                                       "mcq":  0.25,
+                                                       "tf":  1,
+                                                       "sa":  0.5
+                                                   },
+                                       "rawText":  "\\ I. Trắc nghiệm 4 lựa chọn\nCâu 1. Tập xác định của hàm số $y = \\tan x$ là\n*A. $D = \\mathbb{R} \\setminus \\left\\{ \\frac{\\pi}{2} + k\\pi, k \\in \\mathbb{Z} \\right\\}$.\nB. $D = \\mathbb{R} \\setminus \\{ k\\pi, k \\in \\mathbb{Z} \\}$.\nC. $D = \\mathbb{R}$.\nD. $D = \\mathbb{R} \\setminus \\left\\{ \\frac{\\pi}{2} + k2\\pi, k \\in \\mathbb{Z} \\right\\}$.\n\nCâu 2. Trong mặt phẳng tọa độ Oxy, phương trình nào sau đây là phương trình của một đường tròn?\nA. $x^2 + y^2 - 2x - 4y + 10 = 0$.\n*B. $x^2 + y^2 - 4x + 6y - 3 = 0$.\nC. $x^2 + 2y^2 - 4x + 6y - 1 = 0$.\nD. $x^2 - y^2 - 4x + 6y - 3 = 0$.\n\nCâu 3. Cường độ dòng điện qua điện trở $R = 10\\,\\Omega$ khi đặt vào hiệu điện thế $U = 20\\text{ V}$ là\nA. $0{,}5\\text{ A}$.\n*B. $2\\text{ A}$.\nC. $200\\text{ A}$.\nD. $10\\text{ A}$.\n\n\\ II. Trắc nghiệm Đúng/Sai\n}{Câu 4. Cho cấp số cộng $(u_n)$ có số hạng đầu $u_1 = 3$ và công sai $d = 4$.\n*a. Số hạng thứ hai của cấp số cộng là $u_2 = 7$.\n*b. Công thức số hạng tổng quát của cấp số cộng là $u_n = 4n - 1$.\nc. Số 100 là một số hạng của cấp số cộng $(u_n)$.\n*d. Tổng 10 số hạng đầu tiên của cấp số cộng là $S_{10} = 210$.\n\n}{Câu 5. Cho hàm số $f(x) = \\sin x + \\cos x$.\n*a. Giá trị lớn nhất của hàm số bằng $\\sqrt{2}$.\nb. Hàm số $f(x)$ là một hàm số chẵn.\n*c. Biến đổi ta có $f(x) = \\sqrt{2}\\sin\\left(x + \\frac{\\pi}{4}\\right)$.\nd. Phương trình $f(x) = 2$ có nghiệm thực.\n\n\\ III. Trả lời ngắn (Điền số)\n[]Câu 6. Cho hình chóp $S.ABCD$ có đáy là hình vuông cạnh $a = 4\\text{ cm}$, chiều cao $h = 6\\text{ cm}$. Thể tích khối chóp $S.ABCD$ bằng bao nhiêu $\\text{cm}^3$?\nĐA: 32\n\n[]Câu 7. Một vật dao động điều hòa với phương trình $x = 5\\cos(2\\pi t)\\text{ (cm)}$. Tần số dao động $f$ của vật (tính bằng Hz) bằng bao nhiêu?\nĐA: 1"
+                                   },
                  "set_su":  {
                                 "id":  "set_su",
                                 "name":  "Lịch Sử 11 - Ôn Thi Giữa Kỳ 1",
