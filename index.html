@@ -653,18 +653,78 @@
             }
         }
 
-        /* Color Dot Theme Selector */
+        /* Color Dot Theme Selector & Custom Color Wheel */
         .theme-picker-bar { 
-            display: flex; align-items: center; gap: 10px; margin-bottom: 20px; 
-            background: rgba(150,150,150,0.05); padding: 10px 16px; border-radius: 14px; 
+            display: flex; align-items: center; gap: 8px; margin-bottom: 20px; 
+            background: rgba(150,150,150,0.05); padding: 10px 14px; border-radius: 14px; 
             border: 1px solid var(--panel-border); overflow-x: auto; 
+            scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
         }
+        .theme-picker-bar::-webkit-scrollbar { height: 4px; }
+        .theme-picker-bar::-webkit-scrollbar-track { background: transparent; }
+        .theme-picker-bar::-webkit-scrollbar-thumb { background: rgba(150,150,150,0.3); border-radius: 4px; }
+
         .color-dot { 
             width: 26px; height: 26px; border-radius: 50%; cursor: pointer; 
             border: 2px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.15); 
-            flex-shrink: 0; transition: transform 0.2s; 
+            flex-shrink: 0; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
-        .color-dot:hover { transform: scale(1.15); }
+        .color-dot:hover { transform: scale(1.2); }
+        .color-dot.active { 
+            transform: scale(1.18);
+            box-shadow: 0 0 0 2px var(--panel-bg), 0 0 0 4px var(--accent-color);
+        }
+
+        /* Nút Tự Chọn Màu Bằng Bảng Màu */
+        .custom-color-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            margin-left: 6px;
+        }
+        .custom-color-input {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .custom-color-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 18px;
+            font-size: 12px;
+            font-weight: 700;
+            background: var(--panel-bg);
+            border: 1.5px solid var(--panel-border);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+            user-select: none;
+        }
+        .custom-color-wrap:hover .custom-color-btn {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: var(--accent-light);
+            transform: translateY(-1px);
+        }
+        .custom-color-preview-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
 
         /* Media Ảnh trong đề */
         .q-img { display: block; max-width: 100%; max-height: 360px; margin: 12px 0; border-radius: 12px; border: 1px solid var(--panel-border); background: #fff; cursor: zoom-in; transition: transform 0.2s; }
@@ -774,12 +834,29 @@
         <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px;">Trần Đăng Huy • Dành cho học sinh 11A1</p>
 
         <div class="theme-picker-bar">
-            <span style="font-size: 13px; font-weight: 700; white-space: nowrap; color: var(--text-muted);">Màu chủ đạo:</span>
-            <div class="color-dot" style="background: #2563eb;" onclick="changeThemeColor('#2563eb')"></div>
-            <div class="color-dot" style="background: #10b981;" onclick="changeThemeColor('#10b981')"></div>
-            <div class="color-dot" style="background: #9333ea;" onclick="changeThemeColor('#9333ea')"></div>
-            <div class="color-dot" style="background: #f59e0b;" onclick="changeThemeColor('#f59e0b')"></div>
-            <div class="color-dot" style="background: #e11d48;" onclick="changeThemeColor('#e11d48')"></div>
+            <span style="font-size: 13px; font-weight: 700; white-space: nowrap; color: var(--text-muted); margin-right: 4px;">Màu chủ đạo:</span>
+            <div class="color-dot" data-color="#2563eb" style="background: #2563eb;" title="Xanh Dương (Ocean Blue)" onclick="changeThemeColor('#2563eb')"></div>
+            <div class="color-dot" data-color="#0284c7" style="background: #0284c7;" title="Xanh Da Trời (Sky Blue)" onclick="changeThemeColor('#0284c7')"></div>
+            <div class="color-dot" data-color="#0d9488" style="background: #0d9488;" title="Xanh Mòng Két (Teal)" onclick="changeThemeColor('#0d9488')"></div>
+            <div class="color-dot" data-color="#10b981" style="background: #10b981;" title="Xanh Ngọc (Emerald)" onclick="changeThemeColor('#10b981')"></div>
+            <div class="color-dot" data-color="#16a34a" style="background: #16a34a;" title="Xanh Lá (Fresh Green)" onclick="changeThemeColor('#16a34a')"></div>
+            <div class="color-dot" data-color="#65a30d" style="background: #65a30d;" title="Xanh Cốm (Lime)" onclick="changeThemeColor('#65a30d')"></div>
+            <div class="color-dot" data-color="#f59e0b" style="background: #f59e0b;" title="Vàng Hổ Phách (Amber)" onclick="changeThemeColor('#f59e0b')"></div>
+            <div class="color-dot" data-color="#ea580c" style="background: #ea580c;" title="Cam Cháy (Coral)" onclick="changeThemeColor('#ea580c')"></div>
+            <div class="color-dot" data-color="#e11d48" style="background: #e11d48;" title="Đỏ Hồng (Crimson)" onclick="changeThemeColor('#e11d48')"></div>
+            <div class="color-dot" data-color="#db2777" style="background: #db2777;" title="Hồng Phấn (Pink)" onclick="changeThemeColor('#db2777')"></div>
+            <div class="color-dot" data-color="#9333ea" style="background: #9333ea;" title="Tím Hoàng Gia (Purple)" onclick="changeThemeColor('#9333ea')"></div>
+            <div class="color-dot" data-color="#6366f1" style="background: #6366f1;" title="Tím Chàm (Indigo)" onclick="changeThemeColor('#6366f1')"></div>
+            <div class="color-dot" data-color="#475569" style="background: #475569;" title="Xám Slate (Elegant)" onclick="changeThemeColor('#475569')"></div>
+
+            <!-- TÙY CHỌN MÀU BẤT KỲ VỚI BẢNG MÀU -->
+            <div class="custom-color-wrap" title="Chọn màu bất kỳ theo sở thích của bạn">
+                <input type="color" id="custom-color-picker" class="custom-color-input" value="#2563eb" oninput="changeThemeColor(this.value)" onchange="changeThemeColor(this.value)">
+                <div class="custom-color-btn">
+                    <div class="custom-color-preview-circle"></div>
+                    <span>Tự chọn</span>
+                </div>
+            </div>
         </div>
 
         <div style="margin: 20px 0; display: flex; gap: 10px; flex-direction: column;">
@@ -1911,11 +1988,42 @@ D. “Em nhớ anh nhiều lắm!”`
             st.scoring = { mcq: read('score-mcq', DEFAULT_SCORING.mcq), tf: read('score-tf', DEFAULT_SCORING.tf), sa: read('score-sa', DEFAULT_SCORING.sa) };
         }
 
+        function shadeColor(color, percent) {
+            let num = parseInt(color.replace('#',''), 16),
+                amt = Math.round(2.55 * percent),
+                R = (num >> 16) + amt,
+                G = (num >> 8 & 0x00FF) + amt,
+                B = (num & 0x0000FF) + amt;
+            return '#' + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
+        }
+
+        function hexToRgba(hex, alpha) {
+            let c = hex.replace('#', '');
+            if(c.length === 3) c = c.split('').map(x => x + x).join('');
+            let num = parseInt(c, 16);
+            if(isNaN(num)) return `rgba(37, 99, 235, ${alpha})`;
+            return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}, ${alpha})`;
+        }
+
         function changeThemeColor(hex, silent = false) {
+            if(!hex) return;
+            hex = hex.trim();
+            if(!hex.startsWith('#')) hex = '#' + hex;
+            let darkHex = shadeColor(hex, -20);
             document.documentElement.style.setProperty('--accent-color', hex);
-            let darkHex = hex === '#2563eb' ? '#1d4ed8' : (hex === '#10b981' ? '#059669' : (hex === '#9333ea' ? '#7e22ce' : (hex === '#f59e0b' ? '#d97706' : '#be123c')));
             document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(135deg, ${hex} 0%, ${darkHex} 100%)`);
+            document.documentElement.style.setProperty('--accent-light', hexToRgba(hex, 0.1));
             localStorage.setItem('azota_theme_color', hex);
+
+            // Cập nhật trạng thái viền active cho chấm màu tương ứng
+            document.querySelectorAll('.color-dot').forEach(dot => {
+                let dotColor = dot.getAttribute('data-color');
+                dot.classList.toggle('active', dotColor && dotColor.toLowerCase() === hex.toLowerCase());
+            });
+
+            // Đồng bộ màu vào ô input chọn màu tự do
+            let customInput = document.getElementById('custom-color-picker');
+            if(customInput) customInput.value = hex;
         }
 
         function toggleTheme() {
