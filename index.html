@@ -145,6 +145,7 @@
         .question-box { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid rgba(150,150,150,0.15); text-align: left; }
         .question-title { font-weight: 700; font-size: 16px; margin-bottom: 12px; line-height: 1.5; }
         
+        /* THẺ ĐÁP ÁN BO TRÒN TRUYỀN THỐNG */
         .option-item {
             display: flex; align-items: center; padding: 14px 16px; margin: 10px 0; border-radius: 14px;
             background: rgba(255,255,255,0.65); border: 1px solid rgba(150,150,150,0.2); cursor: pointer;
@@ -153,7 +154,11 @@
         body.theme-dark .option-item { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
         .option-item:hover { border-color: var(--accent-color); }
         .option-item input { margin-right: 14px; transform: scale(1.25); flex-shrink: 0; accent-color: var(--accent-color); }
+        
+        .option-item.correct-ans { background: rgba(16, 185, 129, 0.15) !important; border-color: #10b981 !important; color: #047857; font-weight: bold; }
+        .option-item.wrong-ans { background: rgba(239, 68, 68, 0.15) !important; border-color: #ef4444 !important; color: #b91c1c; }
 
+        /* GIAO DIỆN CÂU HỎI ĐÚNG / SAI CHUẨN ẢNH 3 */
         .tf-container { width: 100%; margin-top: 10px; }
         .tf-header-row { display: flex; align-items: center; padding: 0 16px 6px 16px; font-weight: 700; font-size: 13px; opacity: 0.8; }
         .tf-header-text { flex: 1; }
@@ -167,6 +172,7 @@
         body.theme-dark .tf-item-row { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
         .tf-item-text { flex: 1; font-size: 15px; padding-right: 10px; }
         
+        /* CỘT TÍCH Ô Ô VUÔNG BO GÓC BÊN PHẢI */
         .tf-box-choice {
             width: 60px; display: flex; justify-content: center; align-items: center; flex-shrink: 0;
         }
@@ -209,6 +215,7 @@
         .timer-display.danger { color: #ef4444; animation: pulseRed 1s infinite; }
         @keyframes pulseRed { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
+        /* SIDEBAR PHẢI CHO BẢN ĐỒ & ĐỒNG HỒ */
         .quiz-layout-wrapper { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
         @media (min-width: 900px) {
             .container.quiz-container-box { max-width: 1300px; }
@@ -241,6 +248,7 @@
         .color-dot { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.15); flex-shrink: 0; transition: transform 0.2s; }
         .color-dot:hover { transform: scale(1.1); }
     
+        /* === ẢNH TRONG CÂU HỎI === */
         .q-img { display: block; max-width: 100%; max-height: 360px; margin: 8px 0; border-radius: 10px; border: 1px solid rgba(150,150,150,0.25); background: #fff; cursor: zoom-in; }
         .option-item .q-img, .tf-item-text .q-img { max-height: 180px; }
         .img-missing { color: #ef4444; font-size: 12px; font-weight: 700; }
@@ -254,20 +262,32 @@
         .img-chip-thumb { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(150,150,150,0.3); background: #fff; }
         .img-panel-hint { opacity: 0.75; font-size: 12px; line-height: 1.5; }
 
+        /* === CÂU TRẢ LỜI NGẮN === */
         .sa-wrap { margin-top: 8px; }
         .sa-label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
         .sa-input { max-width: 360px; margin-bottom: 0 !important; font-weight: 600; }
         .sa-key { font-size: 13px; padding: 8px 12px; border-radius: 10px; background: rgba(16,185,129,0.1); border: 1px solid #10b981; }
 
+        /* === TIÊU ĐỀ PHẦN === */
         .section-heading { font-size: 1.15rem; font-weight: 800; color: var(--accent-color); margin: 30px 0 14px; padding: 10px 14px; border-left: 5px solid var(--accent-color); background: rgba(37,99,235,0.07); border-radius: 0 12px 12px 0; text-align: left; }
         #quiz-container > .section-heading:first-child, #review-container > .section-heading:first-child, #preview-content-container > .section-heading:first-child { margin-top: 0; }
         .nav-section-label { grid-column: 1 / -1; font-size: 11px; font-weight: 800; color: var(--accent-color); margin-top: 6px; line-height: 1.3; }
         .visual-section-card { border: 2px dashed var(--accent-color); border-radius: 14px; padding: 12px; margin-bottom: 12px; background: rgba(37,99,235,0.05); }
 
+        /* === BANNER KHÔI PHỤC BÀI + ĐIỂM === */
         .resume-banner { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.55); border-left: 4px solid #f59e0b; border-radius: 14px; padding: 14px 16px; margin: 14px 0; text-align: left; font-size: 14px; }
         .score-sub { font-size: 14px; font-weight: 600; color: var(--text-muted); margin-top: 6px; }
     </style>
 <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E26SXQ6QDW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-E26SXQ6QDW');
+</script>
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E26SXQ6QDW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -350,6 +370,7 @@
                 <label style="display:flex; align-items:center; gap:6px;">Đúng/Sai <input type="number" id="score-tf" min="0" step="0.05" value="1" style="width:78px; margin-bottom:0; padding:8px; text-align:center;"> đ/câu (tối đa)</label>
                 <label style="display:flex; align-items:center; gap:6px;">Trả lời ngắn <input type="number" id="score-sa" min="0" step="0.05" value="0.5" style="width:78px; margin-bottom:0; padding:8px; text-align:center;"> đ/câu</label>
             </div>
+            <div style="font-size: 11px; opacity: 0.7; margin-top: 8px;">Câu Đúng/Sai chấm lũy tiến theo đề thi THPT từ 2025: đúng 1 ý = 10%, 2 ý = 25%, 3 ý = 50%, 4 ý = 100% điểm câu. Mặc định theo đề Toán (trắc nghiệm 0,25 • Đúng/Sai 1 • trả lời ngắn 0,5); các môn khác thường để trả lời ngắn 0,25.</div>
         </div>
 
         <div class="sub-tab-bar">
@@ -366,10 +387,11 @@
                     <div class="instruction-box">
                         <b>💡 Quy tắc gõ đề Smart Parser:</b><br>
                         • <b>Câu hỏi 4 đáp án (A,B,C,D):</b> Đặt dấu <code>*</code> trước đáp án đúng.<br>
-                        • <b>Câu hỏi Đúng / Sai:</b> Thêm ký hiệu <code>}{</code> ngay trước chữ Câu và đặt dấu <code>*</code> trước các ý <b>ĐÚNG</b>.<br>
-                        • <b>Câu trả lời ngắn:</b> Thêm ký hiệu <code>[]</code> trước chữ Câu, ghi đáp án ở dòng riêng bắt đầu bằng <code>ĐA:</code><br>
-                        • <b>Chia phần:</b> gõ <code>\ Tên phần</code> trên một dòng riêng.<br>
-                        • <b>Chèn ảnh:</b> bấm <b>🖼️ Chèn ảnh</b> (hoặc dán <code>Ctrl+V</code>) → mã <code>[img:hinh1]</code>.
+                        • <b>Câu hỏi Đúng / Sai:</b> Thêm ký hiệu <code>}{</code> ngay trước chữ Câu (VD: <code>}{Câu 1. ...</code>) và đặt dấu <code>*</code> trước các ý <b>ĐÚNG</b> (VD: <code>*a) Ý đúng...</code>). Ý không có <code>*</code> là ý <b>SAI</b>.<br>
+                        • <b>Câu trả lời ngắn (điền số):</b> Thêm ký hiệu <code>[]</code> trước chữ Câu, rồi ghi đáp án ở dòng riêng bắt đầu bằng <code>ĐA:</code><br>
+                        &nbsp;&nbsp;VD: <code>[]Câu 5. Tính tần số (Hz):</code> xuống dòng <code>ĐA: 2,5</code>. Chấp nhận nhiều đáp án: <code>ĐA: 2,5 | 5/2</code>. Cho phép sai số: <code>ĐA: 3,14 ± 0,01</code>. Dấu phẩy và dấu chấm thập phân đều được.<br>
+                        • <b>Chia phần (tiêu đề):</b> gõ <code>\ Tên phần</code> trên một dòng riêng (<b>có dấu cách</b> sau dấu <code>\</code>), VD: <code>\ I. Trắc nghiệm</code>, <code>\ II. Đúng sai</code>. Các câu bên dưới thuộc phần đó cho đến tiêu đề kế tiếp. Khi bật "Trộn thứ tự câu hỏi", câu chỉ đảo <b>trong phạm vi từng phần</b>, các phần giữ nguyên thứ tự.<br>
+                        • <b>Chèn ảnh:</b> bấm <b>🖼️ Chèn ảnh</b> (hoặc dán <code>Ctrl+V</code> / kéo thả ảnh vào ô soạn thảo) → app tạo mã <code>[img:hinh1]</code>. Đặt mã này ở <b>bất kỳ chỗ nào</b> (đề bài, dòng riêng dưới đề, hoặc trong đáp án). Cũng dùng được link: <code>[img:https://...]</code>.
                     </div>
 
                     <div class="stem-toolbar">
@@ -379,8 +401,11 @@
                         <button class="stem-btn" onclick="insertStemCode('$\\vec{F}$')">➔ Véc-tơ</button>
                         <button class="stem-btn" onclick="insertStemCode('$\\Delta$')">Δ Delta</button>
                         <button class="stem-btn" onclick="insertStemCode('$\\ce{H2SO4}$')">🧪 Hóa</button>
+                        <button class="stem-btn" onclick="insertStemCode('$\\int$')">∫ Tích phân</button>
                         <button class="stem-btn" onclick="insertStemLine('\\ I. Tên phần')">📑 Tiêu đề phần</button>
                         <button class="stem-btn" onclick="document.getElementById('image-file-input').click()">🖼️ Chèn ảnh</button>
+                        <button class="stem-btn" onclick="insertStemCode('\n}{Câu 1. Nội dung câu hỏi:\n*a) Ý đúng\nb) Ý sai\nc) Ý sai\nd) Ý sai\n')">☑️ Mẫu Đúng/Sai</button>
+                        <button class="stem-btn" onclick="insertStemCode('\n[]Câu 1. Nội dung câu hỏi (đáp án là số):\nĐA: 2,5\n')">🔢 Mẫu Trả lời ngắn</button>
                         <input type="file" id="image-file-input" accept="image/*" multiple style="display:none" onchange="handleImageFiles(this.files); this.value=''">
                     </div>
 
@@ -397,6 +422,9 @@
                 </div>
 
                 <div id="editor-visual-pane" style="display: none;">
+                    <div class="instruction-box">
+                        <b>✨ Hướng dẫn:</b> Câu 4 đáp án: tích chọn ô tròn đáp án chính xác. Câu <b>Đúng/Sai</b>: tích ô vuông ở những ý đúng. Câu <b>Trả lời ngắn</b>: nhập đáp án đúng. Muốn chèn ảnh: dùng tab <b>Nhập Văn Bản</b>, sau đó có thể gõ <code>[img:hinh1]</code> vào bất kỳ ô nào ở đây.
+                    </div>
                     <div id="visual-questions-container"></div>
                     <div style="display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;">
                         <button class="btn" style="flex:1;" onclick="addNewVisualQuestion()">➕ Thêm câu hỏi</button>
@@ -426,7 +454,7 @@
         <button class="btn btn-pass" style="width: 100%; font-size: 16px; padding: 16px;" onclick="startQuiz()">🚀 Bắt đầu làm bài ngay</button>
     </div>
 
-    <!-- 3. MÀN HÌNH LÀM BÀI -->
+    <!-- 3. MÀN HÌNH LÀM BÀI (LAYOUT SIDEBAR PHẢI) -->
     <div class="container quiz-container-box" id="quiz-screen" style="display: none;">
         <div class="quiz-top-bar">
             <h2 id="quiz-header-title" style="margin:0;">📝 Làm Bài Thi</h2>
@@ -434,14 +462,16 @@
         </div>
 
         <div class="quiz-layout-wrapper">
+            <!-- Cột trái: Danh sách câu hỏi -->
             <div class="quiz-main-content">
                 <div id="quiz-container"></div>
                 <button class="btn btn-pass" id="submit-btn" onclick="submitQuiz()" style="width: 100%; margin-top: 20px; font-size: 16px; padding: 16px;">✅ Nộp bài thi</button>
             </div>
 
+            <!-- Cột phải (Sidebar): Bản đồ câu hỏi đầy đủ + Đồng hồ thời gian -->
             <div class="quiz-sidebar">
                 <div class="nav-grid-box" style="text-align: center;">
-                    <div style="font-size: 12px; font-weight: 700; opacity: 0.7; margin-bottom: 6px;">⏱️ THỜI GIAN CÒN LẠI</div>
+                    <div style="font-size: 12px; font-weight: 700; opacity: 0.7; margin-bottom: 6px; letter-spacing: 0.05em;">⏱️ THỜI GIAN CÒN LẠI</div>
                     <div class="timer-display" id="timer-box">00:00</div>
                 </div>
 
@@ -450,13 +480,14 @@
                         <span>Câu hỏi:</span>
                         <span id="progress-counter" style="font-size: 12px; opacity: 0.8;">Đã làm: 0/0</span>
                     </div>
+                    <div style="font-size: 11px; opacity: 0.6; margin-bottom: 10px;">Nhấn số câu để nhảy nhanh:</div>
                     <div class="nav-grid" id="question-nav-grid"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 4. MÀN HÌNH KẾT QUẢ -->
+    <!-- 4. MÀN HÌNH KẾT QUẢ & ÔN TẬP CÂU SAI -->
     <div class="container" id="result-screen" style="display: none; text-align: center;">
         <h2>🎉 Kết Quả Bài Làm</h2>
         <div class="score-board" id="score-text">Đang tính điểm...</div>
@@ -478,12 +509,12 @@
 
     <script>
         const STORAGE_KEY = 'azota_stem_data_master_v12';
-        const DRAFT_KEY = 'azota_stem_quiz_draft_v12';
-        const SESSION_KEY = 'azota_stem_session_v13';
-        const SA_MARKER = '[]';
+        const DRAFT_KEY = 'azota_stem_quiz_draft_v12';   // khóa cũ (không còn dùng, chỉ để dọn dẹp)
+        const SESSION_KEY = 'azota_stem_session_v13';    // bài thi đang làm dở (để khôi phục)
+        const SA_MARKER = '[]';                          // ký hiệu câu trả lời ngắn
         const ANSWER_LINE_RE = /^\*?\s*(?:Đáp\s*án|Dap\s*an|ĐA|DA)\s*[:：=]\s*(.+)$/i;
-        const DEFAULT_SCORING = { mcq: 0.25, tf: 1, sa: 0.5 };
-        const TF_PROGRESSIVE = [0, 0.1, 0.25, 0.5, 1];
+        const DEFAULT_SCORING = { mcq: 0.25, tf: 1, sa: 0.5 }; // điểm/câu theo đề THPT từ 2025 (Toán)
+        const TF_PROGRESSIVE = [0, 0.1, 0.25, 0.5, 1];         // hệ số điểm câu Đúng/Sai theo số ý đúng (câu 4 ý)
         
         let appData = { sets: {} };
         let currentActiveSetId = null;
@@ -495,38 +526,52 @@
         let quizActive = false, quizEndTime = null, quizMode = 'full', quizStartedAt = 0;
 
         function initApp() {
-            fetch('deontap.json?' + Date.now())
-                .then(response => response.json())
-                .then(data => {
-                    if(data && data.id) {
-                        appData.sets = {};
-                        appData.sets[data.id] = data;
-                        saveAppData();
-                        renderSetsManager();
-                    }
-                })
-                .catch(err => console.log("Không tải được file đề chung từ GitHub, dùng dữ liệu local"));
-
             let saved = localStorage.getItem(STORAGE_KEY);
             if(saved) {
                 try { 
                     let parsed = JSON.parse(saved);
-                    if(parsed && parsed.sets) {
-                        Object.keys(appData.sets).forEach(k => { if(!parsed.sets[k]) parsed.sets[k] = appData.sets[k]; });
-                        appData = parsed;
-                    }
+                    if(parsed && parsed.sets) appData = parsed;
                 } catch(e) {}
-            } else if(Object.keys(appData.sets).length === 0) {
-                appData = {
-                    sets: {
-                        "set_stem_sample": {
-                            id: "set_stem_sample",
-                            name: "Bộ đề mẫu STEM",
-                            timeLimit: 900,
-                            rawText: `}{Câu 1. Ví dụ câu Đúng/Sai:\n*a) Ý đúng\nb) Ý sai\n\n[]Câu 2. Ví dụ câu trả lời ngắn:\nĐA: 2,5`
-                        }
+            } else {
+                let recovered = false;
+                for(let i = 1; i <= 5; i++) {
+                    let oldData = localStorage.getItem(`azota_stem_data_v${i}`);
+                    if(oldData) {
+                        try {
+                            let parsedOld = JSON.parse(oldData);
+                            if(parsedOld && parsedOld.sets && Object.keys(parsedOld.sets).length > 0) {
+                                appData = parsedOld;
+                                recovered = true;
+                                break;
+                            }
+                        } catch(e){}
                     }
-                };
+                }
+                if(!recovered || Object.keys(appData.sets).length === 0) {
+                    appData = {
+                        sets: {
+                            "set_stem_sample": {
+                                id: "set_stem_sample",
+                                name: "Bộ đề mẫu STEM (Toán, Lý, Hóa, Sinh)",
+                                timeLimit: 900,
+                                rawText: `}{Câu 1. Khi nói về dao động điều hòa:
+*a) Li độ biến thiên điều hòa theo thời gian.
+b) Vận tốc luôn ngược pha với gia tốc.
+c) Biên độ dao động phụ thuộc vào tần số góc.
+*d) Cơ năng tỉ lệ thuận với bình phương biên độ.
+
+Câu 2. (Toán học) Nghiệm của phương trình $\\sqrt{x^2 + 1} = 2$ là:
+A. $x = \\pm 1$
+*B. $x = \\pm \\sqrt{3}$
+C. $x = 3$
+D. Vô nghiệm
+
+[]Câu 3. Một vật dao động điều hòa với chu kì 0,4 s. Tần số dao động của vật là bao nhiêu Hz?
+ĐA: 2,5`
+                            }
+                        }
+                    };
+                }
             }
             saveAppData();
 
@@ -546,11 +591,12 @@
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
                 return true;
             } catch(e) {
-                alert('⚠️ Bộ nhớ trình duyệt đã đầy!');
+                alert('⚠️ Bộ nhớ trình duyệt đã đầy nên không lưu được!\nHãy xóa bớt ảnh/bộ đề cũ (nhớ bấm "Sao lưu dữ liệu" trước).');
                 return false;
             }
         }
 
+        // ---------- Tiện ích chung ----------
         function escapeHtml(str) {
             return String(str).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
         }
@@ -566,6 +612,7 @@
             try { if(window.MathJax && typeof MathJax.typesetPromise === 'function') MathJax.typesetPromise().catch(() => {}); } catch(e) {}
         }
 
+        // ---------- ẢNH TRONG CÂU HỎI: [img:ten] hoặc [img:https://...] ----------
         function getCurrentImages() {
             let st = appData.sets[currentActiveSetId];
             return (st && st.images) ? st.images : {};
@@ -576,7 +623,7 @@
             return String(str).replace(/\[img:\s*([^\]]+?)\s*\]/gi, (m, name) => {
                 let src = /^(https?:\/\/|data:image\/)/i.test(name) ? name : images[name];
                 if(!src) return `<span class="img-missing">⚠️ Thiếu ảnh "${escapeHtml(name)}"</span>`;
-                return `<img class="q-img" src="${String(src).replace(/"/g, '%22')}" alt="hình">`;
+                return `<img class="q-img" src="${String(src).replace(/"/g, '%22')}" alt="${escapeHtml(/^data:/i.test(name) ? 'hình' : name)}">`;
             }).replace(/\n/g, '<br>');
         }
         function setupImageInputs() {
@@ -590,7 +637,13 @@
                     }
                     if(files.length) { e.preventDefault(); handleImageFiles(files); }
                 });
+                ta.addEventListener('dragover', function(e) { if(e.dataTransfer && [...e.dataTransfer.types].includes('Files')) e.preventDefault(); });
+                ta.addEventListener('drop', function(e) {
+                    let files = [...(e.dataTransfer ? e.dataTransfer.files : [])].filter(f => f.type.startsWith('image/'));
+                    if(files.length) { e.preventDefault(); handleImageFiles(files); }
+                });
             }
+            // Bấm vào ảnh trong câu hỏi để phóng to
             document.addEventListener('click', function(e) {
                 let t = e.target;
                 if(t && t.classList && t.classList.contains('q-img')) {
@@ -609,7 +662,9 @@
                 let reader = new FileReader();
                 reader.onerror = reject;
                 reader.onload = () => {
+                    if(file.type === 'image/svg+xml' || file.type === 'image/gif') { resolve(reader.result); return; }
                     let img = new Image();
+                    img.onerror = reject;
                     img.onload = () => {
                         let scale = Math.min(1, maxSide / Math.max(img.width, img.height));
                         let w = Math.max(1, Math.round(img.width * scale)), h = Math.max(1, Math.round(img.height * scale));
@@ -617,7 +672,12 @@
                         let ctx = canvas.getContext('2d');
                         ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
                         ctx.drawImage(img, 0, 0, w, h);
-                        resolve(canvas.toDataURL('image/jpeg', 0.82));
+                        let out = canvas.toDataURL('image/jpeg', 0.82);
+                        if(file.type === 'image/png') { // hình vẽ/đồ thị: ưu tiên PNG cho nét nếu dung lượng nhỏ
+                            let png = canvas.toDataURL('image/png');
+                            if(png.length < 250000 || png.length < out.length) out = png;
+                        }
+                        resolve(out);
                     };
                     img.src = reader.result;
                 };
@@ -635,18 +695,20 @@
             if(!st.images) st.images = {};
             let added = [];
             for(const file of files) {
-                if(!file.type.startsWith('image/')) continue;
-                let dataUrl = await compressImage(file);
-                let name = nextImageName(st.images);
-                st.images[name] = dataUrl;
-                added.push(name);
+                if(!file.type || !file.type.startsWith('image/')) continue;
+                try {
+                    let dataUrl = await compressImage(file);
+                    let name = nextImageName(st.images);
+                    st.images[name] = dataUrl;
+                    added.push(name);
+                } catch(err) { alert('Không đọc được ảnh: ' + (file.name || '')); }
             }
-            if(added.length) {
-                saveAppData();
-                insertStemLine(added.map(n => `[img:${n}]`).join('\n'));
-                renderImagePanel();
-            }
+            if(added.length === 0) return;
+            if(!saveAppData()) { added.forEach(n => delete st.images[n]); renderImagePanel(); return; }
+            insertStemLine(added.map(n => `[img:${n}]`).join('\n'));
+            renderImagePanel();
         }
+        // Chèn mã ảnh trên DÒNG RIÊNG (tránh dính vào đáp án/đề). Dòng ảnh nằm sau đề → thuộc đề bài; nằm sau 1 đáp án → thuộc đáp án đó.
         function insertStemLine(code) {
             let ta = document.getElementById('raw-questions-input');
             let start = ta.selectionStart, end = ta.selectionEnd, text = ta.value;
@@ -661,6 +723,8 @@
         function deleteSetImage(name) {
             let st = appData.sets[currentActiveSetId];
             if(!st || !st.images || !st.images[name]) return;
+            let used = document.getElementById('raw-questions-input').value.includes(`[img:${name}]`);
+            if(!confirm(used ? `Ảnh "${name}" đang được dùng trong đề. Xóa thì câu hỏi sẽ báo thiếu ảnh. Vẫn xóa?` : `Xóa ảnh "${name}"?`)) return;
             delete st.images[name];
             saveAppData();
             renderImagePanel();
@@ -673,16 +737,21 @@
             if(!st || !info || !list) return;
             let imgs = st.images || {};
             let names = Object.keys(imgs);
-            info.innerHTML = names.length ? `${names.length} ảnh` : '';
+            let bytes = names.reduce((a, n) => a + Math.round(imgs[n].length * 0.75), 0);
+            let usedPct = Math.round(JSON.stringify(appData).length / 5000000 * 100);
+            info.innerHTML = (names.length ? `${names.length} ảnh • ${Math.round(bytes / 1024)} KB • ` : '') +
+                `<span style="${usedPct >= 70 ? 'color:#ef4444; font-weight:700;' : ''}">bộ nhớ app đã dùng ~${usedPct}%</span>`;
             list.innerHTML = names.length ? names.map(n => `
                 <div class="img-chip">
                     <img class="img-chip-thumb" src="${imgs[n]}" alt="${escapeHtml(n)}">
                     <code>[img:${escapeHtml(n)}]</code>
                     <button class="stem-btn" onclick="insertStemLine('[img:${n}]')">Chèn</button>
                     <button class="stem-btn" onclick="deleteSetImage('${n}')">🗑️</button>
-                </div>`).join('') : `<div class="img-panel-hint">Bấm <b>🖼️ Chèn ảnh</b> hoặc dán ảnh vào đây.</div>`;
+                </div>`).join('')
+                : `<div class="img-panel-hint">Bấm <b>🖼️ Chèn ảnh</b>, hoặc <b>dán (Ctrl+V)</b> / kéo thả ảnh vào ô soạn thảo. Ảnh tự động thu nhỏ để tiết kiệm bộ nhớ.</div>`;
         }
 
+        // ---------- THANG ĐIỂM ----------
         function getScoring(st) {
             let sc = (st && st.scoring) || {};
             const num = (v, d) => (typeof v === 'number' && isFinite(v) && v >= 0) ? v : d;
@@ -703,19 +772,25 @@
 
         function changeThemeColor(hex, silent = false) {
             document.documentElement.style.setProperty('--accent-color', hex);
-            let darkHex = hex === '#2563eb' ? '#1d4ed8' : (hex === '#10b981' ? '#059669' : '#7e22ce');
+            let darkHex = hex === '#2563eb' ? '#1d4ed8' : (hex === '#10b981' ? '#059669' : (hex === '#9333ea' ? '#7e22ce' : (hex === '#f59e0b' ? '#d97706' : '#be123c')));
             document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(135deg, ${hex} 0%, ${darkHex} 100%)`);
             localStorage.setItem('azota_theme_color', hex);
         }
+
         function toggleTheme() {
             document.body.classList.toggle('theme-dark');
             localStorage.setItem('azota_dark_mode', document.body.classList.contains('theme-dark') ? '1' : '0');
         }
-        function toggleFocusMode() { document.body.classList.toggle('focus-mode'); }
+
+        function toggleFocusMode() {
+            document.body.classList.toggle('focus-mode');
+        }
+
         function togglePreviewMode() {
             isPreviewActive = !isPreviewActive;
             let setupContainer = document.getElementById('setup-screen');
             let btn = document.getElementById('preview-toggle-btn');
+
             if(isPreviewActive) {
                 setupContainer.classList.add('split-mode');
                 btn.innerHTML = '👁️ Xem trước: Bật';
@@ -734,23 +809,36 @@
             let questions = parseRawData(rawText);
             let container = document.getElementById('preview-content-container');
             if(questions.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding: 30px; opacity: 0.6;">Chưa có câu hỏi hợp lệ.</div>`;
+                container.innerHTML = `<div style="text-align:center; padding: 30px; opacity: 0.6; font-size: 14px;">Chưa có câu hỏi hợp lệ để xem trước. Hãy nhập đề bên trên!</div>`;
                 return;
             }
             let html = "";
             questions.forEach((q, qIndex) => {
                 if(isNewSection(questions, qIndex)) html += sectionHeadingHtml(q);
                 let badge = q.isTrueFalse ? '(Đúng/Sai)' : (q.isShortAnswer ? '(Trả lời ngắn)' : '');
-                html += `<div class="question-box"><div class="question-title">Câu ${qIndex + 1}. ${richText(q.title)} ${badge}</div>`;
+                html += `<div class="question-box">
+                    <div class="question-title">Câu ${qIndex + 1}. ${richText(q.title)} ${badge ? `<span style="color:var(--accent-color); font-size:12px;">${badge}</span>` : ''}</div>`;
                 if(q.isShortAnswer) {
-                    html += `<div class="sa-key">✅ ĐA: ${q.answers.join(' hoặc ')}</div>`;
+                    html += `<div class="sa-key">✅ Đáp án chấp nhận: ${q.answers.map(a => `<code>${escapeHtml(a)}</code>`).join(' hoặc ')}</div>`;
                 } else if(q.isTrueFalse) {
+                    html += `<div class="tf-container"><div class="tf-header-row"><div class="tf-header-text"></div><div class="tf-header-col">Ý chọn</div></div>`;
                     q.options.forEach((opt, oIdx) => {
-                        html += `<div class="tf-item-row"><div class="tf-item-text">${richText(opt.text)}</div><div style="color:${opt.correct?'#10b981':'#ef4444'}">${opt.correct?'Đúng':'Sai'}</div></div>`;
+                        let cleanText = opt.text.replace(/^[a-da-d][\.\)]\s*/i, '');
+                        let letter = String.fromCharCode(97 + oIdx);
+                        html += `<div class="tf-item-row">
+                            <div class="tf-item-text"><b>${letter}.</b> ${richText(cleanText)}</div>
+                            <div class="tf-box-choice" style="width:auto; padding-right:10px; font-weight:bold; color:${opt.correct ? '#10b981' : '#ef4444'};">${opt.correct ? 'Đúng' : 'Sai'}</div>
+                        </div>`;
                     });
+                    html += `</div>`;
                 } else {
-                    q.options.forEach(opt => {
-                        html += `<div class="option-item" style="${opt.correct?'border-color:#10b981; background:rgba(16,185,129,0.08);':''}">${richText(opt.text)}</div>`;
+                    q.options.forEach((opt, oIdx) => {
+                        let cleanText = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '');
+                        let letter = String.fromCharCode(65 + oIdx);
+                        html += `<div class="option-item" style="${opt.correct ? 'border-color: #10b981; background: rgba(16,185,129,0.08); font-weight:600;' : ''}">
+                            <span style="width:18px;">${opt.correct ? '✅' : '◯'}</span>
+                            <div style="margin-left:8px;"><b>${letter}.</b> ${richText(cleanText)}</div>
+                        </div>`;
                     });
                 }
                 html += `</div>`;
@@ -760,30 +848,44 @@
         }
 
         function insertStemCode(code) {
-            let ta = document.getElementById('raw-questions-input');
-            let start = ta.selectionStart;
-            ta.value = ta.value.substring(0, start) + code + ta.value.substring(ta.selectionEnd);
-            ta.selectionStart = ta.selectionEnd = start + code.length;
-            ta.focus();
+            let textarea = document.getElementById('raw-questions-input');
+            let start = textarea.selectionStart;
+            let end = textarea.selectionEnd;
+            let text = textarea.value;
+            textarea.value = text.substring(0, start) + code + text.substring(end);
+            textarea.selectionStart = textarea.selectionEnd = start + code.length;
+            textarea.focus();
             updateLivePreview();
         }
 
         function renderSetsManager() {
             let container = document.getElementById('sets-list-container');
             if(!container) return;
+            renderResumeBanner();
             container.innerHTML = '';
             let keys = Object.keys(appData.sets);
-            if(keys.length === 0) { container.innerHTML = `<p style="opacity:0.6; text-align:center;">Chưa có bộ đề nào!</p>`; return; }
+            
+            if(keys.length === 0) {
+                container.innerHTML = `<p style="opacity:0.6; text-align:center;">Chưa có bộ đề nào!</p>`;
+                return;
+            }
+
             keys.forEach(id => {
                 let s = appData.sets[id];
+                let count = (s.rawText.match(/(?:\}\{|><|\[\])?Câu\s+\d+[\.:]/gi) || []).length;
                 container.innerHTML += `
                     <div class="deck-card">
-                        <div><b style="font-size: 16px; color: var(--accent-color);">${s.name}</b></div>
-                        <div style="display: flex; gap: 8px;">
-                            <button class="btn" style="padding: 6px 14px; font-size: 12px;" onclick="openSet('${id}')">✏️ Soạn & Làm</button>
-                            <button class="btn btn-fail" style="padding: 6px 10px; font-size: 12px;" onclick="deleteSet('${id}')">🗑️</button>
+                        <div>
+                            <b style="font-size: 16px; color: var(--accent-color);">${s.name}</b>
+                            <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">Khoảng ${count} câu hỏi STEM</div>
                         </div>
-                    </div>`;
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button class="btn" style="padding: 6px 14px; font-size: 12px; min-height: 38px;" onclick="openSet('${id}')">✏️ Soạn & Làm</button>
+                            <button class="btn btn-warning" style="padding: 6px 12px; font-size: 12px; min-height: 38px;" onclick="exportSingleSetById('${id}')">📥 Tải</button>
+                            <button class="btn btn-fail" style="padding: 6px 10px; font-size: 12px; min-height: 38px;" onclick="deleteSet('${id}')">🗑️</button>
+                        </div>
+                    </div>
+                `;
             });
         }
 
@@ -791,7 +893,12 @@
             let name = document.getElementById('new-set-name').value.trim();
             if(!name) return alert("Vui lòng nhập tên bộ đề!");
             let id = 'set_' + Date.now();
-            appData.sets[id] = { id: id, name: name, timeLimit: 600, rawText: "}{Câu 1. Ví dụ Đúng/Sai:\n*a) Đúng\nb) Sai" };
+            appData.sets[id] = {
+                id: id,
+                name: name,
+                timeLimit: 600,
+                rawText: "}{Câu 1. Ví dụ câu hỏi Đúng/Sai:\n*a) Ý này đúng\nb) Ý này sai\n\n[]Câu 2. Ví dụ câu trả lời ngắn (đáp án là số):\nĐA: 2,5"
+            };
             saveAppData();
             document.getElementById('new-set-name').value = '';
             renderSetsManager();
@@ -799,7 +906,11 @@
 
         function deleteSet(id) {
             if(Object.keys(appData.sets).length <= 1) return alert("Phải giữ lại ít nhất 1 bộ đề!");
-            if(confirm("Xóa bộ đề này?")) { delete appData.sets[id]; saveAppData(); renderSetsManager(); }
+            if(confirm("Bạn có chắc muốn xóa bộ đề này?")) {
+                delete appData.sets[id];
+                saveAppData();
+                renderSetsManager();
+            }
         }
 
         function openSet(id) {
@@ -807,11 +918,23 @@
             let s = appData.sets[id];
             document.getElementById('current-set-title').innerText = `⚙️ Soạn Thảo: ${s.name}`;
             document.getElementById('raw-questions-input').value = s.rawText;
-            document.getElementById('unlimited-time').checked = (s.timeLimit === 0);
-            let t = s.timeLimit || 900;
-            document.getElementById('timer-hours').value = Math.floor(t / 3600);
-            document.getElementById('timer-mins').value = Math.floor((t % 3600) / 60);
-            document.getElementById('timer-secs').value = t % 60;
+            
+            let t = s.timeLimit !== undefined ? s.timeLimit : 900;
+            if(t === 0) {
+                document.getElementById('unlimited-time').checked = true;
+                document.getElementById('timer-hours').value = 0;
+                document.getElementById('timer-mins').value = 0;
+                document.getElementById('timer-secs').value = 0;
+            } else {
+                document.getElementById('unlimited-time').checked = false;
+                let h = Math.floor(t / 3600);
+                let m = Math.floor((t % 3600) / 60);
+                let sec = t % 60;
+                document.getElementById('timer-hours').value = h;
+                document.getElementById('timer-mins').value = m;
+                document.getElementById('timer-secs').value = sec;
+            }
+
             switchEditorTab('text');
             document.getElementById('manage-screen').style.display = 'none';
             document.getElementById('setup-screen').style.display = 'block';
@@ -849,27 +972,39 @@
             let btnVisual = document.getElementById('tab-btn-visual');
             let paneText = document.getElementById('editor-text-pane');
             let paneVisual = document.getElementById('editor-visual-pane');
+
             if(mode === 'text') {
-                btnText.className = 'btn'; btnVisual.className = 'btn btn-secondary';
-                paneText.style.display = 'block'; paneVisual.style.display = 'none';
+                btnText.className = 'btn';
+                btnVisual.className = 'btn btn-secondary';
+                paneText.style.display = 'block';
+                paneVisual.style.display = 'none';
                 updateLivePreview();
             } else {
-                btnVisual.className = 'btn'; btnText.className = 'btn btn-secondary';
-                paneVisual.style.display = 'block'; paneText.style.display = 'none';
+                btnVisual.className = 'btn';
+                btnText.className = 'btn btn-secondary';
+                paneVisual.style.display = 'block';
+                paneText.style.display = 'none';
                 syncTextToVisual();
             }
         }
 
         function saveFromTextEditor() {
-            appData.sets[currentActiveSetId].rawText = document.getElementById('raw-questions-input').value;
+            let text = document.getElementById('raw-questions-input').value;
+            appData.sets[currentActiveSetId].rawText = text;
             saveScoringInputs();
-            if(saveAppData()) alert("Đã lưu nội dung thành công!");
+            if(saveAppData()) alert("Đã lưu nội dung câu hỏi thành công!");
         }
 
+        // SMART PARSER: ký hiệu "}{" đặt trước chữ "Câu" = câu Đúng/Sai ("><" là ký hiệu cũ, vẫn được hỗ trợ)
         const TF_MARKER = '}{';
+        function splitShortAnswers(str) {
+            return str.split(/\s*[|;]\s*/).map(x => x.trim()).filter(Boolean);
+        }
+        // SMART PARSER: "}{" trước chữ Câu = Đúng/Sai ("><" là ký hiệu cũ), "[]" trước chữ Câu = trả lời ngắn
+        // Dòng tiêu đề phần: dấu \ + khoảng trắng + tên phần (VD: "\ I. Trắc nghiệm"). Bắt buộc có khoảng trắng để không nhầm với lệnh LaTeX như \frac
         const SECTION_LINE_RE = /^\s*\\\s+(\S.*?)\s*$/;
         function parseRawData(text) {
-            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\u00A0/g, ' ');
             let segments = [{ title: null, lines: [] }];
             text.split('\n').forEach(line => {
                 let m = line.match(SECTION_LINE_RE);
@@ -879,63 +1014,135 @@
             let all = [];
             segments.forEach((seg, secIdx) => {
                 parseQuestionBlocks(seg.lines.join('\n')).forEach(q => {
-                    q.section = secIdx; q.sectionTitle = seg.title;
+                    q.section = secIdx;
+                    q.sectionTitle = seg.title;
                     all.push(q);
                 });
             });
             return all;
         }
-
         function parseQuestionBlocks(text) {
-            let starts = [], mm;
+            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\u00A0/g, ' ');
             let startRe = /(?:(?:\}\{|><|\[\])\s*)?Câu\s+\d+[\.:]/gi;
+            let starts = [], mm;
             while((mm = startRe.exec(text)) !== null) starts.push(mm.index);
-            let blocks = starts.length === 0 ? [text] : starts.map((st, i) => text.substring(st, i + 1 < starts.length ? starts[i + 1] : text.length));
+            let blocks = starts.length === 0
+                ? [text]
+                : starts.map((st, i) => text.substring(st, i + 1 < starts.length ? starts[i + 1] : text.length));
             let questions = [];
 
             blocks.forEach(block => {
                 block = block.trim();
                 if(!block) return;
+
                 let kind = 'mcq';
                 let mk = block.match(/^(\}\{|><|\[\])\s*/);
-                if(mk) { kind = (mk[1] === SA_MARKER) ? 'sa' : 'tf'; block = block.substring(mk[0].length).trim(); }
+                if(mk) {
+                    kind = (mk[1] === SA_MARKER) ? 'sa' : 'tf';
+                    block = block.substring(mk[0].length).trim();
+                }
+                let isTrueFalse = (kind === 'tf');
+
                 let lines = block.split('\n').map(l => l.trim()).filter(l => l);
                 if(lines.length === 0) return;
 
                 let titleLine = lines[0].replace(/^Câu\s+\d+[\.:]\s*/i, '').trim();
-                let titleExtra = [], options = [];
+                let titleExtra = [];   // các dòng nằm giữa dòng "Câu" và đáp án (VD: dòng chứa ảnh [img:...])
+                let options = [];
 
+                // ---- Câu trả lời ngắn ----
                 if(kind === 'sa') {
                     let answers = [];
                     for(let i = 1; i < lines.length; i++) {
                         let am = lines[i].match(ANSWER_LINE_RE);
-                        if(am) answers.push(...am[1].split(/\s*[|;]\s*/));
+                        if(am) answers.push(...splitShortAnswers(am[1]));
                         else if(answers.length === 0) titleExtra.push(lines[i]);
+                        else if(/^(\[img:[^\]]+\]\s*)+$/i.test(lines[i])) titleExtra.push(lines[i]);   // ảnh đặt dưới dòng ĐA: vẫn thuộc đề bài
                     }
-                    if(answers.length) questions.push({ title: [titleLine, ...titleExtra].join('\n'), options: [], isTrueFalse: false, isShortAnswer: true, answers: answers });
+                    if(answers.length > 0) {
+                        questions.push({ title: [titleLine, ...titleExtra].join('\n'), options: [], isTrueFalse: false, isShortAnswer: true, answers: answers });
+                    }
                     return;
                 }
 
-                for(let i = 1; i < lines.length; i++) {
-                    let line = lines[i];
-                    let isCorrect = line.startsWith('*');
-                    let cleanLine = isCorrect ? line.substring(1).trim() : line;
-                    if(/^[a-da-dA-D][\.\)]/.test(cleanLine)) {
-                        options.push({ text: cleanLine, correct: isCorrect });
-                    } else if(options.length > 0) {
-                        options[options.length - 1].text += " " + line;
-                    } else {
-                        titleExtra.push(line);
+                // ---- Câu Đúng/Sai ----
+                if(isTrueFalse) {
+                    for(let i = 1; i < lines.length; i++) {
+                        let line = lines[i];
+                        let isCorrect = line.startsWith('*');
+                        let cleanLine = isCorrect ? line.substring(1).trim() : line;
+                        if(/^[a-da-d][\.\)]/i.test(cleanLine)) {
+                            options.push({ text: cleanLine, correct: isCorrect });
+                        } else if(options.length > 0) {
+                            options[options.length - 1].text += " " + line;
+                        } else {
+                            titleExtra.push(line);
+                        }
+                    }
+                } else {
+                // ---- Câu trắc nghiệm 4 đáp án ----
+                    for(let i = 1; i < lines.length; i++) {
+                        let line = lines[i];
+                        let subLines = line.match(/(\*?[A-Da-d][\.\)].*?)(?=\s+\*?[A-Da-d][\.\)]|$)/g);
+                        if(subLines && subLines.length > 1 && /^\*?[A-Da-d][\.\)]/.test(line)) {
+                            subLines.forEach(sub => {
+                                sub = sub.trim();
+                                let isCorrect = sub.startsWith('*');
+                                let cleanSub = isCorrect ? sub.substring(1).trim() : sub;
+                                options.push({ text: cleanSub, correct: isCorrect });
+                            });
+                        } else {
+                            let isCorrect = line.startsWith('*');
+                            let cleanLine = isCorrect ? line.substring(1).trim() : line;
+                            if(/^[A-Da-d][\.\)]/.test(cleanLine)) {
+                                options.push({ text: cleanLine, correct: isCorrect });
+                            } else if(options.length > 0) {
+                                options[options.length - 1].text += " " + line;
+                            } else {
+                                titleExtra.push(line);
+                            }
+                        }
                     }
                 }
-                if(options.length) questions.push({ title: [titleLine, ...titleExtra].join('\n'), options: options, isTrueFalse: (kind === 'tf'), isShortAnswer: false });
+
+                if(options.length > 0) {
+                    questions.push({ title: [titleLine, ...titleExtra].join('\n'), options: options, isTrueFalse: isTrueFalse, isShortAnswer: false });
+                }
             });
             return questions;
         }
 
-        function isNewSection(list, i) { return !!(list[i] && list[i].sectionTitle && (i === 0 || list[i - 1].section !== list[i].section)); }
-        function sectionHeadingHtml(q) { return `<div class="section-heading">${richText(q.sectionTitle)}</div>`; }
-        function shuffleArray(arr) {
+        function questionsToRawText(questions) {
+            let text = "";
+            let lastSection = null;
+            questions.forEach((q, idx) => {
+                if(q.sectionTitle && q.section !== lastSection) text += '\\ ' + q.sectionTitle + '\n\n';
+                lastSection = q.section;
+                if(q.isShortAnswer) {
+                    text += `${SA_MARKER}Câu ${idx + 1}. ${q.title}\nĐA: ${(q.answers || []).join(' | ')}\n\n`;
+                    return;
+                }
+                let prefixTag = q.isTrueFalse ? TF_MARKER : "";
+                text += `${prefixTag}Câu ${idx + 1}. ${q.title}\n`;
+                q.options.forEach((opt, oIdx) => {
+                    let letter = q.isTrueFalse ? String.fromCharCode(97 + oIdx) + ")" : String.fromCharCode(65 + oIdx) + ".";
+                    let cleanOptText = opt.text.replace(/^[*][A-Da-d][\.\)]\s*/, '').replace(/^[A-Da-d][\.\)]\s*/, '').replace(/^[*][a-da-d][\.\)]\s*/, '').replace(/^[a-da-d][\.\)]\s*/, '');
+                    let star = opt.correct ? "*" : "";
+                    text += `${star}${letter} ${cleanOptText}\n`;
+                });
+                text += `\n`;
+            });
+            return text.trim();
+        }
+
+        // ---------- PHẦN (SECTION): tiện ích ----------
+        function isNewSection(list, i) {
+            return !!(list[i] && list[i].sectionTitle && (i === 0 || list[i - 1].section !== list[i].section));
+        }
+        function sectionHeadingHtml(q) {
+            return `<div class="section-heading">${richText(q.sectionTitle)}</div>`;
+        }
+        function shuffleArray(arr) {            // Fisher–Yates: xáo đều, không thiên lệch
             let a = arr.slice();
             for(let i = a.length - 1; i > 0; i--) {
                 let j = Math.floor(Math.random() * (i + 1));
@@ -943,6 +1150,7 @@
             }
             return a;
         }
+        // Đảo thứ tự câu CHỈ trong phạm vi từng phần; thứ tự các phần giữ nguyên
         function shuffleWithinSections(list) {
             let groups = [], pos = {};
             list.forEach(q => {
@@ -953,272 +1161,722 @@
             return groups.flatMap(g => shuffleArray(g));
         }
 
+        function renderVisualSection(title) {
+            let container = document.getElementById('visual-questions-container');
+            if(container.querySelector('p')) container.innerHTML = '';
+            let card = document.createElement('div');
+            card.className = 'visual-section-card';
+            card.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <div><b>📑 Tiêu đề phần</b> <span style="font-size:11px; opacity:0.7;">(các câu bên dưới thuộc phần này; đảo trộn chỉ trong phần)</span></div>
+                    <button class="btn btn-fail" style="padding: 4px 8px; font-size: 11px; min-height: 28px;" onclick="this.closest('.visual-section-card').remove()">Xóa</button>
+                </div>
+                <input type="text" class="v-sec-title" placeholder="VD: I. Trắc nghiệm nhiều lựa chọn" value="${escapeHtml(title || '')}" style="margin-bottom:0;">`;
+            container.appendChild(card);
+        }
+
+        function syncTextToVisual() {
+            let rawText = document.getElementById('raw-questions-input').value;
+            let questions = parseRawData(rawText);
+            let container = document.getElementById('visual-questions-container');
+            container.innerHTML = '';
+
+            if(questions.length === 0) {
+                container.innerHTML = `<p style="opacity:0.6; text-align:center;">Chưa có câu hỏi nào hợp lệ!</p>`;
+                return;
+            }
+
+            questions.forEach((q, qIdx) => {
+                if(isNewSection(questions, qIdx)) renderVisualSection(q.sectionTitle);
+                renderSingleVisualQuestion(qIdx, q.title, q.options, q.isTrueFalse, q.isShortAnswer ? q.answers : null);
+            });
+        }
+
         function renderSingleVisualQuestion(qIdx, qTitle = "", options = [], isTrueFalse = false, saAnswers = null) {
             let container = document.getElementById('visual-questions-container');
             if(container.querySelector('p')) container.innerHTML = '';
             let isSA = Array.isArray(saAnswers);
+
             let card = document.createElement('div');
             card.className = 'visual-q-card';
+            card.setAttribute('data-q-index', qIdx);
             card.setAttribute('data-tf', isTrueFalse ? '1' : '0');
             card.setAttribute('data-sa', isSA ? '1' : '0');
 
-            let html = `<div style="display: flex; justify-content: space-between; margin-bottom: 10px;"><b>Câu ${qIdx + 1}</b></div>
-                <textarea class="v-q-title" rows="2" style="height:auto; min-height:50px; margin-bottom:10px;">${escapeHtml(qTitle)}</textarea>`;
-            
+            let badge = isTrueFalse ? ' <span class="v-tf-badge">Đúng/Sai</span>' : (isSA ? ' <span class="v-tf-badge">Trả lời ngắn</span>' : '');
+            let html = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div><b>Câu ${qIdx + 1}</b>${badge}</div>
+                    <button class="btn btn-fail" style="padding: 4px 8px; font-size: 11px; min-height: 28px;" onclick="deleteVisualQuestion(this)">Xóa</button>
+                </div>
+                <textarea class="v-q-title" rows="2" placeholder="Nội dung câu hỏi..." style="height:auto; min-height:64px; font-family:inherit; margin-bottom:10px;">${escapeHtml(qTitle)}</textarea>
+            `;
+
             if(isSA) {
-                html += `<input type="text" class="v-sa-answer" value="${escapeHtml(saAnswers.join(' | '))}">`;
-            } else {
-                let defOpts = options.length ? options : [{text:'', correct:true},{text:'', correct:false},{text:'', correct:false},{text:'', correct:false}];
-                defOpts.forEach((opt, oIdx) => {
-                    let letter = isTrueFalse ? String.fromCharCode(97+oIdx) : String.fromCharCode(65+oIdx);
-                    let tick = isTrueFalse ? `<input type="checkbox" class="v-tf-check" ${opt.correct?'checked':''}>` : `<input type="radio" name="v_correct_${qIdx}" ${opt.correct?'checked':''}>`;
-                    html += `<div class="visual-ans-row">${tick}<b>${letter}.</b><input type="text" class="v-ans-text" value="${escapeHtml(opt.text.replace(/^[A-Da-da-d][\.\)]\s*/,''))}"></div>`;
-                });
+                html += `
+                    <div style="font-size: 12px; opacity: 0.7; margin-bottom: 6px;">Đáp án đúng (nhiều đáp án chấp nhận thì cách nhau bằng dấu <b>|</b>):</div>
+                    <input type="text" class="v-sa-answer" placeholder="VD: 2,5 | 5/2" value="${escapeHtml(saAnswers.join(' | '))}">
+                `;
+                card.innerHTML = html;
+                container.appendChild(card);
+                return;
             }
+
+            let defaultOpts = options.length > 0 ? options : (isTrueFalse ? [
+                { text: "", correct: false }, { text: "", correct: false }, { text: "", correct: false }, { text: "", correct: false }
+            ] : [
+                { text: "", correct: true }, { text: "", correct: false }, { text: "", correct: false }, { text: "", correct: false }
+            ]);
+
+            html += `<div style="font-size: 12px; opacity: 0.7; margin-bottom: 6px;">${isTrueFalse ? 'Tích vào ô ở những ý ĐÚNG (ý không tích = SAI):' : 'Tích chọn đáp án đúng:'}</div>`;
+
+            defaultOpts.forEach((opt, oIdx) => {
+                let letter = isTrueFalse ? String.fromCharCode(97 + oIdx) : String.fromCharCode(65 + oIdx);
+                let checkedAttr = opt.correct ? "checked" : "";
+                let cleanOpt = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '').replace(/^[a-da-d][\.\)]\s*/, '');
+                let tickInput = isTrueFalse
+                    ? `<input type="checkbox" class="v-tf-check" title="Tích nếu ý này ĐÚNG" ${checkedAttr}>`
+                    : `<input type="radio" name="v_correct_${qIdx}" value="${oIdx}" ${checkedAttr}>`;
+                html += `
+                    <div class="visual-ans-row">
+                        ${tickInput}
+                        <b>${letter}.</b>
+                        <input type="text" class="v-ans-text" placeholder="${isTrueFalse ? 'Ý' : 'Đáp án'} ${letter}..." value="${escapeHtml(cleanOpt)}">
+                    </div>
+                `;
+            });
             card.innerHTML = html;
             container.appendChild(card);
         }
 
         function addNewVisualQuestion(kind) {
+            kind = (kind === true) ? 'tf' : (kind || 'mcq');
+            if(kind === 'sec') { renderVisualSection(''); return; }
             let container = document.getElementById('visual-questions-container');
             if(container.querySelector('p')) container.innerHTML = '';
             let qIdx = container.querySelectorAll('.visual-q-card').length;
             renderSingleVisualQuestion(qIdx, "", [], kind === 'tf', kind === 'sa' ? [] : null);
         }
 
+        function deleteVisualQuestion(btn) {
+            btn.closest('.visual-q-card').remove();
+            let cards = document.querySelectorAll('.visual-q-card');
+            cards.forEach((card, idx) => {
+                card.setAttribute('data-q-index', idx);
+                card.querySelector('b').innerText = `Câu ${idx + 1}`;
+                card.querySelectorAll('input[type="radio"]').forEach(r => r.setAttribute('name', `v_correct_${idx}`));
+            });
+        }
+
         function syncVisualToText() {
-            let cards = document.querySelectorAll('#visual-questions-container > .visual-q-card');
+            let nodes = document.querySelectorAll('#visual-questions-container > .visual-q-card, #visual-questions-container > .visual-section-card');
             let questions = [];
-            cards.forEach(card => {
+            let missingSA = 0;
+            let curTitle = null, secId = 0;
+
+            nodes.forEach(card => {
+                if(card.classList.contains('visual-section-card')) {
+                    let t = card.querySelector('.v-sec-title').value.trim();
+                    if(t) { secId++; curTitle = t; }
+                    return;
+                }
+
                 let isTF = card.getAttribute('data-tf') === '1';
                 let isSA = card.getAttribute('data-sa') === '1';
                 let title = card.querySelector('.v-q-title').value.trim();
+
                 if(isSA) {
-                    let ans = card.querySelector('.v-sa-answer').value.split('|').map(x => x.trim()).filter(Boolean);
-                    questions.push({ title, options: [], isTrueFalse: false, isShortAnswer: true, answers: ans });
+                    let answers = card.querySelector('.v-sa-answer').value.split('|').map(x => x.trim()).filter(Boolean);
+                    if(title && answers.length === 0) missingSA++;
+                    if(title || answers.length) questions.push({ title: title, options: [], isTrueFalse: false, isShortAnswer: true, answers: answers, section: secId, sectionTitle: curTitle });
                     return;
                 }
+
+                let rows = card.querySelectorAll('.visual-ans-row');
                 let options = [];
-                card.querySelectorAll('.visual-ans-row').forEach((row, rIdx) => {
-                    let txt = row.querySelector('.v-ans-text').value.trim();
-                    if(!txt) return;
-                    let letter = isTF ? String.fromCharCode(97+options.length) + ')' : String.fromCharCode(65+rIdx) + '.';
-                    let checked = isTF ? row.querySelector('.v-tf-check').checked : row.querySelector('input[type="radio"]').checked;
-                    options.push({ text: `${letter} ${txt}`, correct: checked });
+                rows.forEach((row, rIdx) => {
+                    let ansText = row.querySelector('.v-ans-text').value.trim();
+                    if(isTF) {
+                        if(!ansText) return; // câu Đúng/Sai: bỏ qua ý để trống
+                        let letter = String.fromCharCode(97 + options.length);
+                        options.push({ text: `${letter}) ${ansText}`, correct: row.querySelector('.v-tf-check').checked });
+                    } else {
+                        let isChecked = row.querySelector('input[type="radio"]').checked;
+                        let letter = String.fromCharCode(65 + rIdx);
+                        options.push({ text: `${letter}. ${ansText}`, correct: isChecked });
+                    }
                 });
-                if(title || options.length) questions.push({ title, options, isTrueFalse: isTF, isShortAnswer: false });
+
+                if(title || options.some(o => o.text)) {
+                    questions.push({ title: title, options: options, isTrueFalse: isTF, section: secId, sectionTitle: curTitle });
+                }
             });
-            document.getElementById('raw-questions-input').value = questions.map((q, idx) => {
-                let tag = q.isShortAnswer ? SA_MARKER : (q.isTrueFalse ? TF_MARKER : '');
-                let ans = q.isShortAnswer ? `\nĐA: ${q.answers.join(' | ')}` : q.options.map(o => `${o.correct?'*':''}${o.text}`).join('\n');
-                return `${tag}Câu ${idx+1}. ${q.title}\n${ans}`;
-            }).join('\n\n');
+
+            document.getElementById('raw-questions-input').value = questionsToRawText(questions);
+            alert(missingSA > 0 ? `Đã đồng bộ sang văn bản!\n⚠️ Có ${missingSA} câu trả lời ngắn chưa nhập đáp án — các câu đó sẽ bị bỏ qua khi làm bài.` : "Đã đồng bộ sang văn bản!");
             updateLivePreview();
         }
 
-        function saveFromVisualEditor() { syncVisualToText(); saveFromTextEditor(); }
+        function saveFromVisualEditor() {
+            syncVisualToText();
+            saveFromTextEditor();
+        }
+
+        function buildActiveQuestion(q, shuffleOptions) {
+            let opts = q.options.map((opt, idx) => ({ ...opt, origIndex: idx }));
+            if(shuffleOptions && !q.isTrueFalse && !q.isShortAnswer) opts.sort(() => Math.random() - 0.5);
+            return { title: q.title, options: opts, isTrueFalse: !!q.isTrueFalse, isShortAnswer: !!q.isShortAnswer, answers: q.answers || [], origQIndex: q.origQIndex, section: q.section || 0, sectionTitle: q.sectionTitle || null };
+        }
 
         function startQuiz() {
             let rawText = document.getElementById('raw-questions-input').value;
-            appData.sets[currentActiveSetId].rawText = rawText;
+            let currentSet = appData.sets[currentActiveSetId];
+            currentSet.rawText = rawText;
+
             let unlim = document.getElementById('unlimited-time').checked;
-            appData.sets[currentActiveSetId].timeLimit = unlim ? 0 : ((parseInt(document.getElementById('timer-hours').value)||0)*3600 + (parseInt(document.getElementById('timer-mins').value)||0)*60 + (parseInt(document.getElementById('timer-secs').value)||0));
+            if(unlim) {
+                currentSet.timeLimit = 0;
+            } else {
+                let h = parseInt(document.getElementById('timer-hours').value) || 0;
+                let m = parseInt(document.getElementById('timer-mins').value) || 0;
+                let sec = parseInt(document.getElementById('timer-secs').value) || 0;
+                currentSet.timeLimit = h * 3600 + m * 60 + sec;
+            }
             saveScoringInputs();
             saveAppData();
 
             let rawQuestions = parseRawData(rawText);
-            if(!rawQuestions.length) return alert("Không có câu hỏi nào!");
+            if(rawQuestions.length === 0) {
+                alert("Không nhận diện được câu hỏi nào!");
+                return;
+            }
+
             let shuffleQ = document.getElementById('shuffle-q').checked;
             let shuffleA = document.getElementById('shuffle-a').checked;
 
             let cloned = JSON.parse(JSON.stringify(rawQuestions)).map((q, i) => ({ ...q, origQIndex: i }));
-            if(shuffleQ) cloned = shuffleWithinSections(cloned);
+            if(shuffleQ) cloned = shuffleWithinSections(cloned);   // chỉ đảo trong từng phần (\ Tiêu đề)
 
-            activeQuizQuestions = cloned.map(q => {
-                let opts = q.options.map((opt, idx) => ({ ...opt, origIndex: idx }));
-                if(shuffleA && !q.isTrueFalse && !q.isShortAnswer) opts.sort(() => Math.random() - 0.5);
-                return { ...q, options: opts };
-            });
+            activeQuizQuestions = cloned.map(q => buildActiveQuestion(q, shuffleA));
 
             quizMode = 'full'; quizActive = true; quizStartedAt = Date.now();
             renderQuizUI();
-            startTimer(appData.sets[currentActiveSetId].timeLimit);
+            startTimer(currentSet.timeLimit);
+            saveSession();
         }
 
         function startRetryIncorrect() {
-            if(!incorrectQuestionIndices.length) return;
-            let rawQuestions = parseRawData(appData.sets[currentActiveSetId].rawText);
-            let retry = incorrectQuestionIndices.map(i => rawQuestions[i]).filter(Boolean).map(q => ({ ...q }));
-            activeQuizQuestions = retry.map(q => ({ ...q, options: shuffleArray(q.options) }));
-            quizMode = 'retry'; quizActive = true;
+            if(incorrectQuestionIndices.length === 0) return;
+
+            let rawText = appData.sets[currentActiveSetId].rawText;
+            let rawQuestions = parseRawData(rawText);
+
+            // incorrectQuestionIndices lưu vị trí GỐC của câu trong đề (kể cả khi đề bị trộn thứ tự)
+            let retryQuestions = incorrectQuestionIndices.filter(i => rawQuestions[i]).map(i => ({ ...rawQuestions[i], origQIndex: i }));
+            if(retryQuestions.length === 0) return;
+
+            activeQuizQuestions = retryQuestions.map(q => buildActiveQuestion(q, true));
+
+            quizMode = 'retry'; quizActive = true; quizStartedAt = Date.now();
             renderQuizUI();
             startTimer(0);
+            saveSession();
         }
 
+        // GIAO DIỆN LÀM BÀI CHUẨN ẢNH 3 HUY VẼ
         function renderQuizUI() {
             let container = document.getElementById('quiz-container');
             let htmlAll = '';
+
             activeQuizQuestions.forEach((q, qIndex) => {
-                let html = (isNewSection(activeQuizQuestions, qIndex) ? sectionHeadingHtml(q) : '') + `<div class="question-box" id="q_box_${qIndex}">
+                let html = (isNewSection(activeQuizQuestions, qIndex) ? sectionHeadingHtml(q) : '') + `<div class="question-box" id="q_box_${qIndex}" data-index="${qIndex}">
                     <div class="question-title">Câu ${qIndex + 1}. ${richText(q.title)}</div>`;
+
                 if(q.isShortAnswer) {
-                    html += `<div class="sa-wrap"><input type="text" class="sa-input" id="sa_${qIndex}" placeholder="Nhập đáp án..." oninput="updateNavGridProgress()"></div>`;
+                    // CÂU TRẢ LỜI NGẮN (điền đáp án)
+                    html += `<div class="sa-wrap">
+                        <label class="sa-label" for="sa_${qIndex}">✍️ Câu trả lời của bạn:</label>
+                        <input type="text" class="sa-input" id="sa_${qIndex}" name="sa_${qIndex}" placeholder="Nhập đáp án (số hoặc biểu thức)..." autocomplete="off" autocapitalize="off" spellcheck="false" oninput="saveDraftAndCheckProgress(${qIndex})">
+                    </div>`;
                 } else if(q.isTrueFalse) {
-                    html += `<div class="tf-container"><div class="tf-header-row"><div class="tf-header-text"></div><div class="tf-header-col">Đúng</div><div class="tf-header-col">Sai</div></div>`;
-                    q.options.forEach((opt, oIndex) => {
-                        html += `<div class="tf-item-row"><div class="tf-item-text">${richText(opt.text)}</div>
-                            <div class="tf-box-choice"><label class="tf-square-btn"><input type="radio" name="tf_${qIndex}_${oIndex}" value="true" onchange="updateNavGridProgress()"><span class="tf-check-mark">✓</span></label></div>
-                            <div class="tf-box-choice"><label class="tf-square-btn"><input type="radio" name="tf_${qIndex}_${oIndex}" value="false" onchange="updateNavGridProgress()"><span class="tf-check-mark">✓</span></label></div>
+                    // DỰNG GIAO DIỆN THEO ĐÚNG MẪU ẢNH 3 HUY VẼ
+                    html += `<div class="tf-container">
+                        <div class="tf-header-row">
+                            <div class="tf-header-text"></div>
+                            <div class="tf-header-col">Đúng</div>
+                            <div class="tf-header-col">Sai</div>
                         </div>`;
+
+                    q.options.forEach((opt, oIndex) => {
+                        let cleanText = opt.text.replace(/^[*][a-da-d][\.\)]\s*/i, '').replace(/^[a-da-d][\.\)]\s*/i, '');
+                        let letter = String.fromCharCode(97 + oIndex);
+
+                        html += `
+                            <div class="tf-item-row">
+                                <div class="tf-item-text"><b>${letter}.</b> ${richText(cleanText)}</div>
+                                <div class="tf-box-choice">
+                                    <label class="tf-square-btn">
+                                        <input type="radio" name="tf_${qIndex}_${oIndex}" value="true" onchange="saveDraftAndCheckProgress(${qIndex})">
+                                        <span class="tf-check-mark">✓</span>
+                                    </label>
+                                </div>
+                                <div class="tf-box-choice">
+                                    <label class="tf-square-btn">
+                                        <input type="radio" name="tf_${qIndex}_${oIndex}" value="false" onchange="saveDraftAndCheckProgress(${qIndex})">
+                                        <span class="tf-check-mark">✓</span>
+                                    </label>
+                                </div>
+                            </div>
+                        `;
                     });
                     html += `</div>`;
                 } else {
+                    // CÂU TRẮC NGHIỆM THƯỜNG (A, B, C, D)
                     q.options.forEach((opt, oIndex) => {
-                        html += `<label class="option-item"><input type="radio" name="question_${qIndex}" value="${oIndex}" onchange="updateNavGridProgress()">${richText(opt.text)}</label>`;
+                        let labelLetter = String.fromCharCode(65 + oIndex);
+                        let cleanText = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '');
+
+                        html += `<label class="option-item">
+                            <input type="radio" name="question_${qIndex}" value="${oIndex}" onchange="saveDraftAndCheckProgress(${qIndex})">
+                            <b>${labelLetter}.</b>&nbsp;${richText(cleanText)}
+                        </label>`;
                     });
                 }
+
                 html += `</div>`;
                 htmlAll += html;
             });
             container.innerHTML = htmlAll;
+
             buildQuestionNavGrid();
+
             document.getElementById('manage-screen').style.display = 'none';
             document.getElementById('setup-screen').style.display = 'none';
             document.getElementById('quiz-screen').style.display = 'block';
             document.getElementById('result-screen').style.display = 'none';
             document.getElementById('submit-btn').style.display = 'block';
+
             typesetMath();
         }
 
         function buildQuestionNavGrid() {
-            let grid = document.getElementById('question-nav-grid');
-            grid.innerHTML = '';
+            let gridContainer = document.getElementById('question-nav-grid');
+            if(!gridContainer) return;
+            gridContainer.innerHTML = '';
+
             activeQuizQuestions.forEach((q, idx) => {
                 if(isNewSection(activeQuizQuestions, idx)) {
-                    let lbl = document.createElement('div'); lbl.className = 'nav-section-label'; lbl.innerText = q.sectionTitle;
-                    grid.appendChild(lbl);
+                    let lbl = document.createElement('div');
+                    lbl.className = 'nav-section-label';
+                    lbl.innerText = String(q.sectionTitle).replace(/\[img:[^\]]*\]/gi, '').trim();
+                    gridContainer.appendChild(lbl);
                 }
-                let btn = document.createElement('button'); btn.className = 'nav-btn'; btn.id = `nav_btn_${idx}`; btn.innerText = idx + 1;
-                btn.onclick = () => document.getElementById(`q_box_${idx}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
-                grid.appendChild(btn);
+                let btn = document.createElement('button');
+                btn.className = 'nav-btn';
+                btn.id = `nav_btn_${idx}`;
+                btn.innerText = idx + 1;
+                btn.onclick = () => {
+                    let targetBox = document.getElementById(`q_box_${idx}`);
+                    if(targetBox) {
+                        targetBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                };
+                gridContainer.appendChild(btn);
             });
             updateNavGridProgress();
         }
 
-        function updateNavGridProgress() {
-            let answered = 0;
-            activeQuizQuestions.forEach((q, idx) => {
-                let ok = false;
-                if(q.isShortAnswer) ok = !!document.getElementById(`sa_${idx}`).value.trim();
-                else if(q.isTrueFalse) {
-                    let count = 0;
-                    q.options.forEach((_, oIdx) => { if(document.querySelector(`input[name="tf_${idx}_${oIdx}"]:checked`)) count++; });
-                    ok = (count === q.options.length);
-                } else ok = !!document.querySelector(`input[name="question_${idx}"]:checked`);
-                
-                let btn = document.getElementById(`nav_btn_${idx}`);
-                if(btn) { if(ok) { btn.classList.add('answered'); answered++; } else btn.classList.remove('answered'); }
-            });
-            document.getElementById('progress-counter').innerText = `Đã làm: ${answered}/${activeQuizQuestions.length}`;
+        function saveDraftAndCheckProgress(qIndex) {
+            saveSession();
+            updateNavGridProgress();
         }
 
-        function startTimer(duration) {
+        // ---------- KHÔI PHỤC BÀI ĐANG LÀM DỞ ----------
+        function collectAnswers() {
+            let answers = {};
+            activeQuizQuestions.forEach((q, qIdx) => {
+                if(q.isShortAnswer) {
+                    let el = document.querySelector(`input[name="sa_${qIdx}"]`);
+                    if(el && el.value.trim() !== '') answers[qIdx] = el.value;
+                } else if(q.isTrueFalse) {
+                    let tf = {};
+                    q.options.forEach((o, oIdx) => {
+                        let r = document.querySelector(`input[name="tf_${qIdx}_${oIdx}"]:checked`);
+                        if(r) tf[oIdx] = r.value;
+                    });
+                    if(Object.keys(tf).length) answers[qIdx] = tf;
+                } else {
+                    let r = document.querySelector(`input[name="question_${qIdx}"]:checked`);
+                    if(r) answers[qIdx] = r.value;
+                }
+            });
+            return answers;
+        }
+        function restoreAnswers(answers) {
+            if(!answers) return;
+            activeQuizQuestions.forEach((q, qIdx) => {
+                let a = answers[qIdx];
+                if(a === undefined || a === null) return;
+                if(q.isShortAnswer) {
+                    let el = document.querySelector(`input[name="sa_${qIdx}"]`);
+                    if(el) el.value = a;
+                } else if(q.isTrueFalse) {
+                    Object.keys(a).forEach(oIdx => {
+                        let r = document.querySelector(`input[name="tf_${qIdx}_${oIdx}"][value="${a[oIdx]}"]`);
+                        if(r) r.checked = true;
+                    });
+                } else {
+                    let r = document.querySelector(`input[name="question_${qIdx}"][value="${a}"]`);
+                    if(r) r.checked = true;
+                }
+            });
+        }
+        function saveSession() {
+            if(!quizActive) return;
+            try {
+                localStorage.setItem(SESSION_KEY, JSON.stringify({
+                    setId: currentActiveSetId, mode: quizMode, startedAt: quizStartedAt, endTime: quizEndTime,
+                    questions: activeQuizQuestions, answers: collectAnswers(), savedAt: Date.now()
+                }));
+            } catch(e) { /* bộ nhớ đầy: bỏ qua, không làm gián đoạn bài thi */ }
+        }
+        function clearSession() {
+            quizActive = false;
+            localStorage.removeItem(SESSION_KEY);
+        }
+        function getSavedSession() {
+            try {
+                let sess = JSON.parse(localStorage.getItem(SESSION_KEY));
+                if(sess && sess.setId && appData.sets[sess.setId] && Array.isArray(sess.questions) && sess.questions.length) return sess;
+            } catch(e) {}
+            return null;
+        }
+        function renderResumeBanner() {
+            let box = document.getElementById('resume-banner');
+            if(!box) return;
+            let sess = getSavedSession();
+            if(!sess) { box.style.display = 'none'; box.innerHTML = ''; return; }
+            // Đếm giống bản đồ câu hỏi: câu Đúng/Sai chỉ tính khi đã chọn đủ các ý
+            let answered = sess.questions.filter((q, i) => {
+                let a = (sess.answers || {})[i];
+                if(a === undefined || a === null) return false;
+                return q.isTrueFalse ? Object.keys(a).length === q.options.length : true;
+            }).length;
+            let timeText = 'không giới hạn thời gian';
+            if(sess.endTime) {
+                let left = (sess.endTime - Date.now()) / 1000;
+                timeText = left > 0 ? `còn lại <b>${fmtClock(left)}</b>` : '<b style="color:#ef4444;">đã hết giờ</b> (sẽ tự nộp khi mở lại)';
+            }
+            box.innerHTML = `
+                <div style="font-weight:700; margin-bottom:6px;">⏳ Bạn có bài thi đang làm dở</div>
+                <div style="margin-bottom:10px;">📚 ${escapeHtml(appData.sets[sess.setId].name)} — đã làm <b>${answered}/${sess.questions.length}</b> câu, ${timeText}.</div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button class="btn btn-pass" style="flex:1;" onclick="resumeQuiz()">▶️ Tiếp tục làm bài</button>
+                    <button class="btn btn-fail" style="flex:1;" onclick="discardSession()">🗑️ Bỏ bài này</button>
+                </div>`;
+            box.style.display = 'block';
+        }
+        function resumeQuiz() {
+            let sess = getSavedSession();
+            if(!sess) { renderResumeBanner(); return; }
+            openSet(sess.setId);                 // nạp màn soạn thảo của bộ đề (để nút "Thoát bài thi" quay về đúng chỗ)
+            activeQuizQuestions = sess.questions;
+            quizMode = sess.mode || 'full'; quizActive = true; quizStartedAt = sess.startedAt || Date.now();
+            renderQuizUI();
+            restoreAnswers(sess.answers);
+            updateNavGridProgress();
+            if(sess.endTime) startTimer(0, sess.endTime); else startTimer(0);
+            saveSession();
+        }
+        function discardSession() {
+            if(!confirm('Bỏ bài thi đang làm dở? Bài làm sẽ bị xóa, không chấm điểm.')) return;
+            clearSession();
+            renderResumeBanner();
+        }
+        function exitQuiz() {
+            if(!confirm('Thoát bài thi? Bài đang làm sẽ bị hủy (không chấm điểm).')) return;
             if(timerInterval) clearInterval(timerInterval);
-            let box = document.getElementById('timer-box');
-            if(duration <= 0) { box.parentElement.style.display = 'none'; return; }
-            box.parentElement.style.display = 'block';
-            quizEndTime = Date.now() + duration * 1000;
+            clearSession();
+            backToSetup();
+        }
+
+        function updateNavGridProgress() {
+            let answeredCount = 0;
+            activeQuizQuestions.forEach((q, idx) => {
+                let isAnswered = false;
+
+                if(q.isShortAnswer) {
+                    let el = document.querySelector(`input[name="sa_${idx}"]`);
+                    isAnswered = !!(el && el.value.trim() !== '');
+                } else if(q.isTrueFalse) {
+                    let countChosen = 0;
+                    q.options.forEach((opt, oIdx) => {
+                        if(document.querySelector(`input[name="tf_${idx}_${oIdx}"]:checked`)) countChosen++;
+                    });
+                    isAnswered = (countChosen === q.options.length);
+                } else {
+                    isAnswered = !!document.querySelector(`input[name="question_${idx}"]:checked`);
+                }
+
+                let navBtn = document.getElementById(`nav_btn_${idx}`);
+                if(navBtn) {
+                    if(isAnswered) {
+                        navBtn.classList.add('answered');
+                        answeredCount++;
+                    } else {
+                        navBtn.classList.remove('answered');
+                    }
+                }
+            });
+
+            let counter = document.getElementById('progress-counter');
+            if(counter) {
+                counter.innerText = `Đã làm: ${answeredCount}/${activeQuizQuestions.length}`;
+            }
+        }
+
+        function startTimer(duration, endOverride) {
+            if(timerInterval) clearInterval(timerInterval);
+            let timerBox = document.getElementById('timer-box');
+            timerBox.classList.remove('danger');
+
+            if(!endOverride && duration <= 0) {
+                quizEndTime = null;
+                timerBox.parentElement.style.display = 'none';
+                return;
+            }
+
+            timerBox.parentElement.style.display = 'block';
+            quizEndTime = endOverride || (Date.now() + duration * 1000);
+
             const tick = () => {
                 remainingSeconds = Math.max(0, Math.ceil((quizEndTime - Date.now()) / 1000));
-                box.innerText = fmtClock(remainingSeconds);
-                if(remainingSeconds <= 0) { clearInterval(timerInterval); alert("Hết giờ!"); submitQuiz(); }
+                updateTimerDisplay();
+                if(remainingSeconds <= 60) timerBox.classList.add('danger');
+                if(remainingSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    alert("⏰ Hết giờ! Tự động nộp bài.");
+                    submitQuiz();
+                }
             };
             tick();
-            timerInterval = setInterval(tick, 1000);
+            if(remainingSeconds > 0) timerInterval = setInterval(tick, 1000);
+        }
+
+        function updateTimerDisplay() {
+            let h = Math.floor(remainingSeconds / 3600);
+            let m = Math.floor((remainingSeconds % 3600) / 60);
+            let s = remainingSeconds % 60;
+            let displayStr = "";
+            if(h > 0) displayStr += `${h.toString().padStart(2,'0')}:`;
+            displayStr += `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            document.getElementById('timer-box').innerText = displayStr;
+        }
+
+        // ---------- Chấm câu trả lời ngắn ----------
+        function parseNumberLoose(str) {
+            let t = String(str).trim().replace(/\s+/g, '').replace(/,/g, '.').replace(/[−–]/g, '-').replace(/^\$|\$$/g, '');
+            let m = t.match(/^(-?\d+(?:\.\d+)?)(?:\/(-?\d+(?:\.\d+)?))?$/);
+            if(!m) return NaN;
+            let a = parseFloat(m[1]);
+            if(m[2] !== undefined) { let b = parseFloat(m[2]); return b === 0 ? NaN : a / b; }
+            return a;
+        }
+        function normText(str) { return String(str).toLowerCase().replace(/\s+/g, '').replace(/,/g, '.'); }
+        function checkShortAnswer(userAns, answers) {
+            let u = String(userAns).trim();
+            if(!u) return false;
+            let uNum = parseNumberLoose(u);
+            for(let ans of answers) {
+                let a = String(ans).trim();
+                let tm = a.match(/^(.+?)\s*(?:±|\+-)\s*(.+)$/);      // dạng có sai số: 3,14 ± 0,01
+                if(tm) {
+                    let center = parseNumberLoose(tm[1]), tol = parseNumberLoose(tm[2]);
+                    if(!isNaN(uNum) && !isNaN(center) && !isNaN(tol) && Math.abs(uNum - center) <= tol + 1e-9) return true;
+                    continue;
+                }
+                let aNum = parseNumberLoose(a);
+                if(!isNaN(aNum) && !isNaN(uNum)) {
+                    if(Math.abs(uNum - aNum) <= 1e-9 * Math.max(1, Math.abs(aNum))) return true;
+                } else if(normText(u) === normText(a)) return true;
+            }
+            return false;
+        }
+        function reviewCard(color, title, badge, body) {
+            return `
+                <div style="background: rgba(150,150,150,0.04); padding: 14px; border-radius: 14px; margin-bottom: 12px; border-left: 4px solid ${color};">
+                    <div style="font-weight: 700; margin-bottom: 6px; font-size: 15px;">${title} ${badge}</div>
+                    ${body}
+                </div>`;
         }
 
         function submitQuiz() {
             if(timerInterval) clearInterval(timerInterval);
-            let sc = getScoring(appData.sets[currentActiveSetId]);
-            let boxes = document.querySelectorAll('#quiz-container .question-box');
-            let review = "", fullCorrect = 0, earned = 0, maxTotal = 0;
-            incorrectQuestionIndices = [];
+            clearSession();
 
-            boxes.forEach((box, qIndex) => {
+            let setObj = appData.sets[currentActiveSetId] || {};
+            let sc = getScoring(setObj);
+            let questionBoxes = document.querySelectorAll('#quiz-container .question-box'); // chỉ lấy câu trong khung làm bài (tránh lẫn với khung Xem trước)
+            let reviewHTML = "";
+            incorrectQuestionIndices = [];
+            let fullCorrect = 0, earned = 0, maxTotal = 0;
+            let st = { mcq: { n: 0, ok: 0, pts: 0 }, tf: { n: 0, ok: 0, pts: 0 }, sa: { n: 0, ok: 0, pts: 0 } };
+            let secStats = {};
+
+            questionBoxes.forEach((box, qIndex) => {
                 let q = activeQuizQuestions[qIndex];
+                if(!q) return;
+                let qTitle = `Câu ${qIndex + 1}. ${richText(q.title)}`;
                 let isFull = false;
-                if(isNewSection(activeQuizQuestions, qIndex)) review += sectionHeadingHtml(q);
+                let earnedBefore = earned, maxBefore = maxTotal;
+                if(isNewSection(activeQuizQuestions, qIndex)) reviewHTML += sectionHeadingHtml(q);
 
                 if(q.isShortAnswer) {
-                    let el = box.querySelector(`#sa_${qIndex}`);
-                    let val = el ? el.value.trim() : '';
+                    // ---- TRẢ LỜI NGẮN ----
+                    let el = box.querySelector(`input[name="sa_${qIndex}"]`);
+                    let userAns = el ? el.value.trim() : '';
                     if(el) el.disabled = true;
-                    isFull = q.answers.some(a => a.toLowerCase() === val.toLowerCase());
-                    maxTotal += sc.sa; if(isFull) { earned += sc.sa; fullCorrect++; } else incorrectQuestionIndices.push(q.origQIndex ?? qIndex);
-                    review += reviewCard(isFull?'#10b981':'#ef4444', `Câu ${qIndex+1}. ${richText(q.title)}`, isFull?'Đúng':'Sai', `Bạn trả lời: <b>${val}</b> | ĐA: ${q.answers.join(', ')}`);
+                    isFull = checkShortAnswer(userAns, q.answers);
+                    st.sa.n++; maxTotal += sc.sa;
+                    if(isFull) { st.sa.ok++; st.sa.pts += sc.sa; earned += sc.sa; }
+                    let badge = isFull ? `<span style="color:#10b981; font-weight:bold;">✅ Đúng (+${fmtNum(sc.sa)} điểm)</span>` : `<span style="color:#ef4444; font-weight:bold;">❌ Sai (+0 điểm)</span>`;
+                    reviewHTML += reviewCard(isFull ? '#10b981' : '#ef4444', qTitle, badge, `
+                        <div style="font-size: 13px; opacity: 0.9; margin-bottom: 3px;">Bạn trả lời: <b>${userAns ? escapeHtml(userAns) : 'Chưa trả lời'}</b></div>
+                        <div style="font-size: 13px; color: #10b981;">Đáp án chuẩn: <b>${q.answers.map(a => escapeHtml(a)).join(' hoặc ')}</b></div>`);
+
                 } else if(q.isTrueFalse) {
-                    let k = 0, n = q.options.length, rows = "";
+                    // ---- ĐÚNG/SAI: chấm lũy tiến theo số ý đúng ----
+                    let n = q.options.length, k = 0, rows = "";
                     q.options.forEach((opt, oIdx) => {
-                        let chk = box.querySelector(`input[name="tf_${qIndex}_${oIdx}"]:checked`);
-                        let val = chk ? chk.value === 'true' : null;
-                        if(val === opt.correct) k++;
-                        rows += `<div>${richText(opt.text)} - Bạn: ${val===null?'Chưa chọn':(val?'Đúng':'Sai')} | ĐA: ${opt.correct?'Đúng':'Sai'}</div>`;
+                        let userChoice = null;
+                        box.querySelectorAll(`input[name="tf_${qIndex}_${oIdx}"]`).forEach(r => { if(r.checked) userChoice = r.value; r.disabled = true; });
+                        let isSubCorrect = (userChoice === (opt.correct ? 'true' : 'false'));
+                        if(isSubCorrect) k++;
+                        let cleanText = opt.text.replace(/^[*][a-da-d][\.\)]\s*/i, '').replace(/^[a-da-d][\.\)]\s*/i, '');
+                        let letter = String.fromCharCode(97 + oIdx);
+                        let userLabel = userChoice === 'true' ? 'Đúng' : (userChoice === 'false' ? 'Sai' : 'Chưa chọn');
+                        rows += `<div style="font-size: 13px; padding: 4px 8px; margin-bottom: 3px; border-radius: 6px; background: ${isSubCorrect ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)'};">
+                            <b>${letter}.</b> ${richText(cleanText)} ➔ Bạn chọn: <b>${userLabel}</b> | Đáp án: <b style="color:#10b981;">${opt.correct ? 'Đúng' : 'Sai'}</b> ${isSubCorrect ? '✅' : '❌'}
+                        </div>`;
                     });
-                    let pts = sc.tf * (TF_PROGRESSIVE[k] || 0);
-                    earned += pts; maxTotal += sc.tf;
-                    if(k === n) { fullCorrect++; isFull = true; } else incorrectQuestionIndices.push(q.origQIndex ?? qIndex);
-                    review += reviewCard(k===n?'#10b981':'#f59e0b', `Câu ${qIndex+1}`, `${k}/${n} đúng`, rows);
+                    let ratio = (n === 4) ? TF_PROGRESSIVE[k] : (n > 0 ? k / n : 0);
+                    let pts = sc.tf * ratio;
+                    isFull = (k === n && n > 0);
+                    st.tf.n++; maxTotal += sc.tf; earned += pts; st.tf.pts += pts;
+                    if(isFull) st.tf.ok++;
+                    let color = isFull ? '#10b981' : (k > 0 ? '#f59e0b' : '#ef4444');
+                    let badge = isFull
+                        ? `<span style="color:#10b981; font-weight:bold;">✅ Đúng toàn bộ (+${fmtNum(pts)} điểm)</span>`
+                        : `<span style="color:${color}; font-weight:bold;">❌ Chưa chính xác (${k}/${n} ý đúng • +${fmtNum(pts)} điểm)</span>`;
+                    reviewHTML += reviewCard(color, qTitle, badge, rows);
+
                 } else {
-                    let sel = box.querySelector(`input[name="question_${qIndex}"]:checked`);
-                    let val = sel ? parseInt(sel.value) : null;
-                    maxTotal += sc.mcq;
-                    if(val !== null && q.options[val].correct) { earned += sc.mcq; fullCorrect++; isFull = true; }
-                    else incorrectQuestionIndices.push(q.origQIndex ?? qIndex);
-                    review += reviewCard(isFull?'#10b981':'#ef4444', `Câu ${qIndex+1}`, isFull?'Đúng':'Sai', `Bạn chọn: ${val!==null?richText(q.options[val].text):'Chưa chọn'}`);
+                    // ---- TRẮC NGHIỆM 4 ĐÁP ÁN ----
+                    let selected = box.querySelector(`input[name="question_${qIndex}"]:checked`);
+                    let selectedVal = selected ? selected.value : null;
+                    box.querySelectorAll('input').forEach(i => i.disabled = true);
+                    let userText = 'Chưa trả lời', correctText = '';
+                    q.options.forEach((opt, oIndex) => {
+                        let disp = `${String.fromCharCode(65 + oIndex)}. ${richText(opt.text.replace(/^[A-Da-d][\.\)]\s*/, ''))}`;
+                        if(opt.correct) correctText = disp;
+                        if(String(oIndex) === selectedVal) { userText = disp; if(opt.correct) isFull = true; }
+                    });
+                    st.mcq.n++; maxTotal += sc.mcq;
+                    if(isFull) { st.mcq.ok++; st.mcq.pts += sc.mcq; earned += sc.mcq; }
+                    let badge = isFull ? `<span style="color:#10b981; font-weight:bold;">✅ Đúng (+${fmtNum(sc.mcq)} điểm)</span>` : `<span style="color:#ef4444; font-weight:bold;">❌ Sai (+0 điểm)</span>`;
+                    reviewHTML += reviewCard(isFull ? '#10b981' : '#ef4444', qTitle, badge, `
+                        <div style="font-size: 13px; opacity: 0.9; margin-bottom: 3px;">Bạn chọn: <b>${userText}</b></div>
+                        <div style="font-size: 13px; color: #10b981;">Đáp án chuẩn: <b>${correctText}</b></div>`);
                 }
+
+                let sk = q.section || 0;
+                if(!secStats[sk]) secStats[sk] = { title: q.sectionTitle, earned: 0, max: 0 };
+                secStats[sk].earned += earned - earnedBefore; secStats[sk].max += maxTotal - maxBefore;
+
+                if(isFull) fullCorrect++;
+                else incorrectQuestionIndices.push(q.origQIndex !== undefined ? q.origQIndex : qIndex);
             });
 
+            let retryBtn = document.getElementById('retry-incorrect-btn');
+            if(incorrectQuestionIndices.length > 0) {
+                retryBtn.style.display = 'inline-flex';
+                retryBtn.innerText = `🔄 Chỉ làm lại ${incorrectQuestionIndices.length} câu chưa đúng`;
+            } else {
+                retryBtn.style.display = 'none';
+            }
+
+            // ---- Điểm tổng, quy đổi về thang 10 ----
             let score10 = maxTotal > 0 ? (earned / maxTotal) * 10 : 0;
+            let parts = [];
+            if(st.mcq.n) parts.push(`Trắc nghiệm: ${st.mcq.ok}/${st.mcq.n} câu (${fmtNum(st.mcq.pts)}/${fmtNum(sc.mcq * st.mcq.n)}đ)`);
+            if(st.tf.n) parts.push(`Đúng/Sai: ${fmtNum(st.tf.pts)}/${fmtNum(sc.tf * st.tf.n)}đ`);
+            if(st.sa.n) parts.push(`Trả lời ngắn: ${st.sa.ok}/${st.sa.n} câu (${fmtNum(st.sa.pts)}/${fmtNum(sc.sa * st.sa.n)}đ)`);
+            let secParts = Object.values(secStats).filter(x => x.title).map(x => `${escapeHtml(String(x.title).replace(/\[img:[^\]]*\]/gi, '').trim())}: ${fmtNum(x.earned)}/${fmtNum(x.max)}đ`);
+            let rescale = Math.abs(maxTotal - 10) > 0.005 ? `<div class="score-sub">Điểm gốc ${fmtNum(earned)}/${fmtNum(maxTotal)} → quy đổi về thang 10</div>` : '';
+
             document.getElementById('submit-btn').style.display = 'none';
             document.getElementById('quiz-screen').style.display = 'none';
             document.getElementById('result-screen').style.display = 'block';
-            document.getElementById('score-text').innerHTML = `🎯 ${fmtNum(score10)} / 10`;
-            document.getElementById('review-container').innerHTML = review;
-            document.getElementById('retry-incorrect-btn').style.display = incorrectQuestionIndices.length ? 'inline-flex' : 'none';
-            typesetMath();
-        }
+            document.getElementById('score-text').innerHTML = `
+                <div style="font-size: 38px; line-height: 1.2;">🎯 ${fmtNum(score10)} / 10</div>
+                <div class="score-sub">Đúng hoàn toàn ${fullCorrect}/${activeQuizQuestions.length} câu</div>
+                <div class="score-sub">${parts.join(' &nbsp;•&nbsp; ')}</div>${secParts.length ? `<div class="score-sub">Theo phần: ${secParts.join(' &nbsp;•&nbsp; ')}</div>` : ''}${rescale}`;
+            document.getElementById('review-container').innerHTML = reviewHTML;
 
-        function reviewCard(color, title, badge, body) {
-            return `<div style="padding: 12px; margin-bottom: 10px; border-left: 4px solid ${color}; background: rgba(150,150,150,0.05); border-radius: 8px;"><b>${title} - ${badge}</b><div style="margin-top:6px;">${body}</div></div>`;
+            typesetMath();
         }
 
         function exportSingleSet() {
             let s = appData.sets[currentActiveSetId];
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(s));
             let a = document.createElement('a');
-            a.href = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(s));
-            a.download = `${s.name}.json`;
+            a.setAttribute("href", dataStr);
+            a.setAttribute("download", `${s.name.replace(/\s+/g, '_')}_BoDe.json`);
+            a.click();
+        }
+
+        function exportSingleSetById(id) {
+            let s = appData.sets[id];
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(s));
+            let a = document.createElement('a');
+            a.setAttribute("href", dataStr);
+            a.setAttribute("download", `${s.name.replace(/\s+/g, '_')}_BoDe.json`);
             a.click();
         }
 
         function exportAllJSON() {
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
             let a = document.createElement('a');
-            a.href = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
-            a.download = "Backup.json";
+            a.setAttribute("href", dataStr);
+            a.setAttribute("download", "KhoBoDeSTEM_Backup.json");
             a.click();
         }
 
         function importFile(e) {
             let file = e.target.files[0];
             if(!file) return;
-            let r = new FileReader();
-            r.onload = (evt) => {
+            let reader = new FileReader();
+            reader.onload = function(evt) {
                 try {
-                    let d = JSON.parse(evt.target.result);
-                    if(d.sets) appData = d; else if(d.id) appData.sets[d.id] = d;
-                    saveAppData(); renderSetsManager(); alert("Thành công!");
-                } catch(err) { alert("Lỗi file!"); }
+                    let imported = JSON.parse(evt.target.result);
+                    if(imported.sets) {
+                        appData = imported;
+                        saveAppData();
+                        renderSetsManager();
+                        alert("Import thành công toàn bộ kho đề!");
+                    } else if(imported.id && imported.rawText) {
+                        appData.sets[imported.id] = imported;
+                        saveAppData();
+                        renderSetsManager();
+                        alert(`Import thành công bộ đề: ${imported.name}!`);
+                    } else {
+                        alert("File không hợp lệ!");
+                    }
+                } catch(err) {
+                    alert("Lỗi đọc file JSON!");
+                }
             };
-            r.readAsText(file);
+            reader.readAsText(file);
         }
     </script>
 </body>
