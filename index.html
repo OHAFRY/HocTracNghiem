@@ -145,7 +145,6 @@
         .question-box { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid rgba(150,150,150,0.15); text-align: left; }
         .question-title { font-weight: 700; font-size: 16px; margin-bottom: 12px; line-height: 1.5; }
         
-        /* THẺ ĐÁP ÁN BO TRÒN TRUYỀN THỐNG */
         .option-item {
             display: flex; align-items: center; padding: 14px 16px; margin: 10px 0; border-radius: 14px;
             background: rgba(255,255,255,0.65); border: 1px solid rgba(150,150,150,0.2); cursor: pointer;
@@ -158,7 +157,6 @@
         .option-item.correct-ans { background: rgba(16, 185, 129, 0.15) !important; border-color: #10b981 !important; color: #047857; font-weight: bold; }
         .option-item.wrong-ans { background: rgba(239, 68, 68, 0.15) !important; border-color: #ef4444 !important; color: #b91c1c; }
 
-        /* GIAO DIỆN CÂU HỎI ĐÚNG / SAI CHUẨN ẢNH 3 */
         .tf-container { width: 100%; margin-top: 10px; }
         .tf-header-row { display: flex; align-items: center; padding: 0 16px 6px 16px; font-weight: 700; font-size: 13px; opacity: 0.8; }
         .tf-header-text { flex: 1; }
@@ -172,7 +170,6 @@
         body.theme-dark .tf-item-row { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
         .tf-item-text { flex: 1; font-size: 15px; padding-right: 10px; }
         
-        /* CỘT TÍCH Ô Ô VUÔNG BO GÓC BÊN PHẢI */
         .tf-box-choice {
             width: 60px; display: flex; justify-content: center; align-items: center; flex-shrink: 0;
         }
@@ -215,7 +212,6 @@
         .timer-display.danger { color: #ef4444; animation: pulseRed 1s infinite; }
         @keyframes pulseRed { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
-        /* SIDEBAR PHẢI CHO BẢN ĐỒ & ĐỒNG HỒ */
         .quiz-layout-wrapper { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
         @media (min-width: 900px) {
             .container.quiz-container-box { max-width: 1300px; }
@@ -248,7 +244,6 @@
         .color-dot { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.15); flex-shrink: 0; transition: transform 0.2s; }
         .color-dot:hover { transform: scale(1.1); }
     
-        /* === ẢNH TRONG CÂU HỎI === */
         .q-img { display: block; max-width: 100%; max-height: 360px; margin: 8px 0; border-radius: 10px; border: 1px solid rgba(150,150,150,0.25); background: #fff; cursor: zoom-in; }
         .option-item .q-img, .tf-item-text .q-img { max-height: 180px; }
         .img-missing { color: #ef4444; font-size: 12px; font-weight: 700; }
@@ -262,32 +257,20 @@
         .img-chip-thumb { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(150,150,150,0.3); background: #fff; }
         .img-panel-hint { opacity: 0.75; font-size: 12px; line-height: 1.5; }
 
-        /* === CÂU TRẢ LỜI NGẮN === */
         .sa-wrap { margin-top: 8px; }
         .sa-label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
         .sa-input { max-width: 360px; margin-bottom: 0 !important; font-weight: 600; }
         .sa-key { font-size: 13px; padding: 8px 12px; border-radius: 10px; background: rgba(16,185,129,0.1); border: 1px solid #10b981; }
 
-        /* === TIÊU ĐỀ PHẦN === */
         .section-heading { font-size: 1.15rem; font-weight: 800; color: var(--accent-color); margin: 30px 0 14px; padding: 10px 14px; border-left: 5px solid var(--accent-color); background: rgba(37,99,235,0.07); border-radius: 0 12px 12px 0; text-align: left; }
         #quiz-container > .section-heading:first-child, #review-container > .section-heading:first-child, #preview-content-container > .section-heading:first-child { margin-top: 0; }
         .nav-section-label { grid-column: 1 / -1; font-size: 11px; font-weight: 800; color: var(--accent-color); margin-top: 6px; line-height: 1.3; }
         .visual-section-card { border: 2px dashed var(--accent-color); border-radius: 14px; padding: 12px; margin-bottom: 12px; background: rgba(37,99,235,0.05); }
 
-        /* === BANNER KHÔI PHỤC BÀI + ĐIỂM === */
         .resume-banner { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.55); border-left: 4px solid #f59e0b; border-radius: 14px; padding: 14px 16px; margin: 14px 0; text-align: left; font-size: 14px; }
         .score-sub { font-size: 14px; font-weight: 600; color: var(--text-muted); margin-top: 6px; }
     </style>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E26SXQ6QDW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-E26SXQ6QDW');
-</script>
-    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E26SXQ6QDW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -370,7 +353,7 @@
                 <label style="display:flex; align-items:center; gap:6px;">Đúng/Sai <input type="number" id="score-tf" min="0" step="0.05" value="1" style="width:78px; margin-bottom:0; padding:8px; text-align:center;"> đ/câu (tối đa)</label>
                 <label style="display:flex; align-items:center; gap:6px;">Trả lời ngắn <input type="number" id="score-sa" min="0" step="0.05" value="0.5" style="width:78px; margin-bottom:0; padding:8px; text-align:center;"> đ/câu</label>
             </div>
-            <div style="font-size: 11px; opacity: 0.7; margin-top: 8px;">Câu Đúng/Sai chấm lũy tiến theo đề thi THPT từ 2025: đúng 1 ý = 10%, 2 ý = 25%, 3 ý = 50%, 4 ý = 100% điểm câu. Mặc định theo đề Toán (trắc nghiệm 0,25 • Đúng/Sai 1 • trả lời ngắn 0,5); các môn khác thường để trả lời ngắn 0,25.</div>
+            <div style="font-size: 11px; opacity: 0.7; margin-top: 8px;">Câu Đúng/Sai chấm lũy tiến theo đề thi THPT từ 2025: đúng 1 ý = 10%, 2 ý = 25%, 3 ý = 50%, 4 ý = 100% điểm câu.</div>
         </div>
 
         <div class="sub-tab-bar">
@@ -387,25 +370,18 @@
                     <div class="instruction-box">
                         <b>💡 Quy tắc gõ đề Smart Parser:</b><br>
                         • <b>Câu hỏi 4 đáp án (A,B,C,D):</b> Đặt dấu <code>*</code> trước đáp án đúng.<br>
-                        • <b>Câu hỏi Đúng / Sai:</b> Thêm ký hiệu <code>}{</code> ngay trước chữ Câu (VD: <code>}{Câu 1. ...</code>) và đặt dấu <code>*</code> trước các ý <b>ĐÚNG</b> (VD: <code>*a) Ý đúng...</code>). Ý không có <code>*</code> là ý <b>SAI</b>.<br>
-                        • <b>Câu trả lời ngắn (điền số):</b> Thêm ký hiệu <code>[]</code> trước chữ Câu, rồi ghi đáp án ở dòng riêng bắt đầu bằng <code>ĐA:</code><br>
-                        &nbsp;&nbsp;VD: <code>[]Câu 5. Tính tần số (Hz):</code> xuống dòng <code>ĐA: 2,5</code>. Chấp nhận nhiều đáp án: <code>ĐA: 2,5 | 5/2</code>. Cho phép sai số: <code>ĐA: 3,14 ± 0,01</code>. Dấu phẩy và dấu chấm thập phân đều được.<br>
-                        • <b>Chia phần (tiêu đề):</b> gõ <code>\ Tên phần</code> trên một dòng riêng (<b>có dấu cách</b> sau dấu <code>\</code>), VD: <code>\ I. Trắc nghiệm</code>, <code>\ II. Đúng sai</code>. Các câu bên dưới thuộc phần đó cho đến tiêu đề kế tiếp. Khi bật "Trộn thứ tự câu hỏi", câu chỉ đảo <b>trong phạm vi từng phần</b>, các phần giữ nguyên thứ tự.<br>
-                        • <b>Chèn ảnh:</b> bấm <b>🖼️ Chèn ảnh</b> (hoặc dán <code>Ctrl+V</code> / kéo thả ảnh vào ô soạn thảo) → app tạo mã <code>[img:hinh1]</code>. Đặt mã này ở <b>bất kỳ chỗ nào</b> (đề bài, dòng riêng dưới đề, hoặc trong đáp án). Cũng dùng được link: <code>[img:https://...]</code>.
+                        • <b>Câu hỏi Đúng / Sai:</b> Thêm ký hiệu <code>}{</code> ngay trước chữ Câu và đặt dấu <code>*</code> trước các ý <b>ĐÚNG</b>.<br>
+                        • <b>Câu trả lời ngắn (điền số):</b> Thêm ký hiệu <code>[]</code> trước chữ Câu, ghi đáp án ở dòng riêng bắt đầu bằng <code>ĐA:</code><br>
+                        • <b>Chia phần (tiêu đề):</b> gõ <code>\ Tên phần</code> trên một dòng riêng (có dấu cách sau dấu <code>\</code>).<br>
+                        • <b>Chèn ảnh:</b> bấm <b>🖼️ Chèn ảnh</b> hoặc dán <code>Ctrl+V</code> vào ô soạn thảo để tạo mã <code>[img:hinh1]</code>.
                     </div>
 
                     <div class="stem-toolbar">
                         <button class="stem-btn" onclick="insertStemCode('$\\frac{a}{b}$')">➗ Phân số</button>
                         <button class="stem-btn" onclick="insertStemCode('$\\sqrt{x}$')">√ Căn</button>
                         <button class="stem-btn" onclick="insertStemCode('$x^2$')">x² Mũ</button>
-                        <button class="stem-btn" onclick="insertStemCode('$\\vec{F}$')">➔ Véc-tơ</button>
-                        <button class="stem-btn" onclick="insertStemCode('$\\Delta$')">Δ Delta</button>
-                        <button class="stem-btn" onclick="insertStemCode('$\\ce{H2SO4}$')">🧪 Hóa</button>
-                        <button class="stem-btn" onclick="insertStemCode('$\\int$')">∫ Tích phân</button>
                         <button class="stem-btn" onclick="insertStemLine('\\ I. Tên phần')">📑 Tiêu đề phần</button>
                         <button class="stem-btn" onclick="document.getElementById('image-file-input').click()">🖼️ Chèn ảnh</button>
-                        <button class="stem-btn" onclick="insertStemCode('\n}{Câu 1. Nội dung câu hỏi:\n*a) Ý đúng\nb) Ý sai\nc) Ý sai\nd) Ý sai\n')">☑️ Mẫu Đúng/Sai</button>
-                        <button class="stem-btn" onclick="insertStemCode('\n[]Câu 1. Nội dung câu hỏi (đáp án là số):\nĐA: 2,5\n')">🔢 Mẫu Trả lời ngắn</button>
                         <input type="file" id="image-file-input" accept="image/*" multiple style="display:none" onchange="handleImageFiles(this.files); this.value=''">
                     </div>
 
@@ -422,9 +398,6 @@
                 </div>
 
                 <div id="editor-visual-pane" style="display: none;">
-                    <div class="instruction-box">
-                        <b>✨ Hướng dẫn:</b> Câu 4 đáp án: tích chọn ô tròn đáp án chính xác. Câu <b>Đúng/Sai</b>: tích ô vuông ở những ý đúng. Câu <b>Trả lời ngắn</b>: nhập đáp án đúng. Muốn chèn ảnh: dùng tab <b>Nhập Văn Bản</b>, sau đó có thể gõ <code>[img:hinh1]</code> vào bất kỳ ô nào ở đây.
-                    </div>
                     <div id="visual-questions-container"></div>
                     <div style="display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;">
                         <button class="btn" style="flex:1;" onclick="addNewVisualQuestion()">➕ Thêm câu hỏi</button>
@@ -454,7 +427,7 @@
         <button class="btn btn-pass" style="width: 100%; font-size: 16px; padding: 16px;" onclick="startQuiz()">🚀 Bắt đầu làm bài ngay</button>
     </div>
 
-    <!-- 3. MÀN HÌNH LÀM BÀI (LAYOUT SIDEBAR PHẢI) -->
+    <!-- 3. MÀN HÌNH LÀM BÀI -->
     <div class="container quiz-container-box" id="quiz-screen" style="display: none;">
         <div class="quiz-top-bar">
             <h2 id="quiz-header-title" style="margin:0;">📝 Làm Bài Thi</h2>
@@ -462,13 +435,11 @@
         </div>
 
         <div class="quiz-layout-wrapper">
-            <!-- Cột trái: Danh sách câu hỏi -->
             <div class="quiz-main-content">
                 <div id="quiz-container"></div>
                 <button class="btn btn-pass" id="submit-btn" onclick="submitQuiz()" style="width: 100%; margin-top: 20px; font-size: 16px; padding: 16px;">✅ Nộp bài thi</button>
             </div>
 
-            <!-- Cột phải (Sidebar): Bản đồ câu hỏi đầy đủ + Đồng hồ thời gian -->
             <div class="quiz-sidebar">
                 <div class="nav-grid-box" style="text-align: center;">
                     <div style="font-size: 12px; font-weight: 700; opacity: 0.7; margin-bottom: 6px; letter-spacing: 0.05em;">⏱️ THỜI GIAN CÒN LẠI</div>
@@ -480,14 +451,13 @@
                         <span>Câu hỏi:</span>
                         <span id="progress-counter" style="font-size: 12px; opacity: 0.8;">Đã làm: 0/0</span>
                     </div>
-                    <div style="font-size: 11px; opacity: 0.6; margin-bottom: 10px;">Nhấn số câu để nhảy nhanh:</div>
                     <div class="nav-grid" id="question-nav-grid"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 4. MÀN HÌNH KẾT QUẢ & ÔN TẬP CÂU SAI -->
+    <!-- 4. MÀN HÌNH KẾT QUẢ -->
     <div class="container" id="result-screen" style="display: none; text-align: center;">
         <h2>🎉 Kết Quả Bài Làm</h2>
         <div class="score-board" id="score-text">Đang tính điểm...</div>
@@ -508,13 +478,567 @@
     </div>
 
     <script>
-        const STORAGE_KEY = 'azota_stem_data_master_v12';
-        const DRAFT_KEY = 'azota_stem_quiz_draft_v12';   // khóa cũ (không còn dùng, chỉ để dọn dẹp)
-        const SESSION_KEY = 'azota_stem_session_v13';    // bài thi đang làm dở (để khôi phục)
-        const SA_MARKER = '[]';                          // ký hiệu câu trả lời ngắn
+        const STORAGE_KEY = 'azota_stem_data_master_v16';
+        const DRAFT_KEY = 'azota_stem_quiz_draft_v16';
+        const SESSION_KEY = 'azota_stem_session_v16';
+        const SA_MARKER = '[]';
         const ANSWER_LINE_RE = /^\*?\s*(?:Đáp\s*án|Dap\s*an|ĐA|DA)\s*[:：=]\s*(.+)$/i;
-        const DEFAULT_SCORING = { mcq: 0.25, tf: 1, sa: 0.5 }; // điểm/câu theo đề THPT từ 2025 (Toán)
-        const TF_PROGRESSIVE = [0, 0.1, 0.25, 0.5, 1];         // hệ số điểm câu Đúng/Sai theo số ý đúng (câu 4 ý)
+        const DEFAULT_SCORING = { mcq: 0.25, tf: 1, sa: 0.5 };
+        const TF_PROGRESSIVE = [0, 0.1, 0.25, 0.5, 1];
+
+        // KHAI BÁO CÁC BỘ ĐỀ MẶC ĐỊNH (Huy có thể sửa trực tiếp nội dung ở đây bất cứ lúc nào)
+        const DEFAULT_SETS = {
+            "set_su": {
+                id: "set_su",
+                name: "Lịch Sử 11 - Giữa Kỳ 1",
+                timeLimit: 0,
+                scoring: { mcq: 0.25, tf: 1, sa: 0.5 },
+                rawText: `\\ I. Trắc Nghiệm
+Câu 1. Đầu thế kỉ XVII, ngành công nghiệp phát triển nhất ở nước Anh là
+A. luyện kim.
+B. máy hơi nước.
+*C. len, dạ.
+D. chế tạo máy móc.
+
+Câu 2. Đẳng cấp thứ ba trong xã hội Pháp trước cách mạng gồm những lực lượng nào?
+*A. Tư sản, nông dân, bình dân thành thị.
+B. Quý tộc, nông dân, tăng lữ, thợ thủ công.
+C. Tăng lữ, quý tộc và tư sản, nông dân.
+D. Vua, quan lại, tăng lữ, bình dân thành thị.
+
+Câu 3. Đến giữa thế kỉ XVIII, miền Bắc của các bang thuộc địa Anh ở Bắc Mĩ phổ biến phát triển
+A. kinh tế đồn điền.
+*B. công trường thủ công.
+C. dệt và làm gốm.
+D. phường hội thủ công.
+
+Câu 4. Đến giữa thế kỉ XVIII, miền Nam của các bang thuộc địa Anh ở Bắc Mĩ phổ biến phát triển
+A. công thương nghiệp.
+*B. đồn điền, trang trại.
+C. luyện kim và đóng tàu.
+D. khai thác dầu mỏ.
+
+Câu 5. Từ thế kỉ XVII, nền nông nghiệp Anh có đặc điểm nổi bật nào sau đây?
+A. Lạc hậu, manh mún, công cụ lao động thô sơ.
+B. Bị cạnh tranh gay gắt bởi nông nghiệp Pháp.
+*C. Phương thức kinh doanh mới thâm nhập mạnh.
+D. Phát triển mạnh mẽ trong ngành đồn điền cao su.
+
+Câu 6. Mục tiêu chung của các cuộc cách mạng tư sản thế kỉ XVI - XVIII là
+*A. lật đổ chế độ phong kiến, thực dân cùng tàn tích của nó.
+B. lật đổ chế độ phong kiến cổ đại cùng tàn tích của nó.
+C. tạo điều kiện cho sự phát triển của chế độ phong kiến.
+D. mở đường cho sự phát triển của chủ nghĩa xã hội.
+
+Câu 7. Các cuộc cách mạng tư sản thế kỉ XVI - XVIII có hai nhiệm vụ cơ bản là
+*A. dân tộc và dân chủ.
+B. dân tộc và dân sinh.
+C. độc lập và tự do.
+D. dân chủ và dân quyền.
+
+Câu 8. Một trong những lực lượng lãnh đạo chủ yếu của các cuộc cách mạng tư sản thế kỉ XVI – XVIII là giai cấp
+*A. tư sản.
+B. công nhân.
+C. nông dân.
+D. địa chủ.
+
+Câu 9. Lãnh đạo của cuộc cách mạng tư sản Anh thế kỉ XVII là
+A. tư sản và chủ nô.
+*B. tư sản và quý tộc mới.
+C. tăng lữ và quý tộc.
+D. chủ nô và quý tộc.
+
+Câu 10. “Lật đổ chế độ phong kiến đứng đầu là vua Sác-lơ I, thiết lập nền thống trị của giai cấp tư sản và quý tộc mới, mở đường cho sự phát triển của chủ nghĩa tư bản” là mục tiêu của cuộc cách mạng tư sản ở quốc gia nào sau đây?
+A. Nga.
+B. Pháp.
+*C. Anh.
+D. Bắc Mĩ.
+
+Câu 11. Một trong những ý nghĩa của cách mạng tư sản Pháp cuối thế kỉ XVIII là
+*A. lật đổ và xóa bỏ mọi tàn dư của chế độ phong kiến.
+B. thúc đẩy phong trào đấu tranh giành độc lập Mĩ Latinh.
+C. lật đổ chế độ quân chủ chuyên chế do vua Sác-lơ I đứng đầu.
+D. lật đổ sự thống trị của thực dân Anh, giành độc lập dân tộc.
+
+Câu 12. Cách mạng tư sản Anh thế kỉ XVII đã
+A. lật đổ chế độ thuộc địa nửa phong kiến.
+B. thiết lập chế độ dân chủ cộng hòa ở Anh.
+*C. thiết lập chế độ quân chủ lập hiến ở Anh.
+D. giành độc lập dân tộc từ tay thực dân Pháp.
+
+Câu 13. Mức độ thắng lợi của các cuộc cách mạng tư sản thời cận đại khác nhau là do
+*A. điều kiện lịch sử.
+B. giai cấp lãnh đạo.
+C. động lực cách mạng.
+D. nhiệm vụ cách mạng.
+
+Câu 14. Đặc điểm nổi bật của tình hình chính trị nước Anh và Pháp trước khi bùng nổ cách mạng tư sản là
+*A. tồn tại chế độ quân chủ chuyên chế.
+B. là thuộc địa của chủ nghĩa thực dân.
+C. xuất hiện kinh tế tư bản chủ nghĩa.
+D. xuất hiện trào lưu triết học ánh sáng.
+
+Câu 15. Nội dung nào sau đây không phải là đặc điểm tình hình nước Pháp cuối thế kỉ XVIII?
+*A. Lấy Thanh giáo làm ngọn cờ tư tưởng.
+B. Xuất hiện trào lưu Triết học ánh sáng.
+C. Xã hội phân chia thành các đẳng cấp.
+D. Vua Lu-i XVI có quyền lực tuyệt đối.
+
+Câu 16. Đặc điểm nổi bật về kinh tế của 13 thuộc địa Anh ở Bắc Mĩ giữa thế kỉ XVIII là
+A. miền Nam chủ yếu phát triển kinh tế công nghiệp.
+B. miền Bắc chủ yếu phát triển kinh tế thương nghiệp.
+*C. kinh tế phát triển theo con đường tư bản chủ nghĩa.
+D. phương thức sản xuất tư bản chủ nghĩa chưa thâm nhập.
+
+Câu 17. Nội dung nào sau đây không phải là mục tiêu của các cuộc cách mạng tư sản thế kỉ XVI - XVIII?
+A. Lật đổ chế độ phong kiến, thực dân cùng tàn tích của nó.
+B. Tạo điều kiện cho sự phát triển của kinh tế tư bản chủ nghĩa.
+C. Thiết lập nền thống trị của giai cấp tư sản và liên minh của họ.
+*D. Mở ra thời đại thắng lợi của chế độ xã hội chủ nghĩa.
+
+Câu 18. Nội dung nào sau đây là mục tiêu của cuộc cách mạng tư sản Pháp cuối thế kỉ XVIII?
+A. Lật đổ chế độ phong kiến đứng đầu vua Sác-lơ I.
+B. Lật đổ ách thống trị của thực dân Anh, giành độc lập.
+*C. Lật đổ chế độ phong kiến đứng đầu vua Lu-i XVI.
+D. Thiết lập chính quyền của giai cấp tư sản và chủ nô.
+
+Câu 19. Một trong những điểm chung của các cuộc cách mạng tư sản thời cận đại là
+*A. mở đường cho chủ nghĩa tư bản phát triển.
+B. do tư sản và chủ nô lãnh đạo.
+C. xóa bỏ chế độ phong kiến và nô lệ.
+D. diễn ra dưới hình thức nội chiến.
+
+Câu 20. Điểm khác biệt về tình hình chính trị Bắc Mĩ so với nước Anh và Pháp trước khi cách mạng tư sản bùng nổ thế kỉ XVIII là
+*A. thực dân phương Tây thống trị.
+B. chế độ phong kiến kìm hãm.
+C. xuất hiện tầng lớp quý tộc mới.
+D. xã hội tồn tại chế độ đẳng cấp.
+
+Câu 21. Điểm chung trong tiền đề tư tưởng của các cuộc cách mạng tư sản thế kỉ XVII - XVIII là
+*A. Xuất hiện trào lưu tư tưởng tiến bộ của tư sản.
+B. Xuất hiện trào lưu triết học ánh sáng.
+C. Xuất hiện các giai cấp, tầng lớp xã hội mới.
+D. Xuất hiện trào lưu xã hội không tưởng.
+
+Câu 22. Nhận xét nào sau đây là đúng về ý nghĩa cách mạng tư sản Pháp cuối thế kỉ XVIII?
+A. Lật đổ và xóa bỏ mọi tàn dư của chế độ phong kiến.
+*B. Tạo điều kiện đầy đủ nhất cho kinh tế tư bản phát triển.
+C. Thúc đẩy phong trào giải phóng dân tộc ở Mĩ Latinh.
+D. Thiết lập chế độ quân chủ lập hiến tiến보 ở Pháp.
+
+Câu 23. Các cuộc cách mạng tư sản thời cận đại đều
+*A. dẫn đến xác lập quan hệ sản xuất tư bản chủ nghĩa.
+B. tạo ra một nền dân chủ, tự do thực sự, rộng rãi.
+C. lật đổ chế độ phong kiến, thiết lập nền cộng hòa.
+D. lật đổ chế độ thực dân, thiết lập nền cộng hòa.
+
+Câu 24. Mục tiêu chủ yếu của công cuộc cải cách, mở cửa ở Trung Quốc (1978) là
+*A. đưa Trung Quốc thành quốc gia giàu mạnh, dân chủ, văn minh.
+B. mở rộng quan hệ hợp tác toàn diện với các nước tư bản phát triển.
+C. hoàn thành triệt để cuộc cách mạng dân tộc dân chủ nhân dân.
+D. phát triển kinh tế xã hội chủ nghĩa do Nhà nước nắm độc quyền.
+
+Câu 25. Trước chiến tranh thế giới II, quốc gia duy nhất đi theo con đường xã hội chủ nghĩa là
+A. Lào.
+B. Trung Quốc.
+*C. Liên Xô.
+D. Việt Nam.
+
+Câu 26. Trong những năm 1944 - 1945, quốc gia nào sau đây ở Đông Âu thành lập chính quyền dân chủ nhân dân?
+*A. Ba Lan.
+B. Angiêri.
+C. Cu Ba.
+D. Nhật Bản.
+
+Câu 27. Năm 1948, ở châu Á, quốc gia nào sau đây đi lên xây dựng chủ nghĩa xã hội?
+*A. Triều Tiên.
+B. Cu Ba.
+C. Việt Nam.
+D. Lào.
+
+Câu 28. Năm 1949, ở châu Á, quốc gia nào sau đây đi lên xây dựng chủ nghĩa xã hội?
+A. Triều Tiên.
+B. Cu Ba.
+*C. Trung Quốc.
+D. Lào.
+
+Câu 29. Trong công cuộc cải cách, mở cửa (12/1978), Trung Quốc xác định lấy phát triển lĩnh vực nào làm trung tâm?
+*A. Kinh tế.
+B. Chính trị.
+C. Quân sự.
+D. Văn hóa.
+
+Câu 30. Trong 30 năm thực hiện đường lối cải cách (1978 - 2008), Trung Quốc đã đạt được thành tựu nào sau đây về kinh tế?
+A. Là quốc gia thứ ba thế giới có tàu và người bay vào vũ trụ.
+B. Thiết lập được quan hệ đối ngoại với hầu hết các quốc gia.
+C. Là cường quốc xuất khẩu vũ khí và trang thiết bị quân sự.
+*D. Là quốc gia có tốc độ phát triển kinh tế nhanh nhất thế giới.
+
+\\ II. Đúng/Sai
+}{Câu 1. Đọc đoạn tư liệu sau đây: Tư liệu 1: “Tất cả mọi người sinh ra có quyền bình đẳng...”. Tư liệu 2: “Điều 1. Con người sinh ra đều có quyền tự do và bình đẳng...”.
+*a. Bản Tuyên ngôn Nhân quyền và Dân quyền ra đời từ cuộc cách mạng tư sản Pháp cuối thế kỉ XVIII.
+*b. Điểm chung của Tuyên ngôn Độc lập của nước Mĩ và Tuyên ngôn Nhân quyền và Dân quyền của nước Pháp là đề cao quyền con người và quyền công dân.
+c. Bản Tuyên ngôn Nhân quyền và Dân quyền của nước Pháp năm 1789 không đề cao quyền tư hữu cá nhân vì đó là biểu hiện cho sự phân biệt giàu – nghèo.
+*d. Trong Tuyên ngôn Độc lập của nước Việt Nam Dân chủ Cộng hòa (2/9/1945), Chủ tịch Hồ Chí Minh đã trích dẫn những câu nói nổi tiếng trong bản Tuyên ngôn Độc lập của nước Mĩ và Tuyên ngôn Nhân quyền và Dân quyền của nước Pháp.
+
+}{Câu 2. Đọc đoạn tư liệu sau đây về hai nhiệm vụ cơ bản của cách mạng tư sản.
+*a. Một trong những nhiệm vụ cơ bản của các cuộc cách mạng tư sản là nhiệm vụ dân tộc.
+*b. Cách mạng tư sản Pháp đã xóa bỏ chế độ phong kiến chuyên chế, giải quyết vấn đề ruộng đất cho nông dân, thực hiện nhiệm vụ dân chủ.
+c. Chiến tranh giành độc lập của 13 thuộc địa Anh ở Bắc Mĩ cuối thế kỉ XVIII chỉ thực hiện nhiệm vụ dân tộc.
+*d. Cách mạng tư sản Pháp cuối thế kỉ XVIII vừa thực hiện nhiệm vụ dân tộc, vừa thực hiện nhiệm vụ dân chủ.
+
+}{Câu 3. Đọc đoạn tư liệu sau đây về thắng lợi của các cuộc cách mạng tư sản.
+*a. Mức độ thắng lợi của các cuộc cách mạng tư sản phụ thuộc vào điều kiện lịch sử của mỗi nước.
+b. Sau cuộc cách mạng tư sản thế kỉ XVII, nước Anh thiết lập chế độ Cộng hòa.
+*c. Điểm chung của các cuộc cách mạng tư sản là thiết lập chế độ tư bản chủ nghĩa, mở đường cho kinh tế hàng hóa phát triển.
+d. Cách mạng tư sản Anh, Pháp, Mĩ thế kỉ XVII – XVIII đều lật đổ chế độ phong kiến, thiết lập chế độ quân chủ lập hiến.
+
+}{Câu 4. Đọc đoạn tư liệu về tình hình chính trị của nước Anh trước cách mạng tư sản.
+*a. Ở nước Anh trước cách mạng tư sản, nhà vua nắm quyền lực tối cao và vô hạn.
+b. Vua Anh tôn trọng quyền quyết định của Quốc hội trong xây dựng luật pháp.
+*c. Ở nước Anh trước cách mạng tư sản diễn ra cuộc đấu tranh trên lĩnh vực tư tưởng giữa Anh giáo và Thanh giáo.
+d. Anh giáo là ngọn cờ tư tưởng tiến bộ của tư sản và quý tộc mới ở Anh nhằm chống lại chế độ phong kiến.
+
+}{Câu 5. Đọc đoạn tư liệu về ý nghĩa của Chiến tranh giành độc lập của 13 thuộc địa Anh ở Bắc Mĩ.
+*a. Thắng lợi của chiến tranh giành độc lập của 13 thuộc địa Anh ở Bắc Mĩ đánh dấu sự mở rộng của chủ nghĩa tư bản ở ngoài châu Âu.
+b. Chiến tranh giành độc lập của 13 thuộc địa Anh ở Bắc Mĩ là cuộc cách mạng tư sản vĩ đại và triệt để nhất trong các thế kỉ XVI – XIX.
+c. Chiến tranh giành độc lập của 13 thuộc địa Anh ở Bắc Mĩ đã lật đổ ách thống trị của thực dân Anh, đưa đến sự thành lập nhà nước dân chủ tư sản đầu tiên trên thế giới.
+*d. Chiến tranh giành độc lập của 13 thuộc địa Anh ở Bắc Mĩ thắng lợi đã thúc đẩy phong trào đấu tranh giành độc lập ở nhiều nước trên thế giới.
+
+}{Câu 6. Hiện tượng “Cừu ăn thịt người” là câu nói của Tô-mát Mo-rơ miêu tả thảm cảnh nông dân Anh.
+*a. Cuối thế kỉ XV – đầu thế kỉ XVI, phương thức sản xuất tư bản chủ nghĩa đã thâm nhập mạnh vào nông nghiệp Anh.
+*b. Nguyên nhân chủ yếu dẫn đến phong trào “rào đất cướp ruộng” ở Anh là do sự phát triển mạnh mẽ của ngành công nghiệp len dạ.
+*c. Sự phát triển của kinh tế tư bản chủ nghĩa trong nông nghiệp làm xuất hiện tầng lớp quý tộc mới, sau này đã liên minh với tư sản chống chế độ phong kiến Anh.
+d. Phong trào “rào đất cướp ruộng” đã góp phần cải thiện đời sống của nông dân Anh trước cách mạng tư sản.
+
+}{Câu 7. Đọc đoạn tư liệu về Hội nghị Trung ương 3 khóa XI Đảng Cộng sản Trung Quốc (năm 1978).
+a. Hiện nay, Trung Quốc là quốc gia có nền kinh tế phát triển hàng đầu thế giới, tạo uy tín cho chủ nghĩa xã hội.
+*b. Thành tựu của công cuộc cải cách mở cửa tạo cơ sở cho Trung Quốc xây dựng chủ nghĩa xã hội.
+*c. Hội nghị Trung ương 3 khóa XI có ý nghĩa đánh dấu sự khởi đầu trong công cuộc cải cách, mở cửa của Trung Quốc.
+d. Công cuộc cải cách, mở cửa là biện pháp giúp Trung Quốc quay trở lại con đường chủ nghĩa xã hội.
+
+}{Câu 8. Đọc đoạn tư liệu về chính sách đối ngoại của Trung Quốc từ thập kỷ 90 thế kỉ XX.
+*a. Đoạn trích phản ánh sự thay đổi trong chính sách đối ngoại của Trung Quốc từ những năm 90 của thế kỉ XX.
+*b. Từ thập kỉ 90 đến nay, Trung Quốc tích cực tham gia và trở thành thành viên tích cực của nhiều diễn đàn quốc tế và trong nước.
+c. Từ những năm 90, chính sách đối ngoại của Trung Quốc tập trung chủ yếu vào Việt Nam.
+d. Tư tưởng chỉ đạo trong quan hệ đối ngoại của Trung Quốc là tôn trọng lợi ích các nước đồng minh trong khu vực lên hàng đầu.`
+            },
+            "set_gdqp": {
+                id: "set_gdqp",
+                name: "Giáo Dục Quốc Phòng 11 - Giữa Kỳ 1",
+                timeLimit: 0,
+                scoring: { mcq: 0.25, tf: 1, sa: 0.5 },
+                rawText: `\\ I. Bài 1: Bảo vệ chủ quyền
+Câu 1. Nội dung nào sau đây phản ánh đúng mục tiêu của Đảng về Chiến lược bảo vệ Tổ quốc Việt Nam xã hội chủ nghĩa trong tình hình mới?
+A. Phát huy cao nhất sức mạnh của dân tộc kết hợp với sức mạnh của thời đại.
+*B. Bảo vệ vững chắc độc lập, chủ quyền, thống nhất, toàn vẹn lãnh thổ của Tổ quốc.
+C. Quán triệt đường lối độc lập, tự chủ; đồng thời chủ động tích cực hội nhập quốc tế.
+D. Luôn nhất quán và kiên định mục tiêu độc lập dân tộc gắn liền với chủ nghĩa xã hội.
+
+Câu 2. Nội dung nào sau đây không phản ánh đúng quan điểm chỉ đạo của Đảng về Chiến lược bảo vệ Tổ quốc trong tình hình mới?
+A. Giữ vững sự lãnh đạo trực tiếp, tuyệt đối về mọi mặt của Đảng.
+B. Giữ vững môi trường hòa bình, ổn định để phát triển kinh tế - xã hội.
+*C. Chỉ chú trọng xây dựng sức mạnh của đất nước về văn hóa - xã hội.
+D. Kết hợp chặt chẽ hai nhiệm vụ chiến lược xây dựng và bảo vệ Tổ quốc.
+
+Câu 3. Bất kì thế lực nào có âm mưu và hành động chống phá mục tiêu của Việt Nam trong sự nghiệp xây dựng và bảo vệ Tổ quốc đều là
+A. đối tác.
+*B. đối tượng.
+C. đồng đội.
+D. đồng minh.
+
+Câu 4. Luật Biển Việt Nam năm 2012 bao gồm
+A. 320 điều và 9 phụ lục.
+*B. 7 chương với 55 điều.
+C. 9 chương với 62 điều.
+D. 36 điều và 8 phụ lục.
+
+Câu 5. Theo quy định trong Luật Biển Việt Nam năm 2012: vùng biển quốc tế là tất cả các vùng biển nằm ngoài vùng đặc quyền kinh tế của Việt Nam và các quốc gia khác, nhưng không bao gồm
+A. vùng nội thủy và tiếp giáp lãnh hải.
+B. lãnh hải và vùng tiếp giáp lãnh hải.
+C. thềm lục địa và lòng đất dưới đáy biển.
+*D. đáy biển và lòng đất dưới đáy biển.
+
+Câu 6. Lãnh hải là vùng biển có chiều rộng 12 hải lí tính từ
+A. vùng nội thủy ra phía biển.
+*B. đường cơ sở ra phía biển.
+C. ranh giới ngoài của lãnh hải.
+D. ranh giới ngoài thềm lục địa.
+
+Câu 7. Vùng biển tiếp liền và nằm ngoài lãnh hải Việt Nam, hợp với lãnh hải thành một vùng biển có chiều rộng 200 hải lí tính từ đường cơ sở, được gọi là
+A. nội thủy.
+B. vùng tiếp giáp lãnh hải.
+*C. vùng đặc quyền kinh tế.
+D. thềm lục địa.
+
+Câu 8. Ranh giới ngoài thềm lục địa cách đường cơ sở không quá
+*A. 350 hải lí.
+B. 200 hải lí.
+C. 12 hải lí.
+D. 10 hải lí
+
+Câu 9. Việt Nam có hai quần đảo xa bờ là
+A. Hoàng Sa và Thổ Chu.
+*B. Hoàng Sa và Trường Sa.
+C. Trường Sa và Phú Quý.
+D. Thổ Chu và Phú Quý.
+
+Câu 10. Biên giới quốc gia trên đất liền được hoạch định và đánh dấu trên thực địa bằng
+A. một mốc quốc giới duy nhất.
+B. các tọa độ trên hải đồ.
+*C. hệ thống mốc quốc giới.
+D. hệ tọa độ trên đất liền.
+
+Câu 11. “Mặt thẳng đứng từ biên giới quốc gia trên đất liền và biên giới quốc gia trên biển xuống lòng đất” - đó là nội dung của khái niệm nào sau đây?
+A. Biên giới quốc gia trên biển.
+B. Biên giới quốc gia trên không.
+C. Biên giới quốc gia trên đất liền.
+*D. Biên giới quốc gia trong lòng đất
+
+Câu 12. Hành vi nào dưới đây bị nghiêm cấm trong bảo vệ biên giới quốc gia của Việt Nam?
+*A. Phá hoại an ninh, trật tự, an toàn xã hội ở khu vực biên giới.
+B. Bảo vệ môi trường, tài nguyên thiên nhiên và lợi ích quốc gia.
+C. Vận chuyển qua biên giới hàng hóa mà nhà nước không cấm.
+D. Tố giác những hành vi gây hư hại, làm xê dịch mốc quốc giới.
+
+Câu 13. Ở Việt Nam, Ngày biên phòng toàn dân được tổ chức vào
+*A. ngày 3/3 hằng năm.
+B. ngày 18/3 hằng năm.
+C. ngày 22/12 hằng năm.
+D. ngày 7/5 hằng năm.
+
+\\ II. Bài 2: Luật Nghĩa Vụ Quân Sự
+Câu 14. Những đối tượng nào sau đây được quyền đăng kí nghĩa vụ quân sự?
+*A. Công dân nam từ đủ 17 tuổi và công dân nữ đủ 18 tuổi trở lên.
+B. Người bị tước quyền phục vụ trong lực lượng vũ trang nhân dân.
+C. Công dân đang chấp hành hình phạt tù, cải tạo không giam giữ.
+D. Người đang bị áp dụng biện pháp giáo dục tại xã, phường, thị trấn.
+
+Câu 15. Ban Chỉ huy quân sự cấp xã chuyển Lệnh gọi đăng kí nghĩa vụ quân sự đến công dân cư trú tại địa phương trước thời hạn đăng kí bao nhiêu ngày?
+A. 8 ngày.
+B. 9 ngày.
+*C. 10 ngày.
+D. 11 ngày.
+
+Câu 16. Độ tuổi được gọi nhập ngũ của công dân Việt Nam là
+A. từ đủ 20 đến hết 25 tuổi.
+B. từ đủ 21 đến hết 27 tuổi.
+*C. từ đủ 18 đến hết 25 tuổi.
+D. từ đủ 17 đến hết 27 tuổi.
+
+Câu 17. Nội dung nào sau đây không phản ánh đúng tiêu chuẩn được gọi nhập ngũ của công dân Việt Nam?
+A. Có lí lịch rõ ràng.
+B. Đủ sức khỏe phụ vụ tại ngũ.
+C. Tuân thủ pháp luật của nhà nước.
+*D. Không yêu cầu trình độ văn hóa.
+
+Câu 18. Hằng năm, gọi công dân nhập ngũ một lần vào thời gian nào?
+A. Tháng 11 hoặc tháng 12.
+B. Tháng 1 hoặc tháng 2.
+*C. Tháng 2 hoặc tháng 3.
+D. Tháng 4 hoặc tháng 5.
+
+Câu 19. Công dân thuộc trường hợp nào sau đây được miễn gọi nhập ngũ?
+A. Các con của thương binh hạng hai; anh trai/ em trai của liệt sĩ.
+B. Con của bệnh binh suy giảm khả năng lao động từ 61% trở lên.
+*C. Con của liệt sĩ; con của thương binh hạng một.
+D. Tất cả các anh trai hoặc em trai của liệt sĩ.
+
+Câu 20. Trong thời bình, thời hạn phục vụ tại ngũ của hạ sĩ quan, binh lính là
+A. 12 tháng.
+B. 18 tháng.
+*C. 24 tháng.
+D. 30 tháng.
+
+Câu 21. Nội dung nào sau đây không phản ánh đúng các hành vi bị nghiêm cấm trong thực hiện nghĩa vụ quân sự?
+A. Chống đối, cản trở việc thực hiện nghĩa vụ quân sự.
+B. Xâm phạm thân thể, sức khỏe của hạ sĩ quan, binh lính.
+*C. Tôn trọng danh dự, nhân phẩm của hạ sĩ quan, binh lính.
+D. Gian dối trong hoạt động khám sức khỏe nghĩa vụ quân sự.
+
+Câu 22. Hành vi gian dối làm sai lệch kết quả phân loại sức khỏe của mình nhằm trốn tránh nghĩa vụ quân sự sẽ bị xử phạt bằng hình thức nào sau đây?
+A. Cải tạo không giam giữ.
+B. Tù không thời hạn.
+C. Tù có thời hạn.
+*D. Phạt tiền.
+
+Câu 23. Người nào có chức trách quyết định về độ tuổi tuyển chọn và ngành nghề cần thiết để tuyển chọn công dân nữ thực hiện nghĩa vụ tham gia Công an nhân dân?
+A. Bộ trưởng Bộ Quốc phòng.
+B. Bộ trưởng Bộ Công an.
+C. Thủ tướng Chính phủ.
+*D. Chủ tịch nước.
+
+Câu 24. Nội dung nào sau đây phản ánh đúng tiêu chuẩn tuyển chọn công dân thực hiện nghĩa vụ tham gia công an nhân dân?
+A. Công dân đã có tiền án, tiền sự.
+B. Đang bị truy cứu trách nhiệm hình sự.
+*C. Thể hình cân đối, không dị hình, dị dạng.
+D. Tốt nghiệp THPT đối với công dân các xã miền núi.
+
+Câu 25. Trong hồ sơ đăng kí nghĩa vụ quân sự lần đầu cần có
+*A. phiếu tự khai sức khỏe nghĩa vụ quân sự.
+B. giấy chứng nhận đăng kí nghĩa vụ quân sự.
+C. sổ hộ khẩu và bản chụp căn cước công dân.
+D. bản chụp giấy khai sinh và sổ hộ khẩu.
+
+\\ III. Bài 3: Phòng chống tệ nạn xã hội
+Câu 26. Khái niệm “tội phạm” không bao gồm nội dung nào sau đây?
+A. Do pháp nhân thương mại thực hiện một cách vô ý hoặc cố ý.
+B. Là hành vi nguy hiểm cho xã hội được quy định trong Bộ luật Hình sự.
+*C. Hành vi gây nguy hiểm cho xã hội được quy định trong Bộ luật Dân sự.
+D. Do người có năng lực trách nhiệm hình sự thực hiện một cách vô ý hoặc cố ý
+
+Câu 27. Một trong những cách thức hoạt động phổ biến của tội phạm là
+A. hoạt động độc lập, không có sự cấu kết.
+*B. câu kết thành các băng nhóm, tổ chức.
+C. chỉ lưu động trên phạm vi xã, phường.
+D. không sử dụng các loại vũ khí, công cụ.
+
+Câu 28. Nội dung nào sau đây không đúng về khái niệm “tội phạm sử dụng công nghệ cao”?
+A. Là những hành vi vi phạm pháp luật hình sự.
+B. Do người có năng lực trách nhiệm hình sự thực hiện.
+*C. Do người mất năng lực trách nhiệm hình sự thực hiện.
+D. Xâm phạm trật tự, an toàn thông tin, tổn hại lợi ích nhà nước.
+
+Câu 29. “Hiện tượng xã hội tiêu cực, có tính phổ biến, lan truyền, biểu hiện bằng những hành vi vi phạm pháp luật, lệch chuẩn mực xã hội, chuẩn mực đạo đức, gây nguy hiểm cho xã hội” - đó là nội dung của khái niệm nào sau đây?
+*A. Tệ nạn xã hội.
+B. Bạo lực gia đình.
+C. Bạo lực học đường.
+D. Tội phạm hình sự.
+
+Câu 30. Tệ nạn ma túy là các hành vi
+*A. sử dụng trái phép chất ma tuý, nghiện ma tuý, vi phạm pháp luật về ma tuý.
+B. mua dâm, bán dâm và các hành vi khác có liên quan đến mua dâm, bán dâm.
+C. tin vào những điều mơ hồ dẫn đến cuồng tín, hành động trái với chuẩn mực xã hội.
+D. lợi dụng trò chơi để cá cược, sát phạt được thua bằng tiền hoặc lợi ích vật chất khác.`
+            },
+            "set_gddp": {
+                id: "set_gddp",
+                name: "Giáo Dục Địa Phương 11 - Giữa Kỳ 1",
+                timeLimit: 600,
+                scoring: { mcq: 0.25, tf: 1, sa: 0.5 },
+                rawText: `\\ I. Văn học & Lịch sử Lào Cai
+Câu 1. Văn học hiện đại Lào Cai chia làm mấy giai đoạn?
+A. 02
+B. 03
+*C. 04
+D. 05
+
+Câu 2. Bác Hồ viết bức thư đầu tiên gửi đồng bào tỉnh Lào Cai vào ngày tháng năm nào?
+A. 24/9/1958
+*B. 18/10/1945
+C. 23/9/1958
+D. 19/10/1945
+
+Câu 3. Các tác giả chủ yếu của văn học hiện đại Lào Cai giai đoạn 1-2 là:
+A. Người đồng bào dân tộc thiểu số.
+B. Người H’Mông và người Tày.
+C. Người thị xã Lào Cai.
+*D. Người miền xuôi lên Lào Cai công tác, chiến đấu.
+
+Câu 4. Bác Hồ đã viết tất cả bao nhiêu bức thư và bài báo cho đồng bào Lào Cai?
+A. 01 bức thư và 05 bài báo.
+B. 05 bức thư và 05 bài báo.
+C. 06 bức thư và 01 bài báo.
+*D. 05 bức thư và 01 bài báo.
+
+Câu 5. Trong 24 năm giữ cương vị Chủ tịch nước, Bác Hồ đã ký lệnh 7 lần tặng Bằng khen cho 7 xã thuộc các huyện nào?
+A. Huyện Mường Khương, Bắc Hà và Bảo Thắng.
+*B. Huyện Bát Xát, Mường Khương và Bảo Thắng.
+C. Huyện Bát Xát, Bắc Hà và Bảo Thắng.
+D. Huyện Mường Khương, Bắc Hà và Si Ma Cai.
+
+Câu 6. Bác Hồ lên thăm Lào Cai vào ngày tháng năm nào?
+*A. 23/09/1958
+B. 23/08/1958
+C. 22/09/1958
+D. 22/08/1958
+
+Câu 7. Cụ Trần Văn Nỏ thay mặt bà con các dân tộc địa phương vùng mỏ Cam Đường kính tặng Bác Hồ kỉ vật gì?
+*A. Tấm khăn thổ cẩm do chị em phụ nữ thêu.
+B. Tấm khăn thổ cẩm do các cháu thiếu nhi thêu.
+C. Tấm khăn thổ cẩm do các cụ già thêu.
+D. Tấm khăn thổ cẩm do đồng bào thêu.
+
+Câu 8. Bác Hồ đã căn dặn, chỉ rõ những nhiệm vụ lớn cho Đảng bộ và đồng bào Lào Cai thực hiện, đó là:
+*A. Đoàn kết chặt chẽ, tăng gia sản xuất, trật tự an ninh, thuần phong mỹ tục.
+B. Đoàn kết chặt chẽ, thuần phong mỹ tục.
+C. Đoàn kết chặt chẽ, tăng gia sản xuất, thuần phong mỹ tục.
+D. Đoàn kết chặt chẽ, tăng gia sản xuất, trật tự an ninh.
+
+Câu 9. Địa điểm lưu niệm Chủ tịch Hồ Chí Minh tại Lào Cai được Bộ Văn hoá, Thể thao và Du lịch xếp hạng công nhận là gì?
+A. Danh lam thắng cảnh nổi tiếng của Lào Cai.
+B. Di tích lịch sử Lào Cai.
+C. Danh lam thắng cảnh nổi tiếng của Việt Nam.
+*D. Di tích lịch sử quốc gia.
+
+Câu 10. Nguyễn Thái Học là người sáng lập tổ chức nào?
+A. Tân Việt Cách mạng Đảng
+*B. Việt Nam Quốc dân Đảng
+C. Đông Dương Cộng sản Đảng
+D. Hội Việt Nam Cách mạng Thanh niên
+
+Câu 11. Tư tưởng cách mạng nổi tiếng của Nguyễn Thái Học là:
+A. “Cần, kiệm, liêm, chính”
+*B. “Không thành công cũng thành nhân”
+C. “Dân là gốc của nước”
+D. “Đem sức ta mà giải phóng cho ta”
+
+Câu 12. Tên thật của nhà văn Ma Văn Kháng là:
+A. Nguyễn Khải
+*B. Đinh Trọng Đoàn
+C. Ma Văn Hòa
+D. Trần Đình Nam
+
+Câu 13. Quê gốc của nhà văn Ma Văn Kháng là ở:
+*A. Hà Nội
+B. Lào Cai
+C. Yên Bái
+D. Bắc Ninh
+
+Câu 14. Nhà văn Ma Văn Kháng được trao Giải thưởng Hồ Chí Minh về Văn học Nghệ thuật vào năm nào?
+A. 2008
+B. 2010
+*C. 2012
+D. 2014
+
+\\ II. Tác phẩm thơ & văn học
+Câu 15. Bài thơ “Gửi em ở cuối sông Hồng” của tác giả Dương Soái được sáng tác ở giai đoạn nào?
+A. Giai đoạn 1.
+B. Giai đoạn 2.
+*C. Giai đoạn 3.
+D. Giai đoạn 4.
+
+Câu 16. Tác phẩm “Chiều biên giới” của tác giả Lò Ngân Sủn được sáng tác trong giai đoạn nào?
+A. Giai đoạn 1.
+*B. Giai đoạn 3.
+C. Giai đoạn 2.
+D. Giai đoạn 4.
+
+Câu 17. Bài thơ “Mùa gặt Mường Lò” được sáng tác theo thể thơ nào?
+A. Thơ bốn chữ
+B. Thơ năm chữ
+*C. Thơ tự do
+D. Thơ lục bát
+
+Câu 18. Cụm địa danh nào KHÔNG được nhắc đến trong bài thơ viết về Mường Lò?
+A. Nghĩa Lộ
+B. Mường Lò
+C. Suối Thia
+*D. Mộc Châu
+
+Câu 19. Hình ảnh thiên nhiên nào thể hiện rõ nét đặc trưng vùng Tây Bắc trong bài thơ?
+*A. Mây trắng, suối trong, cánh đồng
+B. Biển xanh, cát trắng, sóng vỗ
+C. Cánh cò bay lả, sông Đà nước chảy
+D. Cồn cát, đồi sim, rừng phi lao
+
+Câu 20. Điệp khúc nào được lặp lại nhiều lần trong bài thơ về Nghĩa Lộ, tạo âm hưởng tha thiết?
+A. “Bao giờ anh vào…”
+B. “Anh hãy cùng em…”
+*C. “Anh có vào Nghĩa Lộ với em không?”
+D. “Em nhớ anh nhiều lắm!”`
+            }
+        };
         
         let appData = { sets: {} };
         let currentActiveSetId = null;
@@ -532,46 +1056,13 @@
                     let parsed = JSON.parse(saved);
                     if(parsed && parsed.sets) appData = parsed;
                 } catch(e) {}
-            } else {
-                let recovered = false;
-                for(let i = 1; i <= 5; i++) {
-                    let oldData = localStorage.getItem(`azota_stem_data_v${i}`);
-                    if(oldData) {
-                        try {
-                            let parsedOld = JSON.parse(oldData);
-                            if(parsedOld && parsedOld.sets && Object.keys(parsedOld.sets).length > 0) {
-                                appData = parsedOld;
-                                recovered = true;
-                                break;
-                            }
-                        } catch(e){}
-                    }
-                }
-                if(!recovered || Object.keys(appData.sets).length === 0) {
-                    appData = {
-                        sets: {
-                            "set_stem_sample": {
-                                id: "set_stem_sample",
-                                name: "Bộ đề mẫu STEM (Toán, Lý, Hóa, Sinh)",
-                                timeLimit: 900,
-                                rawText: `}{Câu 1. Khi nói về dao động điều hòa:
-*a) Li độ biến thiên điều hòa theo thời gian.
-b) Vận tốc luôn ngược pha với gia tốc.
-c) Biên độ dao động phụ thuộc vào tần số góc.
-*d) Cơ năng tỉ lệ thuận với bình phương biên độ.
-
-Câu 2. (Toán học) Nghiệm của phương trình $\\sqrt{x^2 + 1} = 2$ là:
-A. $x = \\pm 1$
-*B. $x = \\pm \\sqrt{3}$
-C. $x = 3$
-D. Vô nghiệm
-
-[]Câu 3. Một vật dao động điều hòa với chu kì 0,4 s. Tần số dao động của vật là bao nhiêu Hz?
-ĐA: 2,5`
-                            }
-                        }
-                    };
-                }
+            }
+            
+            // TỰ ĐỘNG ĐỒNG BỘ CÁC BỘ ĐỀ CHÍNH TỪ CODE MỖI KHI MỞ TRANG
+            // Giúp Huy cập nhật nội dung trong code thoải mái mà không cần đổi v16->v17 nữa!
+            if(!appData.sets) appData.sets = {};
+            for(let id in DEFAULT_SETS) {
+                appData.sets[id] = DEFAULT_SETS[id];
             }
             saveAppData();
 
@@ -591,12 +1082,11 @@ D. Vô nghiệm
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
                 return true;
             } catch(e) {
-                alert('⚠️ Bộ nhớ trình duyệt đã đầy nên không lưu được!\nHãy xóa bớt ảnh/bộ đề cũ (nhớ bấm "Sao lưu dữ liệu" trước).');
+                alert('⚠️ Bộ nhớ trình duyệt đã đầy!');
                 return false;
             }
         }
 
-        // ---------- Tiện ích chung ----------
         function escapeHtml(str) {
             return String(str).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
         }
@@ -612,7 +1102,6 @@ D. Vô nghiệm
             try { if(window.MathJax && typeof MathJax.typesetPromise === 'function') MathJax.typesetPromise().catch(() => {}); } catch(e) {}
         }
 
-        // ---------- ẢNH TRONG CÂU HỎI: [img:ten] hoặc [img:https://...] ----------
         function getCurrentImages() {
             let st = appData.sets[currentActiveSetId];
             return (st && st.images) ? st.images : {};
@@ -623,7 +1112,7 @@ D. Vô nghiệm
             return String(str).replace(/\[img:\s*([^\]]+?)\s*\]/gi, (m, name) => {
                 let src = /^(https?:\/\/|data:image\/)/i.test(name) ? name : images[name];
                 if(!src) return `<span class="img-missing">⚠️ Thiếu ảnh "${escapeHtml(name)}"</span>`;
-                return `<img class="q-img" src="${String(src).replace(/"/g, '%22')}" alt="${escapeHtml(/^data:/i.test(name) ? 'hình' : name)}">`;
+                return `<img class="q-img" src="${String(src).replace(/"/g, '%22')}" alt="hình">`;
             }).replace(/\n/g, '<br>');
         }
         function setupImageInputs() {
@@ -637,13 +1126,7 @@ D. Vô nghiệm
                     }
                     if(files.length) { e.preventDefault(); handleImageFiles(files); }
                 });
-                ta.addEventListener('dragover', function(e) { if(e.dataTransfer && [...e.dataTransfer.types].includes('Files')) e.preventDefault(); });
-                ta.addEventListener('drop', function(e) {
-                    let files = [...(e.dataTransfer ? e.dataTransfer.files : [])].filter(f => f.type.startsWith('image/'));
-                    if(files.length) { e.preventDefault(); handleImageFiles(files); }
-                });
             }
-            // Bấm vào ảnh trong câu hỏi để phóng to
             document.addEventListener('click', function(e) {
                 let t = e.target;
                 if(t && t.classList && t.classList.contains('q-img')) {
@@ -662,9 +1145,7 @@ D. Vô nghiệm
                 let reader = new FileReader();
                 reader.onerror = reject;
                 reader.onload = () => {
-                    if(file.type === 'image/svg+xml' || file.type === 'image/gif') { resolve(reader.result); return; }
                     let img = new Image();
-                    img.onerror = reject;
                     img.onload = () => {
                         let scale = Math.min(1, maxSide / Math.max(img.width, img.height));
                         let w = Math.max(1, Math.round(img.width * scale)), h = Math.max(1, Math.round(img.height * scale));
@@ -672,12 +1153,7 @@ D. Vô nghiệm
                         let ctx = canvas.getContext('2d');
                         ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
                         ctx.drawImage(img, 0, 0, w, h);
-                        let out = canvas.toDataURL('image/jpeg', 0.82);
-                        if(file.type === 'image/png') { // hình vẽ/đồ thị: ưu tiên PNG cho nét nếu dung lượng nhỏ
-                            let png = canvas.toDataURL('image/png');
-                            if(png.length < 250000 || png.length < out.length) out = png;
-                        }
-                        resolve(out);
+                        resolve(canvas.toDataURL('image/jpeg', 0.82));
                     };
                     img.src = reader.result;
                 };
@@ -695,20 +1171,18 @@ D. Vô nghiệm
             if(!st.images) st.images = {};
             let added = [];
             for(const file of files) {
-                if(!file.type || !file.type.startsWith('image/')) continue;
-                try {
-                    let dataUrl = await compressImage(file);
-                    let name = nextImageName(st.images);
-                    st.images[name] = dataUrl;
-                    added.push(name);
-                } catch(err) { alert('Không đọc được ảnh: ' + (file.name || '')); }
+                if(!file.type.startsWith('image/')) continue;
+                let dataUrl = await compressImage(file);
+                let name = nextImageName(st.images);
+                st.images[name] = dataUrl;
+                added.push(name);
             }
-            if(added.length === 0) return;
-            if(!saveAppData()) { added.forEach(n => delete st.images[n]); renderImagePanel(); return; }
-            insertStemLine(added.map(n => `[img:${n}]`).join('\n'));
-            renderImagePanel();
+            if(added.length) {
+                saveAppData();
+                insertStemLine(added.map(n => `[img:${n}]`).join('\n'));
+                renderImagePanel();
+            }
         }
-        // Chèn mã ảnh trên DÒNG RIÊNG (tránh dính vào đáp án/đề). Dòng ảnh nằm sau đề → thuộc đề bài; nằm sau 1 đáp án → thuộc đáp án đó.
         function insertStemLine(code) {
             let ta = document.getElementById('raw-questions-input');
             let start = ta.selectionStart, end = ta.selectionEnd, text = ta.value;
@@ -723,8 +1197,6 @@ D. Vô nghiệm
         function deleteSetImage(name) {
             let st = appData.sets[currentActiveSetId];
             if(!st || !st.images || !st.images[name]) return;
-            let used = document.getElementById('raw-questions-input').value.includes(`[img:${name}]`);
-            if(!confirm(used ? `Ảnh "${name}" đang được dùng trong đề. Xóa thì câu hỏi sẽ báo thiếu ảnh. Vẫn xóa?` : `Xóa ảnh "${name}"?`)) return;
             delete st.images[name];
             saveAppData();
             renderImagePanel();
@@ -737,21 +1209,16 @@ D. Vô nghiệm
             if(!st || !info || !list) return;
             let imgs = st.images || {};
             let names = Object.keys(imgs);
-            let bytes = names.reduce((a, n) => a + Math.round(imgs[n].length * 0.75), 0);
-            let usedPct = Math.round(JSON.stringify(appData).length / 5000000 * 100);
-            info.innerHTML = (names.length ? `${names.length} ảnh • ${Math.round(bytes / 1024)} KB • ` : '') +
-                `<span style="${usedPct >= 70 ? 'color:#ef4444; font-weight:700;' : ''}">bộ nhớ app đã dùng ~${usedPct}%</span>`;
+            info.innerHTML = names.length ? `${names.length} ảnh` : '';
             list.innerHTML = names.length ? names.map(n => `
                 <div class="img-chip">
                     <img class="img-chip-thumb" src="${imgs[n]}" alt="${escapeHtml(n)}">
                     <code>[img:${escapeHtml(n)}]</code>
                     <button class="stem-btn" onclick="insertStemLine('[img:${n}]')">Chèn</button>
                     <button class="stem-btn" onclick="deleteSetImage('${n}')">🗑️</button>
-                </div>`).join('')
-                : `<div class="img-panel-hint">Bấm <b>🖼️ Chèn ảnh</b>, hoặc <b>dán (Ctrl+V)</b> / kéo thả ảnh vào ô soạn thảo. Ảnh tự động thu nhỏ để tiết kiệm bộ nhớ.</div>`;
+                </div>`).join('') : `<div class="img-panel-hint">Bấm <b>🖼️ Chèn ảnh</b> hoặc dán ảnh vào đây.</div>`;
         }
 
-        // ---------- THANG ĐIỂM ----------
         function getScoring(st) {
             let sc = (st && st.scoring) || {};
             const num = (v, d) => (typeof v === 'number' && isFinite(v) && v >= 0) ? v : d;
@@ -772,25 +1239,19 @@ D. Vô nghiệm
 
         function changeThemeColor(hex, silent = false) {
             document.documentElement.style.setProperty('--accent-color', hex);
-            let darkHex = hex === '#2563eb' ? '#1d4ed8' : (hex === '#10b981' ? '#059669' : (hex === '#9333ea' ? '#7e22ce' : (hex === '#f59e0b' ? '#d97706' : '#be123c')));
+            let darkHex = hex === '#2563eb' ? '#1d4ed8' : (hex === '#10b981' ? '#059669' : '#7e22ce');
             document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(135deg, ${hex} 0%, ${darkHex} 100%)`);
             localStorage.setItem('azota_theme_color', hex);
         }
-
         function toggleTheme() {
             document.body.classList.toggle('theme-dark');
             localStorage.setItem('azota_dark_mode', document.body.classList.contains('theme-dark') ? '1' : '0');
         }
-
-        function toggleFocusMode() {
-            document.body.classList.toggle('focus-mode');
-        }
-
+        function toggleFocusMode() { document.body.classList.toggle('focus-mode'); }
         function togglePreviewMode() {
             isPreviewActive = !isPreviewActive;
             let setupContainer = document.getElementById('setup-screen');
             let btn = document.getElementById('preview-toggle-btn');
-
             if(isPreviewActive) {
                 setupContainer.classList.add('split-mode');
                 btn.innerHTML = '👁️ Xem trước: Bật';
@@ -809,36 +1270,23 @@ D. Vô nghiệm
             let questions = parseRawData(rawText);
             let container = document.getElementById('preview-content-container');
             if(questions.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding: 30px; opacity: 0.6; font-size: 14px;">Chưa có câu hỏi hợp lệ để xem trước. Hãy nhập đề bên trên!</div>`;
+                container.innerHTML = `<div style="text-align:center; padding: 30px; opacity: 0.6;">Chưa có nội dung hiển thị...</div>`;
                 return;
             }
             let html = "";
             questions.forEach((q, qIndex) => {
                 if(isNewSection(questions, qIndex)) html += sectionHeadingHtml(q);
                 let badge = q.isTrueFalse ? '(Đúng/Sai)' : (q.isShortAnswer ? '(Trả lời ngắn)' : '');
-                html += `<div class="question-box">
-                    <div class="question-title">Câu ${qIndex + 1}. ${richText(q.title)} ${badge ? `<span style="color:var(--accent-color); font-size:12px;">${badge}</span>` : ''}</div>`;
+                html += `<div class="question-box"><div class="question-title">Câu ${qIndex + 1}. ${richText(q.title)} ${badge}</div>`;
                 if(q.isShortAnswer) {
-                    html += `<div class="sa-key">✅ Đáp án chấp nhận: ${q.answers.map(a => `<code>${escapeHtml(a)}</code>`).join(' hoặc ')}</div>`;
+                    html += `<div class="sa-key">✅ ĐA: ${q.answers.join(' hoặc ')}</div>`;
                 } else if(q.isTrueFalse) {
-                    html += `<div class="tf-container"><div class="tf-header-row"><div class="tf-header-text"></div><div class="tf-header-col">Ý chọn</div></div>`;
                     q.options.forEach((opt, oIdx) => {
-                        let cleanText = opt.text.replace(/^[a-da-d][\.\)]\s*/i, '');
-                        let letter = String.fromCharCode(97 + oIdx);
-                        html += `<div class="tf-item-row">
-                            <div class="tf-item-text"><b>${letter}.</b> ${richText(cleanText)}</div>
-                            <div class="tf-box-choice" style="width:auto; padding-right:10px; font-weight:bold; color:${opt.correct ? '#10b981' : '#ef4444'};">${opt.correct ? 'Đúng' : 'Sai'}</div>
-                        </div>`;
+                        html += `<div class="tf-item-row"><div class="tf-item-text">${richText(opt.text)}</div><div style="color:${opt.correct?'#10b981':'#ef4444'}">${opt.correct?'Đúng':'Sai'}</div></div>`;
                     });
-                    html += `</div>`;
                 } else {
-                    q.options.forEach((opt, oIdx) => {
-                        let cleanText = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '');
-                        let letter = String.fromCharCode(65 + oIdx);
-                        html += `<div class="option-item" style="${opt.correct ? 'border-color: #10b981; background: rgba(16,185,129,0.08); font-weight:600;' : ''}">
-                            <span style="width:18px;">${opt.correct ? '✅' : '◯'}</span>
-                            <div style="margin-left:8px;"><b>${letter}.</b> ${richText(cleanText)}</div>
-                        </div>`;
+                    q.options.forEach(opt => {
+                        html += `<div class="option-item" style="${opt.correct?'border-color:#10b981; background:rgba(16,185,129,0.08);':''}">${richText(opt.text)}</div>`;
                     });
                 }
                 html += `</div>`;
@@ -847,45 +1295,24 @@ D. Vô nghiệm
             typesetMath();
         }
 
-        function insertStemCode(code) {
-            let textarea = document.getElementById('raw-questions-input');
-            let start = textarea.selectionStart;
-            let end = textarea.selectionEnd;
-            let text = textarea.value;
-            textarea.value = text.substring(0, start) + code + text.substring(end);
-            textarea.selectionStart = textarea.selectionEnd = start + code.length;
-            textarea.focus();
-            updateLivePreview();
-        }
-
         function renderSetsManager() {
             let container = document.getElementById('sets-list-container');
             if(!container) return;
             renderResumeBanner();
             container.innerHTML = '';
             let keys = Object.keys(appData.sets);
-            
-            if(keys.length === 0) {
-                container.innerHTML = `<p style="opacity:0.6; text-align:center;">Chưa có bộ đề nào!</p>`;
-                return;
-            }
-
+            if(keys.length === 0) { container.innerHTML = `<p style="opacity:0.6; text-align:center;">Chưa có bộ đề nào!</p>`; return; }
             keys.forEach(id => {
                 let s = appData.sets[id];
-                let count = (s.rawText.match(/(?:\}\{|><|\[\])?Câu\s+\d+[\.:]/gi) || []).length;
                 container.innerHTML += `
                     <div class="deck-card">
-                        <div>
-                            <b style="font-size: 16px; color: var(--accent-color);">${s.name}</b>
-                            <div style="font-size: 13px; opacity: 0.7; margin-top: 4px;">Khoảng ${count} câu hỏi STEM</div>
-                        </div>
+                        <div><b style="font-size: 16px; color: var(--accent-color);">${s.name}</b></div>
                         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                            <button class="btn" style="padding: 6px 14px; font-size: 12px; min-height: 38px;" onclick="openSet('${id}')">✏️ Soạn & Làm</button>
-                            <button class="btn btn-warning" style="padding: 6px 12px; font-size: 12px; min-height: 38px;" onclick="exportSingleSetById('${id}')">📥 Tải</button>
-                            <button class="btn btn-fail" style="padding: 6px 10px; font-size: 12px; min-height: 38px;" onclick="deleteSet('${id}')">🗑️</button>
+                            <button class="btn" style="padding: 6px 14px; font-size: 12px;" onclick="openSet('${id}')">✏️ Soạn & Làm</button>
+                            <button class="btn btn-warning" style="padding: 6px 10px; font-size: 12px;" onclick="exportSingleSetById('${id}')">📥 Tải</button>
+                            <button class="btn btn-fail" style="padding: 6px 10px; font-size: 12px;" onclick="deleteSet('${id}')">🗑️</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
@@ -893,12 +1320,7 @@ D. Vô nghiệm
             let name = document.getElementById('new-set-name').value.trim();
             if(!name) return alert("Vui lòng nhập tên bộ đề!");
             let id = 'set_' + Date.now();
-            appData.sets[id] = {
-                id: id,
-                name: name,
-                timeLimit: 600,
-                rawText: "}{Câu 1. Ví dụ câu hỏi Đúng/Sai:\n*a) Ý này đúng\nb) Ý này sai\n\n[]Câu 2. Ví dụ câu trả lời ngắn (đáp án là số):\nĐA: 2,5"
-            };
+            appData.sets[id] = { id: id, name: name, timeLimit: 600, rawText: "}{Câu 1. Ví dụ Đúng/Sai:\n*a) Đúng\nb) Sai" };
             saveAppData();
             document.getElementById('new-set-name').value = '';
             renderSetsManager();
@@ -906,11 +1328,7 @@ D. Vô nghiệm
 
         function deleteSet(id) {
             if(Object.keys(appData.sets).length <= 1) return alert("Phải giữ lại ít nhất 1 bộ đề!");
-            if(confirm("Bạn có chắc muốn xóa bộ đề này?")) {
-                delete appData.sets[id];
-                saveAppData();
-                renderSetsManager();
-            }
+            if(confirm("Xóa bộ đề này?")) { delete appData.sets[id]; saveAppData(); renderSetsManager(); }
         }
 
         function openSet(id) {
@@ -918,23 +1336,11 @@ D. Vô nghiệm
             let s = appData.sets[id];
             document.getElementById('current-set-title').innerText = `⚙️ Soạn Thảo: ${s.name}`;
             document.getElementById('raw-questions-input').value = s.rawText;
-            
-            let t = s.timeLimit !== undefined ? s.timeLimit : 900;
-            if(t === 0) {
-                document.getElementById('unlimited-time').checked = true;
-                document.getElementById('timer-hours').value = 0;
-                document.getElementById('timer-mins').value = 0;
-                document.getElementById('timer-secs').value = 0;
-            } else {
-                document.getElementById('unlimited-time').checked = false;
-                let h = Math.floor(t / 3600);
-                let m = Math.floor((t % 3600) / 60);
-                let sec = t % 60;
-                document.getElementById('timer-hours').value = h;
-                document.getElementById('timer-mins').value = m;
-                document.getElementById('timer-secs').value = sec;
-            }
-
+            document.getElementById('unlimited-time').checked = (s.timeLimit === 0);
+            let t = s.timeLimit || 900;
+            document.getElementById('timer-hours').value = Math.floor(t / 3600);
+            document.getElementById('timer-mins').value = Math.floor((t % 3600) / 60);
+            document.getElementById('timer-secs').value = t % 60;
             switchEditorTab('text');
             document.getElementById('manage-screen').style.display = 'none';
             document.getElementById('setup-screen').style.display = 'block';
@@ -972,39 +1378,27 @@ D. Vô nghiệm
             let btnVisual = document.getElementById('tab-btn-visual');
             let paneText = document.getElementById('editor-text-pane');
             let paneVisual = document.getElementById('editor-visual-pane');
-
             if(mode === 'text') {
-                btnText.className = 'btn';
-                btnVisual.className = 'btn btn-secondary';
-                paneText.style.display = 'block';
-                paneVisual.style.display = 'none';
+                btnText.className = 'btn'; btnVisual.className = 'btn btn-secondary';
+                paneText.style.display = 'block'; paneVisual.style.display = 'none';
                 updateLivePreview();
             } else {
-                btnVisual.className = 'btn';
-                btnText.className = 'btn btn-secondary';
-                paneVisual.style.display = 'block';
-                paneText.style.display = 'none';
+                btnVisual.className = 'btn'; btnText.className = 'btn btn-secondary';
+                paneVisual.style.display = 'block'; paneText.style.display = 'none';
                 syncTextToVisual();
             }
         }
 
         function saveFromTextEditor() {
-            let text = document.getElementById('raw-questions-input').value;
-            appData.sets[currentActiveSetId].rawText = text;
+            appData.sets[currentActiveSetId].rawText = document.getElementById('raw-questions-input').value;
             saveScoringInputs();
-            if(saveAppData()) alert("Đã lưu nội dung câu hỏi thành công!");
+            if(saveAppData()) alert("Đã lưu nội dung thành công!");
         }
 
-        // SMART PARSER: ký hiệu "}{" đặt trước chữ "Câu" = câu Đúng/Sai ("><" là ký hiệu cũ, vẫn được hỗ trợ)
         const TF_MARKER = '}{';
-        function splitShortAnswers(str) {
-            return str.split(/\s*[|;]\s*/).map(x => x.trim()).filter(Boolean);
-        }
-        // SMART PARSER: "}{" trước chữ Câu = Đúng/Sai ("><" là ký hiệu cũ), "[]" trước chữ Câu = trả lời ngắn
-        // Dòng tiêu đề phần: dấu \ + khoảng trắng + tên phần (VD: "\ I. Trắc nghiệm"). Bắt buộc có khoảng trắng để không nhầm với lệnh LaTeX như \frac
         const SECTION_LINE_RE = /^\s*\\\s+(\S.*?)\s*$/;
         function parseRawData(text) {
-            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\u00A0/g, ' ');
+            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
             let segments = [{ title: null, lines: [] }];
             text.split('\n').forEach(line => {
                 let m = line.match(SECTION_LINE_RE);
@@ -1014,135 +1408,63 @@ D. Vô nghiệm
             let all = [];
             segments.forEach((seg, secIdx) => {
                 parseQuestionBlocks(seg.lines.join('\n')).forEach(q => {
-                    q.section = secIdx;
-                    q.sectionTitle = seg.title;
+                    q.section = secIdx; q.sectionTitle = seg.title;
                     all.push(q);
                 });
             });
             return all;
         }
+
         function parseQuestionBlocks(text) {
-            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\u00A0/g, ' ');
-            let startRe = /(?:(?:\}\{|><|\[\])\s*)?Câu\s+\d+[\.:]/gi;
             let starts = [], mm;
+            let startRe = /(?:(?:\}\{|><|\[\])\s*)?Câu\s+\d+[\.:]/gi;
             while((mm = startRe.exec(text)) !== null) starts.push(mm.index);
-            let blocks = starts.length === 0
-                ? [text]
-                : starts.map((st, i) => text.substring(st, i + 1 < starts.length ? starts[i + 1] : text.length));
+            let blocks = starts.length === 0 ? [text] : starts.map((st, i) => text.substring(st, i + 1 < starts.length ? starts[i + 1] : text.length));
             let questions = [];
 
             blocks.forEach(block => {
                 block = block.trim();
                 if(!block) return;
-
                 let kind = 'mcq';
                 let mk = block.match(/^(\}\{|><|\[\])\s*/);
-                if(mk) {
-                    kind = (mk[1] === SA_MARKER) ? 'sa' : 'tf';
-                    block = block.substring(mk[0].length).trim();
-                }
-                let isTrueFalse = (kind === 'tf');
-
+                if(mk) { kind = (mk[1] === SA_MARKER) ? 'sa' : 'tf'; block = block.substring(mk[0].length).trim(); }
                 let lines = block.split('\n').map(l => l.trim()).filter(l => l);
                 if(lines.length === 0) return;
 
                 let titleLine = lines[0].replace(/^Câu\s+\d+[\.:]\s*/i, '').trim();
-                let titleExtra = [];   // các dòng nằm giữa dòng "Câu" và đáp án (VD: dòng chứa ảnh [img:...])
-                let options = [];
+                let titleExtra = [], options = [];
 
-                // ---- Câu trả lời ngắn ----
                 if(kind === 'sa') {
                     let answers = [];
                     for(let i = 1; i < lines.length; i++) {
                         let am = lines[i].match(ANSWER_LINE_RE);
-                        if(am) answers.push(...splitShortAnswers(am[1]));
+                        if(am) answers.push(...am[1].split(/\s*[|;]\s*/));
                         else if(answers.length === 0) titleExtra.push(lines[i]);
-                        else if(/^(\[img:[^\]]+\]\s*)+$/i.test(lines[i])) titleExtra.push(lines[i]);   // ảnh đặt dưới dòng ĐA: vẫn thuộc đề bài
                     }
-                    if(answers.length > 0) {
-                        questions.push({ title: [titleLine, ...titleExtra].join('\n'), options: [], isTrueFalse: false, isShortAnswer: true, answers: answers });
-                    }
+                    if(answers.length) questions.push({ title: [titleLine, ...titleExtra].join('\n'), options: [], isTrueFalse: false, isShortAnswer: true, answers: answers });
                     return;
                 }
 
-                // ---- Câu Đúng/Sai ----
-                if(isTrueFalse) {
-                    for(let i = 1; i < lines.length; i++) {
-                        let line = lines[i];
-                        let isCorrect = line.startsWith('*');
-                        let cleanLine = isCorrect ? line.substring(1).trim() : line;
-                        if(/^[a-da-d][\.\)]/i.test(cleanLine)) {
-                            options.push({ text: cleanLine, correct: isCorrect });
-                        } else if(options.length > 0) {
-                            options[options.length - 1].text += " " + line;
-                        } else {
-                            titleExtra.push(line);
-                        }
-                    }
-                } else {
-                // ---- Câu trắc nghiệm 4 đáp án ----
-                    for(let i = 1; i < lines.length; i++) {
-                        let line = lines[i];
-                        let subLines = line.match(/(\*?[A-Da-d][\.\)].*?)(?=\s+\*?[A-Da-d][\.\)]|$)/g);
-                        if(subLines && subLines.length > 1 && /^\*?[A-Da-d][\.\)]/.test(line)) {
-                            subLines.forEach(sub => {
-                                sub = sub.trim();
-                                let isCorrect = sub.startsWith('*');
-                                let cleanSub = isCorrect ? sub.substring(1).trim() : sub;
-                                options.push({ text: cleanSub, correct: isCorrect });
-                            });
-                        } else {
-                            let isCorrect = line.startsWith('*');
-                            let cleanLine = isCorrect ? line.substring(1).trim() : line;
-                            if(/^[A-Da-d][\.\)]/.test(cleanLine)) {
-                                options.push({ text: cleanLine, correct: isCorrect });
-                            } else if(options.length > 0) {
-                                options[options.length - 1].text += " " + line;
-                            } else {
-                                titleExtra.push(line);
-                            }
-                        }
+                for(let i = 1; i < lines.length; i++) {
+                    let line = lines[i];
+                    let isCorrect = line.startsWith('*');
+                    let cleanLine = isCorrect ? line.substring(1).trim() : line;
+                    if(/^[a-da-dA-D][\.\)]/.test(cleanLine)) {
+                        options.push({ text: cleanLine, correct: isCorrect });
+                    } else if(options.length > 0) {
+                        options[options.length - 1].text += " " + line;
+                    } else {
+                        titleExtra.push(line);
                     }
                 }
-
-                if(options.length > 0) {
-                    questions.push({ title: [titleLine, ...titleExtra].join('\n'), options: options, isTrueFalse: isTrueFalse, isShortAnswer: false });
-                }
+                if(options.length) questions.push({ title: [titleLine, ...titleExtra].join('\n'), options: options, isTrueFalse: (kind === 'tf'), isShortAnswer: false });
             });
             return questions;
         }
 
-        function questionsToRawText(questions) {
-            let text = "";
-            let lastSection = null;
-            questions.forEach((q, idx) => {
-                if(q.sectionTitle && q.section !== lastSection) text += '\\ ' + q.sectionTitle + '\n\n';
-                lastSection = q.section;
-                if(q.isShortAnswer) {
-                    text += `${SA_MARKER}Câu ${idx + 1}. ${q.title}\nĐA: ${(q.answers || []).join(' | ')}\n\n`;
-                    return;
-                }
-                let prefixTag = q.isTrueFalse ? TF_MARKER : "";
-                text += `${prefixTag}Câu ${idx + 1}. ${q.title}\n`;
-                q.options.forEach((opt, oIdx) => {
-                    let letter = q.isTrueFalse ? String.fromCharCode(97 + oIdx) + ")" : String.fromCharCode(65 + oIdx) + ".";
-                    let cleanOptText = opt.text.replace(/^[*][A-Da-d][\.\)]\s*/, '').replace(/^[A-Da-d][\.\)]\s*/, '').replace(/^[*][a-da-d][\.\)]\s*/, '').replace(/^[a-da-d][\.\)]\s*/, '');
-                    let star = opt.correct ? "*" : "";
-                    text += `${star}${letter} ${cleanOptText}\n`;
-                });
-                text += `\n`;
-            });
-            return text.trim();
-        }
-
-        // ---------- PHẦN (SECTION): tiện ích ----------
-        function isNewSection(list, i) {
-            return !!(list[i] && list[i].sectionTitle && (i === 0 || list[i - 1].section !== list[i].section));
-        }
-        function sectionHeadingHtml(q) {
-            return `<div class="section-heading">${richText(q.sectionTitle)}</div>`;
-        }
-        function shuffleArray(arr) {            // Fisher–Yates: xáo đều, không thiên lệch
+        function isNewSection(list, i) { return !!(list[i] && list[i].sectionTitle && (i === 0 || list[i - 1].section !== list[i].section)); }
+        function sectionHeadingHtml(q) { return `<div class="section-heading">${richText(q.sectionTitle)}</div>`; }
+        function shuffleArray(arr) {
             let a = arr.slice();
             for(let i = a.length - 1; i > 0; i--) {
                 let j = Math.floor(Math.random() * (i + 1));
@@ -1150,7 +1472,6 @@ D. Vô nghiệm
             }
             return a;
         }
-        // Đảo thứ tự câu CHỈ trong phạm vi từng phần; thứ tự các phần giữ nguyên
         function shuffleWithinSections(list) {
             let groups = [], pos = {};
             list.forEach(q => {
@@ -1161,393 +1482,225 @@ D. Vô nghiệm
             return groups.flatMap(g => shuffleArray(g));
         }
 
-        function renderVisualSection(title) {
-            let container = document.getElementById('visual-questions-container');
-            if(container.querySelector('p')) container.innerHTML = '';
-            let card = document.createElement('div');
-            card.className = 'visual-section-card';
-            card.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                    <div><b>📑 Tiêu đề phần</b> <span style="font-size:11px; opacity:0.7;">(các câu bên dưới thuộc phần này; đảo trộn chỉ trong phần)</span></div>
-                    <button class="btn btn-fail" style="padding: 4px 8px; font-size: 11px; min-height: 28px;" onclick="this.closest('.visual-section-card').remove()">Xóa</button>
-                </div>
-                <input type="text" class="v-sec-title" placeholder="VD: I. Trắc nghiệm nhiều lựa chọn" value="${escapeHtml(title || '')}" style="margin-bottom:0;">`;
-            container.appendChild(card);
-        }
-
-        function syncTextToVisual() {
-            let rawText = document.getElementById('raw-questions-input').value;
-            let questions = parseRawData(rawText);
-            let container = document.getElementById('visual-questions-container');
-            container.innerHTML = '';
-
-            if(questions.length === 0) {
-                container.innerHTML = `<p style="opacity:0.6; text-align:center;">Chưa có câu hỏi nào hợp lệ!</p>`;
-                return;
-            }
-
-            questions.forEach((q, qIdx) => {
-                if(isNewSection(questions, qIdx)) renderVisualSection(q.sectionTitle);
-                renderSingleVisualQuestion(qIdx, q.title, q.options, q.isTrueFalse, q.isShortAnswer ? q.answers : null);
-            });
-        }
-
         function renderSingleVisualQuestion(qIdx, qTitle = "", options = [], isTrueFalse = false, saAnswers = null) {
             let container = document.getElementById('visual-questions-container');
             if(container.querySelector('p')) container.innerHTML = '';
             let isSA = Array.isArray(saAnswers);
-
             let card = document.createElement('div');
             card.className = 'visual-q-card';
-            card.setAttribute('data-q-index', qIdx);
             card.setAttribute('data-tf', isTrueFalse ? '1' : '0');
             card.setAttribute('data-sa', isSA ? '1' : '0');
 
-            let badge = isTrueFalse ? ' <span class="v-tf-badge">Đúng/Sai</span>' : (isSA ? ' <span class="v-tf-badge">Trả lời ngắn</span>' : '');
-            let html = `
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <div><b>Câu ${qIdx + 1}</b>${badge}</div>
-                    <button class="btn btn-fail" style="padding: 4px 8px; font-size: 11px; min-height: 28px;" onclick="deleteVisualQuestion(this)">Xóa</button>
-                </div>
-                <textarea class="v-q-title" rows="2" placeholder="Nội dung câu hỏi..." style="height:auto; min-height:64px; font-family:inherit; margin-bottom:10px;">${escapeHtml(qTitle)}</textarea>
-            `;
-
+            let html = `<div style="display: flex; justify-content: space-between; margin-bottom: 10px;"><b>Câu ${qIdx + 1}</b></div>
+                <textarea class="v-q-title" rows="2" style="height:auto; min-height:50px; margin-bottom:10px;">${escapeHtml(qTitle)}</textarea>`;
+            
             if(isSA) {
-                html += `
-                    <div style="font-size: 12px; opacity: 0.7; margin-bottom: 6px;">Đáp án đúng (nhiều đáp án chấp nhận thì cách nhau bằng dấu <b>|</b>):</div>
-                    <input type="text" class="v-sa-answer" placeholder="VD: 2,5 | 5/2" value="${escapeHtml(saAnswers.join(' | '))}">
-                `;
-                card.innerHTML = html;
-                container.appendChild(card);
-                return;
+                html += `<input type="text" class="v-sa-answer" value="${escapeHtml(saAnswers.join(' | '))}">`;
+            } else {
+                let defOpts = options.length ? options : [{text:'', correct:true},{text:'', correct:false},{text:'', correct:false},{text:'', correct:false}];
+                defOpts.forEach((opt, oIdx) => {
+                    let letter = isTrueFalse ? String.fromCharCode(97+oIdx) : String.fromCharCode(65+oIdx);
+                    let tick = isTrueFalse ? `<input type="checkbox" class="v-tf-check" ${opt.correct?'checked':''}>` : `<input type="radio" name="v_correct_${qIdx}" ${opt.correct?'checked':''}>`;
+                    html += `<div class="visual-ans-row">${tick}<b>${letter}.</b><input type="text" class="v-ans-text" value="${escapeHtml(opt.text.replace(/^[A-Da-da-d][\.\)]\s*/,''))}"></div>`;
+                });
             }
-
-            let defaultOpts = options.length > 0 ? options : (isTrueFalse ? [
-                { text: "", correct: false }, { text: "", correct: false }, { text: "", correct: false }, { text: "", correct: false }
-            ] : [
-                { text: "", correct: true }, { text: "", correct: false }, { text: "", correct: false }, { text: "", correct: false }
-            ]);
-
-            html += `<div style="font-size: 12px; opacity: 0.7; margin-bottom: 6px;">${isTrueFalse ? 'Tích vào ô ở những ý ĐÚNG (ý không tích = SAI):' : 'Tích chọn đáp án đúng:'}</div>`;
-
-            defaultOpts.forEach((opt, oIdx) => {
-                let letter = isTrueFalse ? String.fromCharCode(97 + oIdx) : String.fromCharCode(65 + oIdx);
-                let checkedAttr = opt.correct ? "checked" : "";
-                let cleanOpt = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '').replace(/^[a-da-d][\.\)]\s*/, '');
-                let tickInput = isTrueFalse
-                    ? `<input type="checkbox" class="v-tf-check" title="Tích nếu ý này ĐÚNG" ${checkedAttr}>`
-                    : `<input type="radio" name="v_correct_${qIdx}" value="${oIdx}" ${checkedAttr}>`;
-                html += `
-                    <div class="visual-ans-row">
-                        ${tickInput}
-                        <b>${letter}.</b>
-                        <input type="text" class="v-ans-text" placeholder="${isTrueFalse ? 'Ý' : 'Đáp án'} ${letter}..." value="${escapeHtml(cleanOpt)}">
-                    </div>
-                `;
-            });
             card.innerHTML = html;
             container.appendChild(card);
         }
 
         function addNewVisualQuestion(kind) {
-            kind = (kind === true) ? 'tf' : (kind || 'mcq');
-            if(kind === 'sec') { renderVisualSection(''); return; }
+            if(kind === 'sec') {
+                let container = document.getElementById('visual-questions-container');
+                if(container.querySelector('p')) container.innerHTML = '';
+                let card = document.createElement('div');
+                card.className = 'visual-section-card';
+                card.innerHTML = `<div style="display:flex; justify-content:space-between; margin-bottom:8px;"><b>📑 Tiêu đề phần</b><button class="btn btn-fail" style="padding:4px 8px; font-size:11px; min-height:28px;" onclick="this.closest('.visual-section-card').remove()">Xóa</button></div><input type="text" class="v-sec-title" placeholder="VD: I. Trắc nghiệm" style="margin-bottom:0;">`;
+                container.appendChild(card);
+                return;
+            }
             let container = document.getElementById('visual-questions-container');
             if(container.querySelector('p')) container.innerHTML = '';
             let qIdx = container.querySelectorAll('.visual-q-card').length;
             renderSingleVisualQuestion(qIdx, "", [], kind === 'tf', kind === 'sa' ? [] : null);
         }
 
-        function deleteVisualQuestion(btn) {
-            btn.closest('.visual-q-card').remove();
-            let cards = document.querySelectorAll('.visual-q-card');
-            cards.forEach((card, idx) => {
-                card.setAttribute('data-q-index', idx);
-                card.querySelector('b').innerText = `Câu ${idx + 1}`;
-                card.querySelectorAll('input[type="radio"]').forEach(r => r.setAttribute('name', `v_correct_${idx}`));
-            });
-        }
-
         function syncVisualToText() {
             let nodes = document.querySelectorAll('#visual-questions-container > .visual-q-card, #visual-questions-container > .visual-section-card');
             let questions = [];
-            let missingSA = 0;
             let curTitle = null, secId = 0;
-
             nodes.forEach(card => {
                 if(card.classList.contains('visual-section-card')) {
                     let t = card.querySelector('.v-sec-title').value.trim();
                     if(t) { secId++; curTitle = t; }
                     return;
                 }
-
                 let isTF = card.getAttribute('data-tf') === '1';
                 let isSA = card.getAttribute('data-sa') === '1';
                 let title = card.querySelector('.v-q-title').value.trim();
-
                 if(isSA) {
-                    let answers = card.querySelector('.v-sa-answer').value.split('|').map(x => x.trim()).filter(Boolean);
-                    if(title && answers.length === 0) missingSA++;
-                    if(title || answers.length) questions.push({ title: title, options: [], isTrueFalse: false, isShortAnswer: true, answers: answers, section: secId, sectionTitle: curTitle });
+                    let ans = card.querySelector('.v-sa-answer').value.split('|').map(x => x.trim()).filter(Boolean);
+                    questions.push({ title, options: [], isTrueFalse: false, isShortAnswer: true, answers: ans, section: secId, sectionTitle: curTitle });
                     return;
                 }
-
-                let rows = card.querySelectorAll('.visual-ans-row');
                 let options = [];
-                rows.forEach((row, rIdx) => {
-                    let ansText = row.querySelector('.v-ans-text').value.trim();
-                    if(isTF) {
-                        if(!ansText) return; // câu Đúng/Sai: bỏ qua ý để trống
-                        let letter = String.fromCharCode(97 + options.length);
-                        options.push({ text: `${letter}) ${ansText}`, correct: row.querySelector('.v-tf-check').checked });
-                    } else {
-                        let isChecked = row.querySelector('input[type="radio"]').checked;
-                        let letter = String.fromCharCode(65 + rIdx);
-                        options.push({ text: `${letter}. ${ansText}`, correct: isChecked });
-                    }
+                card.querySelectorAll('.visual-ans-row').forEach((row, rIdx) => {
+                    let txt = row.querySelector('.v-ans-text').value.trim();
+                    if(!txt) return;
+                    let letter = isTF ? String.fromCharCode(97+options.length) + ')' : String.fromCharCode(65+rIdx) + '.';
+                    let checked = isTF ? row.querySelector('.v-tf-check').checked : row.querySelector('input[type="radio"]').checked;
+                    options.push({ text: `${letter} ${txt}`, correct: checked });
                 });
-
-                if(title || options.some(o => o.text)) {
-                    questions.push({ title: title, options: options, isTrueFalse: isTF, section: secId, sectionTitle: curTitle });
-                }
+                if(title || options.length) questions.push({ title, options, isTrueFalse: isTF, isShortAnswer: false, section: secId, sectionTitle: curTitle });
             });
-
-            document.getElementById('raw-questions-input').value = questionsToRawText(questions);
-            alert(missingSA > 0 ? `Đã đồng bộ sang văn bản!\n⚠️ Có ${missingSA} câu trả lời ngắn chưa nhập đáp án — các câu đó sẽ bị bỏ qua khi làm bài.` : "Đã đồng bộ sang văn bản!");
+            document.getElementById('raw-questions-input').value = questions.map((q, idx) => {
+                let sec = (q.sectionTitle && (idx === 0 || questions[idx-1].sectionTitle !== q.sectionTitle)) ? `\\ ${q.sectionTitle}\n\n` : '';
+                let tag = q.isShortAnswer ? SA_MARKER : (q.isTrueFalse ? TF_MARKER : '');
+                let ans = q.isShortAnswer ? `\nĐA: ${q.answers.join(' | ')}` : q.options.map(o => `${o.correct?'*':''}${o.text}`).join('\n');
+                return `${sec}${tag}Câu ${idx+1}. ${q.title}\n${ans}`;
+            }).join('\n\n');
             updateLivePreview();
         }
 
-        function saveFromVisualEditor() {
-            syncVisualToText();
-            saveFromTextEditor();
-        }
-
-        function buildActiveQuestion(q, shuffleOptions) {
-            let opts = q.options.map((opt, idx) => ({ ...opt, origIndex: idx }));
-            if(shuffleOptions && !q.isTrueFalse && !q.isShortAnswer) opts.sort(() => Math.random() - 0.5);
-            return { title: q.title, options: opts, isTrueFalse: !!q.isTrueFalse, isShortAnswer: !!q.isShortAnswer, answers: q.answers || [], origQIndex: q.origQIndex, section: q.section || 0, sectionTitle: q.sectionTitle || null };
-        }
+        function saveFromVisualEditor() { syncVisualToText(); saveFromTextEditor(); }
 
         function startQuiz() {
             let rawText = document.getElementById('raw-questions-input').value;
-            let currentSet = appData.sets[currentActiveSetId];
-            currentSet.rawText = rawText;
-
+            appData.sets[currentActiveSetId].rawText = rawText;
             let unlim = document.getElementById('unlimited-time').checked;
-            if(unlim) {
-                currentSet.timeLimit = 0;
-            } else {
-                let h = parseInt(document.getElementById('timer-hours').value) || 0;
-                let m = parseInt(document.getElementById('timer-mins').value) || 0;
-                let sec = parseInt(document.getElementById('timer-secs').value) || 0;
-                currentSet.timeLimit = h * 3600 + m * 60 + sec;
-            }
+            appData.sets[currentActiveSetId].timeLimit = unlim ? 0 : ((parseInt(document.getElementById('timer-hours').value)||0)*3600 + (parseInt(document.getElementById('timer-mins').value)||0)*60 + (parseInt(document.getElementById('timer-secs').value)||0));
             saveScoringInputs();
             saveAppData();
 
             let rawQuestions = parseRawData(rawText);
-            if(rawQuestions.length === 0) {
-                alert("Không nhận diện được câu hỏi nào!");
-                return;
-            }
-
+            if(!rawQuestions.length) return alert("Không có câu hỏi nào!");
             let shuffleQ = document.getElementById('shuffle-q').checked;
             let shuffleA = document.getElementById('shuffle-a').checked;
 
             let cloned = JSON.parse(JSON.stringify(rawQuestions)).map((q, i) => ({ ...q, origQIndex: i }));
-            if(shuffleQ) cloned = shuffleWithinSections(cloned);   // chỉ đảo trong từng phần (\ Tiêu đề)
+            if(shuffleQ) cloned = shuffleWithinSections(cloned);
 
-            activeQuizQuestions = cloned.map(q => buildActiveQuestion(q, shuffleA));
+            activeQuizQuestions = cloned.map(q => {
+                let opts = q.options.map((opt, idx) => ({ ...opt, origIndex: idx }));
+                if(shuffleA && !q.isTrueFalse && !q.isShortAnswer) opts.sort(() => Math.random() - 0.5);
+                return { ...q, options: opts };
+            });
 
             quizMode = 'full'; quizActive = true; quizStartedAt = Date.now();
             renderQuizUI();
-            startTimer(currentSet.timeLimit);
+            startTimer(appData.sets[currentActiveSetId].timeLimit);
             saveSession();
         }
 
         function startRetryIncorrect() {
-            if(incorrectQuestionIndices.length === 0) return;
-
-            let rawText = appData.sets[currentActiveSetId].rawText;
-            let rawQuestions = parseRawData(rawText);
-
-            // incorrectQuestionIndices lưu vị trí GỐC của câu trong đề (kể cả khi đề bị trộn thứ tự)
-            let retryQuestions = incorrectQuestionIndices.filter(i => rawQuestions[i]).map(i => ({ ...rawQuestions[i], origQIndex: i }));
-            if(retryQuestions.length === 0) return;
-
-            activeQuizQuestions = retryQuestions.map(q => buildActiveQuestion(q, true));
-
-            quizMode = 'retry'; quizActive = true; quizStartedAt = Date.now();
+            if(!incorrectQuestionIndices.length) return;
+            let rawQuestions = parseRawData(appData.sets[currentActiveSetId].rawText);
+            let retry = incorrectQuestionIndices.map(i => rawQuestions[i]).filter(Boolean).map(q => ({ ...q }));
+            activeQuizQuestions = retry.map(q => ({ ...q, options: shuffleArray(q.options) }));
+            quizMode = 'retry'; quizActive = true;
             renderQuizUI();
             startTimer(0);
             saveSession();
         }
 
-        // GIAO DIỆN LÀM BÀI CHUẨN ẢNH 3 HUY VẼ
         function renderQuizUI() {
             let container = document.getElementById('quiz-container');
             let htmlAll = '';
-
             activeQuizQuestions.forEach((q, qIndex) => {
-                let html = (isNewSection(activeQuizQuestions, qIndex) ? sectionHeadingHtml(q) : '') + `<div class="question-box" id="q_box_${qIndex}" data-index="${qIndex}">
+                let html = (isNewSection(activeQuizQuestions, qIndex) ? sectionHeadingHtml(q) : '') + `<div class="question-box" id="q_box_${qIndex}">
                     <div class="question-title">Câu ${qIndex + 1}. ${richText(q.title)}</div>`;
-
                 if(q.isShortAnswer) {
-                    // CÂU TRẢ LỜI NGẮN (điền đáp án)
-                    html += `<div class="sa-wrap">
-                        <label class="sa-label" for="sa_${qIndex}">✍️ Câu trả lời của bạn:</label>
-                        <input type="text" class="sa-input" id="sa_${qIndex}" name="sa_${qIndex}" placeholder="Nhập đáp án (số hoặc biểu thức)..." autocomplete="off" autocapitalize="off" spellcheck="false" oninput="saveDraftAndCheckProgress(${qIndex})">
-                    </div>`;
+                    html += `<div class="sa-wrap"><input type="text" class="sa-input" id="sa_${qIndex}" name="sa_${qIndex}" placeholder="Nhập đáp án..." autocomplete="off" oninput="saveDraftAndCheckProgress()"></div>`;
                 } else if(q.isTrueFalse) {
-                    // DỰNG GIAO DIỆN THEO ĐÚNG MẪU ẢNH 3 HUY VẼ
-                    html += `<div class="tf-container">
-                        <div class="tf-header-row">
-                            <div class="tf-header-text"></div>
-                            <div class="tf-header-col">Đúng</div>
-                            <div class="tf-header-col">Sai</div>
-                        </div>`;
-
+                    html += `<div class="tf-container"><div class="tf-header-row"><div class="tf-header-text"></div><div class="tf-header-col">Đúng</div><div class="tf-header-col">Sai</div></div>`;
                     q.options.forEach((opt, oIndex) => {
-                        let cleanText = opt.text.replace(/^[*][a-da-d][\.\)]\s*/i, '').replace(/^[a-da-d][\.\)]\s*/i, '');
-                        let letter = String.fromCharCode(97 + oIndex);
-
-                        html += `
-                            <div class="tf-item-row">
-                                <div class="tf-item-text"><b>${letter}.</b> ${richText(cleanText)}</div>
-                                <div class="tf-box-choice">
-                                    <label class="tf-square-btn">
-                                        <input type="radio" name="tf_${qIndex}_${oIndex}" value="true" onchange="saveDraftAndCheckProgress(${qIndex})">
-                                        <span class="tf-check-mark">✓</span>
-                                    </label>
-                                </div>
-                                <div class="tf-box-choice">
-                                    <label class="tf-square-btn">
-                                        <input type="radio" name="tf_${qIndex}_${oIndex}" value="false" onchange="saveDraftAndCheckProgress(${qIndex})">
-                                        <span class="tf-check-mark">✓</span>
-                                    </label>
-                                </div>
-                            </div>
-                        `;
+                        html += `<div class="tf-item-row"><div class="tf-item-text">${richText(opt.text)}</div>
+                            <div class="tf-box-choice"><label class="tf-square-btn"><input type="radio" name="tf_${qIndex}_${oIndex}" value="true" onchange="saveDraftAndCheckProgress()"><span class="tf-check-mark">✓</span></label></div>
+                            <div class="tf-box-choice"><label class="tf-square-btn"><input type="radio" name="tf_${qIndex}_${oIndex}" value="false" onchange="saveDraftAndCheckProgress()"><span class="tf-check-mark">✓</span></label></div>
+                        </div>`;
                     });
                     html += `</div>`;
                 } else {
-                    // CÂU TRẮC NGHIỆM THƯỜNG (A, B, C, D)
                     q.options.forEach((opt, oIndex) => {
-                        let labelLetter = String.fromCharCode(65 + oIndex);
-                        let cleanText = opt.text.replace(/^[A-Da-d][\.\)]\s*/, '');
-
-                        html += `<label class="option-item">
-                            <input type="radio" name="question_${qIndex}" value="${oIndex}" onchange="saveDraftAndCheckProgress(${qIndex})">
-                            <b>${labelLetter}.</b>&nbsp;${richText(cleanText)}
-                        </label>`;
+                        html += `<label class="option-item"><input type="radio" name="question_${qIndex}" value="${oIndex}" onchange="saveDraftAndCheckProgress()">${richText(opt.text)}</label>`;
                     });
                 }
-
                 html += `</div>`;
                 htmlAll += html;
             });
             container.innerHTML = htmlAll;
-
             buildQuestionNavGrid();
-
             document.getElementById('manage-screen').style.display = 'none';
             document.getElementById('setup-screen').style.display = 'none';
             document.getElementById('quiz-screen').style.display = 'block';
             document.getElementById('result-screen').style.display = 'none';
             document.getElementById('submit-btn').style.display = 'block';
-
             typesetMath();
         }
 
         function buildQuestionNavGrid() {
-            let gridContainer = document.getElementById('question-nav-grid');
-            if(!gridContainer) return;
-            gridContainer.innerHTML = '';
-
+            let grid = document.getElementById('question-nav-grid');
+            grid.innerHTML = '';
             activeQuizQuestions.forEach((q, idx) => {
                 if(isNewSection(activeQuizQuestions, idx)) {
-                    let lbl = document.createElement('div');
-                    lbl.className = 'nav-section-label';
-                    lbl.innerText = String(q.sectionTitle).replace(/\[img:[^\]]*\]/gi, '').trim();
-                    gridContainer.appendChild(lbl);
+                    let lbl = document.createElement('div'); lbl.className = 'nav-section-label'; lbl.innerText = q.sectionTitle;
+                    grid.appendChild(lbl);
                 }
-                let btn = document.createElement('button');
-                btn.className = 'nav-btn';
-                btn.id = `nav_btn_${idx}`;
-                btn.innerText = idx + 1;
-                btn.onclick = () => {
-                    let targetBox = document.getElementById(`q_box_${idx}`);
-                    if(targetBox) {
-                        targetBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                };
-                gridContainer.appendChild(btn);
+                let btn = document.createElement('button'); btn.className = 'nav-btn'; btn.id = `nav_btn_${idx}`; btn.innerText = idx + 1;
+                btn.onclick = () => document.getElementById(`q_box_${idx}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+                grid.appendChild(btn);
             });
             updateNavGridProgress();
         }
 
-        function saveDraftAndCheckProgress(qIndex) {
-            saveSession();
-            updateNavGridProgress();
+        function saveDraftAndCheckProgress() { saveSession(); updateNavGridProgress(); }
+
+        function updateNavGridProgress() {
+            let answered = 0;
+            activeQuizQuestions.forEach((q, idx) => {
+                let ok = false;
+                if(q.isShortAnswer) {
+                    let el = document.querySelector(`input[name="sa_${idx}"]`);
+                    ok = !!(el && el.value.trim() !== '');
+                } else if(q.isTrueFalse) {
+                    let count = 0;
+                    q.options.forEach((_, oIdx) => { if(document.querySelector(`input[name="tf_${idx}_${oIdx}"]:checked`)) count++; });
+                    ok = (count === q.options.length);
+                } else ok = !!document.querySelector(`input[name="question_${idx}"]:checked`);
+                
+                let btn = document.getElementById(`nav_btn_${idx}`);
+                if(btn) { if(ok) { btn.classList.add('answered'); answered++; } else btn.classList.remove('answered'); }
+            });
+            document.getElementById('progress-counter').innerText = `Đã làm: ${answered}/${activeQuizQuestions.length}`;
         }
 
-        // ---------- KHÔI PHỤC BÀI ĐANG LÀM DỞ ----------
-        function collectAnswers() {
-            let answers = {};
-            activeQuizQuestions.forEach((q, qIdx) => {
-                if(q.isShortAnswer) {
-                    let el = document.querySelector(`input[name="sa_${qIdx}"]`);
-                    if(el && el.value.trim() !== '') answers[qIdx] = el.value;
-                } else if(q.isTrueFalse) {
-                    let tf = {};
-                    q.options.forEach((o, oIdx) => {
-                        let r = document.querySelector(`input[name="tf_${qIdx}_${oIdx}"]:checked`);
-                        if(r) tf[oIdx] = r.value;
-                    });
-                    if(Object.keys(tf).length) answers[qIdx] = tf;
-                } else {
-                    let r = document.querySelector(`input[name="question_${qIdx}"]:checked`);
-                    if(r) answers[qIdx] = r.value;
-                }
-            });
-            return answers;
-        }
-        function restoreAnswers(answers) {
-            if(!answers) return;
-            activeQuizQuestions.forEach((q, qIdx) => {
-                let a = answers[qIdx];
-                if(a === undefined || a === null) return;
-                if(q.isShortAnswer) {
-                    let el = document.querySelector(`input[name="sa_${qIdx}"]`);
-                    if(el) el.value = a;
-                } else if(q.isTrueFalse) {
-                    Object.keys(a).forEach(oIdx => {
-                        let r = document.querySelector(`input[name="tf_${qIdx}_${oIdx}"][value="${a[oIdx]}"]`);
-                        if(r) r.checked = true;
-                    });
-                } else {
-                    let r = document.querySelector(`input[name="question_${qIdx}"][value="${a}"]`);
-                    if(r) r.checked = true;
-                }
-            });
-        }
         function saveSession() {
             if(!quizActive) return;
             try {
-                localStorage.setItem(SESSION_KEY, JSON.stringify({
-                    setId: currentActiveSetId, mode: quizMode, startedAt: quizStartedAt, endTime: quizEndTime,
-                    questions: activeQuizQuestions, answers: collectAnswers(), savedAt: Date.now()
-                }));
-            } catch(e) { /* bộ nhớ đầy: bỏ qua, không làm gián đoạn bài thi */ }
+                let answers = {};
+                activeQuizQuestions.forEach((q, idx) => {
+                    if(q.isShortAnswer) {
+                        let el = document.querySelector(`input[name="sa_${idx}"]`);
+                        if(el && el.value.trim()) answers[idx] = el.value;
+                    } else if(q.isTrueFalse) {
+                        let tf = {};
+                        q.options.forEach((_, oIdx) => {
+                            let r = document.querySelector(`input[name="tf_${idx}_${oIdx}"]:checked`);
+                            if(r) tf[oIdx] = r.value;
+                        });
+                        if(Object.keys(tf).length) answers[idx] = tf;
+                    } else {
+                        let r = document.querySelector(`input[name="question_${idx}"]:checked`);
+                        if(r) answers[idx] = r.value;
+                    }
+                });
+                localStorage.setItem(SESSION_KEY, JSON.stringify({ setId: currentActiveSetId, mode: quizMode, startedAt: quizStartedAt, endTime: quizEndTime, questions: activeQuizQuestions, answers }));
+            } catch(e) {}
         }
-        function clearSession() {
-            quizActive = false;
-            localStorage.removeItem(SESSION_KEY);
-        }
+        function clearSession() { quizActive = false; localStorage.removeItem(SESSION_KEY); }
         function getSavedSession() {
             try {
                 let sess = JSON.parse(localStorage.getItem(SESSION_KEY));
-                if(sess && sess.setId && appData.sets[sess.setId] && Array.isArray(sess.questions) && sess.questions.length) return sess;
+                if(sess && sess.setId && appData.sets[sess.setId]) return sess;
             } catch(e) {}
             return null;
         }
@@ -1555,328 +1708,168 @@ D. Vô nghiệm
             let box = document.getElementById('resume-banner');
             if(!box) return;
             let sess = getSavedSession();
-            if(!sess) { box.style.display = 'none'; box.innerHTML = ''; return; }
-            // Đếm giống bản đồ câu hỏi: câu Đúng/Sai chỉ tính khi đã chọn đủ các ý
-            let answered = sess.questions.filter((q, i) => {
-                let a = (sess.answers || {})[i];
-                if(a === undefined || a === null) return false;
-                return q.isTrueFalse ? Object.keys(a).length === q.options.length : true;
-            }).length;
-            let timeText = 'không giới hạn thời gian';
-            if(sess.endTime) {
-                let left = (sess.endTime - Date.now()) / 1000;
-                timeText = left > 0 ? `còn lại <b>${fmtClock(left)}</b>` : '<b style="color:#ef4444;">đã hết giờ</b> (sẽ tự nộp khi mở lại)';
-            }
-            box.innerHTML = `
-                <div style="font-weight:700; margin-bottom:6px;">⏳ Bạn có bài thi đang làm dở</div>
-                <div style="margin-bottom:10px;">📚 ${escapeHtml(appData.sets[sess.setId].name)} — đã làm <b>${answered}/${sess.questions.length}</b> câu, ${timeText}.</div>
-                <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                    <button class="btn btn-pass" style="flex:1;" onclick="resumeQuiz()">▶️ Tiếp tục làm bài</button>
-                    <button class="btn btn-fail" style="flex:1;" onclick="discardSession()">🗑️ Bỏ bài này</button>
+            if(!sess) { box.style.display = 'none'; return; }
+            box.innerHTML = `<div>⏳ Bạn có bài thi đang làm dở: <b>${appData.sets[sess.setId].name}</b></div>
+                <div style="display:flex; gap:10px; margin-top:8px;">
+                    <button class="btn btn-pass" style="flex:1; padding:6px;" onclick="resumeQuiz()">▶️ Tiếp tục</button>
+                    <button class="btn btn-fail" style="flex:1; padding:6px;" onclick="discardSession()">🗑️ Bỏ qua</button>
                 </div>`;
             box.style.display = 'block';
         }
         function resumeQuiz() {
             let sess = getSavedSession();
-            if(!sess) { renderResumeBanner(); return; }
-            openSet(sess.setId);                 // nạp màn soạn thảo của bộ đề (để nút "Thoát bài thi" quay về đúng chỗ)
+            if(!sess) return;
+            openSet(sess.setId);
             activeQuizQuestions = sess.questions;
             quizMode = sess.mode || 'full'; quizActive = true; quizStartedAt = sess.startedAt || Date.now();
             renderQuizUI();
-            restoreAnswers(sess.answers);
-            updateNavGridProgress();
-            if(sess.endTime) startTimer(0, sess.endTime); else startTimer(0);
-            saveSession();
-        }
-        function discardSession() {
-            if(!confirm('Bỏ bài thi đang làm dở? Bài làm sẽ bị xóa, không chấm điểm.')) return;
-            clearSession();
-            renderResumeBanner();
-        }
-        function exitQuiz() {
-            if(!confirm('Thoát bài thi? Bài đang làm sẽ bị hủy (không chấm điểm).')) return;
-            if(timerInterval) clearInterval(timerInterval);
-            clearSession();
-            backToSetup();
-        }
-
-        function updateNavGridProgress() {
-            let answeredCount = 0;
-            activeQuizQuestions.forEach((q, idx) => {
-                let isAnswered = false;
-
-                if(q.isShortAnswer) {
-                    let el = document.querySelector(`input[name="sa_${idx}"]`);
-                    isAnswered = !!(el && el.value.trim() !== '');
-                } else if(q.isTrueFalse) {
-                    let countChosen = 0;
-                    q.options.forEach((opt, oIdx) => {
-                        if(document.querySelector(`input[name="tf_${idx}_${oIdx}"]:checked`)) countChosen++;
-                    });
-                    isAnswered = (countChosen === q.options.length);
-                } else {
-                    isAnswered = !!document.querySelector(`input[name="question_${idx}"]:checked`);
-                }
-
-                let navBtn = document.getElementById(`nav_btn_${idx}`);
-                if(navBtn) {
-                    if(isAnswered) {
-                        navBtn.classList.add('answered');
-                        answeredCount++;
+            if(sess.answers) {
+                Object.keys(sess.answers).forEach(idx => {
+                    let a = sess.answers[idx];
+                    if(activeQuizQuestions[idx].isShortAnswer) {
+                        let el = document.querySelector(`input[name="sa_${idx}"]`); if(el) el.value = a;
+                    } else if(activeQuizQuestions[idx].isTrueFalse) {
+                        Object.keys(a).forEach(oIdx => {
+                            let r = document.querySelector(`input[name="tf_${idx}_${oIdx}"][value="${a[oIdx]}"]`); if(r) r.checked = true;
+                        });
                     } else {
-                        navBtn.classList.remove('answered');
+                        let r = document.querySelector(`input[name="question_${idx}"][value="${a}"]`); if(r) r.checked = true;
                     }
-                }
-            });
-
-            let counter = document.getElementById('progress-counter');
-            if(counter) {
-                counter.innerText = `Đã làm: ${answeredCount}/${activeQuizQuestions.length}`;
+                });
             }
+            updateNavGridProgress();
+            startTimer(0, sess.endTime);
         }
+        function discardSession() { clearSession(); renderResumeBanner(); }
 
         function startTimer(duration, endOverride) {
             if(timerInterval) clearInterval(timerInterval);
-            let timerBox = document.getElementById('timer-box');
-            timerBox.classList.remove('danger');
-
-            if(!endOverride && duration <= 0) {
-                quizEndTime = null;
-                timerBox.parentElement.style.display = 'none';
-                return;
-            }
-
-            timerBox.parentElement.style.display = 'block';
+            let box = document.getElementById('timer-box');
+            if(!endOverride && duration <= 0) { box.parentElement.style.display = 'none'; return; }
+            box.parentElement.style.display = 'block';
             quizEndTime = endOverride || (Date.now() + duration * 1000);
-
             const tick = () => {
                 remainingSeconds = Math.max(0, Math.ceil((quizEndTime - Date.now()) / 1000));
-                updateTimerDisplay();
-                if(remainingSeconds <= 60) timerBox.classList.add('danger');
-                if(remainingSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    alert("⏰ Hết giờ! Tự động nộp bài.");
-                    submitQuiz();
-                }
+                box.innerText = fmtClock(remainingSeconds);
+                if(remainingSeconds <= 0) { clearInterval(timerInterval); alert("Hết giờ!"); submitQuiz(); }
             };
             tick();
-            if(remainingSeconds > 0) timerInterval = setInterval(tick, 1000);
+            timerInterval = setInterval(tick, 1000);
         }
 
-        function updateTimerDisplay() {
-            let h = Math.floor(remainingSeconds / 3600);
-            let m = Math.floor((remainingSeconds % 3600) / 60);
-            let s = remainingSeconds % 60;
-            let displayStr = "";
-            if(h > 0) displayStr += `${h.toString().padStart(2,'0')}:`;
-            displayStr += `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-            document.getElementById('timer-box').innerText = displayStr;
-        }
-
-        // ---------- Chấm câu trả lời ngắn ----------
         function parseNumberLoose(str) {
-            let t = String(str).trim().replace(/\s+/g, '').replace(/,/g, '.').replace(/[−–]/g, '-').replace(/^\$|\$$/g, '');
+            let t = String(str).trim().replace(/\s+/g, '').replace(/,/g, '.');
             let m = t.match(/^(-?\d+(?:\.\d+)?)(?:\/(-?\d+(?:\.\d+)?))?$/);
             if(!m) return NaN;
             let a = parseFloat(m[1]);
             if(m[2] !== undefined) { let b = parseFloat(m[2]); return b === 0 ? NaN : a / b; }
             return a;
         }
-        function normText(str) { return String(str).toLowerCase().replace(/\s+/g, '').replace(/,/g, '.'); }
         function checkShortAnswer(userAns, answers) {
             let u = String(userAns).trim();
             if(!u) return false;
             let uNum = parseNumberLoose(u);
             for(let ans of answers) {
                 let a = String(ans).trim();
-                let tm = a.match(/^(.+?)\s*(?:±|\+-)\s*(.+)$/);      // dạng có sai số: 3,14 ± 0,01
-                if(tm) {
-                    let center = parseNumberLoose(tm[1]), tol = parseNumberLoose(tm[2]);
-                    if(!isNaN(uNum) && !isNaN(center) && !isNaN(tol) && Math.abs(uNum - center) <= tol + 1e-9) return true;
-                    continue;
-                }
                 let aNum = parseNumberLoose(a);
                 if(!isNaN(aNum) && !isNaN(uNum)) {
-                    if(Math.abs(uNum - aNum) <= 1e-9 * Math.max(1, Math.abs(aNum))) return true;
-                } else if(normText(u) === normText(a)) return true;
+                    if(Math.abs(uNum - aNum) <= 1e-9) return true;
+                } else if(u.toLowerCase() === a.toLowerCase()) return true;
             }
             return false;
-        }
-        function reviewCard(color, title, badge, body) {
-            return `
-                <div style="background: rgba(150,150,150,0.04); padding: 14px; border-radius: 14px; margin-bottom: 12px; border-left: 4px solid ${color};">
-                    <div style="font-weight: 700; margin-bottom: 6px; font-size: 15px;">${title} ${badge}</div>
-                    ${body}
-                </div>`;
         }
 
         function submitQuiz() {
             if(timerInterval) clearInterval(timerInterval);
             clearSession();
-
-            let setObj = appData.sets[currentActiveSetId] || {};
-            let sc = getScoring(setObj);
-            let questionBoxes = document.querySelectorAll('#quiz-container .question-box'); // chỉ lấy câu trong khung làm bài (tránh lẫn với khung Xem trước)
-            let reviewHTML = "";
+            let sc = getScoring(appData.sets[currentActiveSetId]);
+            let boxes = document.querySelectorAll('#quiz-container .question-box');
+            let review = "", fullCorrect = 0, earned = 0, maxTotal = 0;
             incorrectQuestionIndices = [];
-            let fullCorrect = 0, earned = 0, maxTotal = 0;
-            let st = { mcq: { n: 0, ok: 0, pts: 0 }, tf: { n: 0, ok: 0, pts: 0 }, sa: { n: 0, ok: 0, pts: 0 } };
-            let secStats = {};
 
-            questionBoxes.forEach((box, qIndex) => {
+            boxes.forEach((box, qIndex) => {
                 let q = activeQuizQuestions[qIndex];
-                if(!q) return;
-                let qTitle = `Câu ${qIndex + 1}. ${richText(q.title)}`;
                 let isFull = false;
-                let earnedBefore = earned, maxBefore = maxTotal;
-                if(isNewSection(activeQuizQuestions, qIndex)) reviewHTML += sectionHeadingHtml(q);
+                if(isNewSection(activeQuizQuestions, qIndex)) review += sectionHeadingHtml(q);
 
                 if(q.isShortAnswer) {
-                    // ---- TRẢ LỜI NGẮN ----
                     let el = box.querySelector(`input[name="sa_${qIndex}"]`);
-                    let userAns = el ? el.value.trim() : '';
+                    let val = el ? el.value.trim() : '';
                     if(el) el.disabled = true;
-                    isFull = checkShortAnswer(userAns, q.answers);
-                    st.sa.n++; maxTotal += sc.sa;
-                    if(isFull) { st.sa.ok++; st.sa.pts += sc.sa; earned += sc.sa; }
-                    let badge = isFull ? `<span style="color:#10b981; font-weight:bold;">✅ Đúng (+${fmtNum(sc.sa)} điểm)</span>` : `<span style="color:#ef4444; font-weight:bold;">❌ Sai (+0 điểm)</span>`;
-                    reviewHTML += reviewCard(isFull ? '#10b981' : '#ef4444', qTitle, badge, `
-                        <div style="font-size: 13px; opacity: 0.9; margin-bottom: 3px;">Bạn trả lời: <b>${userAns ? escapeHtml(userAns) : 'Chưa trả lời'}</b></div>
-                        <div style="font-size: 13px; color: #10b981;">Đáp án chuẩn: <b>${q.answers.map(a => escapeHtml(a)).join(' hoặc ')}</b></div>`);
-
+                    isFull = checkShortAnswer(val, q.answers);
+                    maxTotal += sc.sa; if(isFull) { earned += sc.sa; fullCorrect++; } else incorrectQuestionIndices.push(q.origQIndex ?? qIndex);
+                    review += reviewCard(isFull?'#10b981':'#ef4444', `Câu ${qIndex+1}. ${richText(q.title)}`, isFull?'Đúng':'Sai', `Bạn trả lời: <b>${val}</b> | ĐA: ${q.answers.join(', ')}`);
                 } else if(q.isTrueFalse) {
-                    // ---- ĐÚNG/SAI: chấm lũy tiến theo số ý đúng ----
-                    let n = q.options.length, k = 0, rows = "";
+                    let k = 0, n = q.options.length, rows = "";
                     q.options.forEach((opt, oIdx) => {
-                        let userChoice = null;
-                        box.querySelectorAll(`input[name="tf_${qIndex}_${oIdx}"]`).forEach(r => { if(r.checked) userChoice = r.value; r.disabled = true; });
-                        let isSubCorrect = (userChoice === (opt.correct ? 'true' : 'false'));
-                        if(isSubCorrect) k++;
-                        let cleanText = opt.text.replace(/^[*][a-da-d][\.\)]\s*/i, '').replace(/^[a-da-d][\.\)]\s*/i, '');
-                        let letter = String.fromCharCode(97 + oIdx);
-                        let userLabel = userChoice === 'true' ? 'Đúng' : (userChoice === 'false' ? 'Sai' : 'Chưa chọn');
-                        rows += `<div style="font-size: 13px; padding: 4px 8px; margin-bottom: 3px; border-radius: 6px; background: ${isSubCorrect ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)'};">
-                            <b>${letter}.</b> ${richText(cleanText)} ➔ Bạn chọn: <b>${userLabel}</b> | Đáp án: <b style="color:#10b981;">${opt.correct ? 'Đúng' : 'Sai'}</b> ${isSubCorrect ? '✅' : '❌'}
-                        </div>`;
+                        let chk = box.querySelector(`input[name="tf_${qIndex}_${oIdx}"]:checked`);
+                        let val = chk ? chk.value === 'true' : null;
+                        if(val === opt.correct) k++;
+                        rows += `<div>${richText(opt.text)} - Bạn: ${val===null?'Chưa chọn':(val?'Đúng':'Sai')} | ĐA: ${opt.correct?'Đúng':'Sai'}</div>`;
                     });
-                    let ratio = (n === 4) ? TF_PROGRESSIVE[k] : (n > 0 ? k / n : 0);
-                    let pts = sc.tf * ratio;
-                    isFull = (k === n && n > 0);
-                    st.tf.n++; maxTotal += sc.tf; earned += pts; st.tf.pts += pts;
-                    if(isFull) st.tf.ok++;
-                    let color = isFull ? '#10b981' : (k > 0 ? '#f59e0b' : '#ef4444');
-                    let badge = isFull
-                        ? `<span style="color:#10b981; font-weight:bold;">✅ Đúng toàn bộ (+${fmtNum(pts)} điểm)</span>`
-                        : `<span style="color:${color}; font-weight:bold;">❌ Chưa chính xác (${k}/${n} ý đúng • +${fmtNum(pts)} điểm)</span>`;
-                    reviewHTML += reviewCard(color, qTitle, badge, rows);
-
+                    let pts = sc.tf * (TF_PROGRESSIVE[k] || 0);
+                    earned += pts; maxTotal += sc.tf;
+                    if(k === n) { fullCorrect++; isFull = true; } else incorrectQuestionIndices.push(q.origQIndex ?? qIndex);
+                    review += reviewCard(k===n?'#10b981':'#f59e0b', `Câu ${qIndex+1}`, `${k}/${n} đúng`, rows);
                 } else {
-                    // ---- TRẮC NGHIỆM 4 ĐÁP ÁN ----
-                    let selected = box.querySelector(`input[name="question_${qIndex}"]:checked`);
-                    let selectedVal = selected ? selected.value : null;
-                    box.querySelectorAll('input').forEach(i => i.disabled = true);
-                    let userText = 'Chưa trả lời', correctText = '';
-                    q.options.forEach((opt, oIndex) => {
-                        let disp = `${String.fromCharCode(65 + oIndex)}. ${richText(opt.text.replace(/^[A-Da-d][\.\)]\s*/, ''))}`;
-                        if(opt.correct) correctText = disp;
-                        if(String(oIndex) === selectedVal) { userText = disp; if(opt.correct) isFull = true; }
-                    });
-                    st.mcq.n++; maxTotal += sc.mcq;
-                    if(isFull) { st.mcq.ok++; st.mcq.pts += sc.mcq; earned += sc.mcq; }
-                    let badge = isFull ? `<span style="color:#10b981; font-weight:bold;">✅ Đúng (+${fmtNum(sc.mcq)} điểm)</span>` : `<span style="color:#ef4444; font-weight:bold;">❌ Sai (+0 điểm)</span>`;
-                    reviewHTML += reviewCard(isFull ? '#10b981' : '#ef4444', qTitle, badge, `
-                        <div style="font-size: 13px; opacity: 0.9; margin-bottom: 3px;">Bạn chọn: <b>${userText}</b></div>
-                        <div style="font-size: 13px; color: #10b981;">Đáp án chuẩn: <b>${correctText}</b></div>`);
+                    let sel = box.querySelector(`input[name="question_${qIndex}"]:checked`);
+                    let val = sel ? parseInt(sel.value) : null;
+                    maxTotal += sc.mcq;
+                    if(val !== null && q.options[val].correct) { earned += sc.mcq; fullCorrect++; isFull = true; }
+                    else incorrectQuestionIndices.push(q.origQIndex ?? qIndex);
+                    review += reviewCard(isFull?'#10b981':'#ef4444', `Câu ${qIndex+1}`, isFull?'Đúng':'Sai', `Bạn chọn: ${val!==null?richText(q.options[val].text):'Chưa chọn'}`);
                 }
-
-                let sk = q.section || 0;
-                if(!secStats[sk]) secStats[sk] = { title: q.sectionTitle, earned: 0, max: 0 };
-                secStats[sk].earned += earned - earnedBefore; secStats[sk].max += maxTotal - maxBefore;
-
-                if(isFull) fullCorrect++;
-                else incorrectQuestionIndices.push(q.origQIndex !== undefined ? q.origQIndex : qIndex);
             });
 
-            let retryBtn = document.getElementById('retry-incorrect-btn');
-            if(incorrectQuestionIndices.length > 0) {
-                retryBtn.style.display = 'inline-flex';
-                retryBtn.innerText = `🔄 Chỉ làm lại ${incorrectQuestionIndices.length} câu chưa đúng`;
-            } else {
-                retryBtn.style.display = 'none';
-            }
-
-            // ---- Điểm tổng, quy đổi về thang 10 ----
             let score10 = maxTotal > 0 ? (earned / maxTotal) * 10 : 0;
-            let parts = [];
-            if(st.mcq.n) parts.push(`Trắc nghiệm: ${st.mcq.ok}/${st.mcq.n} câu (${fmtNum(st.mcq.pts)}/${fmtNum(sc.mcq * st.mcq.n)}đ)`);
-            if(st.tf.n) parts.push(`Đúng/Sai: ${fmtNum(st.tf.pts)}/${fmtNum(sc.tf * st.tf.n)}đ`);
-            if(st.sa.n) parts.push(`Trả lời ngắn: ${st.sa.ok}/${st.sa.n} câu (${fmtNum(st.sa.pts)}/${fmtNum(sc.sa * st.sa.n)}đ)`);
-            let secParts = Object.values(secStats).filter(x => x.title).map(x => `${escapeHtml(String(x.title).replace(/\[img:[^\]]*\]/gi, '').trim())}: ${fmtNum(x.earned)}/${fmtNum(x.max)}đ`);
-            let rescale = Math.abs(maxTotal - 10) > 0.005 ? `<div class="score-sub">Điểm gốc ${fmtNum(earned)}/${fmtNum(maxTotal)} → quy đổi về thang 10</div>` : '';
-
             document.getElementById('submit-btn').style.display = 'none';
             document.getElementById('quiz-screen').style.display = 'none';
             document.getElementById('result-screen').style.display = 'block';
-            document.getElementById('score-text').innerHTML = `
-                <div style="font-size: 38px; line-height: 1.2;">🎯 ${fmtNum(score10)} / 10</div>
-                <div class="score-sub">Đúng hoàn toàn ${fullCorrect}/${activeQuizQuestions.length} câu</div>
-                <div class="score-sub">${parts.join(' &nbsp;•&nbsp; ')}</div>${secParts.length ? `<div class="score-sub">Theo phần: ${secParts.join(' &nbsp;•&nbsp; ')}</div>` : ''}${rescale}`;
-            document.getElementById('review-container').innerHTML = reviewHTML;
-
+            document.getElementById('score-text').innerHTML = `🎯 ${fmtNum(score10)} / 10`;
+            document.getElementById('review-container').innerHTML = review;
+            document.getElementById('retry-incorrect-btn').style.display = incorrectQuestionIndices.length ? 'inline-flex' : 'none';
             typesetMath();
+        }
+
+        function reviewCard(color, title, badge, body) {
+            return `<div style="padding: 12px; margin-bottom: 10px; border-left: 4px solid ${color}; background: rgba(150,150,150,0.05); border-radius: 8px;"><b>${title} - ${badge}</b><div style="margin-top:6px;">${body}</div></div>`;
         }
 
         function exportSingleSet() {
             let s = appData.sets[currentActiveSetId];
-            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(s));
             let a = document.createElement('a');
-            a.setAttribute("href", dataStr);
-            a.setAttribute("download", `${s.name.replace(/\s+/g, '_')}_BoDe.json`);
+            a.href = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(s));
+            a.download = `${s.name}.json`;
             a.click();
         }
 
         function exportSingleSetById(id) {
             let s = appData.sets[id];
-            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(s));
             let a = document.createElement('a');
-            a.setAttribute("href", dataStr);
-            a.setAttribute("download", `${s.name.replace(/\s+/g, '_')}_BoDe.json`);
+            a.href = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(s));
+            a.download = `${s.name}.json`;
             a.click();
         }
 
         function exportAllJSON() {
-            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
             let a = document.createElement('a');
-            a.setAttribute("href", dataStr);
-            a.setAttribute("download", "KhoBoDeSTEM_Backup.json");
+            a.href = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData));
+            a.download = "KhoBoDe_Backup.json";
             a.click();
         }
 
         function importFile(e) {
             let file = e.target.files[0];
             if(!file) return;
-            let reader = new FileReader();
-            reader.onload = function(evt) {
+            let r = new FileReader();
+            r.onload = (evt) => {
                 try {
-                    let imported = JSON.parse(evt.target.result);
-                    if(imported.sets) {
-                        appData = imported;
-                        saveAppData();
-                        renderSetsManager();
-                        alert("Import thành công toàn bộ kho đề!");
-                    } else if(imported.id && imported.rawText) {
-                        appData.sets[imported.id] = imported;
-                        saveAppData();
-                        renderSetsManager();
-                        alert(`Import thành công bộ đề: ${imported.name}!`);
-                    } else {
-                        alert("File không hợp lệ!");
-                    }
-                } catch(err) {
-                    alert("Lỗi đọc file JSON!");
-                }
+                    let d = JSON.parse(evt.target.result);
+                    if(d.sets) appData = d; else if(d.id) appData.sets[d.id] = d;
+                    saveAppData(); renderSetsManager(); alert("Thành công!");
+                } catch(err) { alert("Lỗi file!"); }
             };
-            reader.readAsText(file);
+            r.readAsText(file);
         }
     </script>
 </body>
