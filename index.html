@@ -1875,6 +1875,15 @@ D. “Em nhớ anh nhiều lắm!”`
                             updatedCount++;
                         }
                     }
+                    // Tự động gỡ bỏ các bộ đề đã xoá khỏi kho chia sẻ
+                    if(remoteData.removed && Array.isArray(remoteData.removed)) {
+                        remoteData.removed.forEach(id => {
+                            if(appData.sets[id]) {
+                                delete appData.sets[id];
+                                updatedCount++;
+                            }
+                        });
+                    }
                     if(updatedCount > 0) {
                         saveAppData();
                         renderSetsManager();
