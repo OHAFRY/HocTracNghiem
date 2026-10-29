@@ -1651,6 +1651,7 @@
             localStorage.removeItem(DRAFT_KEY);
             setupImageInputs();
             setupScrollableToolbar();
+            setupVisualEditorSync();
             renderSetsManager();
 
             // Tự động kiểm tra và đồng bộ kho đề mới nhất từ de_thi.json trên GitHub
@@ -2036,11 +2037,80 @@
             }
         }
 
+        function getQuestionsFromVisualEditor() {
+            let container = document.getElementById('visual-questions-container');
+            if(!container) return [];
+            let nodes = container.querySelectorAll('.visual-q-card, .visual-section-card');
+            let questions = [];
+            let curTitle = null, secId = 0;
+
+            nodes.forEach(card => {
+                if(card.classList.contains('visual-section-card')) {
+                    let secInput = card.querySelector('.v-sec-title');
+                    let t = secInput ? secInput.value.trim() : '';
+                    if(t) { secId++; curTitle = t; }
+                    return;
+                }
+
+                let isTF = card.getAttribute('data-tf') === '1';
+                let isSA = card.getAttribute('data-sa') === '1';
+                let titleArea = card.querySelector('.v-q-title');
+                let title = titleArea ? titleArea.value.trim() : '';
+
+                if(isSA) {
+                    let saInput = card.querySelector('.v-sa-answer');
+                    let answers = saInput ? saInput.value.split('|').map(x => x.trim()).filter(Boolean) : [];
+                    if(title || answers.length) {
+                        questions.push({ title: title, options: [], isTrueFalse: false, isShortAnswer: true, answers: answers, section: secId, sectionTitle: curTitle });
+                    }
+                    return;
+                }
+
+                let rows = card.querySelectorAll('.visual-ans-row');
+                let options = [];
+                rows.forEach((row, rIdx) => {
+                    let ansInput = row.querySelector('.v-ans-text');
+                    let ansText = ansInput ? ansInput.value.trim() : '';
+                    if(isTF) {
+                        let check = row.querySelector('.v-tf-check');
+                        let isChecked = check ? check.checked : false;
+                        let letter = String.fromCharCode(97 + options.length);
+                        options.push({ text: `${letter}) ${ansText}`, correct: isChecked });
+                    } else {
+                        let radio = row.querySelector('input[type="radio"]');
+                        let isChecked = radio ? radio.checked : false;
+                        let letter = String.fromCharCode(65 + rIdx);
+                        options.push({ text: `${letter}. ${ansText}`, correct: isChecked });
+                    }
+                });
+
+                if(title || options.some(o => o.text.trim())) {
+                    questions.push({ title: title, options: options, isTrueFalse: isTF, isShortAnswer: false, section: secId, sectionTitle: curTitle });
+                }
+            });
+            return questions;
+        }
+
         function updateLivePreview() {
             if(!isPreviewActive) return;
-            let rawText = document.getElementById('raw-questions-input').value;
-            let questions = parseRawData(rawText);
+            let questions = [];
+            let paneVisual = document.getElementById('editor-visual-pane');
+            let isVisualActive = paneVisual && paneVisual.style.display !== 'none';
+
+            if(isVisualActive) {
+                questions = getQuestionsFromVisualEditor();
+                // Đồng bộ ngầm vào textarea để dữ liệu luôn sẵn sàng
+                let rawEl = document.getElementById('raw-questions-input');
+                if(rawEl && questions.length > 0) {
+                    rawEl.value = questionsToRawText(questions);
+                }
+            } else {
+                let rawText = document.getElementById('raw-questions-input').value;
+                questions = parseRawData(rawText);
+            }
+
             let container = document.getElementById('preview-content-container');
+            if(!container) return;
             if(questions.length === 0) {
                 container.innerHTML = `<div style="text-align:center; padding: 30px; opacity: 0.6; font-size: 13.5px;">Chưa có câu hỏi hợp lệ để xem trước. Hãy nhập đề bên trên!</div>`;
                 return;
@@ -2052,7 +2122,7 @@
                 html += `<div class="question-box">
                     <div class="question-title">Câu ${getQuestionDisplayNum(questions, qIndex)}. ${richText(q.title)} ${badge ? `<span style="color:var(--accent-color); font-size:12px;">${badge}</span>` : ''}</div>`;
                 if(q.isShortAnswer) {
-                    html += `<div class="sa-key">Đáp án chấp nhận: ${q.answers.map(a => `<code>${escapeHtml(a)}</code>`).join(' hoặc ')}</div>`;
+                    html += `<div class="sa-key">Đáp án chấp nhận: ${(q.answers || []).map(a => `<code>${escapeHtml(a)}</code>`).join(' hoặc ')}</div>`;
                 } else if(q.isTrueFalse) {
                     html += `<div class="tf-container"><div class="tf-header-row"><div class="tf-header-text"></div><div class="tf-header-col">Ý chọn</div></div>`;
                     q.options.forEach((opt, oIdx) => {
@@ -2331,6 +2401,17 @@
             document.getElementById('timer-secs').disabled = unlim;
         }
 
+                function setupVisualEditorSync() {
+            let visualContainer = document.getElementById('visual-questions-container');
+            if(!visualContainer) return;
+            // Tự động đồng bộ sang Xem Trước khi gõ hoặc tích chọn trong Soạn Trực Quan
+            visualContainer.addEventListener('input', () => {
+                if(isPreviewActive) updateLivePreview();
+            });
+            visualContainer.addEventListener('change', () => {
+                if(isPreviewActive) updateLivePreview();
+            });
+        }
         function switchEditorTab(mode) {
             let btnText = document.getElementById('tab-btn-text');
             let btnVisual = document.getElementById('tab-btn-visual');
@@ -2338,6 +2419,12 @@
             let paneVisual = document.getElementById('editor-visual-pane');
 
             if(mode === 'text') {
+                if(paneVisual && paneVisual.style.display !== 'none') {
+                    let vQuestions = getQuestionsFromVisualEditor();
+                    if(vQuestions.length > 0) {
+                        document.getElementById('raw-questions-input').value = questionsToRawText(vQuestions);
+                    }
+                }
                 btnText.className = 'btn';
                 btnVisual.className = 'btn btn-secondary';
                 paneText.style.display = 'block';
@@ -2349,6 +2436,7 @@
                 paneVisual.style.display = 'block';
                 paneText.style.display = 'none';
                 syncTextToVisual();
+                updateLivePreview();
             }
         }
 
@@ -2543,7 +2631,7 @@
             card.innerHTML = `
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                     <div><b>Tiêu đề phần</b> <span style="font-size:11px; opacity:0.7;">(đảo câu chỉ trong phần này)</span></div>
-                    <button class="btn btn-fail" style="padding: 4px 8px; font-size: 11px; min-height: 28px;" onclick="this.closest('.visual-section-card').remove()">Xóa</button>
+                    <button class="btn btn-fail" style="padding: 4px 8px; font-size: 11px; min-height: 28px;" onclick="this.closest('.visual-section-card').remove(); updateLivePreview();">Xóa</button>
                 </div>
                 <input type="text" class="v-sec-title" placeholder="VD: I. Trắc nghiệm nhiều lựa chọn" value="${escapeHtml(title || '')}" style="margin-bottom:0;">`;
             container.appendChild(card);
@@ -2625,11 +2713,12 @@
 
         function addNewVisualQuestion(kind) {
             kind = (kind === true) ? 'tf' : (kind || 'mcq');
-            if(kind === 'sec') { renderVisualSection(''); return; }
+            if(kind === 'sec') { renderVisualSection(''); updateLivePreview(); return; }
             let container = document.getElementById('visual-questions-container');
             if(container.querySelector('p')) container.innerHTML = '';
             let qIdx = container.querySelectorAll('.visual-q-card').length;
             renderSingleVisualQuestion(qIdx, "", [], kind === 'tf', kind === 'sa' ? [] : null);
+            updateLivePreview();
         }
 
         function deleteVisualQuestion(btn) {
@@ -2640,6 +2729,7 @@
                 let nodes = document.querySelectorAll('#visual-questions-container > .visual-q-card, #visual-questions-container > .visual-section-card'); let hasSec = Array.from(nodes).some(n => n.classList.contains('visual-section-card')); let secIdx = 0; nodes.forEach(n => { if(n.classList.contains('visual-section-card')) secIdx = 0; else if(n.classList.contains('visual-q-card')) { secIdx++; if(n === card) { card.querySelector('b').innerText = 'CÃ¢u ' + (hasSec ? secIdx : (idx + 1)); } } })
                 card.querySelectorAll('input[type="radio"]').forEach(r => r.setAttribute('name', `v_correct_${idx}`));
             });
+            updateLivePreview();
         }
 
         function syncVisualToText() {
@@ -2703,6 +2793,13 @@
         }
 
         function startQuiz() {
+            let paneVisual = document.getElementById('editor-visual-pane');
+            if(paneVisual && paneVisual.style.display !== 'none') {
+                let vQuestions = getQuestionsFromVisualEditor();
+                if(vQuestions.length > 0) {
+                    document.getElementById('raw-questions-input').value = questionsToRawText(vQuestions);
+                }
+            }
             let rawText = document.getElementById('raw-questions-input').value;
             let currentSet = appData.sets[currentActiveSetId];
             currentSet.rawText = rawText;
