@@ -536,10 +536,10 @@
 
         .tf-item-row {
             display: flex; align-items: center; padding: 12px 16px; margin: 8px 0; border-radius: 14px;
-            background: rgba(255,255,255,0.7); border: 1px solid var(--panel-border); transition: all 0.2s ease;
+            background: rgba(255,255,255,0.85); border: 1.5px solid rgba(203, 213, 225, 0.9); transition: all 0.2s ease;
         }
-        body.theme-dark .tf-item-row { background: rgba(15, 23, 42, 0.5); }
-        .tf-item-row:hover { border-color: rgba(37,99,235,0.35); box-shadow: var(--shadow-sm); }
+        body.theme-dark .tf-item-row { background: rgba(15, 23, 42, 0.6); border-color: rgba(255, 255, 255, 0.16); }
+        .tf-item-row:hover { border-color: rgba(37,99,235,0.45); box-shadow: var(--shadow-sm); }
         .tf-item-text { flex: 1; font-size: 0.98em; padding-right: 12px; }
         
         .tf-box-choice {
@@ -548,19 +548,25 @@
         @media (min-width: 600px) { .tf-box-choice { width: 88px; } }
 
         .tf-square-btn {
-            width: 38px; height: 38px; border-radius: 10px; border: 1.5px solid var(--panel-border);
-            background: var(--panel-bg); display: flex; justify-content: center; align-items: center;
+            width: 38px; height: 38px; border-radius: 10px; border: 2px solid #94a3b8;
+            background: #ffffff; display: flex; justify-content: center; align-items: center;
             cursor: pointer; transition: all 0.2s ease; position: relative;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+        }
+        body.theme-dark .tf-square-btn {
+            border-color: rgba(148, 163, 184, 0.45);
+            background: rgba(30, 41, 59, 0.85);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
         .tf-square-btn input { display: none; }
-        .tf-square-btn:hover { border-color: var(--accent-color); transform: scale(1.08); }
+        .tf-square-btn:hover { border-color: var(--accent-color); transform: scale(1.08); box-shadow: 0 2px 8px rgba(37,99,235,0.25); }
         .tf-square-btn input:checked + .tf-check-mark { display: block; }
 
         /* Khi chọn Đúng -> Xanh lá */
         .tf-square-btn:has(input[value="true"]:checked) {
             border-color: #10b981;
             background: rgba(16, 185, 129, 0.15);
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.35);
         }
         .tf-square-btn:has(input[value="true"]:checked) .tf-check-mark svg {
             stroke: #10b981;
@@ -570,14 +576,14 @@
         .tf-square-btn:has(input[value="false"]:checked) {
             border-color: #ef4444;
             background: rgba(239, 68, 68, 0.15);
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
         }
         .tf-square-btn:has(input[value="false"]:checked) .tf-check-mark svg {
             stroke: #ef4444;
         }
 
         .tf-check-mark { display: none; line-height: 1; }
-        .tf-check-mark svg { width: 18px; height: 18px; stroke-width: 2.5; }
+        .tf-check-mark svg { width: 18px; height: 18px; stroke-width: 3; }
 
         .instruction-box { 
             background: var(--accent-light); border-left: 4px solid var(--accent-color); 
