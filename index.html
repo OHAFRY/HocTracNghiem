@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -2607,17 +2607,35 @@ function hexToRgba(hex, alpha) {
                 ctx.globalAlpha = 1;
             }
 
-            // --- 6. GALAXY (110 NGOI SAO, 3 HANH TINH 3D, SAO BANG & HO DEN VU TRU) ---
+            // --- 6. GALAXY (MUA SAO BANG LIEN TUC, CUC QUANG BAC CUC RANDOM MAU & 110 VI SAO) ---
             let stars = [];
-            let planets = [];
             let meteors = [];
+            let galaxyAuroraTime = 0;
+            let galaxyAuroraPalette = null;
+
+            // Ngan hang bang mau Cuc quang Bac Cuc ruc ro ngau nhien
+            const GALAXY_AURORA_PALETTES = [
+                // 1. Bac Cuc co dien: Ngoc luc bao & Xanh lam bang gia
+                { name: 'Emerald Arctic', c1: 'rgba(16, 185, 129, 0.24)', c2: 'rgba(6, 182, 212, 0.16)', c3: 'rgba(16, 185, 129, 0)' },
+                // 2. Vu tru tim mong mo: Tim Neon & Hong Magenta
+                { name: 'Cosmic Violet', c1: 'rgba(168, 85, 247, 0.26)', c2: 'rgba(236, 72, 153, 0.18)', c3: 'rgba(168, 85, 247, 0)' },
+                // 3. Bang tuyet Bac Cuc: Xanh Cyan Dien & Tim Cham Indigo
+                { name: 'Polar Blue', c1: 'rgba(56, 189, 248, 0.26)', c2: 'rgba(99, 102, 241, 0.18)', c3: 'rgba(56, 189, 248, 0)' },
+                // 4. Cuc quang mat troi: Vang Ho Phach & Do Hong Lua
+                { name: 'Solar Aurora', c1: 'rgba(251, 191, 36, 0.22)', c2: 'rgba(244, 63, 94, 0.18)', c3: 'rgba(244, 63, 94, 0)' },
+                // 5. Suong dem Bac Au: Xanh Bac Ha & Tim Oai Huong
+                { name: 'Nordic Mint', c1: 'rgba(52, 211, 153, 0.24)', c2: 'rgba(192, 132, 252, 0.18)', c3: 'rgba(52, 211, 153, 0)' },
+                // 6. Bao tu do tham: Do San Ho & Xanh Ngoc Bien Sau
+                { name: 'Crimson Storm', c1: 'rgba(244, 63, 94, 0.24)', c2: 'rgba(20, 184, 166, 0.18)', c3: 'rgba(20, 184, 166, 0)' }
+            ];
 
             function initGalaxy() {
                 stars = [];
-                planets = [];
                 meteors = [];
-                planets = [];
-                meteors = [];
+                galaxyAuroraTime = Math.random() * 100;
+
+                // Chon ngau nhien 1 bang mau Cuc quang moi lan doi sang nen Ngan Ha
+                galaxyAuroraPalette = GALAXY_AURORA_PALETTES[Math.floor(Math.random() * GALAXY_AURORA_PALETTES.length)];
 
                 // 110 ngoi sao da tang chieu sau
                 for (let i = 0; i < 110; i++) {
@@ -2636,55 +2654,90 @@ function hexToRgba(hex, alpha) {
                     });
                 }
 
-                // 3 Hanh tinh vu tru tuyet dep
-                planets = [
-                    {
-                        // Hanh tinh 1: Sao Tho co vanh dai phat sang 3D
-                        x: width * 0.78, y: height * 0.26,
-                        baseX: width * 0.78, baseY: height * 0.26,
-                        r: 28,
-                        hasRings: true,
-                        color1: '#818cf8', color2: '#312e81',
-                        ringColor: 'rgba(199, 210, 254, 0.45)',
-                        ringAngle: -0.42,
-                        driftPhase: 0,
-                        driftSpeed: 0.004
-                    },
-                    {
-                        // Hanh tinh 2: Hanh tinh dai duong xanh ngoc phat quang
-                        x: width * 0.16, y: height * 0.68,
-                        baseX: width * 0.16, baseY: height * 0.68,
-                        r: 20,
-                        hasRings: false,
-                        color1: '#22d3ee', color2: '#0e7490',
-                        driftPhase: 1.8,
-                        driftSpeed: 0.005
-                    },
-                    {
-                        // Hanh tinh 3: Mat trang do ruby huyen bi
-                        x: width * 0.86, y: height * 0.84,
-                        baseX: width * 0.86, baseY: height * 0.84,
-                        r: 15,
-                        hasRings: false,
-                        color1: '#fb7185', color2: '#881337',
-                        driftPhase: 3.5,
-                        driftSpeed: 0.003
-                    }
-                ];
+                // Khoi tao dot mua sao bang ban dau
+                for (let i = 0; i < 4; i++) {
+                    spawnMeteor(true);
+                }
+            }
+
+            function spawnMeteor(randomY = false) {
+                let speed = 9 + Math.random() * 6;
+                let angle = 0.62 + (Math.random() - 0.5) * 0.15; // goc bay tu phai tren chech xuong trai duoi
+                meteors.push({
+                    x: Math.random() * (width + 200),
+                    y: randomY ? Math.random() * height * 0.6 : -40 - Math.random() * 50,
+                    vx: -Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    len: 70 + Math.random() * 80,
+                    size: 1.5 + Math.random() * 1.5,
+                    alpha: 0.85 + Math.random() * 0.15,
+                    trailColor: Math.random() > 0.4 ? 'rgba(255, 255, 255, ' : 'rgba(199, 210, 254, '
+                });
             }
 
             function renderGalaxy(isDark) {
-                // Hao quang ho den vu tru bi an theo chuot
+                // --- A. CUC QUANG BAC CUC CHUYEN MAU NGAU NHIEN BO TRON MEM MAI PHIA SAU ---
+                if (galaxyAuroraPalette) {
+                    galaxyAuroraTime += 0.012;
+                    let layers = [
+                        { yRatio: 0.24, amp: 48, speed: 0.85, colorStart: galaxyAuroraPalette.c1, colorMid: galaxyAuroraPalette.c2 },
+                        { yRatio: 0.42, amp: 58, speed: 1.15, colorStart: galaxyAuroraPalette.c2, colorMid: galaxyAuroraPalette.c1 }
+                    ];
+
+                    for (let l of layers) {
+                        let baseY = height * l.yRatio;
+                        let pts = [];
+                        let step = 28;
+
+                        for (let x = -50; x <= width + 50; x += step) {
+                            let wave = Math.sin(x * 0.0028 + galaxyAuroraTime * l.speed) * l.amp
+                                     + Math.cos(x * 0.0058 - galaxyAuroraTime * 0.5) * (l.amp * 0.5);
+                            let y = baseY + wave;
+
+                            // Uon luon bo tron Ãªm ai khi co chuot
+                            if (mouse.active) {
+                                let absDx = Math.abs(x - mouse.x);
+                                if (absDx < 240) {
+                                    let bell = Math.cos((absDx / 240) * Math.PI * 0.5);
+                                    y += (mouse.y - y) * (bell * bell) * 0.38;
+                                }
+                            }
+                            pts.push({ x: x, y: y });
+                        }
+
+                        ctx.beginPath();
+                        ctx.moveTo(0, height);
+                        ctx.lineTo(pts[0].x, pts[0].y);
+
+                        for (let i = 0; i < pts.length - 1; i++) {
+                            let xc = (pts[i].x + pts[i + 1].x) / 2;
+                            let yc = (pts[i].y + pts[i + 1].y) / 2;
+                            ctx.quadraticCurveTo(pts[i].x, pts[i].y, xc, yc);
+                        }
+                        ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+                        ctx.lineTo(width, height);
+                        ctx.closePath();
+
+                        let grad = ctx.createLinearGradient(0, Math.max(0, baseY - 70), 0, height);
+                        grad.addColorStop(0, l.colorStart);
+                        grad.addColorStop(0.35, l.colorMid);
+                        grad.addColorStop(0.65, 'rgba(0, 0, 0, 0)');
+                        ctx.fillStyle = grad;
+                        ctx.fill();
+                    }
+                }
+
+                // --- B. HAO QUANG HO DEN VU TRU THEO CHUOT ---
                 if (mouse.active) {
-                    let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 270);
-                    glow.addColorStop(0, 'rgba(147, 51, 234, 0.26)');
-                    glow.addColorStop(0.4, 'rgba(99, 102, 241, 0.14)');
+                    let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 260);
+                    glow.addColorStop(0, 'rgba(147, 51, 234, 0.22)');
+                    glow.addColorStop(0.4, 'rgba(99, 102, 241, 0.10)');
                     glow.addColorStop(1, 'rgba(99, 102, 241, 0)');
                     ctx.fillStyle = glow;
                     ctx.fillRect(0, 0, width, height);
                 }
 
-                // 1. Ve cac vi sao & bui tinh van
+                // --- C. 110 NGOI SAO NHAP NHAY & XOAY TRONG LUC ---
                 for (let i = 0; i < stars.length; i++) {
                     let s = stars[i];
                     s.phase += s.phaseSpeed;
@@ -2711,103 +2764,53 @@ function hexToRgba(hex, alpha) {
                     ctx.fill();
                 }
 
-                // 2. Ve 3 Hanh tinh 3D song dong
-                for (let i = 0; i < planets.length; i++) {
-                    let p = planets[i];
-                    p.driftPhase += p.driftSpeed;
-                    p.x = p.baseX + Math.sin(p.driftPhase) * 16;
-                    p.y = p.baseY + Math.cos(p.driftPhase * 0.8) * 12;
-
-                    // Tuong tac nhe voi trong luc chuot
-                    if (mouse.active) {
-                        let dx = mouse.x - p.x;
-                        let dy = mouse.y - p.y;
-                        let dist = Math.hypot(dx, dy);
-                        if (dist < 180) {
-                            let pull = (1 - dist / 180) * 12;
-                            p.x += (dx / dist) * pull;
-                            p.y += (dy / dist) * pull;
-                        }
-                    }
-
-                    ctx.save();
-                    ctx.translate(p.x, p.y);
-
-                    // Neu co vanh dai: ve nua sau cua vanh dai truoc (nam phia sau hanh tinh)
-                    if (p.hasRings) {
-                        ctx.save();
-                        ctx.rotate(p.ringAngle);
-                        ctx.beginPath();
-                        ctx.ellipse(0, 0, p.r * 2.4, p.r * 0.65, 0, Math.PI, 0);
-                        ctx.strokeStyle = p.ringColor;
-                        ctx.lineWidth = 4.5;
-                        ctx.stroke();
-                        ctx.restore();
-                    }
-
-                    // Ve qua cau hanh tinh 3D voi gradient chieu sang chan thuc
-                    ctx.beginPath();
-                    ctx.arc(0, 0, p.r, 0, Math.PI * 2);
-                    let sphereGrad = ctx.createRadialGradient(-p.r * 0.35, -p.r * 0.35, p.r * 0.1, 0, 0, p.r);
-                    sphereGrad.addColorStop(0, p.color1);
-                    sphereGrad.addColorStop(0.82, p.color2);
-                    sphereGrad.addColorStop(1, '#05060f');
-                    ctx.fillStyle = sphereGrad;
-                    ctx.fill();
-
-                    // Vanh phan quang khi quyen (Atmospheric Rim Light)
-                    ctx.beginPath();
-                    ctx.arc(0, 0, p.r + 2, 0, Math.PI * 2);
-                    ctx.strokeStyle = p.color1;
-                    ctx.globalAlpha = 0.38;
-                    ctx.lineWidth = 2.2;
-                    ctx.stroke();
-                    ctx.globalAlpha = 1;
-
-                    // Neu co vanh dai: ve nua truoc cua vanh dai de de len mat truoc hanh tinh (hieu ung 3D sau truoc)
-                    if (p.hasRings) {
-                        ctx.save();
-                        ctx.rotate(p.ringAngle);
-                        ctx.beginPath();
-                        ctx.ellipse(0, 0, p.r * 2.4, p.r * 0.65, 0, 0, Math.PI);
-                        ctx.strokeStyle = p.ringColor;
-                        ctx.lineWidth = 4.5;
-                        ctx.stroke();
-                        ctx.restore();
-                    }
-
-                    ctx.restore();
+                // --- D. MUA SAO BANG LIEN TUC & HOANH TRANG ---
+                // Tu dong sinh them sao bang de luon co 3-5 sao bang tren bau troi
+                if (meteors.length < 5 && Math.random() < 0.06) {
+                    spawnMeteor(false);
                 }
 
-                // 3. Sao bang thinh thoang vuot qua bau troi
-                if (Math.random() < 0.015 && meteors.length < 2) {
-                    meteors.push({
-                        x: Math.random() * width,
-                        y: Math.random() * (height * 0.4),
-                        vx: -6 - Math.random() * 5,
-                        vy: 4 + Math.random() * 4,
-                        len: 50 + Math.random() * 40,
-                        alpha: 0.8
-                    });
+                // Neu chuot vung nhanh, kich hoat con mua sao bang bang qua chuot
+                if (mouse.active && Math.hypot(mouse.vx, mouse.vy) > 18 && Math.random() < 0.2) {
+                    spawnMeteor(false);
                 }
+
                 for (let i = meteors.length - 1; i >= 0; i--) {
                     let m = meteors[i];
                     m.x += m.vx;
                     m.y += m.vy;
-                    m.alpha -= 0.025;
-                    if (m.alpha <= 0 || m.x < -100 || m.y > height + 100) {
+                    m.alpha -= 0.015;
+
+                    if (m.alpha <= 0 || m.x < -200 || m.y > height + 200) {
                         meteors.splice(i, 1);
                         continue;
                     }
+
+                    // Tinh diem duoi cua sao bang
+                    let hyp = Math.hypot(m.vx, m.vy);
+                    let tailX = m.x - (m.vx / hyp) * m.len;
+                    let tailY = m.y - (m.vy / hyp) * m.len;
+
+                    // Ve vet duoi sao bang vuot qua bau troi
+                    let meteorGrad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
+                    meteorGrad.addColorStop(0, `rgba(255, 255, 255, ${m.alpha})`);
+                    meteorGrad.addColorStop(0.3, m.trailColor + (m.alpha * 0.7) + ')');
+                    meteorGrad.addColorStop(1, m.trailColor + '0)');
+
                     ctx.beginPath();
                     ctx.moveTo(m.x, m.y);
-                    ctx.lineTo(m.x - m.vx * (m.len / 12), m.y - m.vy * (m.len / 12));
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${m.alpha})`;
-                    ctx.lineWidth = 1.8;
+                    ctx.lineTo(tailX, tailY);
+                    ctx.strokeStyle = meteorGrad;
+                    ctx.lineWidth = m.size;
                     ctx.stroke();
+
+                    // Dau sao bang sang ruc
+                    ctx.beginPath();
+                    ctx.arc(m.x, m.y, m.size * 1.3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${m.alpha})`;
+                    ctx.fill();
                 }
             }
-
             // --- 7. MESH (CYBER QUANTUM SYNAPSE NETWORK - TIEN TIEN NHAT) ---
             let meshNodes = [];
             let meshPulses = [];
