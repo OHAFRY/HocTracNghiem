@@ -1096,6 +1096,20 @@
         }
 
         /* === BẢNG ĐIỀU KHIỂN HÌNH NỀN / MÀU NỀN TÁCH BIỆT === */
+        /* === CANVAS NEN TUONG TAC DONG (INTERACTIVE CANVAS FX) === */
+        #bg-fx-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            display: block;
+        }
+        .top-toolbar, .container, .back-to-top, .toast-notify, .exit-focus-btn {
+            position: relative;
+            z-index: 1;
+        }
+
         .bg-picker-bar {
             display: flex; align-items: center; gap: 6px;
             background: rgba(150,150,150,0.05); padding: 8px 14px; border-radius: 99px;
@@ -1218,6 +1232,8 @@
 </head>
 <body onload="initApp()">
     <!-- Canvas Hiệu Ứng Pháo Hoa Giấy Ăn Mừng (Visual Only, Không Âm Thanh) -->
+    <!-- Canvas Nen Tuong Tac Dong (Interactive Background FX) -->
+    <canvas id="bg-fx-canvas"></canvas>
     <canvas id="confetti-canvas" style="position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:999999; display:none;"></canvas>
 
     <!-- Toast Thông Báo Đồng Bộ Tự Động -->
@@ -1784,6 +1800,7 @@
             let savedBg = localStorage.getItem('azota_bg_style') || 'default';
             let customBgColor = localStorage.getItem('azota_bg_custom_color');
             changeBackgroundStyle(savedBg, customBgColor);
+            if (typeof initInteractiveBackground === 'function') initInteractiveBackground();
 
             localStorage.removeItem(DRAFT_KEY);
             setupImageInputs();
@@ -2161,7 +2178,7 @@ function hexToRgba(hex, alpha) {
 
         const BG_PRESETS = {
             default: 'radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.07) 0px, transparent 50%), #f8fafc',
-            dotgrid: 'radial-gradient(rgba(100, 116, 139, 0.22) 1.5px, transparent 1.5px) 0 0 / 24px 24px, #f8fafc',
+            dotgrid: '#f8fafc',
             sunset: 'radial-gradient(circle at 15% 20%, rgba(251, 113, 133, 0.35) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.35) 0%, transparent 45%), linear-gradient(135deg, #fff1f2 0%, #f5f3ff 100%)',
             ocean: 'radial-gradient(circle at 10% 10%, rgba(14, 165, 233, 0.35) 0%, transparent 45%), radial-gradient(circle at 90% 90%, rgba(20, 184, 166, 0.35) 0%, transparent 45%), linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%)',
             pastel: 'radial-gradient(circle at 20% 25%, rgba(251, 146, 60, 0.3) 0%, transparent 40%), radial-gradient(circle at 80% 75%, rgba(236, 72, 153, 0.3) 0%, transparent 40%), linear-gradient(135deg, #fffbeb 0%, #fdf2f8 100%)',
@@ -2170,7 +2187,7 @@ function hexToRgba(hex, alpha) {
 
         const BG_PRESETS_DARK = {
             default: 'radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 55%), #0b0f19',
-            dotgrid: 'radial-gradient(rgba(255, 255, 255, 0.22) 1.5px, transparent 1.5px) 0 0 / 24px 24px, #0b0f19',
+            dotgrid: '#0b0f19',
             sunset: 'radial-gradient(circle at 15% 20%, rgba(225, 29, 72, 0.25) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(147, 51, 234, 0.28) 0%, transparent 45%), #0d0914',
             ocean: 'radial-gradient(circle at 10% 10%, rgba(2, 132, 199, 0.25) 0%, transparent 45%), radial-gradient(circle at 90% 90%, rgba(13, 148, 136, 0.25) 0%, transparent 45%), #05131f',
             pastel: 'radial-gradient(circle at 20% 25%, rgba(234, 88, 12, 0.22) 0%, transparent 40%), radial-gradient(circle at 80% 75%, rgba(219, 39, 119, 0.22) 0%, transparent 40%), #160d13',
@@ -2195,6 +2212,7 @@ function hexToRgba(hex, alpha) {
             document.body.style.background = bgVal;
             document.body.style.backgroundAttachment = 'fixed';
             localStorage.setItem('azota_bg_style', styleKey);
+            if (window.bgFX) window.bgFX.setMode(styleKey);
 
             document.querySelectorAll('.bg-preset-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-bg') === styleKey);
@@ -2217,6 +2235,469 @@ function hexToRgba(hex, alpha) {
             let customColor = localStorage.getItem('azota_bg_custom_color');
             changeBackgroundStyle(savedBg, customColor);
         }
+
+        /* ================= INTERACTIVE DYNAMIC BACKGROUND FX ================= */
+        (function() {
+            let canvas = null, ctx = null;
+            let width = 0, height = 0;
+            let animId = null;
+            let currentMode = 'default';
+            let mouse = { x: -1000, y: -1000, lastX: -1000, lastY: -1000, active: false };
+            let smoothMouse = { x: -1000, y: -1000 };
+
+            // --- 1. LUOI DOT TU TINH (MAGNETIC DOT GRID) ---
+            let dots = [];
+            const DOT_SPACING = 28;
+            const MOUSE_RADIUS = 140;
+            const MAX_PULL = 24;
+
+            function initDots() {
+                dots = [];
+                let cols = Math.ceil(width / DOT_SPACING) + 2;
+                let rows = Math.ceil(height / DOT_SPACING) + 2;
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        let ox = c * DOT_SPACING;
+                        let oy = r * DOT_SPACING;
+                        dots.push({
+                            ox: ox, oy: oy,
+                            x: ox, y: oy,
+                            r: 1.5,
+                            alpha: 0.16,
+                            isAccent: false,
+                            active: false
+                        });
+                    }
+                }
+            }
+
+            function renderDots(isDark, accentColor) {
+                let restingColor = isDark ? 'rgba(255, 255, 255, 0.16)' : 'rgba(100, 116, 139, 0.18)';
+                ctx.beginPath();
+                ctx.fillStyle = restingColor;
+                // Draw magnetic dots with glowing accent
+
+                for (let i = 0; i < dots.length; i++) {
+                    let d = dots[i];
+                    let dx = mouse.x - d.ox;
+                    let dy = mouse.y - d.oy;
+
+                    // Toi uu bounding box
+                    if (Math.abs(dx) < MOUSE_RADIUS && Math.abs(dy) < MOUSE_RADIUS) {
+                        let dist = Math.hypot(dx, dy);
+                        if (dist < MOUSE_RADIUS) {
+                            d.active = true;
+                            let pullRatio = (1 - dist / MOUSE_RADIUS);
+                            let force = pullRatio * pullRatio * MAX_PULL;
+                            let targetX = d.ox + (dx / (dist || 1)) * force;
+                            let targetY = d.oy + (dy / (dist || 1)) * force;
+
+                            d.x += (targetX - d.x) * 0.25;
+                            d.y += (targetY - d.y) * 0.25;
+                            d.r += (1.5 + pullRatio * 2.0 - d.r) * 0.25;
+                            d.alpha = 0.2 + pullRatio * 0.8;
+                            d.isAccent = pullRatio > 0.25;
+                // Draw magnetic dots with glowing accent
+                            continue;
+                        }
+                    }
+
+                    if (d.active) {
+                        d.x += (d.ox - d.x) * 0.14;
+                        d.y += (d.oy - d.y) * 0.14;
+                        d.r += (1.5 - d.r) * 0.14;
+                        d.alpha += (0.16 - d.alpha) * 0.14;
+                        if (Math.abs(d.x - d.ox) < 0.15 && Math.abs(d.y - d.oy) < 0.15) {
+                            d.x = d.ox;
+                            d.y = d.oy;
+                            d.r = 1.5;
+                            d.active = false;
+                            d.alpha = 0.16;
+                            d.isAccent = false;
+                        } else {
+                // Draw magnetic dots with glowing accent
+                            continue;
+                        }
+                    }
+
+                    // Batch draw resting dots for 60fps
+                    ctx.moveTo(d.ox + 1.5, d.oy);
+                    ctx.arc(d.ox, d.oy, 1.5, 0, Math.PI * 2);
+                }
+                ctx.fill();
+
+                // Váº½ cÃ¡c háº¡t dot bá»‹ hÃºt tá»« tÃ­nh vá»›i mÃ u chá»§ Ä‘á» phÃ¡t sÃ¡ng
+                // Draw magnetic dots with glowing accent
+                for (let i = 0; i < activeDots.length; i++) {
+                    let ad = activeDots[i];
+                    ctx.beginPath();
+                    ctx.arc(ad.x, ad.y, ad.r, 0, Math.PI * 2);
+                    ctx.fillStyle = ad.isAccent ? accentColor : (isDark ? `rgba(255,255,255,${ad.alpha})` : `rgba(15,23,42,${ad.alpha})`);
+                    ctx.fill();
+                }
+            }
+
+            // --- 2. HOANG HON (LANTERN GLOW & WARM EMBERS) ---
+            let embers = [];
+            function initSunset() {
+                embers = [];
+                for (let i = 0; i < 28; i++) {
+                    embers.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.6,
+                        vy: -0.4 - Math.random() * 0.7,
+                        r: 1.5 + Math.random() * 2.2,
+                        color: Math.random() > 0.5 ? 'rgba(251, 146, 60, ' : 'rgba(244, 63, 94, ',
+                        alpha: 0.2 + Math.random() * 0.5,
+                        phase: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+
+            function renderSunset(isDark) {
+                if (mouse.active) {
+                    let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 220);
+                    glow.addColorStop(0, isDark ? 'rgba(244, 63, 94, 0.20)' : 'rgba(244, 63, 94, 0.14)');
+                    glow.addColorStop(0.5, isDark ? 'rgba(249, 115, 22, 0.10)' : 'rgba(249, 115, 22, 0.08)');
+                    glow.addColorStop(1, 'transparent');
+                    ctx.fillStyle = glow;
+                    ctx.fillRect(0, 0, width, height);
+                }
+
+                for (let i = 0; i < embers.length; i++) {
+                    let p = embers[i];
+                    p.phase += 0.02;
+                    p.x += p.vx + Math.sin(p.phase) * 0.35;
+                    p.y += p.vy;
+
+                    let dx = p.x - mouse.x;
+                    let dy = p.y - mouse.y;
+                    let dist = Math.hypot(dx, dy);
+                    if (dist < 120 && mouse.active) {
+                        let angle = Math.atan2(dy, dx);
+                        p.x += Math.cos(angle + 0.3) * 2.5;
+                        p.y += Math.sin(angle + 0.3) * 2.5;
+                    }
+
+                    if (p.y < -20) { p.y = height + 10; p.x = Math.random() * width; }
+                    if (p.x < -20) p.x = width + 10;
+                    if (p.x > width + 20) p.x = -10;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color + (p.alpha * (0.6 + Math.sin(p.phase) * 0.4)) + ')';
+                    ctx.shadowColor = 'rgba(251, 146, 60, 0.5)';
+                    ctx.shadowBlur = 6;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            // --- 3. DAI DUONG (WATER RIPPLES & BIOLUMINESCENT BUBBLES) ---
+            let ripples = [];
+            let bubbles = [];
+            let lastRippleTime = 0;
+
+            function initOcean() {
+                bubbles = [];
+                ripples = [];
+                for (let i = 0; i < 24; i++) {
+                    bubbles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vy: -0.3 - Math.random() * 0.6,
+                        r: 2 + Math.random() * 3.5,
+                        phase: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+
+            function renderOcean(isDark) {
+                let now = Date.now();
+                let moveDist = Math.hypot(mouse.x - mouse.lastX, mouse.y - mouse.lastY);
+                if (mouse.active && moveDist > 6 && now - lastRippleTime > 120) {
+                    ripples.push({
+                        x: mouse.x, y: mouse.y,
+                        r: 8, maxR: 85,
+                        alpha: 0.55
+                    });
+                    mouse.lastX = mouse.x;
+                    mouse.lastY = mouse.y;
+                    lastRippleTime = now;
+                }
+
+                for (let i = ripples.length - 1; i >= 0; i--) {
+                    let rip = ripples[i];
+                    rip.r += 1.8;
+                    rip.alpha -= 0.014;
+                    if (rip.alpha <= 0 || rip.r >= rip.maxR) {
+                        ripples.splice(i, 1);
+                        continue;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(rip.x, rip.y, rip.r, 0, Math.PI * 2);
+                    ctx.strokeStyle = isDark ? `rgba(56, 189, 248, ${rip.alpha})` : `rgba(14, 165, 233, ${rip.alpha * 0.75})`;
+                    ctx.lineWidth = 1.6;
+                    ctx.stroke();
+                }
+
+                if (mouse.active) {
+                    let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 180);
+                    glow.addColorStop(0, isDark ? 'rgba(6, 182, 212, 0.18)' : 'rgba(6, 182, 212, 0.12)');
+                    glow.addColorStop(1, 'transparent');
+                    ctx.fillStyle = glow;
+                    ctx.fillRect(0, 0, width, height);
+                }
+
+                for (let i = 0; i < bubbles.length; i++) {
+                    let b = bubbles[i];
+                    b.phase += 0.025;
+                    b.x += Math.sin(b.phase) * 0.4;
+                    b.y += b.vy;
+
+                    let dx = b.x - mouse.x;
+                    let dy = b.y - mouse.y;
+                    let dist = Math.hypot(dx, dy);
+                    if (dist < 90 && mouse.active) {
+                        let push = (1 - dist / 90) * 2.8;
+                        b.x += (dx / (dist || 1)) * push;
+                    }
+
+                    if (b.y < -10) { b.y = height + 10; b.x = Math.random() * width; }
+                    ctx.beginPath();
+                    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                    ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(14, 165, 233, 0.28)';
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                }
+            }
+
+            // --- 4. CUC QUANG (AURORA BOREALIS COSMIC WAVES) ---
+            let auroraTime = 0;
+            function renderAurora(isDark) {
+                auroraTime += 0.016;
+                let layers = [
+                    { yRatio: 0.30, amp: 45, speed: 1.0, color: isDark ? 'rgba(16, 185, 129, 0.18)' : 'rgba(16, 185, 129, 0.13)' },
+                    { yRatio: 0.50, amp: 55, speed: 1.3, color: isDark ? 'rgba(6, 182, 212, 0.16)' : 'rgba(6, 182, 212, 0.11)' },
+                    { yRatio: 0.70, amp: 40, speed: 0.9, color: isDark ? 'rgba(139, 92, 246, 0.18)' : 'rgba(139, 92, 246, 0.12)' }
+                ];
+
+                for (let l of layers) {
+                    let baseY = height * l.yRatio;
+                    ctx.beginPath();
+                    ctx.moveTo(0, height);
+                    ctx.lineTo(0, baseY);
+
+                    let step = 35;
+                    for (let x = 0; x <= width + step; x += step) {
+                        let wave = Math.sin(x * 0.0035 + auroraTime * l.speed) * l.amp + Math.cos(x * 0.007 - auroraTime * 0.6) * (l.amp * 0.5);
+                        let y = baseY + wave;
+
+                        if (mouse.active) {
+                            let dx = Math.abs(x - mouse.x);
+                            if (dx < 220) {
+                                let pull = (1 - dx / 220);
+                                y += (mouse.y - y) * pull * 0.42;
+                            }
+                        }
+                        ctx.lineTo(x, y);
+                    }
+                    ctx.lineTo(width, height);
+                    ctx.closePath();
+
+                    let grad = ctx.createLinearGradient(0, baseY - 60, 0, height);
+                    grad.addColorStop(0, l.color);
+                    grad.addColorStop(0.5, 'transparent');
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+                }
+
+                if (mouse.active) {
+                    ctx.beginPath();
+                    ctx.arc(smoothMouse.x, smoothMouse.y, 70, 0, Math.PI * 2);
+                    let radial = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 140);
+                    radial.addColorStop(0, isDark ? 'rgba(52, 211, 153, 0.22)' : 'rgba(52, 211, 153, 0.15)');
+                    radial.addColorStop(1, 'transparent');
+                    ctx.fillStyle = radial;
+                    ctx.fill();
+                }
+            }
+
+            // --- 5. PASTEL (SQUISHY MARSHMALLOW BLOBS) ---
+            let pastelBlobs = [];
+            const PASTEL_PALETTE = ['#fda4af', '#d8b4fe', '#fed7aa', '#a7f3d0', '#bae6fd', '#fef08a'];
+
+            function initPastel() {
+                pastelBlobs = [];
+                for (let i = 0; i < 16; i++) {
+                    pastelBlobs.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.7,
+                        vy: (Math.random() - 0.5) * 0.7,
+                        r: 22 + Math.random() * 26,
+                        color: PASTEL_PALETTE[i % PASTEL_PALETTE.length],
+                        scaleX: 1, scaleY: 1
+                    });
+                }
+            }
+
+            function renderPastel(isDark) {
+                for (let i = 0; i < pastelBlobs.length; i++) {
+                    let b = pastelBlobs[i];
+                    b.x += b.vx;
+                    b.y += b.vy;
+
+                    if (b.x < b.r) { b.x = b.r; b.vx *= -1; }
+                    if (b.x > width - b.r) { b.x = width - b.r; b.vx *= -1; }
+                    if (b.y < b.r) { b.y = b.r; b.vy *= -1; }
+                    if (b.y > height - b.r) { b.y = height - b.r; b.vy *= -1; }
+
+                    let dx = b.x - mouse.x;
+                    let dy = b.y - mouse.y;
+                    let dist = Math.hypot(dx, dy);
+                    let reactRange = b.r + 95;
+
+                    if (dist < reactRange && mouse.active) {
+                        let repel = (1 - dist / reactRange) * 5.5;
+                        b.x += (dx / (dist || 1)) * repel;
+                        b.y += (dy / (dist || 1)) * repel;
+                        b.scaleX = 1 + repel * 0.05;
+                        b.scaleY = 1 - repel * 0.05;
+                    } else {
+                        b.scaleX += (1 - b.scaleX) * 0.1;
+                        b.scaleY += (1 - b.scaleY) * 0.1;
+                    }
+
+                    ctx.save();
+                    ctx.translate(b.x, b.y);
+                    ctx.scale(b.scaleX, b.scaleY);
+                    ctx.beginPath();
+                    ctx.arc(0, 0, b.r, 0, Math.PI * 2);
+                    ctx.fillStyle = b.color;
+                    ctx.globalAlpha = isDark ? 0.14 : 0.24;
+                    ctx.fill();
+                    ctx.restore();
+                }
+                ctx.globalAlpha = 1;
+            }
+
+            // --- 6. CO BAN & TUY CHON (AMBIENT SPOTLIGHT) ---
+            function renderSpotlight(isDark, accentRgb) {
+                if (!mouse.active) return;
+                let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 260);
+                glow.addColorStop(0, `rgba(${accentRgb}, ${isDark ? 0.12 : 0.08})`);
+                glow.addColorStop(0.6, `rgba(${accentRgb}, ${isDark ? 0.04 : 0.02})`);
+                glow.addColorStop(1, 'transparent');
+                ctx.fillStyle = glow;
+                ctx.fillRect(0, 0, width, height);
+            }
+
+            // --- MAIN ANIMATION LOOP & CONTROLLER ---
+            function loop() {
+                if (!canvas || !ctx) return;
+
+                if (mouse.active) {
+                    smoothMouse.x += (mouse.x - smoothMouse.x) * 0.14;
+                    smoothMouse.y += (mouse.y - smoothMouse.y) * 0.14;
+                }
+
+                ctx.clearRect(0, 0, width, height);
+
+                let isDark = document.body.classList.contains('theme-dark');
+                let style = getComputedStyle(document.documentElement);
+                let accentColor = style.getPropertyValue('--accent-color').trim() || '#2563eb';
+                let accentRgb = style.getPropertyValue('--accent-rgb').trim() || '37, 99, 235';
+
+                switch (currentMode) {
+                    case 'dotgrid':
+                        renderDots(isDark, accentColor);
+                        break;
+                    case 'sunset':
+                        renderSunset(isDark);
+                        break;
+                    case 'ocean':
+                        renderOcean(isDark);
+                        break;
+                    case 'aurora':
+                        renderAurora(isDark);
+                        break;
+                    case 'pastel':
+                        renderPastel(isDark);
+                        break;
+                    default:
+                        renderSpotlight(isDark, accentRgb);
+                        break;
+                }
+
+                animId = requestAnimationFrame(loop);
+            }
+
+            function resize() {
+                if (!canvas) return;
+                width = window.innerWidth;
+                height = window.innerHeight;
+                let dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                ctx.scale(dpr, dpr);
+                if (currentMode === 'dotgrid') initDots();
+                if (currentMode === 'sunset') initSunset();
+                if (currentMode === 'ocean') initOcean();
+                if (currentMode === 'pastel') initPastel();
+            }
+
+            function setMode(modeKey) {
+                currentMode = modeKey || 'default';
+                if (currentMode === 'dotgrid') initDots();
+                if (currentMode === 'sunset') initSunset();
+                if (currentMode === 'ocean') initOcean();
+                if (currentMode === 'pastel') initPastel();
+            }
+
+            window.initInteractiveBackground = function() {
+                canvas = document.getElementById('bg-fx-canvas');
+                if (!canvas) return;
+                ctx = canvas.getContext('2d');
+
+                window.addEventListener('resize', resize);
+                window.addEventListener('pointermove', function(e) {
+                    mouse.x = e.clientX;
+                    mouse.y = e.clientY;
+                    if (!mouse.active) {
+                        smoothMouse.x = e.clientX;
+                        smoothMouse.y = e.clientY;
+                        mouse.lastX = e.clientX;
+                        mouse.lastY = e.clientY;
+                    }
+                    mouse.active = true;
+                }, { passive: true });
+
+                window.addEventListener('pointerleave', function() {
+                    mouse.x = -1000;
+                    mouse.y = -1000;
+                    mouse.active = false;
+                });
+
+                document.addEventListener('visibilitychange', function() {
+                    if (document.hidden) {
+                        if (animId) { cancelAnimationFrame(animId); animId = null; }
+                    } else {
+                        if (!animId) loop();
+                    }
+                });
+
+                let saved = localStorage.getItem('azota_bg_style') || 'default';
+                setMode(saved);
+                resize();
+                if (!animId) loop();
+            };
+
+            window.bgFX = {
+                setMode: setMode
+            };
+        })();
 
         function toggleFocusMode() {
             document.body.classList.toggle('focus-mode');
