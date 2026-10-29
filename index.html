@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -1343,6 +1343,9 @@
                 <button class="bg-preset-btn" data-bg="ocean" onclick="changeBackgroundStyle('ocean')">Đại dương</button>
                 <button class="bg-preset-btn" data-bg="pastel" onclick="changeBackgroundStyle('pastel')">Pastel</button>
                 <button class="bg-preset-btn" data-bg="aurora" onclick="changeBackgroundStyle('aurora')">Cực quang</button>
+                <button class="bg-preset-btn" data-bg="galaxy" onclick="changeBackgroundStyle('galaxy')">Ngân Hà</button>
+                <button class="bg-preset-btn" data-bg="mesh" onclick="changeBackgroundStyle('mesh')">Mạng Lưới</button>
+                <button class="bg-preset-btn" data-bg="sakura" onclick="changeBackgroundStyle('sakura')">Anh Đào</button>
                 <div class="custom-color-wrap" title="Tự chọn màu nền bất kỳ">
                     <input type="color" id="custom-bg-picker" class="custom-color-input" value="#f1f5f9" oninput="changeBackgroundStyle('custom', this.value)" onchange="changeBackgroundStyle('custom', this.value)">
                     <div class="custom-color-btn">
@@ -2181,8 +2184,11 @@ function hexToRgba(hex, alpha) {
             dotgrid: '#f8fafc',
             sunset: 'radial-gradient(circle at 15% 20%, rgba(251, 113, 133, 0.35) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.35) 0%, transparent 45%), linear-gradient(135deg, #fff1f2 0%, #f5f3ff 100%)',
             ocean: 'radial-gradient(circle at 10% 10%, rgba(14, 165, 233, 0.35) 0%, transparent 45%), radial-gradient(circle at 90% 90%, rgba(20, 184, 166, 0.35) 0%, transparent 45%), linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%)',
+            aurora: 'radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.35) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.35) 0%, transparent 45%), linear-gradient(135deg, #ecfdf5 0%, #eef2ff 100%)',
             pastel: 'radial-gradient(circle at 20% 25%, rgba(251, 146, 60, 0.3) 0%, transparent 40%), radial-gradient(circle at 80% 75%, rgba(236, 72, 153, 0.3) 0%, transparent 40%), linear-gradient(135deg, #fffbeb 0%, #fdf2f8 100%)',
-            aurora: 'radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.35) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.35) 0%, transparent 45%), linear-gradient(135deg, #ecfdf5 0%, #eef2ff 100%)'
+            galaxy: 'radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.28) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(217, 70, 239, 0.25) 0%, transparent 50%), linear-gradient(135deg, #0e1026 0%, #17153a 100%)',
+            mesh: 'radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.12) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.10) 0px, transparent 50%), #f8fafc',
+            sakura: 'radial-gradient(circle at 15% 15%, rgba(251, 113, 133, 0.32) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(253, 164, 175, 0.35) 0%, transparent 45%), linear-gradient(135deg, #fff5f7 0%, #fdf2f8 100%)'
         };
 
         const BG_PRESETS_DARK = {
@@ -2190,8 +2196,11 @@ function hexToRgba(hex, alpha) {
             dotgrid: '#0b0f19',
             sunset: 'radial-gradient(circle at 15% 20%, rgba(225, 29, 72, 0.25) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(147, 51, 234, 0.28) 0%, transparent 45%), #0d0914',
             ocean: 'radial-gradient(circle at 10% 10%, rgba(2, 132, 199, 0.25) 0%, transparent 45%), radial-gradient(circle at 90% 90%, rgba(13, 148, 136, 0.25) 0%, transparent 45%), #05131f',
+            aurora: 'radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.25) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(79, 70, 229, 0.25) 0%, transparent 45%), #091319',
             pastel: 'radial-gradient(circle at 20% 25%, rgba(234, 88, 12, 0.22) 0%, transparent 40%), radial-gradient(circle at 80% 75%, rgba(219, 39, 119, 0.22) 0%, transparent 40%), #160d13',
-            aurora: 'radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.25) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(79, 70, 229, 0.25) 0%, transparent 45%), #091319'
+            galaxy: 'radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.35) 0%, transparent 55%), radial-gradient(circle at 75% 75%, rgba(217, 70, 239, 0.30) 0%, transparent 55%), #05060f',
+            mesh: 'radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.12) 0px, transparent 50%), #090d16',
+            sakura: 'radial-gradient(circle at 20% 20%, rgba(244, 63, 94, 0.25) 0%, transparent 45%), radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.22) 0%, transparent 45%), #140910'
         };
 
         function changeBackgroundStyle(styleKey, customColor = null) {
@@ -2222,7 +2231,7 @@ function hexToRgba(hex, alpha) {
         }
 
         function cycleBackgroundStyle() {
-            let keys = ['default', 'dotgrid', 'sunset', 'ocean', 'pastel', 'aurora'];
+            let keys = ['default', 'dotgrid', 'sunset', 'ocean', 'aurora', 'pastel', 'galaxy', 'mesh', 'sakura'];
             let current = localStorage.getItem('azota_bg_style') || 'default';
             let nextIdx = (keys.indexOf(current) + 1) % keys.length;
             changeBackgroundStyle(keys[nextIdx]);
@@ -2242,7 +2251,7 @@ function hexToRgba(hex, alpha) {
             let width = 0, height = 0;
             let animId = null;
             let currentMode = 'default';
-            let mouse = { x: -1000, y: -1000, lastX: -1000, lastY: -1000, speed: 0, active: false };
+            let mouse = { x: -1000, y: -1000, lastX: -1000, lastY: -1000, vx: 0, vy: 0, active: false };
             let smoothMouse = { x: -1000, y: -1000 };
 
             // --- 1. MAGNETIC DOT GRID ---
@@ -2282,12 +2291,10 @@ function hexToRgba(hex, alpha) {
                     let dx = mouse.x - d.ox;
                     let dy = mouse.y - d.oy;
 
-                    // Fast bounding box check
                     if (mouse.active && Math.abs(dx) < MOUSE_RADIUS && Math.abs(dy) < MOUSE_RADIUS) {
                         let dist = Math.hypot(dx, dy);
                         if (dist < MOUSE_RADIUS) {
                             d.active = true;
-                            // Smoothstep curve for velvety fluid motion
                             let t = 1 - (dist / MOUSE_RADIUS);
                             let pullRatio = t * t * (3 - 2 * t);
                             let force = pullRatio * MAX_PULL;
@@ -2323,13 +2330,11 @@ function hexToRgba(hex, alpha) {
                         }
                     }
 
-                    // Batch draw resting dots in single draw call for 60fps
                     ctx.moveTo(d.ox + 1.5, d.oy);
                     ctx.arc(d.ox, d.oy, 1.5, 0, Math.PI * 2);
                 }
                 ctx.fill();
 
-                // Draw active magnetic pulled dots
                 for (let i = 0; i < activeDots.length; i++) {
                     let ad = activeDots[i];
                     ctx.beginPath();
@@ -2359,7 +2364,6 @@ function hexToRgba(hex, alpha) {
             }
 
             function renderSunset(isDark) {
-                // Silky warm lantern glow at cursor
                 if (mouse.active) {
                     let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 240);
                     glow.addColorStop(0, isDark ? 'rgba(244, 63, 94, 0.18)' : 'rgba(244, 63, 94, 0.12)');
@@ -2369,14 +2373,12 @@ function hexToRgba(hex, alpha) {
                     ctx.fillRect(0, 0, width, height);
                 }
 
-                // Smooth floating embers with orbital physics
                 for (let i = 0; i < embers.length; i++) {
                     let p = embers[i];
                     p.phase += p.phaseSpeed;
                     p.x += p.vx + Math.sin(p.phase) * 0.45;
                     p.y += p.vy;
 
-                    // Elegant swirl around cursor
                     let dx = p.x - mouse.x;
                     let dy = p.y - mouse.y;
                     let dist = Math.hypot(dx, dy);
@@ -2433,7 +2435,6 @@ function hexToRgba(hex, alpha) {
                     lastRippleTime = now;
                 }
 
-                // Render soft water ripples
                 for (let i = ripples.length - 1; i >= 0; i--) {
                     let rip = ripples[i];
                     rip.r += 1.6;
@@ -2449,7 +2450,6 @@ function hexToRgba(hex, alpha) {
                     ctx.stroke();
                 }
 
-                // Bioluminescent aqua aura at cursor
                 if (mouse.active) {
                     let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 200);
                     glow.addColorStop(0, isDark ? 'rgba(6, 182, 212, 0.16)' : 'rgba(6, 182, 212, 0.11)');
@@ -2459,7 +2459,6 @@ function hexToRgba(hex, alpha) {
                     ctx.fillRect(0, 0, width, height);
                 }
 
-                // Translucent floating ocean bubbles that part away gently
                 for (let i = 0; i < bubbles.length; i++) {
                     let b = bubbles[i];
                     b.phase += b.phaseSpeed;
@@ -2483,49 +2482,65 @@ function hexToRgba(hex, alpha) {
                 }
             }
 
-            // --- 4. AURORA (FLOWING CURVED NORTHERN LIGHTS CURTAINS) ---
+            // --- 4. AURORA (BO TRÃ’N SIÃŠU MÆ¯á»¢T NHÆ¯ SÃ“NG BIá»‚N ÃŠM Äá»€M) ---
             let auroraTime = 0;
             function renderAurora(isDark) {
-                auroraTime += 0.015;
+                auroraTime += 0.014;
                 let layers = [
-                    { yRatio: 0.32, amp: 48, speed: 0.9, colorStart: isDark ? 'rgba(16, 185, 129, 0.22)' : 'rgba(16, 185, 129, 0.16)', colorEnd: 'rgba(16, 185, 129, 0)' },
-                    { yRatio: 0.52, amp: 58, speed: 1.2, colorStart: isDark ? 'rgba(6, 182, 212, 0.19)' : 'rgba(6, 182, 212, 0.14)', colorEnd: 'rgba(6, 182, 212, 0)' },
-                    { yRatio: 0.72, amp: 42, speed: 0.8, colorStart: isDark ? 'rgba(168, 85, 247, 0.20)' : 'rgba(168, 85, 247, 0.14)', colorEnd: 'rgba(168, 85, 247, 0)' }
+                    { yRatio: 0.30, amp: 55, speed: 0.8, colorStart: isDark ? 'rgba(16, 185, 129, 0.22)' : 'rgba(16, 185, 129, 0.15)', colorEnd: 'rgba(16, 185, 129, 0)' },
+                    { yRatio: 0.50, amp: 65, speed: 1.1, colorStart: isDark ? 'rgba(6, 182, 212, 0.20)' : 'rgba(6, 182, 212, 0.14)', colorEnd: 'rgba(6, 182, 212, 0)' },
+                    { yRatio: 0.70, amp: 50, speed: 0.7, colorStart: isDark ? 'rgba(168, 85, 247, 0.22)' : 'rgba(168, 85, 247, 0.15)', colorEnd: 'rgba(168, 85, 247, 0)' }
                 ];
 
                 for (let l of layers) {
                     let baseY = height * l.yRatio;
-                    ctx.beginPath();
-                    ctx.moveTo(0, height);
-                    ctx.lineTo(0, baseY);
+                    let pts = [];
+                    let step = 26;
 
-                    let step = 32;
-                    for (let x = 0; x <= width + step; x += step) {
-                        let wave = Math.sin(x * 0.0032 + auroraTime * l.speed) * l.amp + Math.cos(x * 0.0065 - auroraTime * 0.55) * (l.amp * 0.5);
+                    // TÃ­nh toÃ¡n tá»a Ä‘á»™ sÃ³ng vá»›i hÃ m cosine trÆ¡n nháºµn
+                    for (let x = -50; x <= width + 50; x += step) {
+                        let wave = Math.sin(x * 0.0026 + auroraTime * l.speed) * l.amp 
+                                 + Math.cos(x * 0.0052 - auroraTime * 0.45) * (l.amp * 0.55)
+                                 + Math.sin(x * 0.008 + auroraTime * 0.25) * (l.amp * 0.2);
                         let y = baseY + wave;
 
+                        // Uá»‘n lÆ°á»£n bo trÃ²n hÃ¬nh chuÃ´ng (Gaussian Bell Curve) - KHÃ”NG BAO GIá»œ bá»‹ nhá»n tam giÃ¡c!
                         if (mouse.active) {
-                            let dx = Math.abs(x - mouse.x);
-                            if (dx < 230) {
-                                let pull = (1 - dx / 230);
-                                y += (mouse.y - y) * pull * 0.44;
+                            let absDx = Math.abs(x - mouse.x);
+                            if (absDx < 260) {
+                                let norm = absDx / 260;
+                                let bell = Math.cos(norm * Math.PI * 0.5);
+                                let pull = bell * bell; // Uá»‘n mÆ°á»£t 2 bá» vai cá»§a sÃ³ng
+                                y += (mouse.y - y) * pull * 0.46;
                             }
                         }
-                        ctx.lineTo(x, y);
+                        pts.push({ x: x, y: y });
                     }
+
+                    // Váº½ Ä‘Æ°á»ng cong sÃ³ng biá»ƒn bo trÃ²n trÆ¡n tru báº±ng thuáº­t toÃ¡n BÃ©zier trung Ä‘iá»ƒm
+                    ctx.beginPath();
+                    ctx.moveTo(0, height);
+                    ctx.lineTo(pts[0].x, pts[0].y);
+
+                    for (let i = 0; i < pts.length - 1; i++) {
+                        let xc = (pts[i].x + pts[i + 1].x) / 2;
+                        let yc = (pts[i].y + pts[i + 1].y) / 2;
+                        ctx.quadraticCurveTo(pts[i].x, pts[i].y, xc, yc);
+                    }
+                    ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
                     ctx.lineTo(width, height);
                     ctx.closePath();
 
-                    let grad = ctx.createLinearGradient(0, Math.max(0, baseY - 60), 0, height);
+                    let grad = ctx.createLinearGradient(0, Math.max(0, baseY - 80), 0, height);
                     grad.addColorStop(0, l.colorStart);
-                    grad.addColorStop(0.45, l.colorEnd);
+                    grad.addColorStop(0.5, l.colorEnd);
                     ctx.fillStyle = grad;
                     ctx.fill();
                 }
 
-                // Shimmering stardust glow at cursor
+                // HÃ o quang bá»¥i sao má»m máº¡i á»Ÿ chuá»™t
                 if (mouse.active) {
-                    let radial = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 160);
+                    let radial = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 180);
                     radial.addColorStop(0, isDark ? 'rgba(52, 211, 153, 0.22)' : 'rgba(52, 211, 153, 0.15)');
                     radial.addColorStop(1, 'rgba(52, 211, 153, 0)');
                     ctx.fillStyle = radial;
@@ -2558,13 +2573,11 @@ function hexToRgba(hex, alpha) {
                     b.x += b.vx;
                     b.y += b.vy;
 
-                    // Elastic bounce on screen bounds
                     if (b.x < b.r) { b.x = b.r; b.vx *= -1; }
                     if (b.x > width - b.r) { b.x = width - b.r; b.vx *= -1; }
                     if (b.y < b.r) { b.y = b.r; b.vy *= -1; }
                     if (b.y > height - b.r) { b.y = height - b.r; b.vy *= -1; }
 
-                    // Jelly marshmallow repulsion
                     let dx = b.x - mouse.x;
                     let dy = b.y - mouse.y;
                     let dist = Math.hypot(dx, dy);
@@ -2594,7 +2607,190 @@ function hexToRgba(hex, alpha) {
                 ctx.globalAlpha = 1;
             }
 
-            // --- 6. DEFAULT & CUSTOM (AMBIENT GLASS SPOTLIGHT) ---
+            // --- 6. GALAXY (VÅ¨ TRá»¤ NGÃ‚N HÃ€ XOÃY Há» ÄEN Tá»ª TRÆ¯á»œNG) ---
+            let stars = [];
+            function initGalaxy() {
+                stars = [];
+                for (let i = 0; i < 45; i++) {
+                    stars.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        r: 1.2 + Math.random() * 2.2,
+                        angle: Math.random() * Math.PI * 2,
+                        distFromCenter: 40 + Math.random() * 240,
+                        orbitSpeed: 0.008 + Math.random() * 0.015,
+                        baseSpeedX: (Math.random() - 0.5) * 0.4,
+                        baseSpeedY: (Math.random() - 0.5) * 0.4,
+                        alpha: 0.3 + Math.random() * 0.6,
+                        color: Math.random() > 0.4 ? 'rgba(192, 132, 252, ' : 'rgba(56, 189, 248, '
+                    });
+                }
+            }
+
+            function renderGalaxy(isDark) {
+                // HÃ o quang há»‘ Ä‘en vÅ© trá»¥ bÃ­ áº©n theo chuá»™t
+                if (mouse.active) {
+                    let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 250);
+                    glow.addColorStop(0, 'rgba(147, 51, 234, 0.24)');
+                    glow.addColorStop(0.4, 'rgba(99, 102, 241, 0.12)');
+                    glow.addColorStop(1, 'rgba(99, 102, 241, 0)');
+                    ctx.fillStyle = glow;
+                    ctx.fillRect(0, 0, width, height);
+                }
+
+                for (let i = 0; i < stars.length; i++) {
+                    let s = stars[i];
+
+                    if (mouse.active) {
+                        // XoÃ¡y trÃ²n theo lá»±c hÃºt con trá» chuá»™t
+                        s.angle += s.orbitSpeed;
+                        let targetX = mouse.x + Math.cos(s.angle) * s.distFromCenter;
+                        let targetY = mouse.y + Math.sin(s.angle) * s.distFromCenter;
+                        s.x += (targetX - s.x) * 0.08;
+                        s.y += (targetY - s.y) * 0.08;
+                    } else {
+                        s.x += s.baseSpeedX;
+                        s.y += s.baseSpeedY;
+                        if (s.x < 0) s.x = width;
+                        if (s.x > width) s.x = 0;
+                        if (s.y < 0) s.y = height;
+                        if (s.y > height) s.y = 0;
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, Math.max(0.5, s.r), 0, Math.PI * 2);
+                    ctx.fillStyle = s.color + s.alpha + ')';
+                    ctx.fill();
+                }
+            }
+
+            // --- 7. MESH (Máº NG LÆ¯á»šI TÆ  NHá»†N HÃŒNH Há»ŒC Káº¾T Ná»I LAZE) ---
+            let meshNodes = [];
+            function initMesh() {
+                meshNodes = [];
+                for (let i = 0; i < 42; i++) {
+                    meshNodes.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.7,
+                        vy: (Math.random() - 0.5) * 0.7,
+                        r: 1.8 + Math.random() * 1.5
+                    });
+                }
+            }
+
+            function renderMesh(isDark) {
+                // Di chuyá»ƒn háº¡t máº¡ng lÆ°á»›i
+                for (let i = 0; i < meshNodes.length; i++) {
+                    let n = meshNodes[i];
+                    n.x += n.vx;
+                    n.y += n.vy;
+                    if (n.x < 0 || n.x > width) n.vx *= -1;
+                    if (n.y < 0 || n.y > height) n.vy *= -1;
+
+                    // HÃºt nháº¹ vá» phÃ­a chuá»™t
+                    if (mouse.active) {
+                        let dx = mouse.x - n.x;
+                        let dy = mouse.y - n.y;
+                        let dist = Math.hypot(dx, dy);
+                        if (dist < 150) {
+                            let pull = (1 - dist / 150) * 1.6;
+                            n.x += (dx / dist) * pull;
+                            n.y += (dy / dist) * pull;
+
+                            // Ná»‘i tia laze trá»±c tiáº¿p Ä‘áº¿n con trá» chuá»™t
+                            ctx.beginPath();
+                            ctx.moveTo(n.x, n.y);
+                            ctx.lineTo(mouse.x, mouse.y);
+                            ctx.strokeStyle = isDark ? `rgba(14, 165, 233, ${(1 - dist / 150) * 0.45})` : `rgba(2, 132, 199, ${(1 - dist / 150) * 0.35})`;
+                            ctx.lineWidth = 1.2;
+                            ctx.stroke();
+                        }
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(n.x, n.y, Math.max(0.5, n.r), 0, Math.PI * 2);
+                    ctx.fillStyle = isDark ? 'rgba(56, 189, 248, 0.65)' : 'rgba(2, 132, 199, 0.5)';
+                    ctx.fill();
+                }
+
+                // Ná»‘i cÃ¡c Ä‘iá»ƒm lÃ¢n cáº­n vá»›i nhau táº¡o thÃ nh máº¡ng lÆ°á»›i tinh xáº£o
+                for (let i = 0; i < meshNodes.length; i++) {
+                    for (let j = i + 1; j < meshNodes.length; j++) {
+                        let dx = meshNodes[i].x - meshNodes[j].x;
+                        let dy = meshNodes[i].y - meshNodes[j].y;
+                        let dist = Math.hypot(dx, dy);
+                        if (dist < 105) {
+                            ctx.beginPath();
+                            ctx.moveTo(meshNodes[i].x, meshNodes[i].y);
+                            ctx.lineTo(meshNodes[j].x, meshNodes[j].y);
+                            let alpha = (1 - dist / 105) * (isDark ? 0.25 : 0.18);
+                            ctx.strokeStyle = isDark ? `rgba(148, 163, 184, ${alpha})` : `rgba(100, 116, 139, ${alpha})`;
+                            ctx.lineWidth = 0.9;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // --- 8. SAKURA (CÃNH HOA ANH ÄÃ€O BAY THEO LUá»’NG GIÃ“ CHUá»˜T) ---
+            let petals = [];
+            function initSakura() {
+                petals = [];
+                for (let i = 0; i < 28; i++) {
+                    petals.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: 0.3 + Math.random() * 0.7,
+                        vy: 0.8 + Math.random() * 1.2,
+                        size: 7 + Math.random() * 6,
+                        flip: Math.random() * Math.PI * 2,
+                        flipSpeed: 0.02 + Math.random() * 0.03,
+                        angle: Math.random() * Math.PI * 2,
+                        color: Math.random() > 0.5 ? 'rgba(251, 113, 133, ' : 'rgba(244, 114, 182, ',
+                        alpha: 0.45 + Math.random() * 0.4
+                    });
+                }
+            }
+
+            function renderSakura(isDark) {
+                for (let i = 0; i < petals.length; i++) {
+                    let p = petals[i];
+                    p.flip += p.flipSpeed;
+                    p.angle += 0.01;
+                    p.x += p.vx + Math.sin(p.flip) * 0.6;
+                    p.y += p.vy;
+
+                    // Chuá»™t di chuyá»ƒn táº¡o luá»“ng giÃ³ uá»‘n lÆ°á»£n háº¥t cÃ¡nh hoa bay lÃªn
+                    if (mouse.active) {
+                        let dx = p.x - mouse.x;
+                        let dy = p.y - mouse.y;
+                        let dist = Math.hypot(dx, dy);
+                        if (dist < 120) {
+                            let wind = (1 - dist / 120) * 3.5;
+                            p.x += (dx / (dist || 1)) * wind;
+                            p.y += (dy / (dist || 1)) * wind - 1.2; // Háº¥t nháº¹ lÃªn trÃªn
+                        }
+                    }
+
+                    if (p.y > height + 20) { p.y = -20; p.x = Math.random() * width; }
+                    if (p.x > width + 20) p.x = -20;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.angle);
+                    ctx.scale(Math.max(0.1, Math.cos(p.flip)), 1);
+
+                    // Váº½ cÃ¡nh hoa oval má»m máº¡i
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, p.size, p.size * 0.6, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color + p.alpha + ')';
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            // --- 9. DEFAULT & CUSTOM (AMBIENT GLASS SPOTLIGHT) ---
             function renderSpotlight(isDark, accentRgb) {
                 if (!mouse.active) return;
                 let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 280);
@@ -2610,13 +2806,11 @@ function hexToRgba(hex, alpha) {
                 if (!canvas || !ctx) return;
 
                 try {
-                    // Smooth dual-lerp mouse tracking
                     if (mouse.active) {
                         smoothMouse.x += (mouse.x - smoothMouse.x) * 0.14;
                         smoothMouse.y += (mouse.y - smoothMouse.y) * 0.14;
                     }
 
-                    // Complete buffer clean
                     ctx.save();
                     ctx.setTransform(1, 0, 0, 1, 0, 0);
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -2643,12 +2837,21 @@ function hexToRgba(hex, alpha) {
                         case 'pastel':
                             renderPastel(isDark);
                             break;
+                        case 'galaxy':
+                            renderGalaxy(isDark);
+                            break;
+                        case 'mesh':
+                            renderMesh(isDark);
+                            break;
+                        case 'sakura':
+                            renderSakura(isDark);
+                            break;
                         default:
                             renderSpotlight(isDark, accentRgb);
                             break;
                     }
                 } catch (err) {
-                    // Prevent any tick error from killing the RAF loop
+                    // Chá»‘ng crash loop
                 }
 
                 animId = requestAnimationFrame(loop);
@@ -2668,20 +2871,23 @@ function hexToRgba(hex, alpha) {
                 if (currentMode === 'sunset') initSunset();
                 if (currentMode === 'ocean') initOcean();
                 if (currentMode === 'pastel') initPastel();
+                if (currentMode === 'galaxy') initGalaxy();
+                if (currentMode === 'mesh') initMesh();
+                if (currentMode === 'sakura') initSakura();
             }
 
-            // Cleanly switch modes without leaving any residual particles
             function setMode(modeKey) {
                 currentMode = modeKey || 'default';
-                
-                // Clear all previous particle pools completely
+
                 dots = [];
                 embers = [];
                 ripples = [];
                 bubbles = [];
                 pastelBlobs = [];
+                stars = [];
+                meshNodes = [];
+                petals = [];
 
-                // Wipe canvas cleanly
                 if (canvas && ctx) {
                     ctx.save();
                     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -2693,6 +2899,9 @@ function hexToRgba(hex, alpha) {
                 if (currentMode === 'sunset') initSunset();
                 if (currentMode === 'ocean') initOcean();
                 if (currentMode === 'pastel') initPastel();
+                if (currentMode === 'galaxy') initGalaxy();
+                if (currentMode === 'mesh') initMesh();
+                if (currentMode === 'sakura') initSakura();
             }
 
             window.initInteractiveBackground = function() {
@@ -2702,6 +2911,8 @@ function hexToRgba(hex, alpha) {
 
                 window.addEventListener('resize', resize);
                 window.addEventListener('pointermove', function(e) {
+                    mouse.vx = e.clientX - mouse.x;
+                    mouse.vy = e.clientY - mouse.y;
                     mouse.x = e.clientX;
                     mouse.y = e.clientY;
                     if (!mouse.active) {
