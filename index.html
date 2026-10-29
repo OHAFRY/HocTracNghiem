@@ -2364,29 +2364,21 @@ function hexToRgba(hex, alpha) {
             }
 
             function renderSunset(isDark) {
-                if (mouse.active) {
-                    let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 240);
-                    glow.addColorStop(0, isDark ? 'rgba(244, 63, 94, 0.18)' : 'rgba(244, 63, 94, 0.12)');
-                    glow.addColorStop(0.5, isDark ? 'rgba(249, 115, 22, 0.08)' : 'rgba(249, 115, 22, 0.06)');
-                    glow.addColorStop(1, 'rgba(249, 115, 22, 0)');
-                    ctx.fillStyle = glow;
-                    ctx.fillRect(0, 0, width, height);
-                }
-
                 for (let i = 0; i < embers.length; i++) {
                     let p = embers[i];
                     p.phase += p.phaseSpeed;
                     p.x += p.vx + Math.sin(p.phase) * 0.45;
                     p.y += p.vy;
 
+                    // Gio doi huong dom lua nhe nhang khi chuot luot qua (khong choi mat)
                     let dx = p.x - mouse.x;
                     let dy = p.y - mouse.y;
                     let dist = Math.hypot(dx, dy);
-                    if (dist < 130 && mouse.active) {
+                    if (dist < 120 && mouse.active) {
                         let angle = Math.atan2(dy, dx);
-                        let pull = (1 - dist / 130) * 2.2;
-                        p.x += Math.cos(angle + 0.4) * pull;
-                        p.y += Math.sin(angle + 0.4) * pull;
+                        let draft = (1 - dist / 120) * 1.5;
+                        p.x += Math.cos(angle + 0.3) * draft;
+                        p.y += Math.sin(angle + 0.3) * draft - 0.3;
                     }
 
                     if (p.y < -20) { p.y = height + 10; p.x = Math.random() * width; }
@@ -2450,14 +2442,7 @@ function hexToRgba(hex, alpha) {
                     ctx.stroke();
                 }
 
-                if (mouse.active) {
-                    let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 200);
-                    glow.addColorStop(0, isDark ? 'rgba(6, 182, 212, 0.16)' : 'rgba(6, 182, 212, 0.11)');
-                    glow.addColorStop(0.6, isDark ? 'rgba(20, 184, 166, 0.06)' : 'rgba(20, 184, 166, 0.04)');
-                    glow.addColorStop(1, 'rgba(6, 182, 212, 0)');
-                    ctx.fillStyle = glow;
-                    ctx.fillRect(0, 0, width, height);
-                }
+
 
                 for (let i = 0; i < bubbles.length; i++) {
                     let b = bubbles[i];
@@ -2538,14 +2523,7 @@ function hexToRgba(hex, alpha) {
                     ctx.fill();
                 }
 
-                // HÃ o quang bá»¥i sao má»m máº¡i á»Ÿ chuá»™t
-                if (mouse.active) {
-                    let radial = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 180);
-                    radial.addColorStop(0, isDark ? 'rgba(52, 211, 153, 0.22)' : 'rgba(52, 211, 153, 0.15)');
-                    radial.addColorStop(1, 'rgba(52, 211, 153, 0)');
-                    ctx.fillStyle = radial;
-                    ctx.fillRect(0, 0, width, height);
-                }
+
             }
 
             // --- 5. PASTEL (SQUISHY JELLY MARSHMALLOW BLOBS) ---
@@ -2610,6 +2588,7 @@ function hexToRgba(hex, alpha) {
             // --- 6. GALAXY (MUA SAO BANG LIEN TUC, CUC QUANG BAC CUC RANDOM MAU & 110 VI SAO) ---
             let stars = [];
             let meteors = [];
+            let stardust = [];
             let galaxyAuroraTime = 0;
             let galaxyAuroraPalette = null;
 
@@ -2632,6 +2611,7 @@ function hexToRgba(hex, alpha) {
             function initGalaxy() {
                 stars = [];
                 meteors = [];
+                stardust = [];
                 galaxyAuroraTime = Math.random() * 100;
 
                 // Chon ngau nhien 1 bang mau Cuc quang moi lan doi sang nen Ngan Ha
@@ -2727,39 +2707,66 @@ function hexToRgba(hex, alpha) {
                     }
                 }
 
-                // --- B. HAO QUANG HO DEN VU TRU THEO CHUOT ---
-                if (mouse.active) {
-                    let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 260);
-                    glow.addColorStop(0, 'rgba(147, 51, 234, 0.22)');
-                    glow.addColorStop(0.4, 'rgba(99, 102, 241, 0.10)');
-                    glow.addColorStop(1, 'rgba(99, 102, 241, 0)');
-                    ctx.fillStyle = glow;
-                    ctx.fillRect(0, 0, width, height);
+                // --- B. VET BUI SAO VU TRU (STARDUST SPARKLES) KHI CHUOT DI CHUYEN ---
+                if (mouse.active && Math.hypot(mouse.vx, mouse.vy) > 1.2 && stardust.length < 35) {
+                    stardust.push({
+                        x: mouse.x + (Math.random() - 0.5) * 14,
+                        y: mouse.y + (Math.random() - 0.5) * 14,
+                        vx: (Math.random() - 0.5) * 0.4,
+                        vy: (Math.random() - 0.5) * 0.4 - 0.15,
+                        r: 0.9 + Math.random() * 1.4,
+                        alpha: 0.85,
+                        decay: 0.025 + Math.random() * 0.02,
+                        color: Math.random() > 0.5 ? '255, 255, 255' : '216, 180, 254'
+                    });
                 }
 
-                // --- C. 110 NGOI SAO NHAP NHAY & XOAY TRONG LUC ---
+                for (let i = stardust.length - 1; i >= 0; i--) {
+                    let p = stardust[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.alpha -= p.decay;
+                    if (p.alpha <= 0) {
+                        stardust.splice(i, 1);
+                        continue;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
+                    ctx.fill();
+                }
+
+                // --- C. 110 NGOI SAO BAY TU NHIEN & PHAT SANG LAP LANH KHI CHUOT LUOT QUA ---
                 for (let i = 0; i < stars.length; i++) {
                     let s = stars[i];
                     s.phase += s.phaseSpeed;
 
+                    s.x += s.baseSpeedX;
+                    s.y += s.baseSpeedY;
+                    if (s.x < 0) s.x = width;
+                    if (s.x > width) s.x = 0;
+                    if (s.y < 0) s.y = height;
+                    if (s.y > height) s.y = 0;
+
+                    let alpha = 0.3 + Math.sin(s.phase) * 0.35;
+                    let radius = s.r;
+
+                    // Tuong tac tinh te: chuot luot qua lam ngoi sao bung sang va nhe nhang bay chech di
                     if (mouse.active) {
-                        s.angle += s.orbitSpeed;
-                        let targetX = mouse.x + Math.cos(s.angle) * s.distFromCenter;
-                        let targetY = mouse.y + Math.sin(s.angle) * s.distFromCenter;
-                        s.x += (targetX - s.x) * 0.08;
-                        s.y += (targetY - s.y) * 0.08;
-                    } else {
-                        s.x += s.baseSpeedX;
-                        s.y += s.baseSpeedY;
-                        if (s.x < 0) s.x = width;
-                        if (s.x > width) s.x = 0;
-                        if (s.y < 0) s.y = height;
-                        if (s.y > height) s.y = 0;
+                        let dx = s.x - mouse.x;
+                        let dy = s.y - mouse.y;
+                        let dist = Math.hypot(dx, dy);
+                        if (dist < 110) {
+                            let proximity = 1 - (dist / 110);
+                            alpha = Math.min(1, alpha + proximity * 0.65);
+                            radius = s.r * (1 + proximity * 0.55);
+                            s.x += (dx / (dist || 1)) * proximity * 0.8;
+                            s.y += (dy / (dist || 1)) * proximity * 0.8;
+                        }
                     }
 
-                    let alpha = 0.35 + Math.sin(s.phase) * 0.45;
                     ctx.beginPath();
-                    ctx.arc(s.x, s.y, Math.max(0.5, s.r), 0, Math.PI * 2);
+                    ctx.arc(s.x, s.y, Math.max(0.5, radius), 0, Math.PI * 2);
                     ctx.fillStyle = s.color + Math.max(0.1, alpha) + ')';
                     ctx.fill();
                 }
@@ -2834,20 +2841,6 @@ function hexToRgba(hex, alpha) {
             }
 
             function renderMesh(isDark) {
-                // Vong ngam Holographic hien dai quanh con tro chuot
-                if (mouse.active) {
-                    ctx.save();
-                    ctx.translate(smoothMouse.x, smoothMouse.y);
-                    ctx.beginPath();
-                    ctx.arc(0, 0, 36, 0, Math.PI * 2);
-                    ctx.strokeStyle = isDark ? 'rgba(6, 182, 212, 0.4)' : 'rgba(2, 132, 199, 0.35)';
-                    ctx.lineWidth = 1.2;
-                    ctx.setLineDash([4, 6]);
-                    ctx.stroke();
-                    ctx.setLineDash([]);
-                    ctx.restore();
-                }
-
                 // 1. Cap nhat vi tri cac diem nut
                 for (let i = 0; i < meshNodes.length; i++) {
                     let n = meshNodes[i];
@@ -2855,27 +2848,18 @@ function hexToRgba(hex, alpha) {
                     n.y += n.vy;
                     if (n.x < 0 || n.x > width) n.vx *= -1;
                     if (n.y < 0 || n.y > height) n.vy *= -1;
-                    if (n.isHub) n.rot += 0.015;
+                    if (n.isHub) n.rot += 0.012;
 
-                    // Tuong tac tu truong voi chuot
+                    // Luc hut tu truong rat nhe nhang, khong giat cuc
                     if (mouse.active) {
                         let dx = mouse.x - n.x;
                         let dy = mouse.y - n.y;
                         let dist = Math.hypot(dx, dy);
-                        if (dist < 160) {
-                            let pull = (1 - dist / 160) * 1.8;
+                        if (dist < 130) {
+                            let pull = (1 - dist / 130) * 0.9;
                             n.x += (dx / dist) * pull;
                             n.y += (dy / dist) * pull;
-                            n.energy = Math.max(n.energy, 1 - dist / 160);
-
-                            // Phong tia laze neon hai mau ruc ro ve con tro chuot
-                            ctx.beginPath();
-                            ctx.moveTo(n.x, n.y);
-                            ctx.lineTo(mouse.x, mouse.y);
-                            let laserAlpha = (1 - dist / 160) * (isDark ? 0.6 : 0.45);
-                            ctx.strokeStyle = n.isHub ? `rgba(217, 70, 239, ${laserAlpha})` : `rgba(6, 182, 212, ${laserAlpha})`;
-                            ctx.lineWidth = 1.4;
-                            ctx.stroke();
+                            n.energy = Math.max(n.energy, (1 - dist / 130) * 0.85);
                         }
                     }
 
@@ -2883,23 +2867,47 @@ function hexToRgba(hex, alpha) {
 
                     // Ve diem nut
                     ctx.beginPath();
-                    ctx.arc(n.x, n.y, Math.max(0.5, n.r + n.energy * 1.5), 0, Math.PI * 2);
+                    ctx.arc(n.x, n.y, Math.max(0.5, n.r + n.energy * 1.3), 0, Math.PI * 2);
                     ctx.fillStyle = n.isHub 
                         ? (isDark ? '#e879f9' : '#c026d3') 
                         : (isDark ? 'rgba(56, 189, 248, 0.75)' : 'rgba(2, 132, 199, 0.65)');
                     ctx.fill();
 
-                    // Diem nut Hub co them vong kim cuong xoay xung quanh
+                    // Diem nut Hub co vong kim cuong xoay thanh lich
                     if (n.isHub) {
                         ctx.save();
                         ctx.translate(n.x, n.y);
                         ctx.rotate(n.rot);
                         ctx.beginPath();
-                        ctx.strokeRect(-6, -6, 12, 12);
-                        ctx.strokeStyle = isDark ? 'rgba(217, 70, 239, 0.5)' : 'rgba(192, 38, 211, 0.4)';
-                        ctx.lineWidth = 1;
+                        ctx.strokeRect(-5, -5, 10, 10);
+                        ctx.strokeStyle = isDark ? 'rgba(217, 70, 239, 0.45)' : 'rgba(192, 38, 211, 0.35)';
+                        ctx.lineWidth = 0.9;
                         ctx.stroke();
                         ctx.restore();
+                    }
+                }
+
+                // Ket noi thanh lich toi da 2 diem nut gan nhat voi chuot (khong roi mat nhu mang nhen)
+                if (mouse.active) {
+                    let nearby = [];
+                    for (let i = 0; i < meshNodes.length; i++) {
+                        let n = meshNodes[i];
+                        let dist = Math.hypot(mouse.x - n.x, mouse.y - n.y);
+                        if (dist < 120) {
+                            nearby.push({ node: n, dist: dist });
+                        }
+                    }
+                    nearby.sort((a, b) => a.dist - b.dist);
+                    let count = Math.min(2, nearby.length);
+                    for (let k = 0; k < count; k++) {
+                        let item = nearby[k];
+                        let lineAlpha = (1 - item.dist / 120) * (isDark ? 0.32 : 0.22);
+                        ctx.beginPath();
+                        ctx.moveTo(item.node.x, item.node.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = item.node.isHub ? `rgba(217, 70, 239, ${lineAlpha})` : `rgba(56, 189, 248, ${lineAlpha})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
                     }
                 }
 
@@ -3065,9 +3073,9 @@ function hexToRgba(hex, alpha) {
             // --- 9. DEFAULT & CUSTOM (AMBIENT GLASS SPOTLIGHT) ---
             function renderSpotlight(isDark, accentRgb) {
                 if (!mouse.active) return;
-                let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 280);
-                glow.addColorStop(0, `rgba(${accentRgb}, ${isDark ? 0.13 : 0.08})`);
-                glow.addColorStop(0.5, `rgba(${accentRgb}, ${isDark ? 0.04 : 0.02})`);
+                let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 220);
+                glow.addColorStop(0, `rgba(${accentRgb}, ${isDark ? 0.06 : 0.035})`);
+                glow.addColorStop(0.6, `rgba(${accentRgb}, ${isDark ? 0.015 : 0.008})`);
                 glow.addColorStop(1, `rgba(${accentRgb}, 0)`);
                 ctx.fillStyle = glow;
                 ctx.fillRect(0, 0, width, height);
@@ -3159,6 +3167,7 @@ function hexToRgba(hex, alpha) {
                 stars = [];
                 planets = [];
                 meteors = [];
+                stardust = [];
                 meshNodes = [];
                 meshPulses = [];
                 petals = [];
