@@ -2607,42 +2607,89 @@ function hexToRgba(hex, alpha) {
                 ctx.globalAlpha = 1;
             }
 
-            // --- 6. GALAXY (VÅ¨ TRá»¤ NGÃ‚N HÃ€ XOÃY Há» ÄEN Tá»ª TRÆ¯á»œNG) ---
+            // --- 6. GALAXY (110 NGOI SAO, 3 HANH TINH 3D, SAO BANG & HO DEN VU TRU) ---
             let stars = [];
+            let planets = [];
+            let meteors = [];
+
             function initGalaxy() {
                 stars = [];
-                for (let i = 0; i < 45; i++) {
+                planets = [];
+                meteors = [];
+                planets = [];
+                meteors = [];
+
+                // 110 ngoi sao da tang chieu sau
+                for (let i = 0; i < 110; i++) {
                     stars.push({
                         x: Math.random() * width,
                         y: Math.random() * height,
-                        r: 1.2 + Math.random() * 2.2,
+                        r: 0.8 + Math.random() * 2.3,
                         angle: Math.random() * Math.PI * 2,
-                        distFromCenter: 40 + Math.random() * 240,
-                        orbitSpeed: 0.008 + Math.random() * 0.015,
-                        baseSpeedX: (Math.random() - 0.5) * 0.4,
-                        baseSpeedY: (Math.random() - 0.5) * 0.4,
-                        alpha: 0.3 + Math.random() * 0.6,
-                        color: Math.random() > 0.4 ? 'rgba(192, 132, 252, ' : 'rgba(56, 189, 248, '
+                        distFromCenter: 35 + Math.random() * 320,
+                        orbitSpeed: 0.005 + Math.random() * 0.014,
+                        baseSpeedX: (Math.random() - 0.5) * 0.25,
+                        baseSpeedY: (Math.random() - 0.5) * 0.25,
+                        phase: Math.random() * Math.PI * 2,
+                        phaseSpeed: 0.02 + Math.random() * 0.04,
+                        color: Math.random() > 0.6 ? 'rgba(192, 132, 252, ' : (Math.random() > 0.3 ? 'rgba(125, 211, 252, ' : 'rgba(255, 255, 255, ')
                     });
                 }
+
+                // 3 Hanh tinh vu tru tuyet dep
+                planets = [
+                    {
+                        // Hanh tinh 1: Sao Tho co vanh dai phat sang 3D
+                        x: width * 0.78, y: height * 0.26,
+                        baseX: width * 0.78, baseY: height * 0.26,
+                        r: 28,
+                        hasRings: true,
+                        color1: '#818cf8', color2: '#312e81',
+                        ringColor: 'rgba(199, 210, 254, 0.45)',
+                        ringAngle: -0.42,
+                        driftPhase: 0,
+                        driftSpeed: 0.004
+                    },
+                    {
+                        // Hanh tinh 2: Hanh tinh dai duong xanh ngoc phat quang
+                        x: width * 0.16, y: height * 0.68,
+                        baseX: width * 0.16, baseY: height * 0.68,
+                        r: 20,
+                        hasRings: false,
+                        color1: '#22d3ee', color2: '#0e7490',
+                        driftPhase: 1.8,
+                        driftSpeed: 0.005
+                    },
+                    {
+                        // Hanh tinh 3: Mat trang do ruby huyen bi
+                        x: width * 0.86, y: height * 0.84,
+                        baseX: width * 0.86, baseY: height * 0.84,
+                        r: 15,
+                        hasRings: false,
+                        color1: '#fb7185', color2: '#881337',
+                        driftPhase: 3.5,
+                        driftSpeed: 0.003
+                    }
+                ];
             }
 
             function renderGalaxy(isDark) {
-                // HÃ o quang há»‘ Ä‘en vÅ© trá»¥ bÃ­ áº©n theo chuá»™t
+                // Hao quang ho den vu tru bi an theo chuot
                 if (mouse.active) {
-                    let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 250);
-                    glow.addColorStop(0, 'rgba(147, 51, 234, 0.24)');
-                    glow.addColorStop(0.4, 'rgba(99, 102, 241, 0.12)');
+                    let glow = ctx.createRadialGradient(smoothMouse.x, smoothMouse.y, 0, smoothMouse.x, smoothMouse.y, 270);
+                    glow.addColorStop(0, 'rgba(147, 51, 234, 0.26)');
+                    glow.addColorStop(0.4, 'rgba(99, 102, 241, 0.14)');
                     glow.addColorStop(1, 'rgba(99, 102, 241, 0)');
                     ctx.fillStyle = glow;
                     ctx.fillRect(0, 0, width, height);
                 }
 
+                // 1. Ve cac vi sao & bui tinh van
                 for (let i = 0; i < stars.length; i++) {
                     let s = stars[i];
+                    s.phase += s.phaseSpeed;
 
                     if (mouse.active) {
-                        // XoÃ¡y trÃ²n theo lá»±c hÃºt con trá» chuá»™t
                         s.angle += s.orbitSpeed;
                         let targetX = mouse.x + Math.cos(s.angle) * s.distFromCenter;
                         let targetY = mouse.y + Math.sin(s.angle) * s.distFromCenter;
@@ -2657,98 +2704,316 @@ function hexToRgba(hex, alpha) {
                         if (s.y > height) s.y = 0;
                     }
 
+                    let alpha = 0.35 + Math.sin(s.phase) * 0.45;
                     ctx.beginPath();
                     ctx.arc(s.x, s.y, Math.max(0.5, s.r), 0, Math.PI * 2);
-                    ctx.fillStyle = s.color + s.alpha + ')';
+                    ctx.fillStyle = s.color + Math.max(0.1, alpha) + ')';
                     ctx.fill();
+                }
+
+                // 2. Ve 3 Hanh tinh 3D song dong
+                for (let i = 0; i < planets.length; i++) {
+                    let p = planets[i];
+                    p.driftPhase += p.driftSpeed;
+                    p.x = p.baseX + Math.sin(p.driftPhase) * 16;
+                    p.y = p.baseY + Math.cos(p.driftPhase * 0.8) * 12;
+
+                    // Tuong tac nhe voi trong luc chuot
+                    if (mouse.active) {
+                        let dx = mouse.x - p.x;
+                        let dy = mouse.y - p.y;
+                        let dist = Math.hypot(dx, dy);
+                        if (dist < 180) {
+                            let pull = (1 - dist / 180) * 12;
+                            p.x += (dx / dist) * pull;
+                            p.y += (dy / dist) * pull;
+                        }
+                    }
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+
+                    // Neu co vanh dai: ve nua sau cua vanh dai truoc (nam phia sau hanh tinh)
+                    if (p.hasRings) {
+                        ctx.save();
+                        ctx.rotate(p.ringAngle);
+                        ctx.beginPath();
+                        ctx.ellipse(0, 0, p.r * 2.4, p.r * 0.65, 0, Math.PI, 0);
+                        ctx.strokeStyle = p.ringColor;
+                        ctx.lineWidth = 4.5;
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+
+                    // Ve qua cau hanh tinh 3D voi gradient chieu sang chan thuc
+                    ctx.beginPath();
+                    ctx.arc(0, 0, p.r, 0, Math.PI * 2);
+                    let sphereGrad = ctx.createRadialGradient(-p.r * 0.35, -p.r * 0.35, p.r * 0.1, 0, 0, p.r);
+                    sphereGrad.addColorStop(0, p.color1);
+                    sphereGrad.addColorStop(0.82, p.color2);
+                    sphereGrad.addColorStop(1, '#05060f');
+                    ctx.fillStyle = sphereGrad;
+                    ctx.fill();
+
+                    // Vanh phan quang khi quyen (Atmospheric Rim Light)
+                    ctx.beginPath();
+                    ctx.arc(0, 0, p.r + 2, 0, Math.PI * 2);
+                    ctx.strokeStyle = p.color1;
+                    ctx.globalAlpha = 0.38;
+                    ctx.lineWidth = 2.2;
+                    ctx.stroke();
+                    ctx.globalAlpha = 1;
+
+                    // Neu co vanh dai: ve nua truoc cua vanh dai de de len mat truoc hanh tinh (hieu ung 3D sau truoc)
+                    if (p.hasRings) {
+                        ctx.save();
+                        ctx.rotate(p.ringAngle);
+                        ctx.beginPath();
+                        ctx.ellipse(0, 0, p.r * 2.4, p.r * 0.65, 0, 0, Math.PI);
+                        ctx.strokeStyle = p.ringColor;
+                        ctx.lineWidth = 4.5;
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+
+                    ctx.restore();
+                }
+
+                // 3. Sao bang thinh thoang vuot qua bau troi
+                if (Math.random() < 0.015 && meteors.length < 2) {
+                    meteors.push({
+                        x: Math.random() * width,
+                        y: Math.random() * (height * 0.4),
+                        vx: -6 - Math.random() * 5,
+                        vy: 4 + Math.random() * 4,
+                        len: 50 + Math.random() * 40,
+                        alpha: 0.8
+                    });
+                }
+                for (let i = meteors.length - 1; i >= 0; i--) {
+                    let m = meteors[i];
+                    m.x += m.vx;
+                    m.y += m.vy;
+                    m.alpha -= 0.025;
+                    if (m.alpha <= 0 || m.x < -100 || m.y > height + 100) {
+                        meteors.splice(i, 1);
+                        continue;
+                    }
+                    ctx.beginPath();
+                    ctx.moveTo(m.x, m.y);
+                    ctx.lineTo(m.x - m.vx * (m.len / 12), m.y - m.vy * (m.len / 12));
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${m.alpha})`;
+                    ctx.lineWidth = 1.8;
+                    ctx.stroke();
                 }
             }
 
-            // --- 7. MESH (Máº NG LÆ¯á»šI TÆ  NHá»†N HÃŒNH Há»ŒC Káº¾T Ná»I LAZE) ---
+            // --- 7. MESH (CYBER QUANTUM SYNAPSE NETWORK - TIEN TIEN NHAT) ---
             let meshNodes = [];
+            let meshPulses = [];
+
             function initMesh() {
                 meshNodes = [];
-                for (let i = 0; i < 42; i++) {
+                meshPulses = [];
+                meshPulses = [];
+                for (let i = 0; i < 48; i++) {
                     meshNodes.push({
                         x: Math.random() * width,
                         y: Math.random() * height,
-                        vx: (Math.random() - 0.5) * 0.7,
-                        vy: (Math.random() - 0.5) * 0.7,
-                        r: 1.8 + Math.random() * 1.5
+                        vx: (Math.random() - 0.5) * 0.65,
+                        vy: (Math.random() - 0.5) * 0.65,
+                        r: 1.8 + Math.random() * 1.6,
+                        isHub: (i % 7 === 0), // Diem nut chu chot Hub
+                        rot: Math.random() * Math.PI * 2,
+                        energy: 0
                     });
                 }
             }
 
             function renderMesh(isDark) {
-                // Di chuyá»ƒn háº¡t máº¡ng lÆ°á»›i
+                // Vong ngam Holographic hien dai quanh con tro chuot
+                if (mouse.active) {
+                    ctx.save();
+                    ctx.translate(smoothMouse.x, smoothMouse.y);
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 36, 0, Math.PI * 2);
+                    ctx.strokeStyle = isDark ? 'rgba(6, 182, 212, 0.4)' : 'rgba(2, 132, 199, 0.35)';
+                    ctx.lineWidth = 1.2;
+                    ctx.setLineDash([4, 6]);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.restore();
+                }
+
+                // 1. Cap nhat vi tri cac diem nut
                 for (let i = 0; i < meshNodes.length; i++) {
                     let n = meshNodes[i];
                     n.x += n.vx;
                     n.y += n.vy;
                     if (n.x < 0 || n.x > width) n.vx *= -1;
                     if (n.y < 0 || n.y > height) n.vy *= -1;
+                    if (n.isHub) n.rot += 0.015;
 
-                    // HÃºt nháº¹ vá» phÃ­a chuá»™t
+                    // Tuong tac tu truong voi chuot
                     if (mouse.active) {
                         let dx = mouse.x - n.x;
                         let dy = mouse.y - n.y;
                         let dist = Math.hypot(dx, dy);
-                        if (dist < 150) {
-                            let pull = (1 - dist / 150) * 1.6;
+                        if (dist < 160) {
+                            let pull = (1 - dist / 160) * 1.8;
                             n.x += (dx / dist) * pull;
                             n.y += (dy / dist) * pull;
+                            n.energy = Math.max(n.energy, 1 - dist / 160);
 
-                            // Ná»‘i tia laze trá»±c tiáº¿p Ä‘áº¿n con trá» chuá»™t
+                            // Phong tia laze neon hai mau ruc ro ve con tro chuot
                             ctx.beginPath();
                             ctx.moveTo(n.x, n.y);
                             ctx.lineTo(mouse.x, mouse.y);
-                            ctx.strokeStyle = isDark ? `rgba(14, 165, 233, ${(1 - dist / 150) * 0.45})` : `rgba(2, 132, 199, ${(1 - dist / 150) * 0.35})`;
-                            ctx.lineWidth = 1.2;
+                            let laserAlpha = (1 - dist / 160) * (isDark ? 0.6 : 0.45);
+                            ctx.strokeStyle = n.isHub ? `rgba(217, 70, 239, ${laserAlpha})` : `rgba(6, 182, 212, ${laserAlpha})`;
+                            ctx.lineWidth = 1.4;
                             ctx.stroke();
                         }
                     }
 
+                    n.energy *= 0.94; // Giam dan nang luong
+
+                    // Ve diem nut
                     ctx.beginPath();
-                    ctx.arc(n.x, n.y, Math.max(0.5, n.r), 0, Math.PI * 2);
-                    ctx.fillStyle = isDark ? 'rgba(56, 189, 248, 0.65)' : 'rgba(2, 132, 199, 0.5)';
+                    ctx.arc(n.x, n.y, Math.max(0.5, n.r + n.energy * 1.5), 0, Math.PI * 2);
+                    ctx.fillStyle = n.isHub 
+                        ? (isDark ? '#e879f9' : '#c026d3') 
+                        : (isDark ? 'rgba(56, 189, 248, 0.75)' : 'rgba(2, 132, 199, 0.65)');
                     ctx.fill();
+
+                    // Diem nut Hub co them vong kim cuong xoay xung quanh
+                    if (n.isHub) {
+                        ctx.save();
+                        ctx.translate(n.x, n.y);
+                        ctx.rotate(n.rot);
+                        ctx.beginPath();
+                        ctx.strokeRect(-6, -6, 12, 12);
+                        ctx.strokeStyle = isDark ? 'rgba(217, 70, 239, 0.5)' : 'rgba(192, 38, 211, 0.4)';
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                        ctx.restore();
+                    }
                 }
 
-                // Ná»‘i cÃ¡c Ä‘iá»ƒm lÃ¢n cáº­n vá»›i nhau táº¡o thÃ nh máº¡ng lÆ°á»›i tinh xáº£o
+                // 2. Noi cac diem nut lan can voi nhau & sinh xung tin hieu (Data Pulses)
                 for (let i = 0; i < meshNodes.length; i++) {
                     for (let j = i + 1; j < meshNodes.length; j++) {
                         let dx = meshNodes[i].x - meshNodes[j].x;
                         let dy = meshNodes[i].y - meshNodes[j].y;
                         let dist = Math.hypot(dx, dy);
-                        if (dist < 105) {
+                        if (dist < 110) {
                             ctx.beginPath();
                             ctx.moveTo(meshNodes[i].x, meshNodes[i].y);
                             ctx.lineTo(meshNodes[j].x, meshNodes[j].y);
-                            let alpha = (1 - dist / 105) * (isDark ? 0.25 : 0.18);
+                            let alpha = (1 - dist / 110) * (isDark ? 0.28 : 0.18);
                             ctx.strokeStyle = isDark ? `rgba(148, 163, 184, ${alpha})` : `rgba(100, 116, 139, ${alpha})`;
-                            ctx.lineWidth = 0.9;
+                            ctx.lineWidth = 0.95;
                             ctx.stroke();
+
+                            // Sinh xung tin hieu chay doc theo day
+                            if (Math.random() < 0.003 && meshPulses.length < 15) {
+                                meshPulses.push({
+                                    fromNode: meshNodes[i],
+                                    toNode: meshNodes[j],
+                                    progress: 0,
+                                    speed: 0.02 + Math.random() * 0.025
+                                });
+                            }
                         }
                     }
                 }
+
+                // 3. Ve cac goi xung tin hieu (Data Pulses) chay doc theo mang luoi
+                for (let k = meshPulses.length - 1; k >= 0; k--) {
+                    let pulse = meshPulses[k];
+                    pulse.progress += pulse.speed;
+                    if (pulse.progress >= 1) {
+                        meshPulses.splice(k, 1);
+                        continue;
+                    }
+                    let px = pulse.fromNode.x + (pulse.toNode.x - pulse.fromNode.x) * pulse.progress;
+                    let py = pulse.fromNode.y + (pulse.toNode.y - pulse.fromNode.y) * pulse.progress;
+
+                    ctx.beginPath();
+                    ctx.arc(px, py, 2.2, 0, Math.PI * 2);
+                    ctx.fillStyle = isDark ? '#38bdf8' : '#0284c7';
+                    ctx.fill();
+                }
             }
 
-            // --- 8. SAKURA (CÃNH HOA ANH ÄÃ€O BAY THEO LUá»’NG GIÃ“ CHUá»˜T) ---
+            // --- 8. SAKURA (CANH HOA ANH DAO CO KHUYT CHE DOI & HOA 5 CANH CHUAN XAC) ---
             let petals = [];
+
+            // Ham ve canh hoa anh dao chan thuc voi khe cháº» Ä‘Ã´i (V-notch) dac trung
+            function drawSakuraPetalShape(size) {
+                let h = size;
+                let w = size * 0.62;
+                ctx.beginPath();
+                ctx.moveTo(0, h * 0.65); // Cuong canh hoa
+                // Bau cong trai len
+                ctx.bezierCurveTo(-w * 0.85, h * 0.3, -w * 1.15, -h * 0.35, -w * 0.55, -h * 0.75);
+                // Khe che doi hinh chu V mem mai o dinh canh hoa (dac trung hoa anh dao, khong bao gio bi nham thanh la cay)
+                ctx.bezierCurveTo(-w * 0.25, -h * 0.82, -w * 0.06, -h * 0.48, 0, -h * 0.42);
+                // Canh phai
+                ctx.bezierCurveTo(w * 0.06, -h * 0.48, w * 0.25, -h * 0.82, w * 0.55, -h * 0.75);
+                // Bau cong phai xuong cuong
+                ctx.bezierCurveTo(w * 1.15, -h * 0.35, w * 0.85, h * 0.3, 0, h * 0.65);
+                ctx.closePath();
+
+                // Gradient mau hong phan trang sua loang dan sang hong sen ruc ro o dau canh
+                let grad = ctx.createLinearGradient(0, h * 0.65, 0, -h * 0.8);
+                grad.addColorStop(0, '#fff1f2'); // Cuong trang sua hong nhe
+                grad.addColorStop(0.55, '#fbcfe8'); // Giua canh hong phan
+                grad.addColorStop(1, '#f43f5e'); // Dinh canh hong dao ruc ro
+                ctx.fillStyle = grad;
+                ctx.fill();
+
+                // Gan song canh hoa tinh te
+                ctx.beginPath();
+                ctx.moveTo(0, h * 0.5);
+                ctx.lineTo(0, -h * 0.2);
+                ctx.strokeStyle = 'rgba(244, 63, 94, 0.22)';
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+            }
+
+            // Ham ve nguyen ca bong hoa anh dao 5 canh no ro
+            function drawFullSakuraFlowerShape(size) {
+                for (let k = 0; k < 5; k++) {
+                    ctx.save();
+                    ctx.rotate((k * Math.PI * 2) / 5);
+                    ctx.translate(0, -size * 0.42);
+                    drawSakuraPetalShape(size * 0.58);
+                    ctx.restore();
+                }
+                // Nuy hoa vang o giua
+                ctx.beginPath();
+                ctx.arc(0, 0, size * 0.16, 0, Math.PI * 2);
+                ctx.fillStyle = '#fbbf24';
+                ctx.fill();
+            }
+
             function initSakura() {
                 petals = [];
-                for (let i = 0; i < 28; i++) {
+                for (let i = 0; i < 30; i++) {
                     petals.push({
                         x: Math.random() * width,
                         y: Math.random() * height,
-                        vx: 0.3 + Math.random() * 0.7,
-                        vy: 0.8 + Math.random() * 1.2,
-                        size: 7 + Math.random() * 6,
+                        vx: 0.35 + Math.random() * 0.65,
+                        vy: 0.85 + Math.random() * 1.15,
+                        size: 9 + Math.random() * 8,
                         flip: Math.random() * Math.PI * 2,
                         flipSpeed: 0.02 + Math.random() * 0.03,
+                        tilt: Math.random() * Math.PI * 2,
+                        tiltSpeed: 0.015 + Math.random() * 0.02,
                         angle: Math.random() * Math.PI * 2,
-                        color: Math.random() > 0.5 ? 'rgba(251, 113, 133, ' : 'rgba(244, 114, 182, ',
-                        alpha: 0.45 + Math.random() * 0.4
+                        isFullFlower: (i % 6 === 0), // 1 trong 6 item la nguyen ca bong hoa 5 canh!
+                        alpha: 0.55 + Math.random() * 0.35
                     });
                 }
             }
@@ -2757,39 +3022,43 @@ function hexToRgba(hex, alpha) {
                 for (let i = 0; i < petals.length; i++) {
                     let p = petals[i];
                     p.flip += p.flipSpeed;
-                    p.angle += 0.01;
-                    p.x += p.vx + Math.sin(p.flip) * 0.6;
+                    p.tilt += p.tiltSpeed;
+                    p.angle += 0.012;
+                    p.x += p.vx + Math.sin(p.flip) * 0.7;
                     p.y += p.vy;
 
-                    // Chuá»™t di chuyá»ƒn táº¡o luá»“ng giÃ³ uá»‘n lÆ°á»£n háº¥t cÃ¡nh hoa bay lÃªn
+                    // Luong gio chuot uon luon hat tung canh hoa bay len
                     if (mouse.active) {
                         let dx = p.x - mouse.x;
                         let dy = p.y - mouse.y;
                         let dist = Math.hypot(dx, dy);
-                        if (dist < 120) {
-                            let wind = (1 - dist / 120) * 3.5;
+                        if (dist < 140) {
+                            let wind = (1 - dist / 140) * 4.2;
                             p.x += (dx / (dist || 1)) * wind;
-                            p.y += (dy / (dist || 1)) * wind - 1.2; // Háº¥t nháº¹ lÃªn trÃªn
+                            p.y += (dy / (dist || 1)) * wind - 1.6; // Gio hat bop len cao
                         }
                     }
 
-                    if (p.y > height + 20) { p.y = -20; p.x = Math.random() * width; }
-                    if (p.x > width + 20) p.x = -20;
+                    if (p.y > height + 25) { p.y = -25; p.x = Math.random() * width; }
+                    if (p.x > width + 25) p.x = -25;
 
                     ctx.save();
                     ctx.translate(p.x, p.y);
                     ctx.rotate(p.angle);
-                    ctx.scale(Math.max(0.1, Math.cos(p.flip)), 1);
+                    // Lat lat 3D trong gio khong gian
+                    ctx.scale(Math.cos(p.flip), Math.sin(p.tilt) * 0.35 + 0.75);
+                    ctx.globalAlpha = p.alpha;
 
-                    // Váº½ cÃ¡nh hoa oval má»m máº¡i
-                    ctx.beginPath();
-                    ctx.ellipse(0, 0, p.size, p.size * 0.6, 0, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color + p.alpha + ')';
-                    ctx.fill();
+                    if (p.isFullFlower) {
+                        drawFullSakuraFlowerShape(p.size * 1.3);
+                    } else {
+                        drawSakuraPetalShape(p.size);
+                    }
+
                     ctx.restore();
                 }
+                ctx.globalAlpha = 1;
             }
-
             // --- 9. DEFAULT & CUSTOM (AMBIENT GLASS SPOTLIGHT) ---
             function renderSpotlight(isDark, accentRgb) {
                 if (!mouse.active) return;
@@ -2885,7 +3154,10 @@ function hexToRgba(hex, alpha) {
                 bubbles = [];
                 pastelBlobs = [];
                 stars = [];
+                planets = [];
+                meteors = [];
                 meshNodes = [];
+                meshPulses = [];
                 petals = [];
 
                 if (canvas && ctx) {
