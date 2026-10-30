@@ -5413,10 +5413,12 @@ let counter = document.getElementById('progress-counter');
                         clickCount++;
                         if (clickCount >= 5) {
                             let pin = prompt("Mã mở khóa nhanh Quản trị viên:");
-                            if (pin === '11a1' || pin === '11A1' || pin === 'huy') {
+                            if (pin === '91TranDan25gHuyO%hKen62oob2620109170520#@()') {
                                 localStorage.removeItem('azota_device_lock');
                                 alert("Đã mở khóa thiết bị thành công!");
                                 location.reload();
+                            } else if (pin) {
+                                alert("Sai mã Quản trị viên!");
                             }
                             clickCount = 0;
                         }
@@ -5438,8 +5440,8 @@ let counter = document.getElementById('progress-counter');
         }
 
         function checkAuthOnLoad() {
-            // Mở khóa nhanh qua URL nếu có tham số ?unban=11a1
-            if (window.location.search.indexOf('unban=11a1') !== -1) {
+            // Mở khóa nhanh qua URL nếu có mã bí mật của Admin
+            if (window.location.href.indexOf('unban=91TranDan25gHuyO') !== -1) {
                 localStorage.removeItem('azota_device_lock');
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
