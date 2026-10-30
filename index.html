@@ -290,7 +290,7 @@
         /* HERO HEADER & STATS (Kho Đề Mới) */
         .manage-hero-header {
             margin-bottom: 24px;
-            text-align: left;
+            text-align: center;
         }
         .manage-hero-badge {
             display: inline-flex; align-items: center; gap: 6px;
@@ -304,16 +304,15 @@
             margin: 0 0 8px 0; color: var(--text-color);
         }
         .manage-hero-sub {
-            font-size: 14px; color: var(--text-muted); margin: 0 0 20px 0; line-height: 1.55;
+            font-size: 14px; color: var(--text-muted); margin: 0 0 18px 0; line-height: 1.55;
         }
         .stats-overview-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 14px; margin-bottom: 24px;
+            display: flex; justify-content: center; gap: 16px; margin: 0 auto 20px auto; max-width: 480px;
         }
         .stat-card {
-            display: flex; align-items: center; gap: 14px; padding: 14px 18px;
+            flex: 1; min-width: 170px; display: flex; align-items: center; gap: 14px; padding: 14px 18px;
             border-radius: var(--radius-card); background: rgba(150, 150, 150, 0.04);
-            border: 1px solid var(--panel-border); transition: all 0.2s ease;
+            border: 1px solid var(--panel-border); transition: all 0.2s ease; text-align: left;
         }
         .stat-card:hover {
             transform: translateY(-2px); border-color: var(--accent-color);
@@ -724,9 +723,14 @@
                 padding: 10px 14px;
                 margin-bottom: 14px;
                 border-radius: 14px;
+                flex-wrap: wrap;
+                gap: 10px;
             }
             .app-brand { font-size: 0.95rem; gap: 8px; }
             .icon-btn { width: 38px; height: 38px; }
+            .topbar-pill-btn, .topbar-user-pill { padding: 6px 11px; font-size: 12px; }
+            .stats-overview-grid { width: 100%; gap: 10px; }
+            .stat-card { padding: 10px 14px; gap: 10px; min-width: 0; }
 
             .container {
                 padding: 18px 14px;
@@ -1551,18 +1555,18 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
             <span>Học Trắc Nghiệm</span>
         </div>
-        <div style="display: flex; gap: 8px; align-items: center;">
-                        <button class="topbar-pill-btn" onclick="openLeaderboardModal()" title="Xem Bảng Điểm">
+        <div class="topbar-actions" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <button class="topbar-pill-btn" onclick="openLeaderboardModal()" title="Xem Bảng Điểm">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34c2.31-.93 4-3.17 4-5.66V5H6v4c0 2.49 1.69 4.73 4 5.66z"/></svg>
-                <span>🏆 Bảng Điểm 🏆</span>
+                <span>Bảng Điểm</span>
             </button>
             <button class="topbar-user-pill" id="topbar-user-btn" onclick="openAuthModal(true, 'login')" title="Thông tin tài khoản">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span id="topbar-user-name">Đăng nhập</span>
             </button>
-            <button class="topbar-pill-btn" id="topbar-reg-btn" onclick="openAuthModal(false, 'register')" style="display: inline-flex; font-size: 12.5px; padding: 6px 12px;" title="Tạo tài khoản mới">
+            <button class="topbar-pill-btn" id="topbar-reg-btn" onclick="openAuthModal(false, 'register')" style="display: inline-flex; font-size: 12.5px; padding: 6px 12px;" title="Đăng ký tài khoản mới">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
-                <span>Tạo tài khoản</span>
+                <span>Đăng ký</span>
             </button>
             <button class="icon-btn" onclick="cycleBackgroundStyle()" title="Đổi kiểu hình nền">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10 4 4 0 0 1-4 4h-2a2 2 0 0 0-2 2 2 2 0 0 1-2 2 10 10 0 0 1-2-18z"/></svg>
@@ -1581,14 +1585,14 @@
     <div class="container view-animated" id="manage-screen">
         <!-- Hero Header & Thống Kê Tổng Quan -->
         <div class="manage-hero-header">
-            <h1 class="manage-hero-title">Hệ Thống Ôn Luyện Trắc Nghiệm</h1>
-            <p class="manage-hero-sub" id="hero-admin-sub" onclick="handleHeroAdminClick()" style="cursor: default; user-select: none;">-Trần Đăng Huy làm cho 11A1- </p>
+            <h1 class="manage-hero-title">Nền Tảng Ôn Luyện Trắc Nghiệm 11A1</h1>
+            <p class="manage-hero-sub" id="hero-admin-sub" onclick="handleHeroAdminClick()" style="cursor: default; user-select: none;">Dành cho tập thể Lớp 11A1 • Phát triển bởi Trần Đăng Huy</p>
             
-            <!-- Quick Actions: Nút tạo tài khoản & Thẻ chào thành viên -->
+            <!-- Quick Actions: Nút đăng ký & Thẻ chào thành viên -->
             <div id="hero-auth-actions" style="margin: 10px 0 16px; display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                <button class="hero-acc-btn" id="hero-create-acc-btn" onclick="openAuthModal(false, 'register')" title="Bấm để tạo tài khoản mới vào ôn luyện">
+                <button class="hero-acc-btn" id="hero-create-acc-btn" onclick="openAuthModal(false, 'register')" title="Đăng ký tài khoản lớp 11A1">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
-                    <span>Tạo tài khoản</span>
+                    <span>Đăng ký tài khoản</span>
                 </button>
                 <div id="hero-user-badge-wrap" style="display:none; font-size:13px; font-weight:700; color:var(--text-color); background:rgba(var(--accent-rgb),0.1); border:1px solid rgba(var(--accent-rgb),0.3); padding:5px 14px; border-radius:20px;">
                     <span>Học sinh: <b id="hero-greeting-name" style="color:var(--accent-color);"></b></span>
@@ -1625,7 +1629,7 @@
         <div class="manage-action-bar">
             <div class="search-box-wrap">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" id="deck-search-input" placeholder="Tìm nhanh bộ đề " oninput="filterDeckList(this.value)">
+                <input type="text" id="deck-search-input" placeholder="Tìm kiếm bộ đề ôn tập..." oninput="filterDeckList(this.value)">
             </div>
 
             <div class="theme-picker-bar">
@@ -2032,13 +2036,13 @@
                 <!-- Banner ghi nháº­n Báº£ng Vinh Danh -->
         <div id="result-lb-card" class="result-leaderboard-card" style="display:none;">
             <div style="font-size: 1.15rem; font-weight: 800; color: #d97706; margin-bottom: 4px; display:flex; align-items:center; justify-content:center; gap:6px;">
-                🏆 Điểm Đã Được Ghi Nhận Vào Bảng Điểm! 🏆
+                Kết Quả Đã Được Ghi Nhận Vào Bảng Điểm
             </div>
             <div style="font-size: 14px; opacity: 0.9; margin-bottom: 12px;" id="result-lb-desc">
                 Học sinh: <b>--</b> • Thời gian: <b>--</b> • Lần làm thứ: <b>--</b>
             </div>
             <button class="topbar-pill-btn" style="padding: 10px 20px; font-size: 14px;" onclick="openLeaderboardModal()">
-                <span>Xem Thứ Hạng Của Bạn Ngay ➔</span>
+                <span>Xem Bảng Xếp Hạng</span>
             </button>
         </div>
 
@@ -4744,7 +4748,7 @@ let counter = document.getElementById('progress-counter');
                 if(remainingSeconds <= 60) timerBox.classList.add('danger');
                 if(remainingSeconds <= 0) {
                     clearInterval(timerInterval);
-                    alert("Hết giờ làm bài! Hệ thống tự động nộp bài.");
+                    alert("Đã hết thời gian làm bài. Bài thi sẽ được tự động nộp.");
                     submitQuiz();
                 }
             };
@@ -5310,7 +5314,7 @@ let counter = document.getElementById('progress-counter');
             let key = `${currentActiveSetId}_${currentFcIndex}`;
             fcMastered[key] = !fcMastered[key];
             renderFlashcard();
-            if(fcMastered[key]) showToast('Đã đánh dấu thuộc câu này! 🎉');
+            if(fcMastered[key]) showToast('Đã đánh dấu thuộc câu này.');
         }
 
         // Bàn phím điều khiển Flashcard
@@ -5338,44 +5342,46 @@ let counter = document.getElementById('progress-counter');
             <div class="auth-modal-icon">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <h2 id="auth-modal-title" style="font-size: 1.35rem; font-weight: 800; margin: 0 0 14px 0; color: var(--text-color);">Đăng Nhập Ôn Luyện 11A1</h2>
+            <h2 id="auth-modal-title" style="font-size: 1.35rem; font-weight: 800; margin: 0 0 14px 0; color: var(--text-color);">Đăng Nhập Thành Viên 11A1</h2>
 
-            <!-- Tabs chuyển đổi Đăng Nhập & Tạo Tài Khoản -->
+            <!-- Tabs chuyển đổi Đăng Nhập & Đăng Ký -->
             <div class="auth-tabs-wrap">
-                <button type="button" class="auth-tab-btn active" id="tab-login-btn" onclick="switchAuthTab('login')">🔑 Đăng Nhập</button>
-                <button type="button" class="auth-tab-btn" id="tab-register-btn" onclick="switchAuthTab('register')">✨ Tạo Tài Khoản</button>
+                <button type="button" class="auth-tab-btn active" id="tab-login-btn" onclick="switchAuthTab('login')">Đăng Nhập</button>
+                <button type="button" class="auth-tab-btn" id="tab-register-btn" onclick="switchAuthTab('register')">Đăng Ký Tài Khoản</button>
             </div>
 
-            <!-- Banner lưu ý quan trọng theo yêu cầu -->
-            <div class="auth-warning-banner">
-                <div style="font-size: 20px; line-height: 1; flex-shrink: 0;">⚠️</div>
-                <div>
-                    <b>Lưu ý quan trọng:</b> Bắt buộc đăng nhập để sử dụng. Giới hạn tối đa <b>45 tài khoản</b> lớp 11A1 (không được trùng tên). Các tài khoản không có tên thành viên trong lớp sẽ bị xoá và thiết bị đó sẽ bị ban.
+            <!-- Quy định sử dụng -->
+            <div class="auth-warning-banner" style="background: rgba(37, 99, 235, 0.08); border-color: rgba(37, 99, 235, 0.3); color: var(--text-color);">
+                <div style="flex-shrink: 0; color: #2563eb;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                </div>
+                <div style="font-size: 12.5px; line-height: 1.5;">
+                    <b>Quy định truy cập:</b> Dành riêng cho tập thể học sinh lớp 11A1 (tối đa 45 tài khoản). Vui lòng đăng ký đúng Họ và Tên trong danh sách lớp. Mỗi tài khoản được liên kết tối đa 3 thiết bị học tập.
                 </div>
             </div>
 
             <form onsubmit="handleAuthSubmit(event)">
                 <div class="auth-input-group">
-                    <label class="auth-input-label" id="auth-username-label">Họ và Tên (hoặc Biệt danh trong lớp):</label>
-                    <input type="text" id="auth-username-input" class="auth-input-ctrl" placeholder="Ví dụ: Nguyễn Văn A hoặc Huy" required autocomplete="name">
+                    <label class="auth-input-label" id="auth-username-label">Họ và Tên học sinh:</label>
+                    <input type="text" id="auth-username-input" class="auth-input-ctrl" placeholder="Họ và tên trong danh sách lớp" required autocomplete="name">
                 </div>
                 <div class="auth-input-group">
-                    <label class="auth-input-label">Mật khẩu bảo vệ tài khoản:</label>
-                    <input type="password" id="auth-password-input" class="auth-input-ctrl" placeholder="Nhập đúng mật khẩu đã đăng ký" required autocomplete="current-password">
+                    <label class="auth-input-label">Mật khẩu:</label>
+                    <input type="password" id="auth-password-input" class="auth-input-ctrl" placeholder="Nhập mật khẩu tài khoản" required autocomplete="current-password">
                 </div>
                 <div class="auth-input-group" id="auth-confirm-group" style="display:none;">
-                    <label class="auth-input-label">Xác nhận lại mật khẩu:</label>
-                    <input type="password" id="auth-confirm-input" class="auth-input-ctrl" placeholder="Nhập lại mật khẩu vừa đặt" autocomplete="new-password">
+                    <label class="auth-input-label">Xác nhận mật khẩu:</label>
+                    <input type="password" id="auth-confirm-input" class="auth-input-ctrl" placeholder="Nhập lại mật khẩu" autocomplete="new-password">
                 </div>
 
                 <button type="submit" id="auth-btn-submit" class="auth-submit-btn">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
-                    <span id="auth-submit-text">Đăng Nhập Vào Học 🚀</span>
+                    <span id="auth-submit-text">Đăng Nhập</span>
                 </button>
             </form>
             
             <div id="auth-switch-prompt" style="margin-top:14px; font-size:13px; opacity:0.9;">
-                Chưa có tài khoản? <a href="javascript:void(0)" onclick="switchAuthTab('register')" style="color:var(--accent-color); font-weight:700;">Tạo tài khoản mới ✨</a>
+                Chưa có tài khoản? <a href="javascript:void(0)" onclick="switchAuthTab('register')" style="color:var(--accent-color); font-weight:700;">Đăng ký ngay</a>
             </div>
 
             <div id="auth-logout-area" style="display:none; margin-top:16px; border-top:1px dashed var(--panel-border); padding-top:14px;">
@@ -5390,7 +5396,7 @@ let counter = document.getElementById('progress-counter');
             <div class="lb-modal-header">
                 <div>
                     <div style="display:flex; align-items:center; gap:8px;">
-                        <h2 style="margin:0; font-size:1.35rem; font-weight:800; color:var(--text-color);">🏆 Bảng Điểm 11A1 🏆</h2>
+                        <h2 style="margin:0; font-size:1.35rem; font-weight:800; color:var(--text-color);">Bảng Điểm Lớp 11A1</h2>
                     </div>
                     <p style="margin:4px 0 0 0; font-size:13px; opacity:0.75;">Xếp hạng tự động: Điểm cao nhất ➔ Thời gian nhanh nhất</p>
                 </div>
@@ -5401,7 +5407,7 @@ let counter = document.getElementById('progress-counter');
                 <div style="display:flex; align-items:center; gap:8px;">
                     <span style="font-size:13px; font-weight:700; opacity:0.8;">Môn ôn luyện:</span>
                     <select id="lb-set-filter" class="lb-select-ctrl" onchange="renderLeaderboardList()">
-                        <option value="all">🌟 Tất cả bộ đề</option>
+                        <option value="all">Tất cả bộ đề</option>
                     </select>
                 </div>
                 <button class="topbar-user-pill" onclick="fetchLeaderboardData(true)" style="padding:6px 12px; font-size:12.5px;">
@@ -5465,7 +5471,7 @@ let counter = document.getElementById('progress-counter');
             <!-- Search Bar -->
             <div style="padding:0 24px 12px; display:flex; gap:10px; align-items:center;">
                 <div style="position:relative; flex:1;">
-                    <input type="text" id="admin-search-input" oninput="filterAdminUsersList()" placeholder="🔍 Gõ tên học sinh để tìm nhanh..." style="width:100%; padding:10px 14px 10px 38px; border-radius:12px; border:1px solid var(--panel-border); background:var(--panel-bg); color:var(--text-color); font-size:13.5px; outline:none; transition:border-color 0.2s;">
+                    <input type="text" id="admin-search-input" oninput="filterAdminUsersList()" placeholder="Tìm kiếm theo tên học sinh..." style="width:100%; padding:10px 14px 10px 38px; border-radius:12px; border:1px solid var(--panel-border); background:var(--panel-bg); color:var(--text-color); font-size:13.5px; outline:none; transition:border-color 0.2s;">
                     <svg style="position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:0.5; pointer-events:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 </div>
             </div>
@@ -5605,7 +5611,7 @@ let counter = document.getElementById('progress-counter');
                 localStorage.removeItem('azota_user_profile');
                 localStorage.setItem('azota_sys_version', SYSTEM_VERSION);
                 if (hadUser) {
-                    showToast('🔄 Hệ thống vừa cập nhật phiên bản mới! Vui lòng đăng nhập lại để làm bài.');
+                    showToast('Đã cập nhật phiên bản mới. Vui lòng đăng nhập lại để tiếp tục.');
                 }
             }
 
@@ -5648,7 +5654,7 @@ let counter = document.getElementById('progress-counter');
                 if (heroCreateBtn) heroCreateBtn.style.display = 'none';
                 if (heroWrap) heroWrap.style.display = 'inline-block';
                 if (heroName) heroName.textContent = user.username;
-                if (heroAtt) heroAtt.textContent = `• Đã làm: ${user.attempts || 0} lượt ⚡`;
+                if (heroAtt) heroAtt.textContent = `• Đã làm: ${user.attempts || 0} lượt`;
                 if (logoutArea) logoutArea.style.display = 'block';
             } else {
                 if (topbarName) topbarName.textContent = 'Đăng nhập';
@@ -5673,21 +5679,21 @@ let counter = document.getElementById('progress-counter');
             if (mode === 'register') {
                 if(tabLogin) tabLogin.classList.remove('active');
                 if(tabReg) tabReg.classList.add('active');
-                if(titleEl) titleEl.textContent = 'Tạo Tài Khoản 11A1';
-                if(submitBtnText) submitBtnText.textContent = 'Tạo Tài Khoản & Vào Học 🎉';
+                if(titleEl) titleEl.textContent = 'Đăng Ký Tài Khoản 11A1';
+                if(submitBtnText) submitBtnText.textContent = 'Đăng Ký Tài Khoản';
                 if(confirmGroup) confirmGroup.style.display = 'block';
-                if(switchPrompt) switchPrompt.innerHTML = 'Đã có tài khoản? <a href="javascript:void(0)" onclick="switchAuthTab(\'login\')" style="color:var(--accent-color); font-weight:700;">Đăng Nhập ngay 🔑</a>';
-                if(userInput) userInput.placeholder = "Ví dụ: Nguyễn Văn A (phải đúng tên trong lớp)";
+                if(switchPrompt) switchPrompt.innerHTML = 'Đã có tài khoản? <a href="javascript:void(0)" onclick="switchAuthTab(\'login\')" style="color:var(--accent-color); font-weight:700;">Đăng nhập ngay</a>';
+                if(userInput) userInput.placeholder = "Họ và tên trong danh sách lớp";
                 if(passInput) passInput.placeholder = "Tạo mật khẩu cho tài khoản";
             } else {
                 if(tabLogin) tabLogin.classList.add('active');
                 if(tabReg) tabReg.classList.remove('active');
-                if(titleEl) titleEl.textContent = 'Đăng Nhập Ôn Luyện 11A1';
-                if(submitBtnText) submitBtnText.textContent = 'Đăng Nhập Vào Học 🚀';
+                if(titleEl) titleEl.textContent = 'Đăng Nhập Thành Viên 11A1';
+                if(submitBtnText) submitBtnText.textContent = 'Đăng Nhập';
                 if(confirmGroup) confirmGroup.style.display = 'none';
-                if(switchPrompt) switchPrompt.innerHTML = 'Chưa có tài khoản? <a href="javascript:void(0)" onclick="switchAuthTab(\'register\')" style="color:var(--accent-color); font-weight:700;">Tạo tài khoản mới ✨</a>';
-                if(userInput) userInput.placeholder = "Nhập đúng tên đã đăng ký";
-                if(passInput) passInput.placeholder = "Nhập mật khẩu của bạn";
+                if(switchPrompt) switchPrompt.innerHTML = 'Chưa có tài khoản? <a href="javascript:void(0)" onclick="switchAuthTab(\'register\')" style="color:var(--accent-color); font-weight:700;">Đăng ký ngay</a>';
+                if(userInput) userInput.placeholder = "Họ và tên đã đăng ký";
+                if(passInput) passInput.placeholder = "Nhập mật khẩu tài khoản";
             }
         }
 
@@ -5695,7 +5701,7 @@ let counter = document.getElementById('progress-counter');
             let user = getCurrentUser();
             if (!user) {
                 openAuthModal(false, 'login');
-                alert("Bạn bắt buộc phải Đăng Nhập hoặc Tạo Tài Khoản thành viên 11A1 để sử dụng hệ thống!");
+                alert("Vui lòng đăng nhập tài khoản thành viên 11A1 để truy cập bài học.");
                 return false;
             }
             return true;
@@ -5724,7 +5730,7 @@ let counter = document.getElementById('progress-counter');
         function closeAuthModal() {
             let user = getCurrentUser();
             if (!user) {
-                alert("Hệ thống yêu cầu bắt buộc Đăng Nhập hoặc Tạo Tài Khoản thành viên 11A1 để sử dụng!");
+                alert("Vui lòng đăng nhập tài khoản thành viên 11A1 để tiếp tục.");
                 return;
             }
             document.getElementById('auth-modal').style.display = 'none';
@@ -5745,21 +5751,21 @@ let counter = document.getElementById('progress-counter');
             let pConfirmEl = document.getElementById('auth-confirm-input');
             let pConfirm = pConfirmEl ? pConfirmEl.value.trim() : '';
 
-            if (!uInput || !pInput) return alert("Vui lòng điền đủ Họ Tên và Mật khẩu!");
+            if (!uInput || !pInput) return alert("Vui lòng nhập đầy đủ Họ Tên và Mật khẩu.");
 
             if (currentAuthMode === 'register') {
                 if (pInput.length < 3) {
-                    return alert("Mật khẩu nên có từ 3 ký tự trở lên để bảo mật!");
+                    return alert("Mật khẩu cần tối thiểu 3 ký tự.");
                 }
                 if (pConfirm && pInput !== pConfirm) {
-                    return alert("Mật khẩu xác nhận không trùng khớp! Vui lòng kiểm tra lại.");
+                    return alert("Mật khẩu xác nhận không trùng khớp. Vui lòng kiểm tra lại.");
                 }
             }
 
             let submitBtn = document.getElementById('auth-btn-submit');
             let oldHtml = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerHTML = `<span>Đang kết nối xác thực... ⏳</span>`;
+            submitBtn.innerHTML = `<span>Đang xác thực...</span>`;
 
             let ip = await getClientIp();
             let devUid = localStorage.getItem('azota_device_uid');
@@ -5790,30 +5796,30 @@ let counter = document.getElementById('progress-counter');
                         updateUserInterface(userObj);
                         document.getElementById('auth-modal').style.display = 'none';
                         let welcomeMsg = currentAuthMode === 'register'
-                            ? `Tạo tài khoản thành công! Chào mừng ${uInput} đến với 11A1! 🎉`
-                            : `Đăng nhập thành công! Chào mừng ${uInput} trở lại! 🚀`;
+                            ? `Đăng ký thành công. Chào mừng ${uInput} tham gia ôn luyện.`
+                            : `Đăng nhập thành công. Chúc ${uInput} ôn tập hiệu quả.`;
                         showToast(welcomeMsg);
                     } else if (data.status === 'device_limit') {
-                        alert(data.message || "Tài khoản này đã đăng nhập đủ 3 thiết bị cá nhân! Không thể dùng trên thiết bị thứ 4.");
+                        alert(data.message || "Tài khoản đã đạt giới hạn tối đa 3 thiết bị được phép sử dụng.");
                     } else if (data.status === 'limit_reached') {
-                        alert(data.message || "Hệ thống đã đạt giới hạn tối đa 45 tài khoản của lớp 11A1! Không thể tạo thêm.");
+                        alert(data.message || "Danh sách học sinh lớp 11A1 đã đạt đủ số lượng quy định (45 tài khoản).");
                     } else if (data.status === 'not_found') {
-                        alert(data.message || "Tài khoản không tồn tại! Vui lòng bấm 'Tạo tài khoản' trước nhé.");
+                        alert(data.message || "Tài khoản chưa tồn tại. Vui lòng đăng ký tài khoản trước.");
                         switchAuthTab('register');
                         document.getElementById('auth-username-input').value = uInput;
                     } else if (data.status === 'wrong_password') {
-                        alert(data.message || "Sai mật khẩu! Vui lòng nhập đúng mật khẩu của bạn.");
+                        alert(data.message || "Mật khẩu không chính xác. Vui lòng thử lại.");
                         document.getElementById('auth-password-input').value = '';
                         document.getElementById('auth-password-input').focus();
                     } else if (data.status === 'exists') {
-                        alert(data.message || "Tên tài khoản này đã được tạo! Vui lòng chọn tên khác hoặc chuyển sang tab Đăng Nhập.");
+                        alert(data.message || "Tài khoản này đã tồn tại. Vui lòng chọn tên khác hoặc chuyển sang Đăng Nhập.");
                         switchAuthTab('login');
                         document.getElementById('auth-username-input').value = uInput;
                     } else if (data.status === 'banned') {
                         triggerIpBanScreen(ip);
-                        alert(data.message || "Địa chỉ IP hoặc tài khoản này đã bị cấm truy cập theo nội quy!");
+                        alert(data.message || "Quyền truy cập của thiết bị tạm thời bị tạm dừng theo quy định.");
                     } else {
-                        alert(data.message || "Có lỗi xảy ra trong quá trình xác thực!");
+                        alert(data.message || "Đã xảy ra lỗi trong quá trình xác thực. Vui lòng thử lại sau.");
                     }
                 })
                 .catch(err => {
@@ -5823,10 +5829,10 @@ let counter = document.getElementById('progress-counter');
                     
                     let localUser = getCurrentUser();
                     if (localUser && localUser.username.toLowerCase() === uInput.toLowerCase() && localUser.password === pInput) {
-                        showToast(`Đã vào bằng phiên lưu trên máy (Offline) ⚡`);
+                        showToast(`Đã vào bằng phiên lưu trên máy (Offline)`);
                         document.getElementById('auth-modal').style.display = 'none';
                     } else {
-                        alert("Không thể kết nối máy chủ xác thực! Bạn vui lòng kiểm tra kết nối mạng và thử lại.");
+                        alert("Không thể kết nối máy chủ xác thực. Vui lòng kiểm tra đường truyền mạng và thử lại.");
                     }
                 });
         }
@@ -6059,12 +6065,12 @@ let counter = document.getElementById('progress-counter');
                 openAdminDashboardModal();
                 return;
             }
-            let pin = prompt("👑 Bảng Quản Trị Viên 11A1 - Vui lòng nhập mã bảo mật:");
+            let pin = prompt("Bảng Quản Trị Viên 11A1 - Vui lòng nhập mã bảo mật:");
             if (pin === ADMIN_SECRET_KEY) {
                 sessionStorage.setItem('azota_admin_token', pin);
                 openAdminDashboardModal();
             } else if (pin) {
-                alert("Sai mã Quản trị viên!");
+                alert("Mã bảo mật Quản trị viên không chính xác.");
             }
         }
 
@@ -6173,17 +6179,17 @@ let counter = document.getElementById('progress-counter');
                         </div>
 
                         <div class="admin-user-actions" style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-                            <button type="button" class="admin-action-btn-sm" onclick="adminResetDevices('${escapeHtml(u.username)}')" title="Xóa dữ liệu máy cũ để học sinh đăng nhập trên điện thoại/máy mới">
-                                🔄 Reset máy
+                            <button type="button" class="admin-action-btn-sm" onclick="adminResetDevices('${escapeHtml(u.username)}')" title="Xóa danh sách thiết bị để học sinh đăng nhập thiết bị mới">
+                                Cấp lại thiết bị
                             </button>
-                            <button type="button" class="admin-action-btn-sm" onclick="adminResetPassword('${escapeHtml(u.username)}')" title="Đổi mật khẩu cho học sinh này nếu bị quên">
-                                🔑 Đổi MK
+                            <button type="button" class="admin-action-btn-sm" onclick="adminResetPassword('${escapeHtml(u.username)}')" title="Đặt lại mật khẩu mới cho học sinh">
+                                Đổi mật khẩu
                             </button>
                             <button type="button" class="admin-action-btn-sm ${isBanned ? '' : 'admin-btn-danger'}" onclick="adminToggleBan('${escapeHtml(u.username)}', '${escapeHtml(st)}')" title="${isBanned ? 'Mở khóa tài khoản' : 'Khóa tài khoản này'}">
-                                ${isBanned ? '✅ Mở khóa' : '⛔ Khóa nick'}
+                                ${isBanned ? 'Mở khóa' : 'Khóa tài khoản'}
                             </button>
-                            <button type="button" class="admin-action-btn-sm admin-btn-danger" onclick="adminDeleteUser('${escapeHtml(u.username)}')" title="Xóa hoàn toàn tài khoản này khỏi hệ thống">
-                                🗑️ Xóa
+                            <button type="button" class="admin-action-btn-sm admin-btn-danger" onclick="adminDeleteUser('${escapeHtml(u.username)}')" title="Xóa tài khoản này">
+                                Xóa
                             </button>
                         </div>
                     </div>
@@ -6207,15 +6213,15 @@ let counter = document.getElementById('progress-counter');
         }
 
         async function adminResetDevices(username) {
-            if (!confirm(`Reset số thiết bị cho học sinh "${username}"?\nSau khi reset, bạn này có thể đăng nhập trên thiết bị mới.`)) return;
+            if (!confirm(`Cấp lại quyền thiết bị cho học sinh "${username}"?\nHọc sinh có thể đăng nhập trên thiết bị mới sau khi xác nhận.`)) return;
             try {
                 let url = `${APPS_SCRIPT_URL}?action=adminResetDevices&username=${encodeURIComponent(username)}&key=${encodeURIComponent(ADMIN_SECRET_KEY)}`;
                 let res = await fetch(url);
                 let data = await res.json();
-                alert(data.message || 'Đã reset máy thành công!');
+                alert(data.message || 'Đã cấp lại thiết bị thành công.');
                 fetchAdminUsers(true);
             } catch(e) {
-                alert('Lỗi kết nối máy chủ!');
+                alert('Không thể kết nối máy chủ xác thực.');
             }
         }
 
@@ -6226,40 +6232,40 @@ let counter = document.getElementById('progress-counter');
                 let url = `${APPS_SCRIPT_URL}?action=adminResetPassword&username=${encodeURIComponent(username)}&newPassword=${encodeURIComponent(newPass.trim())}&key=${encodeURIComponent(ADMIN_SECRET_KEY)}`;
                 let res = await fetch(url);
                 let data = await res.json();
-                alert(data.message || 'Đã cập nhật mật khẩu mới!');
+                alert(data.message || 'Đã cập nhật mật khẩu mới thành công.');
                 fetchAdminUsers(true);
             } catch(e) {
-                alert('Lỗi kết nối máy chủ!');
+                alert('Không thể kết nối máy chủ xác thực.');
             }
         }
 
         async function adminToggleBan(username, currentStatus) {
             let isBanned = (currentStatus || '').toLowerCase() === 'banned';
             let newStatus = isBanned ? 'Active' : 'Banned';
-            let promptMsg = isBanned ? `Mở khóa cho tài khoản "${username}"?` : `Khóa tài khoản "${username}"? Bạn này sẽ không thể đăng nhập hoặc làm bài.`;
+            let promptMsg = isBanned ? `Mở khóa truy cập cho tài khoản "${username}"?` : `Tạm dừng quyền truy cập của tài khoản "${username}"?`;
             if (!confirm(promptMsg)) return;
             try {
                 let url = `${APPS_SCRIPT_URL}?action=adminToggleBan&username=${encodeURIComponent(username)}&status=${encodeURIComponent(newStatus)}&key=${encodeURIComponent(ADMIN_SECRET_KEY)}`;
                 let res = await fetch(url);
                 let data = await res.json();
-                alert(data.message || 'Đã thay đổi trạng thái!');
+                alert(data.message || 'Đã thay đổi trạng thái tài khoản thành công.');
                 fetchAdminUsers(true);
             } catch(e) {
-                alert('Lỗi kết nối máy chủ!');
+                alert('Không thể kết nối máy chủ xác thực.');
             }
         }
 
         async function adminDeleteUser(username) {
-            let ok = confirm(`⚠️ CẢNH BÁO QUAN TRỌNG:\nBạn có chắc chắn muốn XÓA HOÀN TOÀN tài khoản "${username}" khỏi hệ thống?\nHành động này không thể hoàn tác!`);
+            let ok = confirm(`Xác nhận xóa tài khoản "${username}" khỏi hệ thống?\nThao tác này không thể hoàn tác.`);
             if (!ok) return;
             try {
                 let url = `${APPS_SCRIPT_URL}?action=adminDeleteUser&username=${encodeURIComponent(username)}&key=${encodeURIComponent(ADMIN_SECRET_KEY)}`;
                 let res = await fetch(url);
                 let data = await res.json();
-                alert(data.message || 'Đã xóa tài khoản!');
+                alert(data.message || 'Đã xóa tài khoản thành công.');
                 fetchAdminUsers(true);
             } catch(e) {
-                alert('Lỗi kết nối máy chủ!');
+                alert('Không thể kết nối máy chủ xác thực.');
             }
         }
 </script>
