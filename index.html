@@ -1354,7 +1354,7 @@
             flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 8px;
         }
         .lb-item-row {
-            display: grid; grid-template-columns: 46px 1fr auto auto;
+            display: grid; grid-template-columns: auto 1fr auto auto;
             align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px;
             background: var(--card-bg); border: 1px solid var(--panel-border);
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1378,13 +1378,13 @@
             border: 1.5px solid rgba(217, 119, 6, 0.4);
         }
         .lb-rank-badge {
-            width: 38px; height: 38px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 14px;
+            min-width: 38px; height: 36px; border-radius: 10px;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 13.5px; padding: 0 10px; white-space: nowrap;
         }
-        .rank-1 .lb-rank-badge { background: #f59e0b; color: #fff; font-size: 18px; }
-        .rank-2 .lb-rank-badge { background: #94a3b8; color: #fff; font-size: 18px; }
-        .rank-3 .lb-rank-badge { background: #d97706; color: #fff; font-size: 18px; }
+        .rank-1 .lb-rank-badge { background: #f59e0b; color: #fff; font-size: 13.5px; }
+        .rank-2 .lb-rank-badge { background: #94a3b8; color: #fff; font-size: 13.5px; }
+        .rank-3 .lb-rank-badge { background: #d97706; color: #fff; font-size: 13.5px; }
         .lb-rank-normal { background: rgba(150,150,150,0.12); color: var(--text-color); opacity: 0.8; }
         
         .lb-score-pill {
@@ -1422,12 +1422,12 @@
     <div id="toast-notify" class="toast-notify"></div>
 
     <!-- Nút thoát Focus Mode -->
-    <button class="exit-focus-btn" onclick="toggleFocusMode()" title="Thoát chế độ tập trung">
+    <button class="exit-focus-btn" onclick="toggleFocusMode()" title="Đóng">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
 
     <!-- Nút Lên Đầu Trang -->
-    <button class="back-to-top" id="bttBtn" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="Lên đầu trang">
+    <button class="back-to-top" id="bttBtn" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="Đóng">
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
     </button>
 
@@ -1438,18 +1438,18 @@
             <span>Học Trắc Nghiệm</span>
         </div>
         <div style="display: flex; gap: 8px; align-items: center;">
-                        <button class="topbar-pill-btn" onclick="openLeaderboardModal()" title="Xem Báº£ng Äiá»ƒm Vinh Danh">
+                        <button class="topbar-pill-btn" onclick="openLeaderboardModal()" title="Xem Bảng Điểm">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34c2.31-.93 4-3.17 4-5.66V5H6v4c0 2.49 1.69 4.73 4 5.66z"/></svg>
-                <span>Báº£ng Vinh Danh</span>
+                <span>🏆 Bảng Điểm 🏆</span>
             </button>
-            <button class="topbar-user-pill" id="topbar-user-btn" onclick="openAuthModal(true)" title="ThÃ´ng tin tÃ i khoáº£n">
+            <button class="topbar-user-pill" id="topbar-user-btn" onclick="openAuthModal(true)" title="Thông tin tài khoản">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span id="topbar-user-name">ÄÄƒng nháº­p</span>
+                <span id="topbar-user-name">Đăng nhập</span>
             </button>
             <button class="icon-btn" onclick="cycleBackgroundStyle()" title="Đổi kiểu hình nền">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10 4 4 0 0 1-4 4h-2a2 2 0 0 0-2 2 2 2 0 0 1-2 2 10 10 0 0 1-2-18z"/></svg>
             </button>
-            <button class="icon-btn" onclick="toggleFocusMode()" title="Chế độ tập trung">
+            <button class="icon-btn" onclick="toggleFocusMode()" title="Đóng">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
             </button>
             <button class="icon-btn" onclick="toggleTheme()" title="Chế độ Sáng / Tối">
@@ -1902,13 +1902,13 @@
                 <!-- Banner ghi nháº­n Báº£ng Vinh Danh -->
         <div id="result-lb-card" class="result-leaderboard-card" style="display:none;">
             <div style="font-size: 1.15rem; font-weight: 800; color: #d97706; margin-bottom: 4px; display:flex; align-items:center; justify-content:center; gap:6px;">
-                ðŸ† Äiá»ƒm ÄÃ£ ÄÆ°á»£c Ghi Nháº­n VÃ o Báº£ng Vinh Danh!
+                🏆 Điểm Đã Được Ghi Nhận Vào Bảng Điểm! 🏆
             </div>
             <div style="font-size: 14px; opacity: 0.9; margin-bottom: 12px;" id="result-lb-desc">
-                Há»c sinh: <b>Huy</b> â€¢ Thá»i gian: <b>05p 20s</b> â€¢ Láº§n lÃ m thá»©: <b>1</b>
+                Học sinh: <b>--</b> • Thời gian: <b>--</b> • Lần làm thứ: <b>--</b>
             </div>
             <button class="topbar-pill-btn" style="padding: 10px 20px; font-size: 14px;" onclick="openLeaderboardModal()">
-                <span>Xem Thá»© Háº¡ng Cá»§a Báº¡n Ngay âž”</span>
+                <span>Xem Thứ Hạng Của Bạn Ngay ➔</span>
             </button>
         </div>
 
@@ -5180,35 +5180,33 @@ let counter = document.getElementById('progress-counter');
         <!-- MODAL 1: ÄÄ‚NG NHáº¬P / THÃ”NG TIN TÃ€I KHOáº¢N -->
     <div id="auth-modal" class="custom-auth-modal-overlay" style="display:none;" onclick="handleAuthOverlayClick(event)">
         <div class="auth-modal-box">
-            <button onclick="closeAuthModal()" style="position:absolute; top:16px; right:16px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:18px; padding:4px;" title="ÄÃ³ng">âœ•</button>
+            <button onclick="closeAuthModal()" style="position:absolute; top:16px; right:16px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:18px; padding:4px;" title="Đóng">✕</button>
             <div class="auth-modal-icon">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin: 0 0 6px 0; color: var(--text-color);">ÄÄƒng Nháº­p Ã”n Luyá»‡n 11A1</h2>
+            <h2 style="font-size: 1.35rem; font-weight: 800; margin: 0 0 6px 0; color: var(--text-color);">Đăng Nhập Ôn Luyện 11A1</h2>
             <p style="font-size: 13.5px; opacity: 0.75; margin: 0 0 20px 0; line-height: 1.45;">
-                Nháº­p TÃªn vÃ  Máº­t kháº©u Ä‘á»ƒ lÆ°u trá»¯ tiáº¿n Ä‘á»™ cÃ¡ nhÃ¢n vÃ  vinh danh trÃªn Báº£ng Xáº¿p Háº¡ng.
+                Nhập Tên và Mật khẩu để lưu trữ tiến độ cá nhân và hiển thị trên Bảng Điểm.
             </p>
 
             <form onsubmit="handleAuthSubmit(event)">
                 <div class="auth-input-group">
-                    <label class="auth-input-label">Há» vÃ  TÃªn (hoáº·c Biá»‡t danh trong lá»›p):</label>
-                    <input type="text" id="auth-username-input" class="auth-input-ctrl" placeholder="VÃ­ dá»¥: Nguyá»…n VÄƒn A hoáº·c Huy" required autocomplete="name">
+                    <label class="auth-input-label">Họ và Tên (hoặc Biệt danh trong lớp):</label>
+                    <input type="text" id="auth-username-input" class="auth-input-ctrl" placeholder="Ví dụ: Nguyễn Văn A hoặc Huy" required autocomplete="name">
                 </div>
                 <div class="auth-input-group">
-                    <label class="auth-input-label">Máº­t kháº©u báº£o vá»‡ tÃ i khoáº£n:</label>
-                    <input type="password" id="auth-password-input" class="auth-input-ctrl" placeholder="Nháº­p máº­t kháº©u cá»§a báº¡n" required autocomplete="current-password">
+                    <label class="auth-input-label">Mật khẩu bảo vệ tài khoản:</label>
+                    <input type="password" id="auth-password-input" class="auth-input-ctrl" placeholder="Nhập mật khẩu của bạn" required autocomplete="current-password">
                 </div>
 
                 <button type="submit" id="auth-btn-submit" class="auth-submit-btn">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
-                    <span>VÃ o Ã”n Luyá»‡n Ngay ðŸš€</span>
+                    <span>Vào Ôn Luyện Ngay 🚀</span>
                 </button>
             </form>
             
             <div id="auth-logout-area" style="display:none; margin-top:16px; border-top:1px dashed var(--panel-border); padding-top:14px;">
-                <button type="button" onclick="handleLogout()" style="background:none; border:none; color:#ef4444; font-size:13px; font-weight:700; cursor:pointer;">
-                    ÄÄƒng xuáº¥t khá»i tÃ i khoáº£n nÃ y
-                </button>
+                <button type="button" onclick="handleLogout()" style="background:none; border:none; color:#ef4444; font-size:13px; font-weight:700; cursor:pointer;">Đăng xuất khỏi tài khoản này</button>
             </div>
         </div>
     </div>
@@ -5219,24 +5217,23 @@ let counter = document.getElementById('progress-counter');
             <div class="lb-modal-header">
                 <div>
                     <div style="display:flex; align-items:center; gap:8px;">
-                        <span style="font-size:24px;">ðŸ†</span>
-                        <h2 style="margin:0; font-size:1.35rem; font-weight:800; color:var(--text-color);">Báº£ng VÃ ng Vinh Danh 11A1</h2>
+                        <h2 style="margin:0; font-size:1.35rem; font-weight:800; color:var(--text-color);">🏆 Bảng Điểm 11A1 🏆</h2>
                     </div>
-                    <p style="margin:4px 0 0 0; font-size:13px; opacity:0.75;">Xáº¿p háº¡ng tá»± Ä‘á»™ng: Äiá»ƒm cao nháº¥t âž” Thá»i gian nhanh nháº¥t</p>
+                    <p style="margin:4px 0 0 0; font-size:13px; opacity:0.75;">Xếp hạng tự động: Điểm cao nhất ➔ Thời gian nhanh nhất</p>
                 </div>
-                <button onclick="closeLeaderboardModal()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:20px; padding:4px;" title="ÄÃ³ng">âœ•</button>
+                <button onclick="closeLeaderboardModal()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:20px; padding:4px;" title="Đóng">✕</button>
             </div>
 
             <div class="lb-filter-bar">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <span style="font-size:13px; font-weight:700; opacity:0.8;">MÃ´n Ã´n luyá»‡n:</span>
+                    <span style="font-size:13px; font-weight:700; opacity:0.8;">Môn ôn luyện:</span>
                     <select id="lb-set-filter" class="lb-select-ctrl" onchange="renderLeaderboardList()">
-                        <option value="all">ðŸŒŸ Táº¥t cáº£ bá»™ Ä‘á»</option>
+                        <option value="all">🌟 Tất cả bộ đề</option>
                     </select>
                 </div>
                 <button class="topbar-user-pill" onclick="fetchLeaderboardData(true)" style="padding:6px 12px; font-size:12.5px;">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-                    <span>LÃ m má»›i</span>
+                    <span>Làm mới</span>
                 </button>
             </div>
 
@@ -5257,7 +5254,8 @@ let counter = document.getElementById('progress-counter');
     var sc_security="5c40f06e"; 
     </script>
     <script type="text/javascript"
-    src="https://www.statcounter.com/counter/counter.js" async>
+    src="https://www.statcounter.com/counter/counter.js" async></script>
+    <script>
 
         // ==========================================
         // HE THONG DANG NHAP & BANG VINH DANH (API)
@@ -5384,7 +5382,7 @@ let counter = document.getElementById('progress-counter');
             
             // Populate filter select
             let select = document.getElementById('lb-set-filter');
-            select.innerHTML = '<option value="all">ðŸŒŸ Táº¥t cáº£ bá»™ Ä‘á»</option>';
+            select.innerHTML = '<option value="all">🌟 Tất cả bộ đề</option>';
             if(appData && appData.sets) {
                 for(let id in appData.sets) {
                     let s = appData.sets[id];
@@ -5436,7 +5434,7 @@ let counter = document.getElementById('progress-counter');
                     container.innerHTML = `
                         <div style="text-align:center; padding:40px 20px; opacity:0.8; color:#ef4444;">
                             <div style="font-size:26px; margin-bottom:6px;">âš ï¸</div>
-                            <div>ChÆ°a thá»ƒ táº£i báº£ng Ä‘iá»ƒm. Vui lÃ²ng thá»­ láº¡i!</div>
+                            <div>Chưa thể tải bảng điểm. Vui lòng thử lại!</div>
                         </div>`;
                 });
         }
@@ -5476,10 +5474,10 @@ let counter = document.getElementById('progress-counter');
             list.forEach((item, idx) => {
                 let rank = idx + 1;
                 let rankClass = rank === 1 ? 'rank-1' : (rank === 2 ? 'rank-2' : (rank === 3 ? 'rank-3' : ''));
-                let medal = rank === 1 ? 'ðŸ¥‡' : (rank === 2 ? 'ðŸ¥ˆ' : (rank === 3 ? 'ðŸ¥‰' : `#${rank}`));
+                let medal = rank === 1 ? '🥇 Top 1: Vàng' : (rank === 2 ? '🥈 Top 2: Bạc' : (rank === 3 ? '🥉 Top 3: Đồng' : '#' + rank));
                 
                 let timeStr = item.timeDisplay || (item.timeSeconds ? `${Math.floor(item.timeSeconds/60)}p ${item.timeSeconds%60}s` : '--');
-                let attStr = item.attempts ? `Láº§n ${item.attempts} âš¡` : 'Láº§n 1';
+                let attStr = item.attempts ? `Lần ${item.attempts} ⚡` : 'Lần 1';
 
                 html += `
                     <div class="lb-item-row ${rankClass}">
@@ -5488,7 +5486,7 @@ let counter = document.getElementById('progress-counter');
                             <div style="font-weight:800; font-size:15px; color:var(--text-color);">${escapeHtml(item.username)}</div>
                             <div style="font-size:12.5px; opacity:0.75; display:flex; gap:8px; align-items:center; margin-top:2px;">
                                 <span style="background:rgba(var(--accent-rgb),0.1); color:var(--accent-color); padding:1px 6px; border-radius:6px; font-weight:700;">${escapeHtml(item.setName)}</span>
-                                <span>â€¢ ${attStr}</span>
+                                <span>• ${attStr}</span>
                             </div>
                         </div>
                         <div class="lb-time-text">
@@ -5496,8 +5494,7 @@ let counter = document.getElementById('progress-counter');
                             <span>${timeStr}</span>
                         </div>
                         <div class="lb-score-pill">
-                            ${Number(item.score).toFixed(item.score % 1 === 0 ? 1 : 2)} Ä‘
-                        </div>
+                            ${Number(item.score).toFixed(item.score % 1 === 0 ? 1 : 2)} đ</div>
                     </div>
                 `;
             });
@@ -5508,7 +5505,7 @@ let counter = document.getElementById('progress-counter');
         // HÃ€M Gá»¬I ÄIá»‚M SAU KHI Ná»˜P BÃ€I
         function syncQuizScoreToLeaderboard(score10, setName, timeSeconds, timeDisplay) {
             let user = getCurrentUser();
-            let uName = user ? user.username : 'KhÃ¡ch áº©n danh';
+            let uName = user ? user.username : 'Khách ẩn danh';
             let currentAtt = user ? (user.attempts || 0) + 1 : 1;
             
             if (user) {
@@ -5521,7 +5518,7 @@ let counter = document.getElementById('progress-counter');
             let card = document.getElementById('result-lb-card');
             let desc = document.getElementById('result-lb-desc');
             if(card && desc) {
-                desc.innerHTML = `Há»c sinh: <b>${escapeHtml(uName)}</b> â€¢ Thá»i gian: <b>${timeDisplay}</b> â€¢ ÄÃ£ lÃ m: <b>Láº§n thá»© ${currentAtt}</b>`;
+                desc.innerHTML = `Học sinh: <b>${escapeHtml(uName)}</b> • Thời gian: <b>${timeDisplay}</b> • Đã làm: <b>Lần thứ ${currentAtt}</b>`;
                 card.style.display = 'block';
             }
 
