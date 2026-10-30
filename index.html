@@ -3758,6 +3758,7 @@ function hexToRgba(hex, alpha) {
         }
 
         function createNewQuestionSet() {
+            if (!requireAuth()) return;
             let name = document.getElementById('new-set-name').value.trim();
             if(!name) return alert("Vui lòng nhập tên bộ đề!");
             let id = 'set_' + Date.now();
@@ -3782,6 +3783,7 @@ function hexToRgba(hex, alpha) {
         }
 
         function openSet(id) {
+            if (!requireAuth()) return;
             currentActiveSetId = id;
             let s = appData.sets[id];
             document.getElementById('current-set-title').innerHTML = `
@@ -4261,6 +4263,7 @@ function hexToRgba(hex, alpha) {
         }
 
         function startQuiz() {
+            if (!requireAuth()) return;
             let paneVisual = document.getElementById('editor-visual-pane');
             if(paneVisual && paneVisual.style.display !== 'none') {
                 let vQuestions = getQuestionsFromVisualEditor();
@@ -5007,6 +5010,7 @@ let counter = document.getElementById('progress-counter');
         let currentFcFilter = 'all';
 
         function startFlashcardMode(setId) {
+            if (!requireAuth()) return;
             if(!setId) setId = currentActiveSetId;
             if(!setId || !appData.sets[setId]) return;
             currentActiveSetId = setId;
@@ -5228,7 +5232,7 @@ let counter = document.getElementById('progress-counter');
         <!-- MODAL 1: ÄÄ‚NG NHáº¬P / THÃ”NG TIN TÃ€I KHOáº¢N -->
     <div id="auth-modal" class="custom-auth-modal-overlay" style="display:none;" onclick="handleAuthOverlayClick(event)">
         <div class="auth-modal-box">
-            <button onclick="closeAuthModal()" style="position:absolute; top:16px; right:16px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:18px; padding:4px;" title="Đóng">✕</button>
+            <button onclick="closeAuthModal()" id="auth-modal-close-btn" style="position:absolute; top:16px; right:16px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:18px; padding:4px; display:none;" title="Đóng">✕</button>
             <div class="auth-modal-icon">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
@@ -5244,7 +5248,7 @@ let counter = document.getElementById('progress-counter');
             <div class="auth-warning-banner">
                 <div style="font-size: 20px; line-height: 1; flex-shrink: 0;">⚠️</div>
                 <div>
-                    <b>Lưu ý:</b> Các tài khoản mà không có tên thành viên trong lớp sẽ bị xoá và thiết bị đó sẽ bị ban.
+                    <b>Lưu ý quan trọng:</b> Bắt buộc đăng nhập để sử dụng. Giới hạn tối đa <b>45 tài khoản</b> lớp 11A1 (không được trùng tên). Các tài khoản không có tên thành viên trong lớp sẽ bị xoá và thiết bị đó sẽ bị ban.
                 </div>
             </div>
 
@@ -5409,9 +5413,25 @@ let counter = document.getElementById('progress-counter');
             }
         }
 
+        function requireAuth() {
+            let user = getCurrentUser();
+            if (!user) {
+                openAuthModal(false, 'login');
+                alert("Bạn bắt buộc phải Đăng Nhập hoặc Tạo Tài Khoản thành viên 11A1 để sử dụng hệ thống!");
+                return false;
+            }
+            return true;
+        }
+
         function openAuthModal(allowClose, initialMode) {
             let modal = document.getElementById('auth-modal');
             let user = getCurrentUser();
+            let closeBtn = document.getElementById('auth-modal-close-btn');
+
+            if (closeBtn) {
+                closeBtn.style.display = user ? 'block' : 'none';
+            }
+
             if (user) {
                 document.getElementById('auth-username-input').value = user.username || '';
             }
@@ -5426,14 +5446,15 @@ let counter = document.getElementById('progress-counter');
         function closeAuthModal() {
             let user = getCurrentUser();
             if (!user) {
-                if(!confirm("Bạn chưa đăng nhập! Bạn có muốn làm bài dưới tư cách Khách (không lưu vào Bảng Điểm)?")) {
-                    return;
-                }
+                alert("Hệ thống yêu cầu bắt buộc Đăng Nhập hoặc Tạo Tài Khoản thành viên 11A1 để sử dụng!");
+                return;
             }
             document.getElementById('auth-modal').style.display = 'none';
         }
 
         function handleAuthOverlayClick(e) {
+            let user = getCurrentUser();
+            if (!user) return; // Bắt buộc đăng nhập, không cho bấm ra ngoài để đóng
             if (e.target && e.target.id === 'auth-modal') {
                 closeAuthModal();
             }
@@ -5485,6 +5506,8 @@ let counter = document.getElementById('progress-counter');
                             ? `Tạo tài khoản thành công! Chào mừng ${uInput} đến với 11A1! 🎉`
                             : `Đăng nhập thành công! Chào mừng ${uInput} trở lại! 🚀`;
                         showToast(welcomeMsg);
+                    } else if (data.status === 'limit_reached') {
+                        alert(data.message || "Hệ thống đã đạt giới hạn tối đa 45 tài khoản của lớp 11A1! Không thể tạo thêm.");
                     } else if (data.status === 'not_found') {
                         alert(data.message || "Tài khoản không tồn tại! Vui lòng bấm 'Tạo tài khoản' trước nhé.");
                         switchAuthTab('register');
@@ -5494,7 +5517,7 @@ let counter = document.getElementById('progress-counter');
                         document.getElementById('auth-password-input').value = '';
                         document.getElementById('auth-password-input').focus();
                     } else if (data.status === 'exists') {
-                        alert(data.message || "Tên tài khoản này đã được tạo! Vui lòng chuyển sang tab Đăng Nhập.");
+                        alert(data.message || "Tên tài khoản này đã được tạo! Vui lòng chọn tên khác hoặc chuyển sang tab Đăng Nhập.");
                         switchAuthTab('login');
                         document.getElementById('auth-username-input').value = uInput;
                     } else if (data.status === 'banned') {
@@ -5508,7 +5531,6 @@ let counter = document.getElementById('progress-counter');
                     submitBtn.innerHTML = oldHtml;
                     console.error("Auth error:", err);
                     
-                    // Fallback ngoại tuyến nếu đã lưu trên máy
                     let localUser = getCurrentUser();
                     if (localUser && localUser.username.toLowerCase() === uInput.toLowerCase() && localUser.password === pInput) {
                         showToast(`Đã vào bằng phiên lưu trên máy (Offline) ⚡`);
@@ -5525,7 +5547,7 @@ let counter = document.getElementById('progress-counter');
                 updateUserInterface(null);
                 document.getElementById('auth-modal').style.display = 'none';
                 showToast('Đã đăng xuất thành công.');
-                setTimeout(() => openAuthModal(false, 'login'), 400);
+                setTimeout(() => openAuthModal(false, 'login'), 300);
             }
         }
 
