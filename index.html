@@ -5354,6 +5354,7 @@ let counter = document.getElementById('progress-counter');
         }
 
         function triggerIpBanScreen(ip) {
+            try { localStorage.setItem('azota_device_lock', 'banned_11a1'); } catch(e) {}
             let el = document.getElementById('ip-ban-screen');
             if (!el) {
                 el = document.createElement('div');
@@ -5361,17 +5362,35 @@ let counter = document.getElementById('progress-counter');
                 el.style.cssText = 'position:fixed; inset:0; background:#0f172a; z-index:9999999; display:flex; align-items:center; justify-content:center; padding:20px; text-align:center; color:#fff; font-family:inherit;';
                 el.innerHTML = `
                     <div style="background:rgba(239, 68, 68, 0.12); border:2px solid #ef4444; border-radius:24px; padding:36px 24px; max-width:480px; box-shadow:0 25px 50px -12px rgba(239,68,68,0.3);">
-                        <div style="font-size:56px; margin-bottom:12px;">⛔</div>
+                        <div id="ban-icon-easteregg" style="font-size:56px; margin-bottom:12px; cursor:pointer; user-select:none;" title="Chặn truy cập">⛔</div>
                         <h2 style="font-size:1.4rem; font-weight:800; color:#ef4444; margin-bottom:10px;">TRUY CẬP BỊ TỪ CHỐI</h2>
                         <p style="font-size:14.5px; opacity:0.9; line-height:1.6; margin-bottom:18px;">
-                            Địa chỉ IP của thiết bị này đã bị <b>Quản trị viên chặn truy cập</b> theo nội quy bảo mật lớp 11A1.
+                            Thiết bị và địa chỉ IP này đã bị <b>Quản trị viên chặn truy cập</b> theo nội quy bảo mật lớp 11A1.
                         </p>
                         <div style="font-size:12.5px; opacity:0.75; background:rgba(0,0,0,0.35); padding:8px 14px; border-radius:10px; font-family:monospace; display:inline-block;">
-                            IP: ${escapeHtml(ip || 'Unknown')}
+                            IP: ${escapeHtml(ip || 'Đã đóng dấu thiết bị')}
                         </div>
                     </div>
                 `;
                 document.body.appendChild(el);
+
+                // Admin Easter egg: Bấm 5 lần vào biểu tượng ⛔ để mở khóa nhanh cho Admin
+                let clickCount = 0;
+                let egg = document.getElementById('ban-icon-easteregg');
+                if (egg) {
+                    egg.onclick = function() {
+                        clickCount++;
+                        if (clickCount >= 5) {
+                            let pin = prompt("Mã mở khóa nhanh Quản trị viên:");
+                            if (pin === '11a1' || pin === '11A1' || pin === 'huy') {
+                                localStorage.removeItem('azota_device_lock');
+                                alert("Đã mở khóa thiết bị thành công!");
+                                location.reload();
+                            }
+                            clickCount = 0;
+                        }
+                    };
+                }
             }
             el.style.display = 'flex';
         }
@@ -5388,6 +5407,18 @@ let counter = document.getElementById('progress-counter');
         }
 
         function checkAuthOnLoad() {
+            // Mở khóa nhanh qua URL nếu có tham số ?unban=11a1
+            if (window.location.search.indexOf('unban=11a1') !== -1) {
+                localStorage.removeItem('azota_device_lock');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // Kiểm tra dấu ấn thiết bị đã từng bị cấm (chống Fake IP / đổi mạng VPN)
+            if (localStorage.getItem('azota_device_lock') === 'banned_11a1') {
+                triggerIpBanScreen('Thiết bị đã bị đánh dấu cấm');
+                return;
+            }
+
             // Tự động đăng xuất tất cả tài khoản nếu hệ thống có bản cập nhật mới
             let lastVersion = localStorage.getItem('azota_sys_version');
             if (lastVersion !== SYSTEM_VERSION) {
