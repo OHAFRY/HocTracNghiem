@@ -105,7 +105,7 @@
         /* Top Bar */
         .top-toolbar { 
             width: 100%; max-width: 1250px; 
-            background: var(--panel-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            background: var(--panel-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--panel-border); border-radius: 20px; 
             padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; 
             box-shadow: var(--shadow-md); margin-bottom: 24px; 
@@ -127,7 +127,7 @@
         .container {
             width: 100%; max-width: 960px;
             background: var(--panel-bg);
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--panel-border);
             border-radius: var(--radius-box);
             padding: 32px;
@@ -135,7 +135,6 @@
             margin-bottom: 24px;
             position: relative;
             transition: max-width var(--anim-speed) ease;
-            will-change: transform, opacity;
         }
 
         .container.split-mode { max-width: 1300px; }
@@ -463,6 +462,7 @@
             border-radius: 20px; text-align: left; background: rgba(255,255,255,0.65); 
             position: relative; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); 
             box-shadow: var(--shadow-sm);
+            content-visibility: auto; contain-intrinsic-size: 1px 200px;
         }
         body.theme-dark .question-box { background: rgba(15, 23, 42, 0.5); }
         .question-box:hover { 
@@ -1007,9 +1007,9 @@
         .deck-card:nth-child(6) { animation-delay: 0.34s; }
         .deck-card:nth-child(n+7) { animation-delay: 0.38s; }
 
-        /* Hiệu ứng xuất hiện cho question-box khi cuộn */
-        .question-box {
-            animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        /* Hiệu ứng xuất hiện mượt cho các câu đầu, chống tụt FPS khi bộ đề có nhiều câu */
+        .question-box:nth-child(-n+6) {
+            animation: slideInLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) backwards;
         }
 
         /* Hiệu ứng hover nâng cao cho stat-card */
@@ -3334,6 +3334,24 @@ function hexToRgba(hex, alpha) {
             }
 
             // --- ROBUST ANIMATION LOOP & CONTROLLER ---
+            let cachedIsDark = false;
+            let cachedAccentColor = '#2563eb';
+            let cachedAccentRgb = '37, 99, 235';
+            let lastThemeSync = 0;
+
+            function syncThemeStyles(force) {
+                let now = performance.now();
+                if (!force && (now - lastThemeSync < 800)) return;
+                lastThemeSync = now;
+                cachedIsDark = document.body.classList.contains('theme-dark');
+                try {
+                    let style = getComputedStyle(document.documentElement);
+                    cachedAccentColor = style.getPropertyValue('--accent-color').trim() || '#2563eb';
+                    cachedAccentRgb = style.getPropertyValue('--accent-rgb').trim() || '37, 99, 235';
+                } catch(e) {}
+            }
+            syncThemeStyles(true);
+
             function loop() {
                 if (!canvas || !ctx) return;
 
@@ -3343,47 +3361,48 @@ function hexToRgba(hex, alpha) {
                         smoothMouse.y += (mouse.y - smoothMouse.y) * 0.14;
                     }
 
-                    ctx.save();
-                    ctx.setTransform(1, 0, 0, 1, 0, 0);
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.restore();
+                    // Tối ưu hóa: Không gọi getComputedStyle 60-144 lần/giây để tránh tụt FPS
+                    syncThemeStyles(false);
 
-                    let isDark = document.body.classList.contains('theme-dark');
-                    let style = getComputedStyle(document.documentElement);
-                    let accentColor = style.getPropertyValue('--accent-color').trim() || '#2563eb';
-                    let accentRgb = style.getPropertyValue('--accent-rgb').trim() || '37, 99, 235';
+                    let isIdle = (currentMode === 'default' && !mouse.active);
+                    if (!isIdle) {
+                        ctx.save();
+                        ctx.setTransform(1, 0, 0, 1, 0, 0);
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.restore();
 
-                    switch (currentMode) {
-                        case 'dotgrid':
-                            renderDots(isDark, accentColor);
-                            break;
-                        case 'sunset':
-                            renderSunset(isDark);
-                            break;
-                        case 'ocean':
-                            renderOcean(isDark);
-                            break;
-                        case 'aurora':
-                            renderAurora(isDark);
-                            break;
-                        case 'pastel':
-                            renderPastel(isDark);
-                            break;
-                        case 'galaxy':
-                            renderGalaxy(isDark);
-                            break;
-                        case 'mesh':
-                            renderMesh(isDark);
-                            break;
-                        case 'sakura':
-                            renderSakura(isDark);
-                            break;
-                        default:
-                            renderSpotlight(isDark, accentRgb);
-                            break;
+                        switch (currentMode) {
+                            case 'dotgrid':
+                                renderDots(cachedIsDark, cachedAccentColor);
+                                break;
+                            case 'sunset':
+                                renderSunset(cachedIsDark);
+                                break;
+                            case 'ocean':
+                                renderOcean(cachedIsDark);
+                                break;
+                            case 'aurora':
+                                renderAurora(cachedIsDark);
+                                break;
+                            case 'pastel':
+                                renderPastel(cachedIsDark);
+                                break;
+                            case 'galaxy':
+                                renderGalaxy(cachedIsDark);
+                                break;
+                            case 'mesh':
+                                renderMesh(cachedIsDark);
+                                break;
+                            case 'sakura':
+                                renderSakura(cachedIsDark);
+                                break;
+                            default:
+                                renderSpotlight(cachedIsDark, cachedAccentRgb);
+                                break;
+                        }
                     }
                 } catch (err) {
-                    // Chá»‘ng crash loop
+                    // Chống crash loop
                 }
 
                 animId = requestAnimationFrame(loop);
@@ -3393,11 +3412,12 @@ function hexToRgba(hex, alpha) {
                 if (!canvas) return;
                 width = window.innerWidth;
                 height = window.innerHeight;
-                let dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+                let dpr = Math.min(window.devicePixelRatio || 1, 1.25);
                 canvas.width = Math.round(width * dpr);
                 canvas.height = Math.round(height * dpr);
                 ctx.setTransform(1, 0, 0, 1, 0, 0);
                 ctx.scale(dpr, dpr);
+                syncThemeStyles(true);
 
                 if (currentMode === 'dotgrid') initDots();
                 if (currentMode === 'sunset') initSunset();
@@ -5344,9 +5364,20 @@ let counter = document.getElementById('progress-counter');
         async function getClientIp() {
             if (clientIpCache) return clientIpCache;
             try {
-                let res = await fetch('https://api64.ipify.org?format=json');
+                let storedIp = sessionStorage.getItem('azota_client_ip');
+                if (storedIp && storedIp !== 'Unknown') {
+                    clientIpCache = storedIp;
+                    return clientIpCache;
+                }
+            } catch(e) {}
+            try {
+                let controller = new AbortController();
+                let timer = setTimeout(() => controller.abort(), 2500);
+                let res = await fetch('https://api64.ipify.org?format=json', { signal: controller.signal });
+                clearTimeout(timer);
                 let data = await res.json();
                 clientIpCache = data.ip || 'Unknown';
+                try { sessionStorage.setItem('azota_client_ip', clientIpCache); } catch(e) {}
                 return clientIpCache;
             } catch(e) {
                 return 'Unknown';
@@ -5433,11 +5464,13 @@ let counter = document.getElementById('progress-counter');
             let user = getCurrentUser();
             updateUserInterface(user);
 
-            // Kiểm tra địa chỉ IP với danh sách đen Banned_IPs
+            // Kiểm tra địa chỉ IP với danh sách đen Banned_IPs (có timeout 3.5s chống nghẽn mạng)
             getClientIp().then(ip => {
                 if (ip && ip !== 'Unknown') {
-                    fetch(`${APPS_SCRIPT_URL}?action=checkIp&ip=${encodeURIComponent(ip)}`)
-                        .then(r => r.json())
+                    let controller = new AbortController();
+                    let timer = setTimeout(() => controller.abort(), 3500);
+                    fetch(`${APPS_SCRIPT_URL}?action=checkIp&ip=${encodeURIComponent(ip)}`, { signal: controller.signal })
+                        .then(r => { clearTimeout(timer); return r.json(); })
                         .then(d => {
                             if (d && d.status === 'banned') {
                                 triggerIpBanScreen(ip);
@@ -5589,8 +5622,11 @@ let counter = document.getElementById('progress-counter');
             let actionName = currentAuthMode === 'register' ? 'register' : 'login';
             let reqUrl = `${APPS_SCRIPT_URL}?action=${actionName}&username=${encodeURIComponent(uInput)}&password=${encodeURIComponent(pInput)}&device=${encodeURIComponent(navigator.userAgent)}&ip=${encodeURIComponent(ip)}&deviceId=${encodeURIComponent(devUid)}`;
 
-            fetch(reqUrl)
-                .then(res => res.json())
+            let authController = new AbortController();
+            let authTimer = setTimeout(() => authController.abort(), 7000);
+
+            fetch(reqUrl, { signal: authController.signal })
+                .then(res => { clearTimeout(authTimer); return res.json(); })
                 .then(data => {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = oldHtml;
