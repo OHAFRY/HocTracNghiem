@@ -1220,6 +1220,188 @@
             70% { transform: scale(1.25) rotate(4deg); }
             100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
+        /* ===== PHONG CACH BANG DANG NHAP & BANG VINH DANH ===== */
+        .topbar-pill-btn {
+            display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+            border-radius: 999px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.22));
+            border: 1.5px solid rgba(245, 158, 11, 0.45); color: #d97706; font-weight: 800; font-size: 13px;
+            cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+        }
+        .topbar-pill-btn:hover {
+            transform: translateY(-1.5px) scale(1.02);
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.35));
+        }
+        body.theme-dark .topbar-pill-btn { color: #fbbf24; border-color: rgba(251, 191, 36, 0.5); }
+
+        .topbar-user-pill {
+            display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+            border-radius: 999px; background: var(--accent-light); border: 1.5px solid var(--panel-border);
+            color: var(--accent-color); font-weight: 700; font-size: 13px; cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .topbar-user-pill:hover {
+            transform: translateY(-1.5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 3px 10px rgba(var(--accent-rgb), 0.2);
+        }
+
+        .hero-user-badge {
+            display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+            border-radius: 999px; background: var(--card-bg); border: 1px solid var(--panel-border);
+            font-size: 13.5px; color: var(--text-color); margin: 8px 0 14px 0;
+            backdrop-filter: blur(12px); box-shadow: var(--shadow-sm);
+        }
+        .hero-lb-trigger {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px 22px; border-radius: 16px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #ffffff; font-weight: 800; font-size: 14.5px; border: none; cursor: pointer;
+            box-shadow: 0 8px 24px -4px rgba(245, 158, 11, 0.45);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            margin: 6px 0 18px 0;
+        }
+        .hero-lb-trigger:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 28px -4px rgba(245, 158, 11, 0.6);
+        }
+
+        /* MODAL OVERLAYS */
+        .custom-auth-modal-overlay {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            z-index: 9999999; display: flex; align-items: center; justify-content: center;
+            padding: 16px; animation: modalFadeIn 0.25s ease;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes modalPopUp {
+            from { opacity: 0; transform: scale(0.92) translateY(12px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .auth-modal-box {
+            background: var(--panel-bg); border: 1.5px solid var(--panel-border);
+            border-radius: 26px; box-shadow: 0 30px 70px -15px rgba(0,0,0,0.45);
+            max-width: 420px; width: 100%; padding: 32px 26px; text-align: center;
+            color: var(--text-color); animation: modalPopUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .auth-modal-icon {
+            width: 58px; height: 58px; border-radius: 20px;
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-rgb), 0.05));
+            border: 1.5px solid rgba(var(--accent-rgb), 0.3); color: var(--accent-color);
+            display: inline-flex; align-items: center; justify-content: center;
+            margin-bottom: 16px;
+        }
+        .auth-input-group {
+            text-align: left; margin-bottom: 14px;
+        }
+        .auth-input-label {
+            display: block; font-size: 13px; font-weight: 700; color: var(--text-color);
+            margin-bottom: 6px; opacity: 0.9;
+        }
+        .auth-input-ctrl {
+            width: 100%; padding: 12px 14px; border-radius: 12px;
+            border: 1.5px solid var(--panel-border); background: var(--card-bg);
+            color: var(--text-color); font-size: 14.5px; font-family: inherit;
+            transition: all 0.2s; outline: none; box-sizing: border-box;
+        }
+        .auth-input-ctrl:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3.5px var(--accent-light);
+            background: var(--panel-bg);
+        }
+        .auth-submit-btn {
+            width: 100%; padding: 13px; border-radius: 12px;
+            background: var(--accent-color); color: #fff; font-weight: 800; font-size: 15px;
+            border: none; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 8px 20px -4px rgba(var(--accent-rgb), 0.45);
+            margin-top: 18px;
+        }
+        .auth-submit-btn:hover {
+            transform: translateY(-1.5px);
+            box-shadow: 0 10px 24px -4px rgba(var(--accent-rgb), 0.6);
+        }
+
+        /* LEADERBOARD MODAL */
+        .lb-modal-box {
+            background: var(--panel-bg); border: 1.5px solid var(--panel-border);
+            border-radius: 26px; box-shadow: 0 30px 80px -15px rgba(0,0,0,0.5);
+            max-width: 680px; width: 100%; max-height: 88vh; display: flex;
+            flex-direction: column; overflow: hidden; color: var(--text-color);
+            animation: modalPopUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lb-modal-header {
+            padding: 22px 24px 16px; border-bottom: 1.5px solid var(--panel-border);
+            display: flex; justify-content: space-between; align-items: flex-start;
+            background: var(--card-bg);
+        }
+        .lb-filter-bar {
+            padding: 12px 24px; border-bottom: 1px solid var(--panel-border);
+            display: flex; gap: 10px; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; background: rgba(150,150,150,0.03);
+        }
+        .lb-select-ctrl {
+            padding: 7px 12px; border-radius: 10px; border: 1px solid var(--panel-border);
+            background: var(--panel-bg); color: var(--text-color); font-size: 13.5px;
+            font-family: inherit; font-weight: 600; outline: none; cursor: pointer;
+        }
+        .lb-list-container {
+            flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 8px;
+        }
+        .lb-item-row {
+            display: grid; grid-template-columns: 46px 1fr auto auto;
+            align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px;
+            background: var(--card-bg); border: 1px solid var(--panel-border);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lb-item-row:hover {
+            transform: translateX(3px);
+            border-color: rgba(var(--accent-rgb), 0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .lb-item-row.rank-1 {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.06) 100%);
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.15);
+        }
+        .lb-item-row.rank-2 {
+            background: linear-gradient(135deg, rgba(148, 163, 184, 0.14) 0%, rgba(100, 116, 139, 0.05) 100%);
+            border: 1.5px solid rgba(148, 163, 184, 0.45);
+        }
+        .lb-item-row.rank-3 {
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.12) 0%, rgba(180, 83, 9, 0.04) 100%);
+            border: 1.5px solid rgba(217, 119, 6, 0.4);
+        }
+        .lb-rank-badge {
+            width: 38px; height: 38px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 14px;
+        }
+        .rank-1 .lb-rank-badge { background: #f59e0b; color: #fff; font-size: 18px; }
+        .rank-2 .lb-rank-badge { background: #94a3b8; color: #fff; font-size: 18px; }
+        .rank-3 .lb-rank-badge { background: #d97706; color: #fff; font-size: 18px; }
+        .lb-rank-normal { background: rgba(150,150,150,0.12); color: var(--text-color); opacity: 0.8; }
+        
+        .lb-score-pill {
+            padding: 5px 10px; border-radius: 10px; font-weight: 800; font-size: 14.5px;
+            background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);
+            text-align: right;
+        }
+        .lb-time-text {
+            font-size: 12px; opacity: 0.8; display: flex; align-items: center; gap: 4px;
+        }
+
+        .result-leaderboard-card {
+            margin: 20px auto; max-width: 500px; padding: 18px; border-radius: 20px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(37, 99, 235, 0.08));
+            border: 1.5px solid rgba(245, 158, 11, 0.35); text-align: center;
+            box-shadow: 0 8px 24px -6px rgba(245, 158, 11, 0.2);
+        }
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E26SXQ6QDW"></script>
@@ -1256,6 +1438,14 @@
             <span>Học Trắc Nghiệm</span>
         </div>
         <div style="display: flex; gap: 8px; align-items: center;">
+                        <button class="topbar-pill-btn" onclick="openLeaderboardModal()" title="Xem Báº£ng Äiá»ƒm Vinh Danh">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1h10v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34c2.31-.93 4-3.17 4-5.66V5H6v4c0 2.49 1.69 4.73 4 5.66z"/></svg>
+                <span>Báº£ng Vinh Danh</span>
+            </button>
+            <button class="topbar-user-pill" id="topbar-user-btn" onclick="openAuthModal(true)" title="ThÃ´ng tin tÃ i khoáº£n">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span id="topbar-user-name">ÄÄƒng nháº­p</span>
+            </button>
             <button class="icon-btn" onclick="cycleBackgroundStyle()" title="Đổi kiểu hình nền">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10 4 4 0 0 1-4 4h-2a2 2 0 0 0-2 2 2 2 0 0 1-2 2 10 10 0 0 1-2-18z"/></svg>
             </button>
@@ -1709,6 +1899,19 @@
         </h2>
         <div class="score-board" id="score-text">Đang tính điểm...</div>
         
+                <!-- Banner ghi nháº­n Báº£ng Vinh Danh -->
+        <div id="result-lb-card" class="result-leaderboard-card" style="display:none;">
+            <div style="font-size: 1.15rem; font-weight: 800; color: #d97706; margin-bottom: 4px; display:flex; align-items:center; justify-content:center; gap:6px;">
+                ðŸ† Äiá»ƒm ÄÃ£ ÄÆ°á»£c Ghi Nháº­n VÃ o Báº£ng Vinh Danh!
+            </div>
+            <div style="font-size: 14px; opacity: 0.9; margin-bottom: 12px;" id="result-lb-desc">
+                Há»c sinh: <b>Huy</b> â€¢ Thá»i gian: <b>05p 20s</b> â€¢ Láº§n lÃ m thá»©: <b>1</b>
+            </div>
+            <button class="topbar-pill-btn" style="padding: 10px 20px; font-size: 14px;" onclick="openLeaderboardModal()">
+                <span>Xem Thá»© Háº¡ng Cá»§a Báº¡n Ngay âž”</span>
+            </button>
+        </div>
+
         <div id="retry-incorrect-box" style="margin: 20px 0; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <button class="btn btn-warning" id="retry-incorrect-btn" onclick="startRetryIncorrect()" style="display: none;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
@@ -1766,6 +1969,7 @@
         let currentFontSize = 1.05;
 
         function initApp() {
+            checkAuthOnLoad();
             let saved = localStorage.getItem(STORAGE_KEY);
             if(saved) {
                 try { 
@@ -4565,7 +4769,14 @@ let counter = document.getElementById('progress-counter');
             document.getElementById('result-screen').style.display = 'block';
 
             // Hiệu ứng số điểm chạy tăng dần + Huy hiệu danh dự (Chỉ hình ảnh, KHÔNG có âm thanh)
-            animateScore(score10, fullCorrect, activeQuizQuestions.length, parts, secParts, rescale);
+                        animateScore(score10, fullCorrect, activeQuizQuestions.length, parts, secParts, rescale);
+
+            // Tá»± Ä‘á»™ng Ä‘á»“ng bá»™ káº¿t quáº£ lÃªn Báº£ng Vinh Danh
+            let timeTakenSec = quizStartedAt ? Math.max(1, Math.round((Date.now() - quizStartedAt) / 1000)) : 60;
+            let mSec = Math.floor(timeTakenSec / 60);
+            let sSec = timeTakenSec % 60;
+            let tDisp = (mSec > 0 ? mSec + 'p ' : '') + sSec + 's';
+            syncQuizScoreToLeaderboard(score10, setObj.name || 'Bá»™ Ä‘á»', timeTakenSec, tDisp);
             document.getElementById('review-container').innerHTML = reviewHTML;
 
             // Bắn pháo hoa giấy chúc mừng khi đạt điểm cao (Chỉ hình ảnh, KHÔNG có âm thanh)
@@ -4966,6 +5177,78 @@ let counter = document.getElementById('progress-counter');
         });
 
 </script>
+        <!-- MODAL 1: ÄÄ‚NG NHáº¬P / THÃ”NG TIN TÃ€I KHOáº¢N -->
+    <div id="auth-modal" class="custom-auth-modal-overlay" style="display:none;" onclick="handleAuthOverlayClick(event)">
+        <div class="auth-modal-box">
+            <button onclick="closeAuthModal()" style="position:absolute; top:16px; right:16px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:18px; padding:4px;" title="ÄÃ³ng">âœ•</button>
+            <div class="auth-modal-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h2 style="font-size: 1.35rem; font-weight: 800; margin: 0 0 6px 0; color: var(--text-color);">ÄÄƒng Nháº­p Ã”n Luyá»‡n 11A1</h2>
+            <p style="font-size: 13.5px; opacity: 0.75; margin: 0 0 20px 0; line-height: 1.45;">
+                Nháº­p TÃªn vÃ  Máº­t kháº©u Ä‘á»ƒ lÆ°u trá»¯ tiáº¿n Ä‘á»™ cÃ¡ nhÃ¢n vÃ  vinh danh trÃªn Báº£ng Xáº¿p Háº¡ng.
+            </p>
+
+            <form onsubmit="handleAuthSubmit(event)">
+                <div class="auth-input-group">
+                    <label class="auth-input-label">Há» vÃ  TÃªn (hoáº·c Biá»‡t danh trong lá»›p):</label>
+                    <input type="text" id="auth-username-input" class="auth-input-ctrl" placeholder="VÃ­ dá»¥: Nguyá»…n VÄƒn A hoáº·c Huy" required autocomplete="name">
+                </div>
+                <div class="auth-input-group">
+                    <label class="auth-input-label">Máº­t kháº©u báº£o vá»‡ tÃ i khoáº£n:</label>
+                    <input type="password" id="auth-password-input" class="auth-input-ctrl" placeholder="Nháº­p máº­t kháº©u cá»§a báº¡n" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" id="auth-btn-submit" class="auth-submit-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+                    <span>VÃ o Ã”n Luyá»‡n Ngay ðŸš€</span>
+                </button>
+            </form>
+            
+            <div id="auth-logout-area" style="display:none; margin-top:16px; border-top:1px dashed var(--panel-border); padding-top:14px;">
+                <button type="button" onclick="handleLogout()" style="background:none; border:none; color:#ef4444; font-size:13px; font-weight:700; cursor:pointer;">
+                    ÄÄƒng xuáº¥t khá»i tÃ i khoáº£n nÃ y
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Báº¢NG VÃ€NG VINH DANH (LEADERBOARD) -->
+    <div id="leaderboard-modal" class="custom-auth-modal-overlay" style="display:none;" onclick="handleLbOverlayClick(event)">
+        <div class="lb-modal-box">
+            <div class="lb-modal-header">
+                <div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:24px;">ðŸ†</span>
+                        <h2 style="margin:0; font-size:1.35rem; font-weight:800; color:var(--text-color);">Báº£ng VÃ ng Vinh Danh 11A1</h2>
+                    </div>
+                    <p style="margin:4px 0 0 0; font-size:13px; opacity:0.75;">Xáº¿p háº¡ng tá»± Ä‘á»™ng: Äiá»ƒm cao nháº¥t âž” Thá»i gian nhanh nháº¥t</p>
+                </div>
+                <button onclick="closeLeaderboardModal()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:20px; padding:4px;" title="ÄÃ³ng">âœ•</button>
+            </div>
+
+            <div class="lb-filter-bar">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:13px; font-weight:700; opacity:0.8;">MÃ´n Ã´n luyá»‡n:</span>
+                    <select id="lb-set-filter" class="lb-select-ctrl" onchange="renderLeaderboardList()">
+                        <option value="all">ðŸŒŸ Táº¥t cáº£ bá»™ Ä‘á»</option>
+                    </select>
+                </div>
+                <button class="topbar-user-pill" onclick="fetchLeaderboardData(true)" style="padding:6px 12px; font-size:12.5px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    <span>LÃ m má»›i</span>
+                </button>
+            </div>
+
+            <div class="lb-list-container" id="lb-items-list">
+                <div style="text-align:center; padding:40px 20px; opacity:0.7;">
+                    <div style="font-size:28px; margin-bottom:8px;">â³</div>
+                    <div>Äang táº£i báº£ng xáº¿p háº¡ng...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Default Statcounter code for Trắc nghiệm
     https://ohafry.github.io/HocTracNghiem/ -->
     <script type="text/javascript">
@@ -4974,7 +5257,291 @@ let counter = document.getElementById('progress-counter');
     var sc_security="5c40f06e"; 
     </script>
     <script type="text/javascript"
-    src="https://www.statcounter.com/counter/counter.js" async></script>
+    src="https://www.statcounter.com/counter/counter.js" async>
+
+        // ==========================================
+        // HE THONG DANG NHAP & BANG VINH DANH (API)
+        // ==========================================
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyQcoH6dgrscECQAGFjCTVKvv7ljzXrIk6KgwvFq7QduE3slIdOjizwJaHM3gjrGY-y/exec';
+        let cachedLeaderboard = [];
+        let isFetchingLeaderboard = false;
+
+        function getCurrentUser() {
+            try {
+                let saved = localStorage.getItem('azota_user_profile');
+                return saved ? JSON.parse(saved) : null;
+            } catch(e) { return null; }
+        }
+
+        function saveUserProfile(profile) {
+            localStorage.setItem('azota_user_profile', JSON.stringify(profile));
+        }
+
+        function checkAuthOnLoad() {
+            let user = getCurrentUser();
+            updateUserInterface(user);
+            if (!user) {
+                setTimeout(() => openAuthModal(false), 500);
+            }
+        }
+
+        function updateUserInterface(user) {
+            let topbarName = document.getElementById('topbar-user-name');
+            let heroWrap = document.getElementById('hero-user-badge-wrap');
+            let heroName = document.getElementById('hero-greeting-name');
+            let heroAtt = document.getElementById('hero-greeting-att');
+            let logoutArea = document.getElementById('auth-logout-area');
+
+            if (user && user.username) {
+                if (topbarName) topbarName.textContent = user.username;
+                if (heroWrap) heroWrap.style.display = 'inline-block';
+                if (heroName) heroName.textContent = user.username;
+                if (heroAtt) heroAtt.textContent = `ÄÃ£ lÃ m: ${user.attempts || 0} lÆ°á»£t âš¡`;
+                if (logoutArea) logoutArea.style.display = 'block';
+            } else {
+                if (topbarName) topbarName.textContent = 'ÄÄƒng nháº­p';
+                if (heroWrap) heroWrap.style.display = 'none';
+                if (logoutArea) logoutArea.style.display = 'none';
+            }
+        }
+
+        function openAuthModal(allowClose) {
+            let modal = document.getElementById('auth-modal');
+            let user = getCurrentUser();
+            if (user) {
+                document.getElementById('auth-username-input').value = user.username || '';
+            }
+            modal.style.display = 'flex';
+        }
+
+        function closeAuthModal() {
+            let user = getCurrentUser();
+            if (!user) {
+                if(!confirm("Báº¡n chÆ°a Ä‘Äƒng nháº­p! Báº¡n cÃ³ muá»‘n lÃ m bÃ i dÆ°á»›i tÆ° cÃ¡ch KhÃ¡ch (khÃ´ng lÆ°u Ä‘iá»ƒm vinh danh)?")) {
+                    return;
+                }
+            }
+            document.getElementById('auth-modal').style.display = 'none';
+        }
+
+        function handleAuthOverlayClick(e) {
+            if (e.target && e.target.id === 'auth-modal') {
+                closeAuthModal();
+            }
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            let uInput = document.getElementById('auth-username-input').value.trim();
+            let pInput = document.getElementById('auth-password-input').value.trim();
+            if (!uInput || !pInput) return alert("Vui lÃ²ng Ä‘iá»n Ä‘á»§ TÃªn vÃ  Máº­t kháº©u!");
+
+            let submitBtn = document.getElementById('auth-btn-submit');
+            let oldHtml = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span>Äang káº¿t ná»‘i... â³</span>`;
+
+            let userObj = getCurrentUser() || { attempts: 0 };
+            userObj.username = uInput;
+            userObj.savedAt = Date.now();
+            saveUserProfile(userObj);
+            updateUserInterface(userObj);
+
+            // Gá»­i ngáº§m vá» Google Apps Script
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({
+                    action: 'login',
+                    username: uInput,
+                    password: pInput,
+                    userAgent: navigator.userAgent
+                })
+            }).catch(err => console.log('Login sync background:', err));
+
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = oldHtml;
+                document.getElementById('auth-modal').style.display = 'none';
+                showToast(`ChÃ o má»«ng ${uInput} Ä‘Ã£ vÃ o há»‡ thá»‘ng Ã´n luyá»‡n 11A1! ðŸŽ‰`);
+            }, 600);
+        }
+
+        function handleLogout() {
+            if(confirm("Báº¡n cÃ³ cháº¯c cháº¯n muá»‘n Ä‘Äƒng xuáº¥t tÃ i khoáº£n nÃ y?")) {
+                localStorage.removeItem('azota_user_profile');
+                updateUserInterface(null);
+                document.getElementById('auth-modal').style.display = 'none';
+                showToast('ÄÃ£ Ä‘Äƒng xuáº¥t thÃ nh cÃ´ng.');
+            }
+        }
+
+        // ---------- LEADERBOARD LOGIC ----------
+        function openLeaderboardModal(preSelectedSet) {
+            let modal = document.getElementById('leaderboard-modal');
+            modal.style.display = 'flex';
+            
+            // Populate filter select
+            let select = document.getElementById('lb-set-filter');
+            select.innerHTML = '<option value="all">ðŸŒŸ Táº¥t cáº£ bá»™ Ä‘á»</option>';
+            if(appData && appData.sets) {
+                for(let id in appData.sets) {
+                    let s = appData.sets[id];
+                    let opt = document.createElement('option');
+                    opt.value = s.name;
+                    opt.textContent = s.name;
+                    select.appendChild(opt);
+                }
+            }
+            if (preSelectedSet) {
+                select.value = preSelectedSet;
+            }
+
+            fetchLeaderboardData(false);
+        }
+
+        function closeLeaderboardModal() {
+            document.getElementById('leaderboard-modal').style.display = 'none';
+        }
+
+        function handleLbOverlayClick(e) {
+            if (e.target && e.target.id === 'leaderboard-modal') {
+                closeLeaderboardModal();
+            }
+        }
+
+        function fetchLeaderboardData(forceRefresh) {
+            if (isFetchingLeaderboard) return;
+            isFetchingLeaderboard = true;
+            let container = document.getElementById('lb-items-list');
+            if (forceRefresh || cachedLeaderboard.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:40px 20px; opacity:0.7;">
+                        <div style="font-size:28px; margin-bottom:8px;">â³</div>
+                        <div>Äang táº£i dá»¯ liá»‡u Ä‘iá»ƒm má»›i nháº¥t tá»« Google Sheets...</div>
+                    </div>`;
+            }
+
+            fetch(APPS_SCRIPT_URL)
+                .then(res => res.json())
+                .then(data => {
+                    isFetchingLeaderboard = false;
+                    cachedLeaderboard = Array.isArray(data) ? data : [];
+                    renderLeaderboardList();
+                })
+                .catch(err => {
+                    isFetchingLeaderboard = false;
+                    console.error("Leaderboard fetch error:", err);
+                    container.innerHTML = `
+                        <div style="text-align:center; padding:40px 20px; opacity:0.8; color:#ef4444;">
+                            <div style="font-size:26px; margin-bottom:6px;">âš ï¸</div>
+                            <div>ChÆ°a thá»ƒ táº£i báº£ng Ä‘iá»ƒm. Vui lÃ²ng thá»­ láº¡i!</div>
+                        </div>`;
+                });
+        }
+
+        function renderLeaderboardList() {
+            let container = document.getElementById('lb-items-list');
+            let filterSet = document.getElementById('lb-set-filter').value;
+            
+            let list = [...cachedLeaderboard];
+
+            // Filter by set
+            if (filterSet !== 'all') {
+                list = list.filter(item => item.setName === filterSet);
+            }
+
+            if (list.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:45px 20px; opacity:0.75;">
+                        <div style="font-size:32px; margin-bottom:8px;">ðŸŽ¯</div>
+                        <div style="font-weight:700; margin-bottom:4px;">ChÆ°a cÃ³ Ä‘iá»ƒm nÃ o cho má»¥c nÃ y!</div>
+                        <div style="font-size:13px;">HÃ£y lÃ  ngÆ°á»i Ä‘áº§u tiÃªn hoÃ n thÃ nh Ä‘á» Ä‘á»ƒ vinh danh Top 1.</div>
+                    </div>`;
+                return;
+            }
+
+            // Sáº®P Xáº¾P CHUáº¨N XÃC:
+            // 1. Äiá»ƒm sá»‘ (Score): Giáº£m dáº§n (cao nháº¥t xáº¿p trÃªn)
+            // 2. Thá»i gian lÃ m (timeSeconds): TÄƒng dáº§n (nhanh hÆ¡n xáº¿p trÃªn)
+            list.sort((a, b) => {
+                if (b.score !== a.score) {
+                    return b.score - a.score;
+                }
+                return (a.timeSeconds || 999999) - (b.timeSeconds || 999999);
+            });
+
+            let html = '';
+            list.forEach((item, idx) => {
+                let rank = idx + 1;
+                let rankClass = rank === 1 ? 'rank-1' : (rank === 2 ? 'rank-2' : (rank === 3 ? 'rank-3' : ''));
+                let medal = rank === 1 ? 'ðŸ¥‡' : (rank === 2 ? 'ðŸ¥ˆ' : (rank === 3 ? 'ðŸ¥‰' : `#${rank}`));
+                
+                let timeStr = item.timeDisplay || (item.timeSeconds ? `${Math.floor(item.timeSeconds/60)}p ${item.timeSeconds%60}s` : '--');
+                let attStr = item.attempts ? `Láº§n ${item.attempts} âš¡` : 'Láº§n 1';
+
+                html += `
+                    <div class="lb-item-row ${rankClass}">
+                        <div class="lb-rank-badge ${rank > 3 ? 'lb-rank-normal' : ''}">${medal}</div>
+                        <div>
+                            <div style="font-weight:800; font-size:15px; color:var(--text-color);">${escapeHtml(item.username)}</div>
+                            <div style="font-size:12.5px; opacity:0.75; display:flex; gap:8px; align-items:center; margin-top:2px;">
+                                <span style="background:rgba(var(--accent-rgb),0.1); color:var(--accent-color); padding:1px 6px; border-radius:6px; font-weight:700;">${escapeHtml(item.setName)}</span>
+                                <span>â€¢ ${attStr}</span>
+                            </div>
+                        </div>
+                        <div class="lb-time-text">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span>${timeStr}</span>
+                        </div>
+                        <div class="lb-score-pill">
+                            ${Number(item.score).toFixed(item.score % 1 === 0 ? 1 : 2)} Ä‘
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // HÃ€M Gá»¬I ÄIá»‚M SAU KHI Ná»˜P BÃ€I
+        function syncQuizScoreToLeaderboard(score10, setName, timeSeconds, timeDisplay) {
+            let user = getCurrentUser();
+            let uName = user ? user.username : 'KhÃ¡ch áº©n danh';
+            let currentAtt = user ? (user.attempts || 0) + 1 : 1;
+            
+            if (user) {
+                user.attempts = currentAtt;
+                saveUserProfile(user);
+                updateUserInterface(user);
+            }
+
+            // Hiá»ƒn thá»‹ card káº¿t quáº£
+            let card = document.getElementById('result-lb-card');
+            let desc = document.getElementById('result-lb-desc');
+            if(card && desc) {
+                desc.innerHTML = `Há»c sinh: <b>${escapeHtml(uName)}</b> â€¢ Thá»i gian: <b>${timeDisplay}</b> â€¢ ÄÃ£ lÃ m: <b>Láº§n thá»© ${currentAtt}</b>`;
+                card.style.display = 'block';
+            }
+
+            // Gá»­i dá»¯ liá»‡u lÃªn Google Sheet
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({
+                    action: 'submitScore',
+                    username: uName,
+                    setName: setName,
+                    score: Math.round(score10 * 100) / 100,
+                    timeSeconds: timeSeconds,
+                    timeDisplay: timeDisplay,
+                    attempts: currentAtt
+                })
+            }).catch(err => console.log('Score sync background:', err));
+        }
+</script>
     <noscript><div class="statcounter"><a title="Web Analytics"
     href="https://statcounter.com/" target="_blank"><img class="statcounter"
     src="https://c.statcounter.com/13363748/0/5c40f06e/1/" alt="Web Analytics"
