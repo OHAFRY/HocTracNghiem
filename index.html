@@ -5581,8 +5581,13 @@ let counter = document.getElementById('progress-counter');
             submitBtn.innerHTML = `<span>Đang kết nối xác thực... ⏳</span>`;
 
             let ip = await getClientIp();
+            let devUid = localStorage.getItem('azota_device_uid');
+            if (!devUid) {
+                devUid = 'dev_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36);
+                localStorage.setItem('azota_device_uid', devUid);
+            }
             let actionName = currentAuthMode === 'register' ? 'register' : 'login';
-            let reqUrl = `${APPS_SCRIPT_URL}?action=${actionName}&username=${encodeURIComponent(uInput)}&password=${encodeURIComponent(pInput)}&device=${encodeURIComponent(navigator.userAgent)}&ip=${encodeURIComponent(ip)}`;
+            let reqUrl = `${APPS_SCRIPT_URL}?action=${actionName}&username=${encodeURIComponent(uInput)}&password=${encodeURIComponent(pInput)}&device=${encodeURIComponent(navigator.userAgent)}&ip=${encodeURIComponent(ip)}&deviceId=${encodeURIComponent(devUid)}`;
 
             fetch(reqUrl)
                 .then(res => res.json())
@@ -5604,6 +5609,8 @@ let counter = document.getElementById('progress-counter');
                             ? `Tạo tài khoản thành công! Chào mừng ${uInput} đến với 11A1! 🎉`
                             : `Đăng nhập thành công! Chào mừng ${uInput} trở lại! 🚀`;
                         showToast(welcomeMsg);
+                    } else if (data.status === 'device_limit') {
+                        alert(data.message || "Tài khoản này đã đăng nhập đủ 2 thiết bị cá nhân! Không thể dùng trên thiết bị thứ 3.");
                     } else if (data.status === 'limit_reached') {
                         alert(data.message || "Hệ thống đã đạt giới hạn tối đa 45 tài khoản của lớp 11A1! Không thể tạo thêm.");
                     } else if (data.status === 'not_found') {
