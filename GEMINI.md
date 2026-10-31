@@ -11,3 +11,8 @@
 ## 3. Tiết kiệm tài nguyên & Dung lượng Token (Resource Efficiency)
 - Chỉ làm đúng và đủ phần việc được yêu cầu, tránh lãng phí thời gian và token.
 - Không in lại toàn bộ file mã nguồn dài vào tin nhắn chat nếu không có yêu cầu cụ thể từ người dùng.
+
+## 4. Chủ động làm rõ yêu cầu khi thiếu thông tin (Clarify Before Acting)
+- Khi nhận được yêu cầu chưa đủ thông tin, thông số, dữ liệu đầu vào hoặc thiếu tài nguyên để thực hiện:
+  - TUYỆT ĐỐI KHÔNG tự tiện suy diễn, đoán mò hoặc thực hiện hành động dựa trên giả định mơ hồ.
+  - Phải chủ động đặt câu hỏi làm rõ cụ thể, tập trung vào các điểm còn thiếu cho đến khi có đủ thông tin và tài nguyên cần thiết mới bắt đầu triển khai.
