@@ -5778,7 +5778,7 @@ let counter = document.getElementById('progress-counter');
             let reqUrl = `${APPS_SCRIPT_URL}?action=${actionName}&username=${encodeURIComponent(uInput)}&password=${encodeURIComponent(pInput)}&device=${encodeURIComponent(navigator.userAgent)}&ip=${encodeURIComponent(ip)}&deviceId=${encodeURIComponent(devUid)}`;
 
             let authController = new AbortController();
-            let authTimer = setTimeout(() => authController.abort(), 7000);
+            let authTimer = setTimeout(() => authController.abort(), 15000);
 
             fetch(reqUrl, { signal: authController.signal })
                 .then(res => { clearTimeout(authTimer); return res.json(); })
