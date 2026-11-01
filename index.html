@@ -127,7 +127,6 @@
         .container {
             width: 100%; max-width: 960px;
             background: var(--panel-bg);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--panel-border);
             border-radius: var(--radius-box);
             padding: 32px;
@@ -460,7 +459,7 @@
         .question-box { 
             margin-bottom: 24px; padding: 26px; border: 1px solid var(--panel-border); 
             border-radius: 20px; text-align: left; background: rgba(255,255,255,0.65); 
-            position: relative; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); 
+            position: relative; transition: border-color 0.2s ease, box-shadow 0.2s ease; 
             box-shadow: var(--shadow-sm);
             content-visibility: auto; contain-intrinsic-size: 1px 200px;
         }
@@ -1109,6 +1108,10 @@
             pointer-events: none;
             z-index: 0;
             display: block;
+            transform: translateZ(0);
+            will-change: transform;
+            contain: strict;
+            backface-visibility: hidden;
         }
         .top-toolbar, .container, .back-to-top, .toast-notify, .exit-focus-btn {
             position: relative;
@@ -2159,7 +2162,7 @@
                     if (window.scrollY > 280) btn.classList.add('show');
                     else btn.classList.remove('show');
                 }
-            });
+            }, { passive: true });
         }
 
         function saveAppData() {
@@ -3094,13 +3097,15 @@ function hexToRgba(hex, alpha) {
                     if (mouse.active) {
                         let dx = s.x - mouse.x;
                         let dy = s.y - mouse.y;
-                        let dist = Math.hypot(dx, dy);
-                        if (dist < 110) {
-                            let proximity = 1 - (dist / 110);
-                            alpha = Math.min(1, alpha + proximity * 0.65);
-                            radius = s.r * (1 + proximity * 0.55);
-                            s.x += (dx / (dist || 1)) * proximity * 0.8;
-                            s.y += (dy / (dist || 1)) * proximity * 0.8;
+                        if (Math.abs(dx) < 110 && Math.abs(dy) < 110) {
+                            let dist = Math.hypot(dx, dy);
+                            if (dist < 110) {
+                                let proximity = 1 - (dist / 110);
+                                alpha = Math.min(1, alpha + proximity * 0.65);
+                                radius = s.r * (1 + proximity * 0.55);
+                                s.x += (dx / (dist || 1)) * proximity * 0.8;
+                                s.y += (dy / (dist || 1)) * proximity * 0.8;
+                            }
                         }
                     }
 
@@ -3254,7 +3259,9 @@ function hexToRgba(hex, alpha) {
                 for (let i = 0; i < meshNodes.length; i++) {
                     for (let j = i + 1; j < meshNodes.length; j++) {
                         let dx = meshNodes[i].x - meshNodes[j].x;
+                        if (Math.abs(dx) >= 110) continue;
                         let dy = meshNodes[i].y - meshNodes[j].y;
+                        if (Math.abs(dy) >= 110) continue;
                         let dist = Math.hypot(dx, dy);
                         if (dist < 110) {
                             ctx.beginPath();
@@ -3439,8 +3446,24 @@ function hexToRgba(hex, alpha) {
             }
             syncThemeStyles(true);
 
-            function loop() {
+            let lastBgFrameTime = 0;
+            let isUserScrolling = false;
+            let scrollThrottleTimer = null;
+            window.addEventListener('scroll', function() {
+                isUserScrolling = true;
+                if (scrollThrottleTimer) clearTimeout(scrollThrottleTimer);
+                scrollThrottleTimer = setTimeout(() => { isUserScrolling = false; }, 100);
+            }, { passive: true });
+
+            function loop(timestamp) {
                 if (!canvas || !ctx) return;
+
+                let minInterval = isUserScrolling ? 32 : 16.6;
+                if (timestamp && (timestamp - lastBgFrameTime) < minInterval) {
+                    animId = requestAnimationFrame(loop);
+                    return;
+                }
+                lastBgFrameTime = timestamp || performance.now();
 
                 try {
                     if (mouse.active) {
@@ -3499,11 +3522,10 @@ function hexToRgba(hex, alpha) {
                 if (!canvas) return;
                 width = window.innerWidth;
                 height = window.innerHeight;
-                let dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+                let dpr = 1.0;
                 canvas.width = Math.round(width * dpr);
                 canvas.height = Math.round(height * dpr);
                 ctx.setTransform(1, 0, 0, 1, 0, 0);
-                ctx.scale(dpr, dpr);
                 syncThemeStyles(true);
 
                 if (currentMode === 'dotgrid') initDots();
