@@ -5750,6 +5750,68 @@ let counter = document.getElementById('progress-counter');
             }
         }
 
+        let banCheckInterval = null;
+
+        function removeIpBanScreen() {
+            try {
+                localStorage.removeItem('azota_device_lock');
+                localStorage.removeItem('azota_ban_msg');
+            } catch(e) {}
+            if (banCheckInterval) {
+                clearInterval(banCheckInterval);
+                banCheckInterval = null;
+            }
+            let el = document.getElementById('ip-ban-screen');
+            if (el) el.remove();
+        }
+
+        async function verifyBanStatusWithServer() {
+            try {
+                let ip = await getClientIp();
+                let devUid = localStorage.getItem('azota_device_uid') || '';
+                let user = getCurrentUser();
+
+                let ipBanned = false;
+                if (ip && ip !== 'Unknown') {
+                    let controller = new AbortController();
+                    let timer = setTimeout(() => controller.abort(), 3500);
+                    let res = await fetch(`${APPS_SCRIPT_URL}?action=checkIp&ip=${encodeURIComponent(ip)}`, { signal: controller.signal });
+                    clearTimeout(timer);
+                    let d = await res.json();
+                    if (d && d.status === 'banned') ipBanned = true;
+                }
+
+                let userBanned = false;
+                if (user && user.username && user.password) {
+                    let controller = new AbortController();
+                    let timer = setTimeout(() => controller.abort(), 3500);
+                    let res = await fetch(`${APPS_SCRIPT_URL}?action=login&username=${encodeURIComponent(user.username)}&password=${encodeURIComponent(user.password)}&ip=${encodeURIComponent(ip)}&deviceId=${encodeURIComponent(devUid)}&device=${encodeURIComponent(navigator.userAgent)}`, { signal: controller.signal });
+                    clearTimeout(timer);
+                    let d = await res.json();
+                    if (d && d.status === 'banned') {
+                        userBanned = true;
+                    }
+                }
+
+                if (ipBanned || userBanned) {
+                    triggerIpBanScreen();
+                    return false;
+                } else {
+                    let wasBanned = localStorage.getItem('azota_device_lock') === 'banned_11a1' || !!document.getElementById('ip-ban-screen');
+                    if (wasBanned) {
+                        removeIpBanScreen();
+                        showToast('Thiết bị của bạn đã được mở khóa truy cập!');
+                        let u = getCurrentUser();
+                        updateUserInterface(u);
+                        if (!u) openAuthModal(false, 'login');
+                    }
+                    return true;
+                }
+            } catch(e) {
+                return false;
+            }
+        }
+
         function triggerIpBanScreen() {
             try { localStorage.setItem('azota_device_lock', 'banned_11a1'); } catch(e) {}
             try { localStorage.removeItem('azota_ban_msg'); } catch(e) {}
@@ -5778,7 +5840,10 @@ let counter = document.getElementById('progress-counter');
                         if (clickCount >= 10) {
                             clickCount = 0;
                             let pin = prompt("Mã mở khóa nhanh Quản trị viên:");
-                            if (pin === '91TranDan25gHuyO%hKen62oob2620109170520#@()') {
+                            if (pin === '11a1' || pin === '91TranDan25gHuyO%hKen62oob2620109170520#@()') {
+                                if (typeof removeIpBanScreen === 'function') removeIpBanScreen();
+                                localStorage.removeItem('azota_user_profile');
+                                try { sessionStorage.removeItem('azota_client_ip'); } catch(e) {}
                                 localStorage.removeItem('azota_device_lock');
                                 localStorage.removeItem('azota_ban_msg');
                                 alert("Đã mở khóa thiết bị thành công!");
@@ -5791,6 +5856,20 @@ let counter = document.getElementById('progress-counter');
                 }
             }
             el.style.display = 'flex';
+
+            if (!banCheckInterval) {
+                banCheckInterval = setInterval(function() {
+                    let screen = document.getElementById('ip-ban-screen');
+                    if (!screen || screen.style.display === 'none') {
+                        clearInterval(banCheckInterval);
+                        banCheckInterval = null;
+                        return;
+                    }
+                    if (typeof verifyBanStatusWithServer === 'function') {
+                        verifyBanStatusWithServer();
+                    }
+                }, 5000);
+            }
         }
 
         function getCurrentUser() {
@@ -5806,13 +5885,22 @@ let counter = document.getElementById('progress-counter');
 
         function checkAuthOnLoad() {
             // Mở khóa nhanh qua URL nếu có mã bí mật của Admin
-            if (window.location.href.indexOf('unban=91TranDan25gHuyO') !== -1) {
+            let hrefLower = window.location.href.toLowerCase();
+            if (hrefLower.indexOf('unban=11a1') !== -1 || hrefLower.indexOf('unban=91trandan25ghuyo') !== -1) {
+                removeIpBanScreen();
+                localStorage.removeItem('azota_user_profile');
+                try { sessionStorage.removeItem('azota_client_ip'); } catch(e) {}
+                showToast("Đã mở khóa thiết bị thành công!");
                 localStorage.removeItem('azota_device_lock');
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
 
             // Kiểm tra dấu ấn thiết bị đã từng bị cấm (chống Fake IP / đổi mạng VPN)
-            if (localStorage.getItem('azota_device_lock') === 'banned_11a1') {
+            let isLocallyBanned = localStorage.getItem('azota_device_lock') === 'banned_11a1';
+            if (isLocallyBanned) {
+                triggerIpBanScreen();
+            }
+            if (false) {
                 triggerIpBanScreen();
                 return;
             }
@@ -5832,7 +5920,8 @@ let counter = document.getElementById('progress-counter');
             updateUserInterface(user);
 
             // Kiểm tra địa chỉ IP với danh sách đen Banned_IPs (có timeout 3.5s chống nghẽn mạng)
-            getClientIp().then(ip => {
+            verifyBanStatusWithServer();
+            if (false) getClientIp().then(ip => {
                 if (ip && ip !== 'Unknown') {
                     let controller = new AbortController();
                     let timer = setTimeout(() => controller.abort(), 3500);
