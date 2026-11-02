@@ -1128,7 +1128,11 @@
             contain: strict;
             backface-visibility: hidden;
         }
-        .top-toolbar, .container, .back-to-top, .toast-notify, .exit-focus-btn {
+        .top-toolbar {
+            position: relative;
+            z-index: 200 !important;
+        }
+        .container, .back-to-top, .toast-notify, .exit-focus-btn {
             position: relative;
             z-index: 1;
         }
@@ -1169,62 +1173,93 @@
             border-color: var(--accent-color); transform: translateY(-1px);
         }
         .font-preset-btn.active {
-            background: var(--accent-color); color: #ffffff !important; border-color: var(--accent-color);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+            color: #ffffff !important; border-color: #3b82f6 !important;
+            font-weight: 800 !important;
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.4) !important;
         }
         .font-dropdown-menu {
             position: absolute; top: calc(100% + 8px); right: 0;
             background: #ffffff !important;
-            border: 1.5px solid rgba(226, 232, 240, 0.95) !important;
-            border-radius: 14px;
-            box-shadow: 0 14px 35px -4px rgba(15, 23, 42, 0.22), 0 4px 10px -2px rgba(15, 23, 42, 0.08) !important;
-            min-width: 240px;
-            padding: 8px; display: none; flex-direction: column; gap: 4px; z-index: 1050;
+            border: 1.5px solid #cbd5e1 !important;
+            border-radius: 16px;
+            box-shadow: 0 16px 40px -4px rgba(15, 23, 42, 0.28), 0 4px 12px -2px rgba(15, 23, 42, 0.12) !important;
+            min-width: 255px;
+            padding: 8px; display: none; flex-direction: column; gap: 4px;
+            z-index: 99999 !important;
+            pointer-events: auto !important;
         }
         body.theme-dark .font-dropdown-menu {
-            background: #1e293b !important;
-            border-color: rgba(255, 255, 255, 0.14) !important;
-            box-shadow: 0 14px 35px -4px rgba(0, 0, 0, 0.65) !important;
+            background: #0f172a !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+            box-shadow: 0 20px 48px -4px rgba(0, 0, 0, 0.85) !important;
         }
         .font-dropdown-menu.show { display: flex !important; }
         .font-dropdown-header {
-            font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
-            color: #64748b !important; padding: 4px 10px 6px; user-select: none;
+            font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;
+            color: #64748b !important; padding: 6px 10px 6px; user-select: none;
+            border-bottom: 1px solid rgba(150, 150, 150, 0.18); margin-bottom: 4px;
         }
-        body.theme-dark .font-dropdown-header { color: #94a3b8 !important; }
+        body.theme-dark .font-dropdown-header {
+            color: #94a3b8 !important; border-bottom-color: rgba(255, 255, 255, 0.12);
+        }
         .font-dropdown-item {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 8px 12px; border-radius: 10px; cursor: pointer;
+            padding: 9px 12px; border-radius: 11px; cursor: pointer;
             transition: all 0.15s ease; color: #0f172a !important; user-select: none;
+            border: 1.5px solid transparent;
+            pointer-events: auto !important;
         }
-        body.theme-dark .font-dropdown-item { color: #f8fafc !important; }
+        body.theme-dark .font-dropdown-item {
+            color: #f1f5f9 !important;
+        }
         .font-dropdown-item:hover {
-            background: rgba(37, 99, 235, 0.08) !important;
+            background: #f1f5f9 !important;
         }
         body.theme-dark .font-dropdown-item:hover {
-            background: rgba(59, 130, 246, 0.16) !important;
+            background: #1e293b !important;
         }
         .font-dropdown-item.active {
-            background: rgba(37, 99, 235, 0.12) !important;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+            border-color: #3b82f6 !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
         }
         body.theme-dark .font-dropdown-item.active {
-            background: rgba(59, 130, 246, 0.25) !important;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+            border-color: #60a5fa !important;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.45) !important;
         }
-        .font-item-text { display: flex; flex-direction: column; line-height: 1.25; }
+        .font-item-text { display: flex; flex-direction: column; line-height: 1.3; pointer-events: none; }
         .font-item-name {
-            font-size: 14px; font-weight: 700; color: #0f172a !important;
+            font-size: 14px; font-weight: 700; color: #0f172a !important; pointer-events: none;
         }
-        body.theme-dark .font-item-name { color: #ffffff !important; }
+        body.theme-dark .font-item-name {
+            color: #ffffff !important;
+        }
         .font-dropdown-item.active .font-item-name {
-            color: var(--accent-color, #2563eb) !important;
+            color: #ffffff !important; font-weight: 800 !important;
         }
         .font-item-sub {
-            font-size: 11.5px; color: #64748b !important; font-weight: 500; opacity: 1 !important;
+            font-size: 11px; color: #64748b !important; font-weight: 500; opacity: 1 !important; pointer-events: none;
         }
-        body.theme-dark .font-item-sub { color: #94a3b8 !important; }
+        body.theme-dark .font-item-sub {
+            color: #94a3b8 !important;
+        }
+        .font-dropdown-item.active .font-item-sub {
+            color: #e0e7ff !important; font-weight: 600 !important; opacity: 1 !important;
+        }
+        .font-active-badge {
+            display: none; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 800;
+            background: rgba(255, 255, 255, 0.25); color: #ffffff !important;
+            padding: 3px 8px; border-radius: 99px; border: 1px solid rgba(255, 255, 255, 0.45);
+            letter-spacing: 0.3px; pointer-events: none; flex-shrink: 0;
+        }
+        .font-dropdown-item.active .font-active-badge {
+            display: inline-flex !important;
+        }
         .font-check-icon {
-            width: 17px; height: 17px; stroke: var(--accent-color, #2563eb) !important; stroke-width: 2.5;
-            display: none; flex-shrink: 0;
+            width: 17px; height: 17px; stroke: #ffffff !important; stroke-width: 2.5;
+            display: none; flex-shrink: 0; pointer-events: none;
         }
         .font-dropdown-item.active .font-check-icon { display: block !important; }
 
@@ -1665,53 +1700,53 @@
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
                 <span>Đăng ký</span>
             </button>
-            <div class="font-picker-wrap" style="position: relative;">
+            <div class="font-picker-wrap" style="position: relative; z-index: 210;">
                 <button class="icon-btn" id="font-switcher-btn" onclick="toggleFontDropdown(event)" title="Đổi phông chữ">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
                 </button>
-                <div class="font-dropdown-menu" id="font-dropdown-menu">
+                <div class="font-dropdown-menu" id="font-dropdown-menu" onclick="event.stopPropagation()">
                     <div class="font-dropdown-header">Chọn phông chữ</div>
-                    <div class="font-dropdown-item active" data-font="default" onclick="changeFontFamily('default')">
+                    <div class="font-dropdown-item active" data-font="default" onclick="changeFontFamily('default', true)">
                         <div class="font-item-text" style="font-family: 'Nunito', sans-serif;">
                             <span class="font-item-name">Nunito (Mặc định)</span>
                             <span class="font-item-sub">Bo tròn, hiện đại</span>
                         </div>
-                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="font-active-badge">✓ Đang dùng</span>
                     </div>
-                    <div class="font-dropdown-item" data-font="times" onclick="changeFontFamily('times')">
+                    <div class="font-dropdown-item" data-font="times" onclick="changeFontFamily('times', true)">
                         <div class="font-item-text" style="font-family: 'Times New Roman', serif;">
                             <span class="font-item-name">Times New Roman</span>
                             <span class="font-item-sub">Chuẩn đề thi, SGK</span>
                         </div>
-                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="font-active-badge">✓ Đang dùng</span>
                     </div>
-                    <div class="font-dropdown-item" data-font="bvp" onclick="changeFontFamily('bvp')">
+                    <div class="font-dropdown-item" data-font="bvp" onclick="changeFontFamily('bvp', true)">
                         <div class="font-item-text" style="font-family: 'Be Vietnam Pro', sans-serif;">
                             <span class="font-item-name">Be Vietnam Pro</span>
                             <span class="font-item-sub">Tối ưu tiếng Việt</span>
                         </div>
-                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="font-active-badge">✓ Đang dùng</span>
                     </div>
-                    <div class="font-dropdown-item" data-font="inter" onclick="changeFontFamily('inter')">
+                    <div class="font-dropdown-item" data-font="inter" onclick="changeFontFamily('inter', true)">
                         <div class="font-item-text" style="font-family: 'Inter', sans-serif;">
                             <span class="font-item-name">Inter</span>
                             <span class="font-item-sub">Giao diện sắc nét</span>
                         </div>
-                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="font-active-badge">✓ Đang dùng</span>
                     </div>
-                    <div class="font-dropdown-item" data-font="roboto" onclick="changeFontFamily('roboto')">
+                    <div class="font-dropdown-item" data-font="roboto" onclick="changeFontFamily('roboto', true)">
                         <div class="font-item-text" style="font-family: 'Roboto', sans-serif;">
                             <span class="font-item-name">Roboto</span>
                             <span class="font-item-sub">Rõ ràng, chuẩn mực</span>
                         </div>
-                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="font-active-badge">✓ Đang dùng</span>
                     </div>
-                    <div class="font-dropdown-item" data-font="arial" onclick="changeFontFamily('arial')">
+                    <div class="font-dropdown-item" data-font="arial" onclick="changeFontFamily('arial', true)">
                         <div class="font-item-text" style="font-family: Arial, sans-serif;">
                             <span class="font-item-name">Arial</span>
                             <span class="font-item-sub">Cổ điển hệ thống</span>
                         </div>
-                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="font-active-badge">✓ Đang dùng</span>
                     </div>
                 </div>
             </div>
