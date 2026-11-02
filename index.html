@@ -1174,32 +1174,59 @@
         }
         .font-dropdown-menu {
             position: absolute; top: calc(100% + 8px); right: 0;
-            background: var(--panel-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--panel-border); border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18); min-width: 230px;
-            padding: 6px; display: none; flex-direction: column; gap: 3px; z-index: 1050;
+            background: #ffffff !important;
+            border: 1.5px solid rgba(226, 232, 240, 0.95) !important;
+            border-radius: 14px;
+            box-shadow: 0 14px 35px -4px rgba(15, 23, 42, 0.22), 0 4px 10px -2px rgba(15, 23, 42, 0.08) !important;
+            min-width: 240px;
+            padding: 8px; display: none; flex-direction: column; gap: 4px; z-index: 1050;
         }
-        .font-dropdown-menu.show { display: flex; }
+        body.theme-dark .font-dropdown-menu {
+            background: #1e293b !important;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+            box-shadow: 0 14px 35px -4px rgba(0, 0, 0, 0.65) !important;
+        }
+        .font-dropdown-menu.show { display: flex !important; }
         .font-dropdown-header {
             font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
-            color: var(--text-muted); padding: 6px 10px 4px;
+            color: #64748b !important; padding: 4px 10px 6px; user-select: none;
         }
+        body.theme-dark .font-dropdown-header { color: #94a3b8 !important; }
         .font-dropdown-item {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 7px 10px; border-radius: 8px; cursor: pointer;
-            transition: all 0.15s ease; color: var(--text-color);
+            padding: 8px 12px; border-radius: 10px; cursor: pointer;
+            transition: all 0.15s ease; color: #0f172a !important; user-select: none;
         }
+        body.theme-dark .font-dropdown-item { color: #f8fafc !important; }
         .font-dropdown-item:hover {
-            background: var(--accent-light); color: var(--accent-color);
+            background: rgba(37, 99, 235, 0.08) !important;
+        }
+        body.theme-dark .font-dropdown-item:hover {
+            background: rgba(59, 130, 246, 0.16) !important;
         }
         .font-dropdown-item.active {
-            background: var(--accent-light); color: var(--accent-color); font-weight: 700;
+            background: rgba(37, 99, 235, 0.12) !important;
+        }
+        body.theme-dark .font-dropdown-item.active {
+            background: rgba(59, 130, 246, 0.25) !important;
         }
         .font-item-text { display: flex; flex-direction: column; line-height: 1.25; }
-        .font-item-name { font-size: 13.5px; font-weight: 600; }
-        .font-item-sub { font-size: 11px; opacity: 0.68; font-weight: 400; }
-        .font-check-icon { width: 16px; height: 16px; stroke-width: 2.5; display: none; flex-shrink: 0; }
-        .font-dropdown-item.active .font-check-icon { display: block; }
+        .font-item-name {
+            font-size: 14px; font-weight: 700; color: #0f172a !important;
+        }
+        body.theme-dark .font-item-name { color: #ffffff !important; }
+        .font-dropdown-item.active .font-item-name {
+            color: var(--accent-color, #2563eb) !important;
+        }
+        .font-item-sub {
+            font-size: 11.5px; color: #64748b !important; font-weight: 500; opacity: 1 !important;
+        }
+        body.theme-dark .font-item-sub { color: #94a3b8 !important; }
+        .font-check-icon {
+            width: 17px; height: 17px; stroke: var(--accent-color, #2563eb) !important; stroke-width: 2.5;
+            display: none; flex-shrink: 0;
+        }
+        .font-dropdown-item.active .font-check-icon { display: block !important; }
 
         .bg-preset-btn.active {
             background: var(--accent-color); color: #ffffff !important; border-color: var(--accent-color);
@@ -2740,6 +2767,7 @@ function hexToRgba(hex, alpha) {
             if (!FONT_MAP[fontKey]) fontKey = 'default';
             const fontInfo = FONT_MAP[fontKey];
             document.documentElement.style.setProperty('--font-main', fontInfo.css);
+            if (document.body) document.body.style.fontFamily = fontInfo.css;
             localStorage.setItem('azota_font_choice', fontKey);
 
             document.querySelectorAll('.font-dropdown-item').forEach(el => {
