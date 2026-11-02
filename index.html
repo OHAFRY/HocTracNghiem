@@ -812,6 +812,20 @@
             background: var(--accent-light); border-radius: 0 12px 12px 0; text-align: left; 
         }
         #quiz-container > .section-heading:first-child, #review-container > .section-heading:first-child, #preview-content-container > .section-heading:first-child { margin-top: 0; }
+        .passage-box {
+            background: var(--input-bg); border: 1px solid var(--panel-border);
+            border-left: 4px solid var(--accent-color); border-radius: 14px;
+            padding: 16px 20px; margin: 12px 0 20px 0; text-align: left;
+            box-shadow: var(--shadow-sm);
+        }
+        .passage-box-header {
+            display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800;
+            color: var(--accent-color); text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed var(--panel-border);
+        }
+        .passage-box-body {
+            font-size: 15px; line-height: 1.7; color: var(--text-color); user-select: text;
+        }
         .nav-section-label { grid-column: 1 / -1; font-size: 11px; font-weight: 800; color: var(--accent-color); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
 
         .resume-banner { 
@@ -4580,9 +4594,32 @@ function hexToRgba(hex, alpha) {
             });
             let all = [];
             segments.forEach((seg, secIdx) => {
-                parseQuestionBlocks(seg.lines.join('\n')).forEach(q => {
+                let segFull = seg.lines.join('\n');
+                let qs = parseQuestionBlocks(segFull);
+                let passage = null;
+
+                // 1. Kiểm tra nếu có đoạn văn mở đầu trước Câu đầu tiên
+                let startRe = /(?:(?:\}\{|><|\[\])\s*)?Câu\s+\d+[\.:]/gi;
+                let mFirst = startRe.exec(segFull);
+                if (mFirst && mFirst.index > 0) {
+                    let pre = segFull.substring(0, mFirst.index).trim();
+                    if (pre) passage = pre;
+                }
+
+                // 2. Tự động bóc tách nếu bài đọc dài được chèn chung vào tiêu đề Câu 1
+                if (qs.length > 0 && qs[0].title) {
+                    let mPass = qs[0].title.match(/^(\[(?:Read the passage|Đọc đoạn văn)[\s\S]*?)(?:\n\s*(?:Question|Câu)\s*1[\.:\s]*|\s*$)/i);
+                    if (mPass) {
+                        passage = mPass[1].trim();
+                        let remainder = qs[0].title.substring(mPass[0].length).trim();
+                        qs[0].title = remainder ? remainder : 'Điền vào chỗ trống (1)';
+                    }
+                }
+
+                qs.forEach(q => {
                     q.section = secIdx;
                     q.sectionTitle = seg.title;
+                    if (passage) q.sectionPassage = passage;
                     all.push(q);
                 });
             });
@@ -4680,7 +4717,7 @@ function hexToRgba(hex, alpha) {
             let text = "";
             let lastSection = null; let secCount = 0; let hasSections = questions.some(q => q && q.sectionTitle);
             questions.forEach((q, idx) => {
-                if(q.sectionTitle && q.section !== lastSection) { text += '\\ ' + q.sectionTitle + '\n\n'; lastSection = q.section; secCount = 0; } secCount++; let displayNum = hasSections ? secCount : (idx + 1);
+                if(q.sectionTitle && q.section !== lastSection) { text += '\\ ' + q.sectionTitle + '\n\n' + (q.sectionPassage ? q.sectionPassage + '\n\n' : ''); lastSection = q.section; secCount = 0; } secCount++; let displayNum = hasSections ? secCount : (idx + 1);
                 lastSection = q.section;
                 if(q.isShortAnswer) {
                     text += `${SA_MARKER}Câu ${displayNum}. ${q.title}\nĐA: ${(q.answers || []).join(' | ')}\n\n`;
@@ -4715,7 +4752,17 @@ function hexToRgba(hex, alpha) {
             return !!(list[i] && list[i].sectionTitle && (i === 0 || list[i - 1].section !== list[i].section));
         }
         function sectionHeadingHtml(q) {
-            return `<div class="section-heading">${richText(q.sectionTitle)}</div>`;
+            let h = `<div class="section-heading">${richText(q.sectionTitle)}</div>`;
+            if (q.sectionPassage) {
+                h += `<div class="passage-box">
+                    <div class="passage-box-header">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        <span>Đề bài / Đoạn văn đọc hiểu:</span>
+                    </div>
+                    <div class="passage-box-body">${richText(q.sectionPassage)}</div>
+                </div>`;
+            }
+            return h;
         }
         function shuffleArray(arr) {
             let a = arr.slice();
@@ -4725,14 +4772,55 @@ function hexToRgba(hex, alpha) {
             }
             return a;
         }
+
+        function getMajorPartKey(title) {
+            if(!title) return 'default';
+            let m = title.match(/^\s*(?:Phần\s+([0-9IVXLCDM]+)|([IVXLCDM]+)[\.:\s]|Part\s+([0-9IVXLCDM]+))/i);
+            if(m) return (m[1] || m[2] || m[3] || '').toUpperCase();
+            return title.trim();
+        }
+
         function shuffleWithinSections(list) {
-            let groups = [], pos = {};
+            // Nhóm câu hỏi theo từng Section (tiểu mục/bài đọc)
+            let sections = [], secMap = {};
             list.forEach(q => {
-                let k = q.section || 0;
-                if(!(k in pos)) { pos[k] = groups.length; groups.push([]); }
-                groups[pos[k]].push(q);
+                let k = q.section !== undefined ? q.section : 0;
+                if(!(k in secMap)) {
+                    secMap[k] = sections.length;
+                    sections.push({ sectionId: k, sectionTitle: q.sectionTitle, sectionPassage: q.sectionPassage, questions: [] });
+                }
+                sections[secMap[k]].questions.push(q);
             });
-            return groups.flatMap(g => shuffleArray(g));
+
+            // Nhóm các Section vào từng Phần Lớn (Major Parts: Phần I, II, III, IV...)
+            let majorParts = [], majorMap = {};
+            sections.forEach(sec => {
+                let key = getMajorPartKey(sec.sectionTitle);
+                if(!(key in majorMap)) {
+                    majorMap[key] = majorParts.length;
+                    majorParts.push({ partKey: key, sections: [] });
+                }
+                majorParts[majorMap[key]].sections.push(sec);
+            });
+
+            // Ranh giới các Phần Lớn (I -> II -> III -> IV) luôn giữ nguyên ranh giới, không bao giờ trộn lẫn sang nhau.
+            // Nhưng bên trong từng Phần Lớn, tiến hành đảo ngẫu nhiên:
+            let result = [];
+            majorParts.forEach(mp => {
+                // Đảo ngẫu nhiên thứ tự các bài đọc/tiểu mục trong phần này
+                let partSecs = shuffleArray(mp.sections);
+                partSecs.forEach(sec => {
+                    let qs = sec.questions;
+                    let isCloze = sec.sectionTitle && /cloze|điền từ/i.test(sec.sectionTitle);
+                    // Bài điền từ giữ nguyên thứ tự câu 1-5 theo mạch đoạn văn, các phần khác đảo ngẫu nhiên câu hỏi
+                    if(!isCloze && qs.length > 1) {
+                        qs = shuffleArray(qs);
+                    }
+                    result.push(...qs);
+                });
+            });
+
+            return result;
         }
 
         function renderVisualSection(title) {
@@ -4900,8 +4988,8 @@ function hexToRgba(hex, alpha) {
 
         function buildActiveQuestion(q, shuffleOptions) {
             let opts = q.options.map((opt, idx) => ({ ...opt, origIndex: idx }));
-            if(shuffleOptions && !q.isTrueFalse && !q.isShortAnswer) opts.sort(() => Math.random() - 0.5);
-            return { title: q.title, options: opts, isTrueFalse: !!q.isTrueFalse, isShortAnswer: !!q.isShortAnswer, answers: q.answers || [], origQIndex: q.origQIndex, section: q.section || 0, sectionTitle: q.sectionTitle || null };
+            if(shuffleOptions && !q.isTrueFalse && !q.isShortAnswer) opts = shuffleArray(opts);
+            return { title: q.title, options: opts, isTrueFalse: !!q.isTrueFalse, isShortAnswer: !!q.isShortAnswer, answers: q.answers || [], origQIndex: q.origQIndex, section: q.section || 0, sectionTitle: q.sectionTitle || null, sectionPassage: q.sectionPassage || null };
         }
 
         function startQuiz() {
