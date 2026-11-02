@@ -2188,10 +2188,14 @@
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                 Soạn Thảo & Cài Đặt
             </h2>
-            <div style="display: flex; gap: 8px;">
-                <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px; min-height: 38px;" onclick="exportSingleSet()">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px; min-height: 38px;" onclick="exportSetToDoc(currentActiveSetId)" title="Xuất toàn bộ câu hỏi và đáp án ra file Word (.doc) có đáp án đúng tô màu đỏ">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    Xuất Word (.doc)
+                </button>
+                <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px; min-height: 38px;" onclick="exportSingleSet()" title="Tải file dữ liệu .json">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                    Tải bộ đề
+                    Tải JSON
                 </button>
                 <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 13px; min-height: 38px;" onclick="backToManager()">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -4376,6 +4380,9 @@ function hexToRgba(hex, alpha) {
                                 Vào Học / Thi
                             </button>
                             <div class="deck-more-actions">
+                                <button class="icon-btn-sm" onclick="exportSetToDoc('${id}')" title="Xuất đề thi ra file Word (.doc) có đáp án tô đỏ">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                                </button>
                                 <button class="icon-btn-sm" onclick="exportSingleSetById('${id}')" title="Tải file .json của bộ đề này">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                                 </button>
@@ -5679,6 +5686,148 @@ let counter = document.getElementById('progress-counter');
                 }
             }
             requestAnimationFrame(step);
+        }
+
+        function exportSetToDoc(setId) {
+            let s = appData.sets[setId || currentActiveSetId];
+            if (!s) return alert("Không tìm thấy bộ đề!");
+            let questions = parseRawData(s.rawText || '');
+            if (!questions || questions.length === 0) return alert("Bộ đề không có câu hỏi nào để xuất!");
+
+            let docTitle = s.name || 'Bộ đề ôn tập';
+            let dateStr = new Date().toLocaleDateString('vi-VN');
+
+            let bodyContent = `
+                <div style="text-align:center; margin-bottom:18pt;">
+                    <p style="font-size:11.5pt; text-transform:uppercase; font-weight:bold; color:#4b5563; margin-bottom:4pt;">HỆ THỐNG ÔN LUYỆN TRẮC NGHIỆM THÔNG MINH</p>
+                    <h1 style="font-size:18pt; font-weight:bold; color:#111827; margin:0 0 6pt;">${escapeHtml(docTitle)}</h1>
+                    <p style="font-size:11pt; font-style:italic; color:#6b7280; margin:0 0 14pt;">(Tổng số: ${questions.length} câu • Ngày xuất: ${dateStr} • Đáp án đúng được tô màu đỏ)</p>
+                    <hr style="border:0; border-top:1.5pt solid #2563eb; margin:0 0 16pt;">
+                </div>
+            `;
+
+            questions.forEach((q, idx) => {
+                if (isNewSection(questions, idx)) {
+                    bodyContent += `
+                        <div style="font-size:13pt; font-weight:bold; color:#1e40af; background-color:#eff6ff; border-left:4pt solid #2563eb; padding:6pt 10pt; margin:16pt 0 10pt; text-transform:uppercase;">
+                            ${escapeHtml(q.sectionTitle)}
+                        </div>
+                    `;
+                    if (q.sectionPassage) {
+                        bodyContent += `
+                            <div style="background-color:#f8fafc; border:1pt solid #cbd5e1; border-left:3.5pt solid #2563eb; padding:10pt 12pt; margin-bottom:12pt; font-size:11.5pt; line-height:1.6; font-style:italic;">
+                                <b style="color:#1e40af; font-style:normal;">📖 ĐOẠN VĂN ĐỌC HIỂU / ĐỀ BÀI:</b><br><br>
+                                ${escapeHtml(q.sectionPassage).replace(/\n/g, '<br>')}
+                            </div>
+                        `;
+                    }
+                }
+
+                let qNum = getQuestionDisplayNum(questions, idx);
+                let qTitle = escapeHtml(q.title).replace(/\n/g, '<br>');
+
+                bodyContent += `
+                    <div style="margin-bottom:12pt; page-break-inside:avoid; line-height:1.5;">
+                        <p style="margin:0 0 4pt; font-size:12pt; font-weight:bold; color:#111827;">
+                            Câu ${qNum}. ${qTitle}
+                        </p>
+                `;
+
+                if (q.isShortAnswer) {
+                    let ansText = (q.answers || []).map(a => escapeHtml(a)).join(' | ');
+                    bodyContent += `
+                        <p style="margin:0 0 4pt 18pt; font-size:11.5pt;">
+                            Đáp án: <b style="color:#dc2626; font-weight:bold;">${ansText || '(Chưa có đáp án)'}</b>
+                        </p>
+                    `;
+                } else if (q.isTrueFalse) {
+                    bodyContent += `<table style="margin-left:14pt; border-collapse:collapse; width:95%; font-size:11.5pt; margin-bottom:4pt;">`;
+                    (q.options || []).forEach((opt, oIdx) => {
+                        let letter = String.fromCharCode(97 + oIdx);
+                        let cleanText = escapeHtml(opt.text.replace(/^[*][a-da-d][\.\)]\s*/i, '').replace(/^[a-da-d][\.\)]\s*/i, ''));
+                        let isTrue = !!opt.correct;
+                        bodyContent += `
+                            <tr>
+                                <td style="padding:3pt 6pt; width:26pt; font-weight:bold; vertical-align:top;">${letter})</td>
+                                <td style="padding:3pt 6pt; vertical-align:top;">${cleanText}</td>
+                                <td style="padding:3pt 6pt; width:65pt; text-align:right; vertical-align:top;">
+                                    ${isTrue 
+                                        ? '<b style="color:#dc2626; font-weight:bold; text-decoration:underline;">[ ĐÚNG ]</b>' 
+                                        : '<span style="color:#2563eb;">[ SAI ]</span>'}
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    bodyContent += `</table>`;
+                } else {
+                    bodyContent += `<div style="margin-left:18pt; margin-bottom:4pt; font-size:11.5pt;">`;
+                    (q.options || []).forEach((opt) => {
+                        let isCorrect = !!opt.correct;
+                        let cleanOpt = escapeHtml(opt.text);
+                        if (isCorrect) {
+                            bodyContent += `
+                                <p style="margin:2pt 0; color:#dc2626; font-weight:bold;">
+                                    ${cleanOpt} <span style="font-size:10pt; font-style:italic;">(✓ Đáp án đúng)</span>
+                                </p>
+                            `;
+                        } else {
+                            bodyContent += `
+                                <p style="margin:2pt 0; color:#1f2937;">
+                                    ${cleanOpt}
+                                </p>
+                            `;
+                        }
+                    });
+                    bodyContent += `</div>`;
+                }
+
+                bodyContent += `</div>`;
+            });
+
+            let fullHtml = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>${escapeHtml(docTitle)}</title>
+                    <!--[if gte mso 9]>
+                    <xml>
+                        <w:WordDocument>
+                            <w:View>Print</w:View>
+                            <w:Zoom>100</w:Zoom>
+                            <w:DoNotOptimizeForBrowser/>
+                        </w:WordDocument>
+                    </xml>
+                    <![endif]-->
+                    <style>
+                        @page {
+                            size: A4;
+                            margin: 2cm 2cm 2cm 2cm;
+                            mso-page-orientation: portrait;
+                        }
+                        body {
+                            font-family: 'Times New Roman', Times, serif;
+                            font-size: 12pt;
+                            color: #111827;
+                            line-height: 1.45;
+                        }
+                        p { margin: 0; }
+                    </style>
+                </head>
+                <body>
+                    ${bodyContent}
+                </body>
+                </html>
+            `;
+
+            let blob = new Blob(['\ufeff' + fullHtml], { type: 'application/msword;charset=utf-8' });
+            let filename = `${(s.name || 'DeThi').replace(/[\\/:*?"<>|]+/g, '_').trim()}_CoDapAn.doc`;
+            let a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast(`Đã xuất file Word: ${filename}`);
         }
 
         function exportSingleSet() {
