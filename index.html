@@ -8,8 +8,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <!-- Font Nunito: Bo tròn, Việt Hoá đầy đủ, tải nhanh -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+    <!-- Google Fonts & System Fonts: Nunito, Times New Roman, Be Vietnam Pro, Inter, Roboto, Arial -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        (function(){
+            try {
+                var f = localStorage.getItem('azota_font_choice');
+                var fm = {
+                    'times': '"Times New Roman", Times, "Be Vietnam Pro", Georgia, serif',
+                    'bvp': '"Be Vietnam Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                    'inter': '"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                    'roboto': '"Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif',
+                    'arial': 'Arial, Helvetica, "Segoe UI", sans-serif'
+                };
+                if (f && fm[f]) document.documentElement.style.setProperty('--font-main', fm[f]);
+            } catch(e){}
+        })();
+    </script>
     <!-- Thư viện MathJax hỗ trợ Toán, Lý, Hóa, Sinh -->
     <script>
         window.MathJax = {
@@ -1135,6 +1150,57 @@
         .bg-preset-btn:hover {
             border-color: var(--accent-color); transform: translateY(-1px);
         }
+        .font-picker-bar {
+            display: flex; align-items: center; gap: 6px;
+            background: rgba(150,150,150,0.05); padding: 8px 14px; border-radius: 99px;
+            border: 1px solid var(--panel-border); overflow-x: auto;
+            scrollbar-width: thin; -webkit-overflow-scrolling: touch;
+            margin-top: 8px;
+        }
+        .font-picker-bar::-webkit-scrollbar { height: 3px; }
+        .font-picker-bar::-webkit-scrollbar-thumb { background: rgba(150,150,150,0.3); border-radius: 4px; }
+        .font-preset-btn {
+            padding: 4px 10px; font-size: 11.5px; font-weight: 700; border-radius: 99px;
+            background: var(--panel-bg); color: var(--text-color); border: 1.5px solid var(--panel-border);
+            cursor: pointer; transition: all 0.2s ease; white-space: nowrap; flex-shrink: 0;
+            font-family: inherit;
+        }
+        .font-preset-btn:hover {
+            border-color: var(--accent-color); transform: translateY(-1px);
+        }
+        .font-preset-btn.active {
+            background: var(--accent-color); color: #ffffff !important; border-color: var(--accent-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .font-dropdown-menu {
+            position: absolute; top: calc(100% + 8px); right: 0;
+            background: var(--panel-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--panel-border); border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18); min-width: 230px;
+            padding: 6px; display: none; flex-direction: column; gap: 3px; z-index: 1050;
+        }
+        .font-dropdown-menu.show { display: flex; }
+        .font-dropdown-header {
+            font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--text-muted); padding: 6px 10px 4px;
+        }
+        .font-dropdown-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 7px 10px; border-radius: 8px; cursor: pointer;
+            transition: all 0.15s ease; color: var(--text-color);
+        }
+        .font-dropdown-item:hover {
+            background: var(--accent-light); color: var(--accent-color);
+        }
+        .font-dropdown-item.active {
+            background: var(--accent-light); color: var(--accent-color); font-weight: 700;
+        }
+        .font-item-text { display: flex; flex-direction: column; line-height: 1.25; }
+        .font-item-name { font-size: 13.5px; font-weight: 600; }
+        .font-item-sub { font-size: 11px; opacity: 0.68; font-weight: 400; }
+        .font-check-icon { width: 16px; height: 16px; stroke-width: 2.5; display: none; flex-shrink: 0; }
+        .font-dropdown-item.active .font-check-icon { display: block; }
+
         .bg-preset-btn.active {
             background: var(--accent-color); color: #ffffff !important; border-color: var(--accent-color);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -1572,6 +1638,56 @@
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
                 <span>Đăng ký</span>
             </button>
+            <div class="font-picker-wrap" style="position: relative;">
+                <button class="icon-btn" id="font-switcher-btn" onclick="toggleFontDropdown(event)" title="Đổi phông chữ">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+                </button>
+                <div class="font-dropdown-menu" id="font-dropdown-menu">
+                    <div class="font-dropdown-header">Chọn phông chữ</div>
+                    <div class="font-dropdown-item active" data-font="default" onclick="changeFontFamily('default')">
+                        <div class="font-item-text" style="font-family: 'Nunito', sans-serif;">
+                            <span class="font-item-name">Nunito (Mặc định)</span>
+                            <span class="font-item-sub">Bo tròn, hiện đại</span>
+                        </div>
+                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="font-dropdown-item" data-font="times" onclick="changeFontFamily('times')">
+                        <div class="font-item-text" style="font-family: 'Times New Roman', serif;">
+                            <span class="font-item-name">Times New Roman</span>
+                            <span class="font-item-sub">Chuẩn đề thi, SGK</span>
+                        </div>
+                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="font-dropdown-item" data-font="bvp" onclick="changeFontFamily('bvp')">
+                        <div class="font-item-text" style="font-family: 'Be Vietnam Pro', sans-serif;">
+                            <span class="font-item-name">Be Vietnam Pro</span>
+                            <span class="font-item-sub">Tối ưu tiếng Việt</span>
+                        </div>
+                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="font-dropdown-item" data-font="inter" onclick="changeFontFamily('inter')">
+                        <div class="font-item-text" style="font-family: 'Inter', sans-serif;">
+                            <span class="font-item-name">Inter</span>
+                            <span class="font-item-sub">Giao diện sắc nét</span>
+                        </div>
+                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="font-dropdown-item" data-font="roboto" onclick="changeFontFamily('roboto')">
+                        <div class="font-item-text" style="font-family: 'Roboto', sans-serif;">
+                            <span class="font-item-name">Roboto</span>
+                            <span class="font-item-sub">Rõ ràng, chuẩn mực</span>
+                        </div>
+                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="font-dropdown-item" data-font="arial" onclick="changeFontFamily('arial')">
+                        <div class="font-item-text" style="font-family: Arial, sans-serif;">
+                            <span class="font-item-name">Arial</span>
+                            <span class="font-item-sub">Cổ điển hệ thống</span>
+                        </div>
+                        <svg class="font-check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                </div>
+            </div>
             <button class="icon-btn" onclick="cycleBackgroundStyle()" title="Đổi kiểu hình nền">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10 4 4 0 0 1-4 4h-2a2 2 0 0 0-2 2 2 2 0 0 1-2 2 10 10 0 0 1-2-18z"/></svg>
             </button>
@@ -1663,6 +1779,17 @@
             </div>
 
             <!-- Thanh chọn Nền riêng biệt (Tách biệt với màu chủ đề) -->
+            <!-- Thanh chọn Phông chữ -->
+            <div class="font-picker-bar">
+                <span class="theme-picker-label">Phông:</span>
+                <button class="font-preset-btn active" data-font="default" onclick="changeFontFamily('default')">Nunito (Mặc định)</button>
+                <button class="font-preset-btn" data-font="times" onclick="changeFontFamily('times')" style="font-family: 'Times New Roman', serif;">Times New Roman</button>
+                <button class="font-preset-btn" data-font="bvp" onclick="changeFontFamily('bvp')" style="font-family: 'Be Vietnam Pro', sans-serif;">Be Vietnam Pro</button>
+                <button class="font-preset-btn" data-font="inter" onclick="changeFontFamily('inter')" style="font-family: 'Inter', sans-serif;">Inter</button>
+                <button class="font-preset-btn" data-font="roboto" onclick="changeFontFamily('roboto')" style="font-family: 'Roboto', sans-serif;">Roboto</button>
+                <button class="font-preset-btn" data-font="arial" onclick="changeFontFamily('arial')" style="font-family: Arial, sans-serif;">Arial</button>
+            </div>
+
             <div class="bg-picker-bar">
                 <span class="theme-picker-label">Nền:</span>
                 <button class="bg-preset-btn active" data-bg="default" onclick="changeBackgroundStyle('default')">Cơ bản</button>
@@ -2145,6 +2272,8 @@
             let savedBg = localStorage.getItem('azota_bg_style') || 'default';
             let customBgColor = localStorage.getItem('azota_bg_custom_color');
             changeBackgroundStyle(savedBg, customBgColor);
+            let savedFont = localStorage.getItem('azota_font_choice') || 'default';
+            if (typeof changeFontFamily === 'function') changeFontFamily(savedFont, false);
             if (typeof initInteractiveBackground === 'function') initInteractiveBackground();
 
             localStorage.removeItem(DRAFT_KEY);
@@ -2578,6 +2707,71 @@ function hexToRgba(hex, alpha) {
             let nextIdx = (keys.indexOf(current) + 1) % keys.length;
             changeBackgroundStyle(keys[nextIdx]);
         }
+
+        /* ================= CẤU HÌNH & CHUYỂN ĐỔI PHÔNG CHỮ HỆ THỐNG ================= */
+        const FONT_MAP = {
+            'default': {
+                name: 'Nunito',
+                css: '"Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+            },
+            'times': {
+                name: 'Times New Roman',
+                css: '"Times New Roman", Times, "Be Vietnam Pro", Georgia, serif'
+            },
+            'bvp': {
+                name: 'Be Vietnam Pro',
+                css: '"Be Vietnam Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+            },
+            'inter': {
+                name: 'Inter',
+                css: '"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+            },
+            'roboto': {
+                name: 'Roboto',
+                css: '"Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif'
+            },
+            'arial': {
+                name: 'Arial',
+                css: 'Arial, Helvetica, "Segoe UI", sans-serif'
+            }
+        };
+
+        function changeFontFamily(fontKey, showToastMsg = true) {
+            if (!FONT_MAP[fontKey]) fontKey = 'default';
+            const fontInfo = FONT_MAP[fontKey];
+            document.documentElement.style.setProperty('--font-main', fontInfo.css);
+            localStorage.setItem('azota_font_choice', fontKey);
+
+            document.querySelectorAll('.font-dropdown-item').forEach(el => {
+                el.classList.toggle('active', el.getAttribute('data-font') === fontKey);
+            });
+            document.querySelectorAll('.font-preset-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-font') === fontKey);
+            });
+
+            const menu = document.getElementById('font-dropdown-menu');
+            if (menu) menu.classList.remove('show');
+
+            if (showToastMsg && typeof showToast === 'function') {
+                showToast(`Đã chuyển sang phông: ${fontInfo.name}`);
+            }
+        }
+
+        function toggleFontDropdown(e) {
+            if (e) e.stopPropagation();
+            const menu = document.getElementById('font-dropdown-menu');
+            if (menu) menu.classList.toggle('show');
+        }
+
+        document.addEventListener('click', function(e) {
+            const wrap = document.querySelector('.font-picker-wrap');
+            const menu = document.getElementById('font-dropdown-menu');
+            if (menu && menu.classList.contains('show')) {
+                if (!wrap || !wrap.contains(e.target)) {
+                    menu.classList.remove('show');
+                }
+            }
+        });
 
         function toggleTheme() {
             document.body.classList.toggle('theme-dark');
