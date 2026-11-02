@@ -511,8 +511,9 @@
         .option-item {
             display: flex; align-items: center; padding: 13px 18px; margin: 10px 0; border-radius: 14px;
             background: rgba(255,255,255,0.7); border: 1.5px solid var(--panel-border); cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.98em; min-height: 52px; user-select: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.98em; min-height: 52px; user-select: text;
         }
+        .option-item input[type="radio"], .option-item > b { user-select: none; }
         body.theme-dark .option-item { background: rgba(15, 23, 42, 0.5); }
         .option-item:hover { 
             border-color: var(--accent-color); 
@@ -1652,6 +1653,179 @@
             border-top-color: var(--accent-color); border-radius: 50%;
             animation: spin 0.8s linear infinite; margin: 0 auto;
         }
+
+        /* ================= GOOGLE TRANSLATE STYLES ================= */
+        /* Quick Popover khi bôi đen chữ */
+        .translate-quick-popover {
+            position: absolute; z-index: 999999;
+            background: #ffffff; color: #0f172a;
+            border-radius: 14px; padding: 10px 14px;
+            box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            max-width: 320px; min-width: 220px;
+            font-size: 13px; line-height: 1.5;
+            display: none; animation: transPopFade 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(14px);
+        }
+        body.theme-dark .translate-quick-popover {
+            background: #0f172a; color: #f8fafc;
+            border-color: rgba(255, 255, 255, 0.14);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+        @keyframes transPopFade {
+            from { opacity: 0; transform: scale(0.92) translateY(4px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .trans-pop-header {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 8px; margin-bottom: 6px; padding-bottom: 6px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            font-size: 11px; font-weight: 700;
+        }
+        .trans-pop-brand {
+            display: inline-flex; align-items: center; gap: 5px;
+            color: #2563eb; font-weight: 800; font-size: 11.5px;
+        }
+        body.theme-dark .trans-pop-brand { color: #60a5fa; }
+        .trans-pop-actions { display: flex; align-items: center; gap: 4px; }
+        .trans-btn-icon {
+            background: transparent; border: none; cursor: pointer;
+            width: 24px; height: 24px; border-radius: 6px;
+            color: #64748b; display: inline-flex; align-items: center; justify-content: center;
+            transition: all 0.15s ease; padding: 0; font-size: 13px;
+        }
+        body.theme-dark .trans-btn-icon { color: #94a3b8; }
+        .trans-btn-icon:hover { background: rgba(148, 163, 184, 0.2); color: var(--accent-color, #2563eb); }
+        .trans-pop-source {
+            font-size: 11.5px; color: #64748b; margin-bottom: 4px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-style: italic;
+        }
+        body.theme-dark .trans-pop-source { color: #94a3b8; }
+        .trans-pop-result {
+            font-weight: 600; font-size: 13.5px; color: #0f172a;
+            word-break: break-word; user-select: text;
+        }
+        body.theme-dark .trans-pop-result { color: #f8fafc; }
+        .trans-pop-loading {
+            display: inline-flex; align-items: center; gap: 6px; color: #94a3b8; font-size: 12px;
+        }
+
+        /* Bảng Dịch Google Nổi Mini (Floating Widget) */
+        .trans-floating-widget {
+            position: fixed; bottom: 24px; right: 24px; z-index: 999998;
+            width: 360px; max-width: calc(100vw - 32px);
+            background: #ffffff; color: #0f172a;
+            border-radius: 20px;
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.08);
+            border: 1.5px solid rgba(226, 232, 240, 0.9);
+            display: flex; flex-direction: column; overflow: hidden;
+            backdrop-filter: blur(16px);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
+        }
+        body.theme-dark .trans-floating-widget {
+            background: #0f172a; color: #f8fafc;
+            border-color: rgba(255, 255, 255, 0.14);
+            box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+        .trans-floating-widget.hidden { display: none !important; }
+        .trans-floating-widget.minimized {
+            width: 50px; height: 50px; border-radius: 50%;
+            cursor: pointer; padding: 0;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+            background: var(--accent-gradient, linear-gradient(135deg, #2563eb, #1d4ed8));
+            border: none;
+        }
+        .trans-floating-widget.minimized .trans-widget-body,
+        .trans-floating-widget.minimized .trans-widget-header { display: none !important; }
+        .trans-bubble-trigger {
+            display: none; width: 100%; height: 100%;
+            align-items: center; justify-content: center;
+            color: #ffffff; font-size: 20px;
+        }
+        .trans-floating-widget.minimized .trans-bubble-trigger { display: flex !important; }
+        .trans-widget-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 16px; background: rgba(248, 250, 252, 0.85);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            cursor: move; user-select: none;
+        }
+        body.theme-dark .trans-widget-header {
+            background: rgba(30, 41, 59, 0.7);
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+        .trans-widget-title {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 13.5px; font-weight: 800; color: #1e293b;
+        }
+        body.theme-dark .trans-widget-title { color: #f8fafc; }
+        .trans-widget-body {
+            padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;
+        }
+        .trans-lang-bar {
+            display: flex; align-items: center; justify-content: space-between; gap: 8px;
+        }
+        .trans-lang-select {
+            flex: 1; padding: 6px 8px; border-radius: 10px;
+            border: 1.5px solid rgba(203, 213, 225, 0.8);
+            background: rgba(248, 250, 252, 0.9);
+            font-size: 12px; font-weight: 700; color: #1e293b;
+            outline: none; cursor: pointer;
+        }
+        body.theme-dark .trans-lang-select {
+            background: #1e293b; border-color: rgba(255, 255, 255, 0.14);
+            color: #f1f5f9;
+        }
+        .trans-swap-btn {
+            width: 32px; height: 32px; border-radius: 10px;
+            border: 1.5px solid rgba(203, 213, 225, 0.8);
+            background: rgba(248, 250, 252, 0.9);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: #64748b; transition: all 0.2s ease;
+        }
+        body.theme-dark .trans-swap-btn {
+            background: #1e293b; border-color: rgba(255, 255, 255, 0.14);
+            color: #94a3b8;
+        }
+        .trans-swap-btn:hover { color: #2563eb; border-color: #2563eb; transform: rotate(180deg); }
+        .trans-input-box { position: relative; width: 100%; }
+        .trans-textarea {
+            width: 100%; min-height: 80px; max-height: 160px;
+            padding: 10px 12px; border-radius: 12px;
+            border: 1.5px solid rgba(203, 213, 225, 0.8);
+            background: rgba(248, 250, 252, 0.9);
+            font-family: inherit; font-size: 13.5px; line-height: 1.5;
+            color: #0f172a; resize: vertical; outline: none;
+            box-sizing: border-box; transition: border-color 0.2s;
+        }
+        body.theme-dark .trans-textarea {
+            background: #1e293b; border-color: rgba(255, 255, 255, 0.14);
+            color: #f8fafc;
+        }
+        .trans-textarea:focus { border-color: var(--accent-color, #2563eb); }
+        .trans-input-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-top: 4px; font-size: 11.5px; color: #64748b;
+        }
+        .trans-output-box {
+            background: rgba(37, 99, 235, 0.05);
+            border: 1.5px solid rgba(37, 99, 235, 0.18);
+            border-radius: 12px; padding: 12px;
+            min-height: 70px; position: relative;
+        }
+        body.theme-dark .trans-output-box {
+            background: rgba(30, 41, 59, 0.75);
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+        .trans-output-text {
+            font-size: 13.5px; font-weight: 600; line-height: 1.5;
+            color: #0f172a; min-height: 36px; word-break: break-word; user-select: text;
+        }
+        body.theme-dark .trans-output-text { color: #f8fafc; }
+        .trans-output-actions {
+            display: flex; align-items: center; justify-content: flex-end;
+            gap: 6px; margin-top: 6px;
+        }
+
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E26SXQ6QDW"></script>
@@ -1750,6 +1924,9 @@
                     </div>
                 </div>
             </div>
+            <button class="icon-btn" id="btn-toggle-translator" onclick="toggleTranslatorWidget()" title="Google Dịch">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px; height:18px;"><path d="M5 8l6 0"/><path d="M4 14l10 0"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+            </button>
             <button class="icon-btn" onclick="cycleBackgroundStyle()" title="Đổi kiểu hình nền">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10 4 4 0 0 1-4 4h-2a2 2 0 0 0-2 2 2 2 0 0 1-2 2 10 10 0 0 1-2-18z"/></svg>
             </button>
@@ -6633,7 +6810,438 @@ let counter = document.getElementById('progress-counter');
                 alert('Không thể kết nối máy chủ xác thực.');
             }
         }
+
+        /* ================= GOOGLE TRANSLATE ENGINE ================= */
+        let transDebounceTimer = null;
+        let transCurrentSource = '';
+        let transCurrentResult = '';
+        let isSelectingTextInOption = false;
+
+        async function fetchGoogleTranslate(text, sl = 'auto', tl = 'vi') {
+            text = (text || '').trim();
+            if (!text) return '';
+            try {
+                let url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(sl)}&tl=${encodeURIComponent(tl)}&dt=t&q=${encodeURIComponent(text)}`;
+                let res = await fetch(url);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                let data = await res.json();
+                if (Array.isArray(data) && Array.isArray(data[0])) {
+                    return data[0].map(item => item[0]).filter(Boolean).join('');
+                }
+            } catch (e1) {
+                console.warn('Google Translate API fallback:', e1);
+                try {
+                    let fbUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${sl === 'auto' ? 'en' : sl}|${tl}`;
+                    let fbRes = await fetch(fbUrl);
+                    let fbData = await fbRes.json();
+                    if (fbData && fbData.responseData && fbData.responseData.translatedText) {
+                        return fbData.responseData.translatedText;
+                    }
+                } catch (e2) {}
+            }
+            return 'Không thể dịch đoạn này. Vui lòng thử lại!';
+        }
+
+        function speakSpeech(text, lang = 'en-US') {
+            if (!text) return;
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    let u = new SpeechSynthesisUtterance(text);
+                    u.lang = lang;
+                    u.rate = 0.95;
+                    window.speechSynthesis.speak(u);
+                } else {
+                    let audio = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=${encodeURIComponent(lang)}&q=${encodeURIComponent(text)}`);
+                    audio.play();
+                }
+            } catch (e) {
+                console.warn('TTS error:', e);
+            }
+        }
+
+        /* Xử lý Quick Popover khi bôi đen text */
+        function initQuickTranslatePopover() {
+            const popover = document.getElementById('translate-quick-popover');
+            const popSrc = document.getElementById('trans-pop-source');
+            const popRes = document.getElementById('trans-pop-result');
+            const btnSpeak = document.getElementById('trans-pop-speak-src');
+            const btnCopy = document.getElementById('trans-pop-copy');
+            const btnExpand = document.getElementById('trans-pop-expand');
+            const btnClose = document.getElementById('trans-pop-close');
+
+            if (!popover) return;
+
+            let lastSelectionText = '';
+
+            function hidePopover() {
+                popover.style.display = 'none';
+            }
+
+            btnClose.onclick = (e) => {
+                e.stopPropagation();
+                hidePopover();
+            };
+
+            btnSpeak.onclick = (e) => {
+                e.stopPropagation();
+                if (transCurrentSource) speakSpeech(transCurrentSource, 'en-US');
+            };
+
+            btnCopy.onclick = (e) => {
+                e.stopPropagation();
+                if (transCurrentResult) {
+                    navigator.clipboard.writeText(transCurrentResult);
+                    btnCopy.innerText = '✓';
+                    setTimeout(() => { btnCopy.innerText = '📋'; }, 1500);
+                }
+            };
+
+            btnExpand.onclick = (e) => {
+                e.stopPropagation();
+                hidePopover();
+                openFloatingTranslatorWithText(transCurrentSource);
+            };
+
+            async function handleSelection() {
+                let sel = window.getSelection();
+                if (!sel || sel.isCollapsed) return;
+
+                let text = sel.toString().trim();
+                if (!text || text.length < 1 || text.length > 500) return;
+
+                // Không kích hoạt nếu đang chọn chữ bên trong chính widget dịch
+                let anchor = sel.anchorNode;
+                if (anchor && (anchor.nodeType === 3 ? anchor.parentElement : anchor).closest('#trans-floating-widget, #translate-quick-popover')) {
+                    return;
+                }
+
+                if (text === lastSelectionText && popover.style.display === 'block') return;
+                lastSelectionText = text;
+                transCurrentSource = text;
+
+                let range = sel.getRangeAt(0);
+                let rect = range.getBoundingClientRect();
+                if (!rect || (rect.width === 0 && rect.height === 0)) return;
+
+                // Hiển thị Popover
+                popSrc.innerText = text.length > 55 ? text.substring(0, 55) + '...' : text;
+                popRes.innerHTML = `<span class="trans-pop-loading"><span class="admin-spinner" style="width:14px;height:14px;border-width:2px;display:inline-block;margin:0;"></span> Đang dịch...</span>`;
+                popover.style.display = 'block';
+
+                // Định vị Popover (tránh tràn mép màn hình)
+                let popW = 280;
+                let top = rect.bottom + window.scrollY + 8;
+                let left = rect.left + window.scrollX + (rect.width / 2) - (popW / 2);
+
+                if (left < 10) left = 10;
+                if (left + popW > window.innerWidth - 10) left = window.innerWidth - popW - 10;
+                if (rect.bottom + 120 > window.innerHeight && rect.top > 120) {
+                    top = rect.top + window.scrollY - 100;
+                }
+
+                popover.style.top = `${top}px`;
+                popover.style.left = `${left}px`;
+
+                // Gọi dịch
+                let translated = await fetchGoogleTranslate(text, 'auto', 'vi');
+                if (transCurrentSource === text) {
+                    transCurrentResult = translated;
+                    popRes.innerText = translated;
+                }
+            }
+
+            document.addEventListener('mouseup', () => {
+                setTimeout(handleSelection, 80);
+            });
+            document.addEventListener('touchend', () => {
+                setTimeout(handleSelection, 150);
+            });
+
+            document.addEventListener('mousedown', (e) => {
+                if (!e.target.closest('#translate-quick-popover')) {
+                    hidePopover();
+                }
+            });
+        }
+
+        /* Cho phép bôi đen text trong đáp án mà không kích hoạt chọn radio */
+        document.addEventListener('mousedown', function(e) {
+            if (e.target.closest('.option-item')) {
+                isSelectingTextInOption = false;
+            }
+        });
+        document.addEventListener('mousemove', function(e) {
+            if (e.buttons === 1) {
+                let sel = window.getSelection();
+                if (sel && sel.toString().trim().length > 0) {
+                    isSelectingTextInOption = true;
+                }
+            }
+        });
+        document.addEventListener('click', function(e) {
+            let opt = e.target.closest('.option-item');
+            if (opt && isSelectingTextInOption) {
+                e.preventDefault();
+                e.stopPropagation();
+                isSelectingTextInOption = false;
+                return;
+            }
+        }, true);
+
+        /* Floating Translator Widget */
+        function toggleTranslatorWidget() {
+            const w = document.getElementById('trans-floating-widget');
+            if (!w) return;
+            if (w.classList.contains('hidden')) {
+                w.classList.remove('hidden');
+                w.classList.remove('minimized');
+                const inp = document.getElementById('trans-input-text');
+                if (inp) inp.focus();
+            } else if (w.classList.contains('minimized')) {
+                w.classList.remove('minimized');
+            } else {
+                w.classList.add('hidden');
+            }
+        }
+
+        function minimizeTranslatorWidget() {
+            const w = document.getElementById('trans-floating-widget');
+            if (w) w.classList.toggle('minimized');
+        }
+
+        function restoreTranslatorWidget() {
+            const w = document.getElementById('trans-floating-widget');
+            if (w) {
+                w.classList.remove('minimized');
+                w.classList.remove('hidden');
+            }
+        }
+
+        function closeTranslatorWidget() {
+            const w = document.getElementById('trans-floating-widget');
+            if (w) w.classList.add('hidden');
+        }
+
+        function openFloatingTranslatorWithText(text) {
+            const w = document.getElementById('trans-floating-widget');
+            if (w) {
+                w.classList.remove('hidden');
+                w.classList.remove('minimized');
+            }
+            const inp = document.getElementById('trans-input-text');
+            if (inp) {
+                inp.value = text;
+                handleWidgetInput();
+            }
+        }
+
+        function handleWidgetInput() {
+            const inp = document.getElementById('trans-input-text');
+            const count = document.getElementById('trans-char-count');
+            if (!inp) return;
+            let val = inp.value;
+            if (count) count.innerText = `${val.length} ký tự`;
+
+            clearTimeout(transDebounceTimer);
+            if (!val.trim()) {
+                document.getElementById('trans-output-text').innerText = 'Bản dịch sẽ hiển thị tại đây...';
+                return;
+            }
+            transDebounceTimer = setTimeout(triggerWidgetTranslate, 350);
+        }
+
+        async function triggerWidgetTranslate() {
+            const inp = document.getElementById('trans-input-text');
+            const out = document.getElementById('trans-output-text');
+            const sl = document.getElementById('trans-src-lang').value;
+            const tl = document.getElementById('trans-tgt-lang').value;
+            if (!inp || !out) return;
+            let text = inp.value.trim();
+            if (!text) {
+                out.innerText = 'Bản dịch sẽ hiển thị tại đây...';
+                return;
+            }
+            out.innerHTML = `<span class="trans-pop-loading"><span class="admin-spinner" style="width:14px;height:14px;border-width:2px;display:inline-block;margin:0;"></span> Đang dịch...</span>`;
+            let res = await fetchGoogleTranslate(text, sl, tl);
+            out.innerText = res;
+        }
+
+        function clearWidgetInput() {
+            const inp = document.getElementById('trans-input-text');
+            if (inp) {
+                inp.value = '';
+                inp.focus();
+                handleWidgetInput();
+            }
+        }
+
+        function swapWidgetLanguages() {
+            const sl = document.getElementById('trans-src-lang');
+            const tl = document.getElementById('trans-tgt-lang');
+            const inp = document.getElementById('trans-input-text');
+            const out = document.getElementById('trans-output-text');
+            if (!sl || !tl) return;
+            let currentSl = sl.value === 'auto' ? 'en' : sl.value;
+            let currentTl = tl.value;
+            sl.value = currentTl;
+            tl.value = currentSl;
+
+            if (out && inp && out.innerText && out.innerText !== 'Bản dịch sẽ hiển thị tại đây...') {
+                inp.value = out.innerText;
+                triggerWidgetTranslate();
+            }
+        }
+
+        function speakWidgetInput() {
+            const inp = document.getElementById('trans-input-text');
+            const sl = document.getElementById('trans-src-lang').value;
+            if (inp && inp.value.trim()) {
+                speakSpeech(inp.value.trim(), sl === 'vi' ? 'vi-VN' : 'en-US');
+            }
+        }
+
+        function speakWidgetOutput() {
+            const out = document.getElementById('trans-output-text');
+            const tl = document.getElementById('trans-tgt-lang').value;
+            if (out && out.innerText.trim()) {
+                speakSpeech(out.innerText.trim(), tl === 'en' ? 'en-US' : 'vi-VN');
+            }
+        }
+
+        function copyWidgetOutput() {
+            const out = document.getElementById('trans-output-text');
+            if (out && out.innerText.trim()) {
+                navigator.clipboard.writeText(out.innerText.trim());
+                alert('Đã sao chép bản dịch vào bộ nhớ tạm.');
+            }
+        }
+
+        /* Hỗ trợ kéo thả Widget trên màn hình (Drag & Drop) */
+        function initDraggableTranslator() {
+            const widget = document.getElementById('trans-floating-widget');
+            const header = document.getElementById('trans-widget-header');
+            if (!widget || !header) return;
+
+            let isDragging = false, startX, startY, origLeft, origTop;
+
+            function onDragStart(clientX, clientY, target) {
+                if (target.closest('button, select')) return;
+                isDragging = true;
+                let rect = widget.getBoundingClientRect();
+                startX = clientX;
+                startY = clientY;
+                origLeft = rect.left;
+                origTop = rect.top;
+                widget.style.right = 'auto';
+                widget.style.bottom = 'auto';
+                widget.style.left = `${origLeft}px`;
+                widget.style.top = `${origTop}px`;
+            }
+
+            function onDragMove(clientX, clientY) {
+                if (!isDragging) return;
+                let dx = clientX - startX;
+                let dy = clientY - startY;
+                let newLeft = Math.max(10, Math.min(window.innerWidth - widget.offsetWidth - 10, origLeft + dx));
+                let newTop = Math.max(10, Math.min(window.innerHeight - widget.offsetHeight - 10, origTop + dy));
+                widget.style.left = `${newLeft}px`;
+                widget.style.top = `${newTop}px`;
+            }
+
+            function onDragEnd() { isDragging = false; }
+
+            header.addEventListener('mousedown', (e) => onDragStart(e.clientX, e.clientY, e.target));
+            document.addEventListener('mousemove', (e) => onDragMove(e.clientX, e.clientY));
+            document.addEventListener('mouseup', onDragEnd);
+
+            header.addEventListener('touchstart', (e) => {
+                if (e.touches && e.touches[0]) onDragStart(e.touches[0].clientX, e.touches[0].clientY, e.target);
+            }, { passive: true });
+            document.addEventListener('touchmove', (e) => {
+                if (isDragging && e.touches && e.touches[0]) onDragMove(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: true });
+            document.addEventListener('touchend', onDragEnd);
+        }
+
+        function setupTranslator() {
+            initQuickTranslatePopover();
+            initDraggableTranslator();
+        }
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', setupTranslator);
+        } else {
+            setupTranslator();
+        }
+
 </script>
+    <!-- GOOGLE TRANSLATE: POPUP NHANH KHI BÔI ĐEN -->
+    <div id="translate-quick-popover" class="translate-quick-popover">
+        <div class="trans-pop-header">
+            <span class="trans-pop-brand">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px; height:14px;"><path d="M5 8l6 0"/><path d="M4 14l10 0"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+                Google Dịch
+            </span>
+            <div class="trans-pop-actions">
+                <button class="trans-btn-icon" id="trans-pop-speak-src" title="Nghe phát âm">🔊</button>
+                <button class="trans-btn-icon" id="trans-pop-copy" title="Sao chép bản dịch">📋</button>
+                <button class="trans-btn-icon" id="trans-pop-expand" title="Mở bảng dịch đầy đủ">↗</button>
+                <button class="trans-btn-icon" id="trans-pop-close" title="Đóng">✕</button>
+            </div>
+        </div>
+        <div class="trans-pop-source" id="trans-pop-source"></div>
+        <div class="trans-pop-result" id="trans-pop-result"></div>
+    </div>
+
+    <!-- GOOGLE TRANSLATE: BẢNG DỊCH MINI NỔI -->
+    <div id="trans-floating-widget" class="trans-floating-widget hidden">
+        <div class="trans-bubble-trigger" onclick="restoreTranslatorWidget()" title="Mở Google Dịch">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px; height:24px;"><path d="M5 8l6 0"/><path d="M4 14l10 0"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+        </div>
+        <div class="trans-widget-header" id="trans-widget-header">
+            <div class="trans-widget-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" style="width:18px; height:18px;"><path d="M5 8l6 0"/><path d="M4 14l10 0"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+                <span>Google Dịch</span>
+            </div>
+            <div class="trans-widget-controls">
+                <button class="trans-btn-icon" onclick="minimizeTranslatorWidget()" title="Thu nhỏ">一</button>
+                <button class="trans-btn-icon" onclick="closeTranslatorWidget()" title="Đóng">✕</button>
+            </div>
+        </div>
+        <div class="trans-widget-body">
+            <div class="trans-lang-bar">
+                <select id="trans-src-lang" class="trans-lang-select" onchange="triggerWidgetTranslate()">
+                    <option value="auto">Tự động nhận diện</option>
+                    <option value="en" selected>Tiếng Anh</option>
+                    <option value="vi">Tiếng Việt</option>
+                </select>
+                <button class="trans-swap-btn" onclick="swapWidgetLanguages()" title="Đổi chiều ngôn ngữ">⇄</button>
+                <select id="trans-tgt-lang" class="trans-lang-select" onchange="triggerWidgetTranslate()">
+                    <option value="vi" selected>Tiếng Việt</option>
+                    <option value="en">Tiếng Anh</option>
+                </select>
+            </div>
+            <div class="trans-input-box">
+                <textarea id="trans-input-text" class="trans-textarea" placeholder="Nhập từ hoặc câu cần dịch..." oninput="handleWidgetInput()"></textarea>
+                <div class="trans-input-footer">
+                    <span id="trans-char-count">0 ký tự</span>
+                    <div style="display:flex; gap:6px;">
+                        <button class="trans-btn-icon" id="trans-clear-btn" onclick="clearWidgetInput()" title="Xóa văn bản">✕ Xóa</button>
+                        <button class="trans-btn-icon" onclick="speakWidgetInput()" title="Nghe phát âm">🔊 Đọc</button>
+                    </div>
+                </div>
+            </div>
+            <div class="trans-output-box">
+                <div id="trans-output-text" class="trans-output-text">Bản dịch sẽ hiển thị tại đây...</div>
+                <div class="trans-output-actions">
+                    <button class="trans-btn-icon" onclick="speakWidgetOutput()" title="Nghe bản dịch">🔊</button>
+                    <button class="trans-btn-icon" onclick="copyWidgetOutput()" title="Sao chép bản dịch">📋 Sao chép</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <noscript><div class="statcounter"><a title="Web Analytics"
     href="https://statcounter.com/" target="_blank"><img class="statcounter"
     src="https://c.statcounter.com/13363748/0/5c40f06e/1/" alt="Web Analytics"
