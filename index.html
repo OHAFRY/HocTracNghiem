@@ -6156,7 +6156,7 @@ let counter = document.getElementById('progress-counter');
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 </div>
                 <div style="font-size: 12.5px; line-height: 1.5;">
-                    <b>Quy định truy cập:</b> Dành riêng cho tập thể học sinh lớp 11A1 (tối đa 45 tài khoản). Vui lòng đăng ký đúng Họ và Tên trong danh sách lớp. Mỗi tài khoản được liên kết tối đa 3 thiết bị học tập.
+                    <b>Quy định truy cập:</b> Dành riêng cho tập thể học sinh lớp 11A1 (tối đa 47 tài khoản). Vui lòng đăng ký đúng Họ và Tên trong danh sách lớp. Mỗi tài khoản được liên kết tối đa 3 thiết bị học tập.
                 </div>
             </div>
 
@@ -6251,7 +6251,7 @@ let counter = document.getElementById('progress-counter');
             <!-- KPI Summary Bar -->
             <div class="admin-kpi-grid">
                 <div class="admin-kpi-card">
-                    <div class="admin-kpi-val" id="admin-stat-total">0/45</div>
+                    <div class="admin-kpi-val" id="admin-stat-total">0/47</div>
                     <div class="admin-kpi-lbl">Học sinh đăng ký</div>
                 </div>
                 <div class="admin-kpi-card">
@@ -6721,7 +6721,7 @@ let counter = document.getElementById('progress-counter');
                     } else if (data.status === 'device_limit') {
                         alert(data.message || "Tài khoản đã đạt giới hạn tối đa 3 thiết bị được phép sử dụng.");
                     } else if (data.status === 'limit_reached') {
-                        alert(data.message || "Danh sách học sinh lớp 11A1 đã đạt đủ số lượng quy định (45 tài khoản).");
+                        alert(data.message || "Danh sách học sinh lớp 11A1 đã đạt đủ số lượng quy định (47 tài khoản).");
                     } else if (data.status === 'not_found') {
                         alert(data.message || "Tài khoản chưa tồn tại. Vui lòng đăng ký tài khoản trước.");
                         switchAuthTab('register');
@@ -7046,19 +7046,21 @@ let counter = document.getElementById('progress-counter');
             let statWarning = document.getElementById('admin-stat-warning');
             let statAttempts = document.getElementById('admin-stat-attempts');
 
-            let total = users.length;
+            let validUsers = 0;
             let active = 0;
             let warning = 0;
             let totalAtt = 0;
 
             users.forEach(u => {
-                let st = (u.status || '').toLowerCase();
+                let st = (u.status || '').toLowerCase().trim();
+                let isBanned = (st === 'banned' || st === 'khoa' || st === 'ban');
+                if (!isBanned) validUsers++;
                 if (st === 'active') active++;
                 if (st.indexOf('cảnh báo') !== -1 || st.indexOf('canh bao') !== -1) warning++;
                 totalAtt += (parseInt(u.attempts) || 0);
             });
 
-            if (statTotal) statTotal.textContent = `${total}/45`;
+            if (statTotal) statTotal.textContent = `${validUsers}/47`;
             if (statActive) statActive.textContent = active;
             if (statWarning) statWarning.textContent = warning;
             if (statAttempts) statAttempts.textContent = totalAtt;
