@@ -6338,7 +6338,12 @@ let counter = document.getElementById('progress-counter');
         // PHIÊN BẢN HỆ THỐNG: Mỗi khi cập nhật code hoặc bộ đề mới, chỉ cần đổi số phiên bản này (vd: REV2, REV3...)
         // Toàn bộ tài khoản học sinh khi mở web sẽ tự động bị đăng xuất để tránh dùng bản cũ.
         // Tài khoản, mật khẩu và điểm số trên Google Sheet vẫn được giữ nguyên 100%!
-        const SYSTEM_VERSION = '11A1_2026.10.30_REV3_LOGOUT_ALL';
+        const SYSTEM_VERSION = '11A1_2026.11.06_LOCK_GK1';
+        // ============================================================
+        // KHÓA LIÊN KẾT / TẠM DỪNG ĐỢT ÔN THI ĐẾN CK1
+        // Đổi SITE_LOCKED = false khi đến đợt thi Cuối Kỳ 1 (CK1) để mở lại trang web!
+        // ============================================================
+        const SITE_LOCKED = true;
         let cachedLeaderboard = [];
         let isFetchingLeaderboard = false;
         let currentAuthMode = 'login'; // 'login' or 'register'
@@ -6489,6 +6494,67 @@ let counter = document.getElementById('progress-counter');
             }
         }
 
+        function triggerSiteLockScreen() {
+            let el = document.getElementById('site-lock-screen');
+            if (!el) {
+                el = document.createElement('div');
+                el.id = 'site-lock-screen';
+                el.style.cssText = 'position:fixed; inset:0; background:radial-gradient(circle at 50% 25%, #1e293b 0%, #090d16 80%); z-index:99999999; display:flex; align-items:center; justify-content:center; padding:20px; text-align:center; color:#fff; font-family:var(--font-main, "Nunito", system-ui, sans-serif);';
+                el.innerHTML = `
+                    <div style="background:rgba(15, 23, 42, 0.88); border:1.5px solid rgba(56, 189, 248, 0.35); border-radius:28px; padding:38px 28px; max-width:460px; box-shadow:0 30px 60px -12px rgba(0,0,0,0.8), 0 0 35px -8px rgba(56, 189, 248, 0.25); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);">
+                        <div id="lock-icon-easteregg" style="width:68px; height:68px; margin:0 auto 16px auto; background:linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(37, 99, 235, 0.35)); border:1.5px solid rgba(56, 189, 248, 0.45); border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:32px; cursor:pointer; user-select:none; box-shadow:0 8px 20px rgba(37,99,235,0.3); transition:transform 0.15s;" title="Trần Đăng Huy - 11A1">
+                            🔒
+                        </div>
+                        <span style="background:rgba(56, 189, 248, 0.12); color:#38bdf8; border:1px solid rgba(56, 189, 248, 0.3); padding:4px 14px; border-radius:99px; font-weight:800; font-size:12px; display:inline-block; margin-bottom:14px; letter-spacing:0.4px;">
+                            KẾT THÚC ĐỢT THI GIỮA KỲ 1 (GK1)
+                        </span>
+                        <h2 style="font-size:1.45rem; font-weight:800; color:#f8fafc; margin:0 0 12px 0; line-height:1.35;">
+                            Hệ Thống Tạm Đóng Link
+                        </h2>
+                        <p style="font-size:13.8px; line-height:1.65; color:#cbd5e1; margin:0 0 20px 0; opacity:0.95;">
+                            Đợt ôn luyện thi <b>Giữa Học Kỳ 1 (GK1)</b> của tập thể lớp 11A1 đã chính thức kết thúc.<br>
+                            Hệ thống tạm khóa liên kết để bảo dưỡng dữ liệu và nâng cấp ngân hàng đề thi cho đợt <b>Ôn Thi Cuối Học Kỳ 1 (CK1)</b> sắp tới.<br><br>
+                            <span style="color:#fbbf24; font-weight:700;">Hẹn gặp lại các bạn học sinh 11A1 vào đợt ôn thi CK1 nhé! ✨</span>
+                        </p>
+                        <div style="font-size:11.8px; color:#64748b; border-top:1px solid rgba(255,255,255,0.08); padding-top:12px;">
+                            Ứng dụng lớp 11A1 • Phát triển bởi <b>Trần Đăng Huy</b>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(el);
+
+                let clickCount = 0;
+                let clickTimer = null;
+                let egg = document.getElementById('lock-icon-easteregg');
+                if (egg) {
+                    egg.onclick = function() {
+                        clickCount++;
+                        egg.style.transform = 'scale(0.9)';
+                        setTimeout(function() { egg.style.transform = 'scale(1)'; }, 150);
+                        clearTimeout(clickTimer);
+                        clickTimer = setTimeout(function() { clickCount = 0; }, 3000);
+                        if (clickCount >= 5) {
+                            clickCount = 0;
+                            let pin = prompt("Mã mở khóa Quản trị viên (Trần Đăng Huy):");
+                            if (pin === '11a1' || pin === '91TranDan25gHuyO%hKen62oob2620109170520#@()') {
+                                sessionStorage.setItem('admin_site_unlock', 'true');
+                                removeSiteLockScreen();
+                                showToast("Đã mở khóa phiên làm việc Quản trị viên!");
+                            } else if (pin) {
+                                alert("Mã bảo mật không chính xác!");
+                            }
+                        }
+                    };
+                }
+            }
+            el.style.display = 'flex';
+        }
+
+        function removeSiteLockScreen() {
+            let el = document.getElementById('site-lock-screen');
+            if (el) el.remove();
+        }
+
         function getCurrentUser() {
             try {
                 let saved = localStorage.getItem('azota_user_profile');
@@ -6503,13 +6569,21 @@ let counter = document.getElementById('progress-counter');
         function checkAuthOnLoad() {
             // Mở khóa nhanh qua URL nếu có mã bí mật của Admin
             let hrefLower = window.location.href.toLowerCase();
-            if (hrefLower.indexOf('unban=11a1') !== -1 || hrefLower.indexOf('unban=91trandan25ghuyo') !== -1) {
+            if (hrefLower.indexOf('admin=open') !== -1 || hrefLower.indexOf('unban=11a1') !== -1 || hrefLower.indexOf('unban=91trandan25ghuyo') !== -1) {
+                sessionStorage.setItem('admin_site_unlock', 'true');
+                removeSiteLockScreen();
                 removeIpBanScreen();
                 localStorage.removeItem('azota_user_profile');
                 try { sessionStorage.removeItem('azota_client_ip'); } catch(e) {}
                 showToast("Đã mở khóa thiết bị thành công!");
                 localStorage.removeItem('azota_device_lock');
                 window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // Kiểm tra trạng thái khóa link ôn thi (Hết GK1 tạm đóng đến CK1)
+            if (SITE_LOCKED && sessionStorage.getItem('admin_site_unlock') !== 'true') {
+                triggerSiteLockScreen();
+                return;
             }
 
             // Kiểm tra dấu ấn thiết bị đã từng bị cấm (chống Fake IP / đổi mạng VPN)
@@ -6617,6 +6691,10 @@ let counter = document.getElementById('progress-counter');
         }
 
         function requireAuth() {
+            if (SITE_LOCKED && sessionStorage.getItem('admin_site_unlock') !== 'true') {
+                triggerSiteLockScreen();
+                return false;
+            }
             let user = getCurrentUser();
             if (!user) {
                 openAuthModal(false, 'login');
